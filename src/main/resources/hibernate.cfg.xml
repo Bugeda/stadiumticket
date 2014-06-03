@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <mapping class="com.stadiumticket.domain.Event_types"/>
+        <mapping class="com.stadiumticket.domain.Events"/>
+        <mapping class="com.stadiumticket.domain.Sectors"/>
+        <mapping class="com.stadiumticket.domain.Tickets"/>
+        <mapping class="com.stadiumticket.domain.Booking_ticket"/>
+    </session-factory>
+</hibernate-configuration>

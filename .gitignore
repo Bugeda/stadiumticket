@@ -1,0 +1,17 @@
+#IDE files #
+################
+.settings
+.project
+.classpath
+*.iml
+.idea
+.metadata
+.springBeans
+target/
+
+#GIT #
+######
+.git
+
+
+
