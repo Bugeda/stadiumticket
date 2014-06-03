@@ -27,7 +27,7 @@ public class Booking_ticket {
 	@Column(name = "USER_FIRSTNAME")
 	private String uFirstName;	
 	
-	@Column(name = "USER_FIRSTNAME")
+	@Column(name = "USER_SECONDNAME")
 	private String uSecondName;
 	
 	
