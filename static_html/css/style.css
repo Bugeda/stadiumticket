@@ -51,14 +51,14 @@ body {
 #left_panel {
     /*border: 1px dotted black;*/
     width: 600px;
-    height: 800px;
+    height: auto;
     float: left;
     margin-left: 10px;
 }
 
 #right_panel {
     width: 200px;
-    height: 800px;
+    height: auto;
     float: right;
     margin-right: 10px;
 }
@@ -74,7 +74,7 @@ header {
 .global {
     border: 1px dotted black;
     width: 1280px;
-    height: 800px;
+    height: 750px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -107,14 +107,15 @@ header > #statistics {
 
 #search_form {
     position: absolute;
-    width: 400px;
+    width: 300px;
     left: 100px;
     bottom: 10px;
-    border: 1px dotted black;
+    /*border: 1px dotted black;*/
 }
 #search_form > #search {
-    width: 285px;
+    width: 300px;
     background-color: #C6D2E3;
+    color: #FBFCFD;
 }
 #logo > img {
     position: absolute;
@@ -129,7 +130,9 @@ table {
     border-collapse: collapse;
     margin-top: 10px;
 }
-
+table tr th p {
+    color: #C6C6C6;
+}
 td, th {
     border: 1px dotted gray;
 }
