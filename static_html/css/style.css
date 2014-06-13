@@ -48,6 +48,12 @@ body {
     margin: 0 20px 20px 20px;
 }
 
+#center {
+    width: 700px;
+    height: auto;
+    float: left;
+    margin-left: 10px;
+}
 #left_panel {
     /*border: 1px dotted black;*/
     width: 700px;
