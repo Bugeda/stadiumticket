@@ -1,0 +1,69 @@
+body {
+    font: normal;
+}
+.seats > div {
+    font-size: small;
+    background: yellowgreen;
+    width: 15px;
+    height:15px;
+    line-height: 15px; /*выровнивает текст по вертикали*/
+    /*сглаживает углы diva*/
+    -webkit-border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -khtml-border-radius: 2px 2px 2px 2px;
+    /*border-radius: 2px 2px 2px 2px;*/
+    /**/
+    text-align: center;
+    margin: 4px 2px 0 2px;
+    display: block;
+}
+.tiers > div {
+    font-size: small;
+    background: greenyellow;
+    width: 60px;
+    height:15px;
+    text-align: center;
+    margin: 4px 2px 0 2px;
+}
+#numbers_tiers > div {
+    background: yellow;
+    width: 60px;
+    height: 25px;
+    margin: 4px 2px 0 2px;
+    line-height: 15px;
+}
+.all {
+    margin-left: 2px;
+    float: left;
+}
+#one {
+    float:left;
+    margin: 0 20px 20px 20px;
+}
+#left_panel {
+    /*border: 1px dotted black;*/
+    width: 200px;
+    height: 800px;
+    float: left;
+    margin-left: 10px;
+}
+#right_panel {
+    /*border: 1px dotted black;*/
+    width: 200px;
+    height: 800px;
+    float: right;
+    margin-right: 10px;
+}
+header {
+    /*border: 1px dotted black;*/
+    width: 1280px;
+    height: 100px;
+}
+.global {
+    border: 1px dotted black;
+    width:  1280px;
+    height: 900px;
+}
+/*#column_20 #seat_1 {
+    margin: 6px 0px 0px 10px;
+}*/
