@@ -68,12 +68,13 @@ header {
     height: 100px;
     text-align: left;
     position: relative;
+    border-bottom: 1px dotted black;
 }
 
 .global {
     border: 1px dotted black;
     width: 1280px;
-    height: 900px;
+    height: 800px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -86,17 +87,37 @@ header > #statistics > img {
     width: 22px;
     height: 22px;
 }
-
+header > h3 {
+    position: absolute;
+    left: 100px;
+}
 header > #past_events {
     position: absolute;
     left: 1090px;
-    bottom: 80px;
+    bottom: 70px;
     text-decoration: none;
 }
 
 header > #statistics {
     position: absolute;
     left: 1090px;
-    bottom: 55px;
+    bottom: 45px;
     text-decoration: none;
+}
+
+#search_form {
+    position: absolute;
+    width: 400px;
+    left: 100px;
+    bottom: 10px;
+}
+#search_form > #search {
+    width: 250px;
+}
+#logo > img {
+    position: absolute;
+    width: 70px;
+    height: 80px;
+    bottom: 10px;
+    left: 5px;
 }
