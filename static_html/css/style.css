@@ -50,7 +50,7 @@ body {
 
 #left_panel {
     /*border: 1px dotted black;*/
-    width: 600px;
+    width: 700px;
     height: auto;
     float: left;
     margin-left: 10px;
@@ -96,6 +96,7 @@ header > #past_events {
     left: 1090px;
     bottom: 70px;
     text-decoration: none;
+    color: black;
 }
 
 header > #statistics {
@@ -103,6 +104,7 @@ header > #statistics {
     left: 1090px;
     bottom: 45px;
     text-decoration: none;
+    color: black;
 }
 
 #search_form {
