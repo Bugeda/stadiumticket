@@ -103,7 +103,7 @@ header > #add_event {
 }
 header > #past_events {
     position: absolute;
-    left: 1150px;
+    right: 20px;
     bottom: 70px;
     text-decoration: none;
     color: black;
@@ -111,7 +111,7 @@ header > #past_events {
 
 header > #statistics {
     position: absolute;
-    left: 1150px;
+    right: 40px;
     bottom: 45px;
     text-decoration: none;
     color: black;
