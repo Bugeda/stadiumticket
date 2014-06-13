@@ -50,7 +50,7 @@ body {
 
 #left_panel {
     /*border: 1px dotted black;*/
-    width: 200px;
+    width: 600px;
     height: 800px;
     float: left;
     margin-left: 10px;
@@ -110,9 +110,11 @@ header > #statistics {
     width: 400px;
     left: 100px;
     bottom: 10px;
+    border: 1px dotted black;
 }
 #search_form > #search {
-    width: 250px;
+    width: 285px;
+    background-color: #C6D2E3;
 }
 #logo > img {
     position: absolute;
@@ -120,4 +122,14 @@ header > #statistics {
     height: 80px;
     bottom: 10px;
     left: 5px;
+}
+
+table {
+    border: 1px dotted gray;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+td, th {
+    border: 1px dotted gray;
 }
