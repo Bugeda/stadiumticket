@@ -50,23 +50,25 @@ body {
 
 #center {
     width: 700px;
-    height: auto;
+    height: 650px;
     float: left;
     margin-left: 10px;
+    border: 1px dotted black;
 }
 #left_panel {
-    /*border: 1px dotted black;*/
-    width: 700px;
-    height: auto;
+    border: 1px dotted black;
+    width: 500px;
+    height: 650px;
     float: left;
     margin-left: 10px;
 }
 
 #right_panel {
-    width: 200px;
-    height: auto;
+    width: 755px;
+    height: 650px;
     float: right;
     margin-right: 10px;
+    border: 1px dotted black;
 }
 
 header {
@@ -100,6 +102,7 @@ header > #add_event > img {
 header > h3 {
     position: absolute;
     left: 100px;
+    color: #14147F;
 }
 header > #add_event {
     position: absolute;
@@ -153,4 +156,19 @@ table tr th p {
 }
 td, th {
     border: 1px dotted gray;
+}
+
+#event_name {
+    position: absolute;
+    left: 100px;
+    top: 30px;
+    color: #000068;
+}
+
+#new_event_img {
+    position: absolute;
+    width: 750px;
+    height: 630px;
+    left: 525px;
+    top: 120px;
 }
