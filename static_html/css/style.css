@@ -87,13 +87,23 @@ header > #statistics > img {
     width: 22px;
     height: 22px;
 }
+header > #add_event > img {
+    width: 20px;
+    height: 20px;
+}
 header > h3 {
     position: absolute;
     left: 100px;
 }
+header > #add_event {
+    position: absolute;
+    left: 175px;
+    bottom: 55px;
+    text-decoration: none;
+}
 header > #past_events {
     position: absolute;
-    left: 1090px;
+    left: 1150px;
     bottom: 70px;
     text-decoration: none;
     color: black;
@@ -101,7 +111,7 @@ header > #past_events {
 
 header > #statistics {
     position: absolute;
-    left: 1090px;
+    left: 1150px;
     bottom: 45px;
     text-decoration: none;
     color: black;
