@@ -3,30 +3,41 @@
 <head>
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <script type="text/javascript"></script>
     <title></title>
 </head>
 <body>
 <div class="global">
-<header>Some info here</header>
-<div id="left_panel">
-    <p>any required text here</p>
+    <header>
+        <h1>Предстоящие события</h1>
+        <a id="past_events" href=""><img src="img/past_events.png">     Прошедшие события</a>
+        <a id="statistics" href=""><img src="img/stats.png">     Статистика</a>
+    </header>
+    <div id="left_panel">
+        <p>any required text here</p>
 
-    <form>
-        <label for="text">Label for text</label>
-        <input type="text" id="text" value="please enter smthng: "/>
-        <label for="button">Label for button</label>
-        <input type="button" id="button" value="Some button"/>
-    </form>
-</div>
-<div id="right_panel">
-    <p>any required text here</p>
+        <form>
+            <table>
+                <th>
+                    <label for="text">Label for text</label>
+                </th>
+                <td>
+                    <input type="text" id="text" value="please enter smthng: "/>
+                </td>
+                <label for="button">Label for button</label>
+                <input type="button" id="button" value="Some button"/>
+            </table>
+        </form>
+    </div>
+    <div id="right_panel">
+        <p>any required text here</p>
 
-    <form>
-        <input type="text" value="please enter smthng: "/>
-        <input type="button" value="Some button"/>
-    </form>
-</div>
+        <form>
+            <input type="text" value="please enter smthng: "/>
+            <input type="button" value="Some button"/>
+        </form>
+    </div>
 </div>
 </body>
 </html>
