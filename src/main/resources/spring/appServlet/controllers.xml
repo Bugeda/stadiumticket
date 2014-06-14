@@ -3,5 +3,5 @@
 <!--
  Определяем папку, в которой будем искать веб компоненты (контроллеры)
 -->
-<context:component-scan base-package="com.stadiumticket.web"/>
+<context:component-scan base-package="com.dataartschool2.stadiumticket.web"/>
 </beans>
