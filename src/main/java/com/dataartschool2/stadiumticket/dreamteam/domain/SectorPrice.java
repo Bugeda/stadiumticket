@@ -1,6 +1,5 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

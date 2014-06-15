@@ -2,7 +2,6 @@ package com.dataartschool2.stadiumticket.dreamteam.domain;
 
 import javax.persistence.*;
 import java.util.Calendar;
-import java.util.Date;
 
 
 @Entity
