@@ -1,9 +1,6 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * Created by dshchelkonogov on 14.06.2014.
@@ -18,13 +15,17 @@ public class Ticket {
     @OneToOne
     private Seat seat;
 
+    @ManyToOne
+    private Event event;
+
     private String ticketNumber;
 
     public Ticket(){}
 
-    public Ticket(int id, Seat seat, String ticketNumber) {
+    public Ticket(int id, Seat seat, Event event, String ticketNumber) {
         this.id = id;
         this.seat = seat;
+        this.event = event;
         this.ticketNumber = ticketNumber;
     }
 
@@ -50,5 +51,13 @@ public class Ticket {
 
     public void setTicketNumber(String ticketNumber) {
         this.ticketNumber = ticketNumber;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }
