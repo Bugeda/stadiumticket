@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HelloController{
 
-	@RequestMapping("/index")
+	@RequestMapping("/")
 	public String home() {
-		return "redirect:/index";
+		return "index";
 	}
 	
 
