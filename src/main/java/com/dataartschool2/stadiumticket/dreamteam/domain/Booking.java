@@ -12,7 +12,7 @@ public class Booking {
     @GeneratedValue
     private int id;
 
-    @OneToOne
+    @ManyToOne
     private Customer customer;
 
     @OneToOne
