@@ -9,7 +9,10 @@
 	
 	<!-- Настраивает управление транзакциями с помощью аннотации @Transactional -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	
+
+
+    <context:property-placeholder location = "classpath:jdbc.properties"/>
+
 	<!-- Менеджер транзакций -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
@@ -22,10 +25,7 @@
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 	
-	<!-- Настройки бина dataSource будем хранить в отдельном файле -->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-		p:location="classpath:jdbc.properties" />
+
 	
 	<!-- Непосредственно бин dataSource -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
