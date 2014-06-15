@@ -4,9 +4,7 @@ import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by dshchelkonogov on 14.06.2014.
- */
+
 @Entity
 public class Event {
 

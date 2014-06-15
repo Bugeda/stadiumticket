@@ -6,9 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-/**
- * Created by dshchelkonogov on 14.06.2014.
- */
 @Entity
 public class SectorPrice {
 
