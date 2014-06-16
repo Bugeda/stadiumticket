@@ -48,6 +48,7 @@ body {
     margin: 0 20px 20px 20px;
 }
 
+#center td, th { text-align: left; }
 #center {
     width: 700px;
     height: 650px;
