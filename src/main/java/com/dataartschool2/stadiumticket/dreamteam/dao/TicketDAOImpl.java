@@ -1,6 +1,9 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
+import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
 
-public class TicketDAOImpl implements TicketDAO {
-		
+
+public class TicketDAOImpl extends GenericDAOImpl<Ticket, Long> implements TicketDAO{
+
+
 }
