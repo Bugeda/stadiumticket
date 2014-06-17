@@ -147,6 +147,8 @@ header > #statistics {
     left: 5px;
 }
 
+#event_list_info { display: none; } /* disable item counter */
+
 /*table {*/
     /*border: 1px dotted gray;*/
     /*border-collapse: collapse;*/
