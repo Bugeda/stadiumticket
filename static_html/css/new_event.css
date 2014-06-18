@@ -1,0 +1,85 @@
+#left_panel {
+    border: 1px dotted black;
+    width: 500px;
+    height: 650px;
+    float: left;
+    margin-left: 10px;
+}
+
+#right_panel {
+    width: 755px;
+    height: 650px;
+    float: right;
+    margin-right: 10px;
+    border: 1px dotted black;
+}
+
+header > h3 {
+    position: absolute;
+    left: 100px;
+    color: #14147F;
+}
+
+/* disable item counter */
+#event_list_info {
+    display: none;
+}
+
+#event_name {
+    position: absolute;
+    left: 100px;
+    top: 30px;
+    color: #000068;
+}
+
+#new_event_img {
+    position: absolute;
+    width: 750px;
+    height: 630px;
+    left: 525px;
+    top: 120px;
+}
+
+table tr td #title {
+    background-color: #C6D2E3;
+    color: #464B9C;
+    width: 400px;
+}
+
+table tr td #date {
+    background-color: #C6D2E3;
+    color: #464B9C;
+    width: 400px;
+}
+
+table tr td #time {
+    background-color: #C6D2E3;
+    color: #464B9C;
+    width: 400px;
+}
+
+#left_panel #booking_time {
+    background-color: #C6D2E3;
+    color: #464B9C;
+}
+
+#left_panel #event_save {
+    background-color: #C6D2E3;
+    color: #464B9C;
+}
+
+#left_panel #event_cancel {
+    background-color: #C6D2E3;
+    color: #464B9C;
+}
+
+#left_panel #event_delete {
+    background-color: #FE9B9B;
+    color: #464B9C;
+}
+
+#left_panel table {
+    width: 500px;
+    border: none;
+    padding: 0px;
+}
