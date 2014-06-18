@@ -23,7 +23,7 @@
 #event_name {
     position: absolute;
     left: 100px;
-    top: 30px;
+    top: 40px;
     color: #000068;
 }
 
@@ -38,7 +38,7 @@
 #arrow_back {
     position: absolute;
     top: 22px;
-    left: 90px;
+    left: 100px;
 }
 
 #arrow_back img {

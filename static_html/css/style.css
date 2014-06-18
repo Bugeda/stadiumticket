@@ -22,9 +22,22 @@ header {
 }
 
 /*text styles*/
-header > h3 {
+header > h1 {
     position: absolute;
     left: 100px;
+    color: #14147F;
+}
+
+header > h3 {
+    position: absolute;
+    left: 110px;
+    color: #14147F;
+}
+
+header > h5 {
+    position: absolute;
+    left: 100px;
+    top: 20px;
     color: #14147F;
 }
 
