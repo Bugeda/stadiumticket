@@ -103,6 +103,6 @@ table {
 span {
     color: #B3B3B3;
     font-size: small;
-    position: absolute;
-    left: 32px;
+    position: relative;
+    left: -14px;
 }
