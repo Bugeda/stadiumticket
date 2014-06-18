@@ -27,13 +27,6 @@
     border: 1px dotted black;
 }
 
-/*text styles*/
-header > h3 {
-    position: absolute;
-    left: 100px;
-    color: #14147F;
-}
-
 /*search form*/
 #search_form {
     position: absolute;

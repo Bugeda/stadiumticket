@@ -2,11 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8"/>
+    <!--css rules-->
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/new_event.css"/>
+
+    <!--google font-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <script type="text/javascript"></script>
-    <title></title>
+
+    <script type="text/javascript">
+
+    </script>
+    <title>New event</title>
 </head>
 <body>
 <div class="global">
@@ -19,30 +25,32 @@
 
     <div id="left_panel">
         <form action="" method="post" id="">
-            <table>
+            <table id=total">
                 <tr>
-                    <th width="100px">Title:</th>
+                    <th>Title:</th>
                     <td><input type="text" id="title" value="please enter match name"></td>
                 </tr>
                 <tr>
-                    <th width="100px">Date:</th>
-                    <td><input type="text" id="date" value="please enter date" /></td>
-
+                    <th>Date:</th>
+                    <td><input type="text" id="date" value="please enter date"/></td>
                 </tr>
                 <tr>
-                    <th width="100px">Time:</th>
-                    <td><input type="text" id="time" value="please enter time" /></td>
+                    <th>Time:</th>
+                    <td><input type="text" id="time" value="please enter time"/></td>
                 </tr>
-
             </table>
-            <label for="booking_time">Booking cancel time (min):</label>
-            <select name="booking" id="booking_time">
-                <option value="30">30</option>
-                <option value="60">60</option>
-                <option value="90">90</option>
-                <option value="120">120</option>
-            </select><br/>
-            <span>event changed, but not save</span><br/>
+            <table id="booking">
+                <tr>
+                    <th><label for="booking_time">Booking cancel time (min):</label></th>
+                    <td><select name="booking" id="booking_time">
+                        <option value="30">30</option>
+                        <option value="60">60</option>
+                        <option value="90">90</option>
+                        <option value="120">120</option>
+                    </select></td>
+                </tr>
+            </table>
+            <span>event changed, but not saved</span><br/>
             <input type="button" value="Save event" id="event_save">
             <input type="button" value="Cancel changes" id="event_cancel">
             <br/>
