@@ -21,11 +21,12 @@
 
         <h2 id="event_name">Event name</h2>
         <a id="logo" href=""><img src="img/chernomorets.gif"></a>
+        <a id="arrow_back" href=""><img src="img/arrow_back.png"></a>
     </header>
 
     <div id="left_panel">
-        <form action="" method="post" id="">
-            <table id=total">
+        <form action="" method="post">
+            <table class="total">
                 <tr>
                     <th>Title:</th>
                     <td><input type="text" id="title" value="please enter match name"></td>
@@ -39,9 +40,9 @@
                     <td><input type="text" id="time" value="please enter time"/></td>
                 </tr>
             </table>
-            <table id="booking">
+            <table class="booking">
                 <tr>
-                    <th><label for="booking_time">Booking cancel time (min):</label></th>
+                    <th><label for="booking_time" id="label_booking">Booking cancel time (min):</label></th>
                     <td><select name="booking" id="booking_time">
                         <option value="30">30</option>
                         <option value="60">60</option>
@@ -50,11 +51,23 @@
                     </select></td>
                 </tr>
             </table>
-            <span>event changed, but not saved</span><br/>
-            <input type="button" value="Save event" id="event_save">
-            <input type="button" value="Cancel changes" id="event_cancel">
             <br/>
-            <input type="button" value="Delete event" id="event_delete">
+            <span>event changed, but not saved</span>
+            <br/>
+            <table class="buttons">
+                <tr>
+                    <td><input type="button" value="Save event" id="event_save"></td>
+                    <td id="event_can"><input type="button" value="Cancel changes" id="event_cancel"></td>
+                </tr>
+            </table>
+            <br/>
+            <table class="delete_button">
+                <tr>
+                    <td><input type="button" value="Delete event" id="event_delete"></td>
+                </tr>
+            </table>
+
+
         </form>
     </div>
     <div id="right_panel">
