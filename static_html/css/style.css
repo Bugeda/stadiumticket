@@ -6,7 +6,7 @@ body {
 
 /*DIV panels*/
 .global {
-    /*border: 1px dotted black;*/
+    border: 1px dotted black;
     width: 1280px;
     height: 750px;
     margin-left: auto;

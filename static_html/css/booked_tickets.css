@@ -1,0 +1,108 @@
+/*DIV panels*/
+#left_panel {
+    /*border: 1px dotted black;*/
+    width: 500px;
+    height: 650px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+#right_panel {
+    width: 755px;
+    height: 650px;
+    float: right;
+    margin-right: 10px;
+    /*border: 1px dotted black;*/
+}
+
+#results_of_search {
+    width: 400px;
+    height: 400px;
+    border: 1px dotted black;
+}
+
+/* disable item counter */
+#event_list_info {
+    display: none;
+}
+
+/*text styles*/
+#event_name {
+    position: absolute;
+    left: 100px;
+    top: 40px;
+    color: #000068;
+}
+
+#results {
+    color: #B3B3B3;
+    font-size: small;
+    position: absolute;
+    margin: 5px 5px;
+}
+
+/*images*/
+#new_event_img {
+    position: relative;
+    width: 750px;
+    height: 630px;
+    top: 10px;
+}
+
+#arrow_back {
+    position: absolute;
+    top: 22px;
+    left: 100px;
+}
+
+#arrow_back img {
+    width: 10px;
+    height: 9px;
+}
+
+/*search form*/
+#search_form > #search {
+    width: 300px;
+    background-color: #C6D2E3;
+    color: #FBFCFD;
+}
+
+/*table style*/
+/*overall style*/
+table {
+    width: 400px;
+    padding-left: 10px;
+    text-align: left;
+}
+
+#left_panel form {
+    color: #464B9C;
+}
+
+#left_panel form input, #left_panel form select {
+    background-color: #C6D2E3;
+    color: #464B9C;
+}
+
+.total tr td input {
+    background-color: #C6D2E3;
+    color: #464B9C;
+    width: 300px;
+}
+
+/*Save event and Cancel changes buttons*/
+.buttons #event_can {
+    text-align: right;
+}
+
+/*cancel changes button*/
+#left_panel #cancel_changes {
+    background-color: #FE9B9B;
+    color: #464B9C;
+}
+
+.cancel_changes {
+    text-align: right;
+}
