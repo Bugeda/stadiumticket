@@ -4,6 +4,15 @@ body {
     text-align: center;
 }
 
+input, button, select {
+    outline: none;
+    border: none;
+    padding: 5px 5px;
+    background-color: rgb(198, 210, 227);
+    font-family: Open Sans;
+    font-size: 1em;
+}
+
 /*DIV panels*/
 .global {
     border: 1px dotted black;
@@ -50,7 +59,3 @@ header > h5 {
     left: 5px;
 }
 
-/* disable item counter */
-#event_list_info {
-    display: none;
-}
