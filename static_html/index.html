@@ -2,63 +2,111 @@
 <html>
 <head>
     <meta charset="utf-8"/>
+    <!--css rules-->
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <script type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css"/>
+
+    <!--google font-->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+
+    <!--jQuery-->
+    <script src="js/jquery.js" language="javascript" type="text/javascript"></script>
+    <script src="js/jquery.dataTables.js" language="javascript" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#event_list').dataTable({
+                "paging": false,
+                "stateSave": true,
+                "autoWidth": true
+            });
+        });
+    </script>
+    <style type="text/css">
+    </style>
     <title>Main page</title>
 </head>
 <body>
 <div class="global">
     <header>
-        <h3>Events</h3>
+        <h1>Events<a id="add_event" href="new_event.html">&nbsp;<img src="img/add_event_button.png"></a></h1>
 
-        <form action="" method="post" id="search_form">
-            <!--<label for="search">Поиск события</label>-->
-            <input type="search" id="search" value="please search upcoming events here">
-        </form>
+        <!-- <form action="" method="post" id="search_form"> -->
+        <!--     <input type="search" id="search" value="please search upcoming events here"> -->
+        <!-- </form> -->
         <a id="past_events" href=""><img src="img/past_events.png"> past events</a>
         <a id="statistics" href=""><img src="img/stats.png"> statistics</a>
-        <a id="logo" href=""><img src="img/chernomorets.gif"></a>
-        <a id="add_event" href=""><img src="img/add_event_button.png"></a>
+        <a id="logo" href=""><img src="img/logo.png"></a>
     </header>
     <div id="center">
-        <form>
-            <table>
-                <tr>
-                    <th width="700px">
-                        <p>Name of event</p>
-                    </th>
-                    <th width="100px">
-                        <p>Date</p>
-                    </th>
-                    <th width="100px">
-                        <p>Time</p>
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        2
-                    </td>
-                    <td>
-                        3
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        2
-                    </td>
-                    <td>
-                        3
-                    </td>
-                </tr>
-            </table>
-        </form>
+        <table class="hover" id="event_list">
+            <thead>
+            <tr>
+                <th>
+                    <p>Name</p>
+                </th>
+                <th>
+                    <p>Date</p>
+                </th>
+                <th>
+                    <p>Time</p>
+                </th>
+                <th width="40%">
+                    <p>Actions</p>
+                </th>
+            </tr>
+            </thead>
+            <tr>
+                <td>Черноморец - Карпаты</td>
+                <td>18.05.2014</td>
+                <td>15:00</td>
+		<td class="action_list" ><img src="img/sell_ticket.png"><img src="img/book_ticket.png"><img src="img/edit_event.png"></td>
+            </tr>
+            <tr>
+              <td>Говерла - Черноморец</td>
+              <td>20.05.2014</td>
+              <td>14:00</td>
+	      <td class="action_list" ><img src="img/sell_ticket.png"><img src="img/book_ticket.png"><img src="img/edit_event.png"></td>
+            </tr>
+            <tr>
+              <td>Черноморец - Карпаты</td>
+              <td>23.04.2014</td>
+              <td>11:00</td>
+	      <td class="action_list" ><img src="img/sell_ticket.png"><img src="img/book_ticket.png"><img src="img/edit_event.png"></td>
+
+            </tr>
+            <tr>
+              <td>Говерла - Черноморец</td>
+              <td>23.05.2014</td>
+              <td>19:00</td>
+	      <td class="action_list" ><img src="img/sell_ticket.png"><img src="img/book_ticket.png"><img src="img/edit_event.png"></td>
+            </tr>
+            <tr>
+              <td>Черноморец - Карпаты</td>
+              <td>16.05.2014</td>
+              <td>17:00</td>
+	      <td class="action_list" ><img src="img/sell_ticket.png"><img src="img/book_ticket.png"><img src="img/edit_event.png"></td>
+            </tr>
+            <tr>
+              <td>Шахтер - Волынь</td>
+              <td>18.05.2014</td>
+              <td>14:00</td>
+	      <td class="action_list" ><img src="img/sell_ticket.png"><img src="img/book_ticket.png"><img src="img/edit_event.png"></td>
+            </tr>
+            <tr>
+              <td>Металлист - Карпаты</td>
+              <td>18.05.2014</td>
+              <td>12:00</td>
+	      <td class="action_list" ><img src="img/sell_ticket.png"><img src="img/book_ticket.png"><img src="img/edit_event.png"></td>
+            </tr>
+            <tr>
+              <td>Говерла - Черноморец</td>
+              <td>20.05.2014</td>
+              <td>14:00</td>
+	      <td class="action_list" ><img src="img/sell_ticket.png"><img src="img/book_ticket.png"><img src="img/edit_event.png"></td>
+            </tr>
+        </table>
     </div>
 </div>
 </body>

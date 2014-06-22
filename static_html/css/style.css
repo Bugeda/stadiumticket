@@ -4,71 +4,22 @@ body {
     text-align: center;
 }
 
-.seats > div {
-    font-size: small;
-    background: yellowgreen;
-    width: 15px;
-    height: 15px;
-    line-height: 15px; /*выровнивает текст по вертикали*/
-    /*сглаживает углы diva*/
-    -webkit-border-radius: 2px 2px 2px 2px;
-    -moz-border-radius: 2px 2px 2px 2px;
-    -khtml-border-radius: 2px 2px 2px 2px;
-    /*border-radius: 2px 2px 2px 2px;*/
-    /**/
-    text-align: center;
-    margin: 4px 2px 0 2px;
-    display: block;
+input, button, select {
+    outline: none;
+    border: none;
+    padding: 5px 5px;
+    background-color: rgb(198, 210, 227);
+    font-family: Open Sans;
+    font-size: 1em;
 }
 
-.tiers > div {
-    font-size: small;
-    background: greenyellow;
-    width: 60px;
-    height: 15px;
-    text-align: center;
-    margin: 4px 2px 0 2px;
-}
-
-#numbers_tiers > div {
-    background: yellow;
-    width: 60px;
-    height: 25px;
-    margin: 4px 2px 0 2px;
-    line-height: 15px;
-}
-
-.all {
-    margin-left: 2px;
-    float: left;
-}
-
-#one {
-    float: left;
-    margin: 0 20px 20px 20px;
-}
-
-#center {
-    width: 700px;
-    height: 650px;
-    float: left;
-    margin-left: 10px;
+/*DIV panels*/
+.global {
     border: 1px dotted black;
-}
-#left_panel {
-    border: 1px dotted black;
-    width: 500px;
-    height: 650px;
-    float: left;
-    margin-left: 10px;
-}
-
-#right_panel {
-    width: 755px;
-    height: 650px;
-    float: right;
-    margin-right: 10px;
-    border: 1px dotted black;
+    width: 1280px;
+    height: 750px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 header {
@@ -79,65 +30,27 @@ header {
     border-bottom: 1px dotted black;
 }
 
-.global {
-    border: 1px dotted black;
-    width: 1280px;
-    height: 750px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-header > #past_events > img {
-    width: 22px;
-    height: 20px;
-}
-header > #statistics > img {
-    width: 22px;
-    height: 22px;
-}
-header > #add_event > img {
-    width: 20px;
-    height: 20px;
-}
-header > h3 {
+/*text styles*/
+header > h1 {
     position: absolute;
     left: 100px;
     color: #14147F;
 }
-header > #add_event {
+
+header > h3 {
     position: absolute;
-    left: 175px;
-    bottom: 55px;
-    text-decoration: none;
-}
-header > #past_events {
-    position: absolute;
-    right: 20px;
-    bottom: 70px;
-    text-decoration: none;
-    color: black;
+    left: 110px;
+    color: #14147F;
 }
 
-header > #statistics {
+header > h5 {
     position: absolute;
-    right: 40px;
-    bottom: 45px;
-    text-decoration: none;
-    color: black;
-}
-
-#search_form {
-    position: absolute;
-    width: 300px;
     left: 100px;
-    bottom: 10px;
-    /*border: 1px dotted black;*/
+    top: 20px;
+    color: #14147F;
 }
-#search_form > #search {
-    width: 300px;
-    background-color: #C6D2E3;
-    color: #FBFCFD;
-}
+
+/*images*/
 #logo > img {
     position: absolute;
     width: 70px;
@@ -146,67 +59,3 @@ header > #statistics {
     left: 5px;
 }
 
-/*table {*/
-    /*border: 1px dotted gray;*/
-    /*border-collapse: collapse;*/
-    /*margin-top: 10px;*/
-/*}*/
-table tr th p {
-    color: #C6C6C6;
-}
-/*td, th {*/
-    /*border: 1px dotted gray;*/
-/*}*/
-
-#event_name {
-    position: absolute;
-    left: 100px;
-    top: 30px;
-    color: #000068;
-}
-
-#new_event_img {
-    position: absolute;
-    width: 750px;
-    height: 630px;
-    left: 525px;
-    top: 120px;
-}
-
-table tr td #title{
-    background-color: #C6D2E3;
-    color: #464B9C;
-    width: 400px;
-}
-table tr td #date {
-    background-color: #C6D2E3;
-    color: #464B9C;
-    width: 400px;
-}
-table tr td #time {
-    background-color: #C6D2E3;
-    color: #464B9C;
-    width: 400px;
-}
-#left_panel #booking_time {
-    background-color: #C6D2E3;
-    color: #464B9C;
-}
-#left_panel #event_save {
-    background-color: #C6D2E3;
-    color: #464B9C;
-}
-#left_panel #event_cancel {
-    background-color: #C6D2E3;
-    color: #464B9C;
-}
-#left_panel #event_delete {
-    background-color: #FE9B9B;
-    color: #464B9C;
-}
-
-#left_panel table {
-    width: 500px;
-    border: none;
-    padding: 0px;
-}
