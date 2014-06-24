@@ -95,5 +95,7 @@ public interface GenericDAO <T, ID extends  Serializable> {
      * @param entity the entity to delete
      */
     void delete(final T entity);
+
+    void closeSession();
 }
 

@@ -6,15 +6,22 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.aspectj.internal.lang.annotation.ajcDeclareEoW;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Projections;
+import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.orm.hibernate3.SessionFactoryUtils;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import sun.awt.windows.awtLocalization;
 
 /* 
  * @param <T>
@@ -29,6 +36,15 @@ public abstract class GenericDAOImpl <T, ID extends  Serializable>
 	private Class<T> persistentClass;
 	private EntityManager entityManager;
 
+    @Resource(name = "sessionFactory")
+    private SessionFactoryImpl localSessionFactoryBean;
+
+    private Session getSession(){
+        return SessionFactoryUtils.getSession(localSessionFactoryBean, true);
+
+
+    }
+
 	@Override
 	public int countAll() {
 		return countByCriteria();
@@ -36,7 +52,7 @@ public abstract class GenericDAOImpl <T, ID extends  Serializable>
 
 	@Override
 	public int countByExample(final T exampleInstance) {
-		Session session = (Session) getEntityManager().getDelegate();
+		Session session = getSession();
 		Criteria crit = session.createCriteria(getEntityClass());
 		crit.setProjection(Projections.rowCount());
 		crit.add(Example.create(exampleInstance));
@@ -52,7 +68,7 @@ public abstract class GenericDAOImpl <T, ID extends  Serializable>
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByExample(final T exampleInstance) {
-		Session session = (Session) getEntityManager().getDelegate();
+		Session session = getSession();
 		Criteria crit = session.createCriteria(getEntityClass());
 		final List<T> result = crit.list();  
 		return result; 
@@ -60,21 +76,21 @@ public abstract class GenericDAOImpl <T, ID extends  Serializable>
 
 	@Override
 	public T findById(final ID id) {
-		final T result = getEntityManager().find(persistentClass, id);
+        final T result  = (T) getSession().get(persistentClass, id);
 		return result;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByNamedQuery(final String name, Object... params) {
-		javax.persistence.Query query = getEntityManager().createNamedQuery(
-				name);
+        Query query = getSession().getNamedQuery(name);
+
 
 		for (int i = 0; i < params.length; i++) {
 			query.setParameter(i + 1, params[i]);
 		}
 
-		final List<T> result = (List<T>) query.getResultList();
+		final List<T> result = (List<T>) query.list();
 		return result;
 	}
 	
@@ -82,15 +98,14 @@ public abstract class GenericDAOImpl <T, ID extends  Serializable>
 	@Override
 	public List<T> findByNamedQueryAndNamedParams(final String name,
 			final Map<String, ? extends Object> params) {
-		javax.persistence.Query query = getEntityManager().createNamedQuery(
-				name);
+		Query query = getSession().getNamedQuery(name);
 
 		for (final Map.Entry<String, ? extends Object> param : params
 				.entrySet()) {
 			query.setParameter(param.getKey(), param.getValue());
 		}
 
-		final List<T> result = (List<T>) query.getResultList();
+		final List<T> result = (List<T>) query.list();
 		return result;
 	}
 	
@@ -102,8 +117,8 @@ public abstract class GenericDAOImpl <T, ID extends  Serializable>
 	/*
 	 * @param entityManager
 	 */
-	@Required
-	@PersistenceContext
+
+
 	public void setEntityManager(final EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
@@ -119,7 +134,7 @@ public abstract class GenericDAOImpl <T, ID extends  Serializable>
 	@SuppressWarnings("unchecked")
 	protected List<T> findByCriteria(final int firstResult,
 			final int maxResults, final Criterion... criterion) {
-		Session session = (Session) getEntityManager().getDelegate();
+		Session session = getSession();
 		Criteria crit = session.createCriteria(getEntityClass());
 
 		for (final Criterion c : criterion) {
@@ -139,7 +154,7 @@ public abstract class GenericDAOImpl <T, ID extends  Serializable>
 	}
 
 	protected int countByCriteria(Criterion... criterion) {
-		Session session = (Session) getEntityManager().getDelegate();
+		Session session = getSession();
 		Criteria crit = session.createCriteria(getEntityClass());
 		crit.setProjection(Projections.rowCount());
 
@@ -153,13 +168,18 @@ public abstract class GenericDAOImpl <T, ID extends  Serializable>
 
 	@Override
 	public void delete(T entity) {
-		getEntityManager().remove(entity);
+        getSession().delete(entity);
 	}
 
-	@Override
+    @Override
+    public void closeSession() {
+    }
+
+    @Override
 	public T save(T entity) {
-		final T savedEntity = getEntityManager().merge(entity);
-		return savedEntity;
+		getSession().saveOrUpdate(entity);
+        getSession().flush();
+		return entity;
 	}
 
 }
