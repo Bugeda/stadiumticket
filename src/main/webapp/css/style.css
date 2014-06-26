@@ -1,0 +1,61 @@
+body {
+    font: normal;
+    font-family: "Open Sans", arial, serif;
+    text-align: center;
+}
+
+input, button, select {
+    outline: none;
+    border: none;
+    padding: 5px 5px;
+    background-color: rgb(198, 210, 227);
+    font-family: Open Sans;
+    font-size: 1em;
+}
+
+/*DIV panels*/
+.global {
+    border: 1px dotted black;
+    width: 1280px;
+    height: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header {
+    width: auto;
+    height: 100px;
+    text-align: left;
+    position: relative;
+    border-bottom: 1px dotted black;
+}
+
+/*text styles*/
+header > h1 {
+    position: absolute;
+    left: 100px;
+    color: #14147F;
+}
+
+header > h3 {
+    position: absolute;
+    left: 110px;
+    color: #14147F;
+}
+
+header > h5 {
+    position: absolute;
+    left: 100px;
+    top: 20px;
+    color: #14147F;
+}
+
+/*images*/
+#logo > img {
+    position: absolute;
+    width: 70px;
+    height: 80px;
+    bottom: 10px;
+    left: 5px;
+}
+

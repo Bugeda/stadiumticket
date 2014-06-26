@@ -1,8 +1,13 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.dataartschool2.stadiumticket.dreamteam.domain.Customer;
 
-public class CustomerDAOImpl extends GenericDAOImpl<Customer, Long> implements CustomerDAO{
-
+@Repository  
+@Transactional  
+public class CustomerDAOImpl extends GenericDAOImpl<Customer, Long> implements CustomerDAO {
+    
 
 }

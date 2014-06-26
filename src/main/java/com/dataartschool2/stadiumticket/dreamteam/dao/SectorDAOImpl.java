@@ -1,10 +1,13 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
-import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-@Repository
-public class SectorDAOImpl extends GenericDAOImpl<Sector, Integer> implements SectorDAO{
+import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
 
+@Repository  
+@Transactional  
+public class SectorDAOImpl extends GenericDAOImpl<Sector, Long> implements SectorDAO  {
+    
 
 }

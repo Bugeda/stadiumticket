@@ -46,24 +46,4 @@ public class Sector {
     public void setSeatsQuantity(int seatsQuantity) {
         this.seatsQuantity = seatsQuantity;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Sector sector = (Sector) o;
-
-        if (seatsQuantity != sector.seatsQuantity) return false;
-        if (!number.equals(sector.number)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = number.hashCode();
-        result = 31 * result + seatsQuantity;
-        return result;
-    }
 }
