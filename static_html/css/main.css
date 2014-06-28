@@ -6,8 +6,8 @@ input {
 
 body, A { color: RGB(0,0,117);}
 map input {position: absolute; background-color: darkgreen; color: white; font-weight: bold; outline: 1px dashed green; text-align: center;}
-#vipA_price { top: 62px; left: 305px;}
-#vipD_price { top: 477px; left: 375px;}
+#price_vipA { top: 62px; left: 305px;}
+#price_vipD { top: 477px; left: 375px;}
 #price_1 { top: 100px; left: 380px;}
 #price_2 { top: 83px; left: 447px;}
 #price_3 { top: 94px; left: 513px;}
