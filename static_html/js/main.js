@@ -1,5 +1,7 @@
 $(document).ready(function () {
-    $('.map').maphilight();
+    if ($('.map').length != 0) {
+	$('.map').maphilight();
+    };
     $('#event_list').dataTable({
 	"paging": false,
 	"stateSave": true,
