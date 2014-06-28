@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('.map').maphilight();
     $('#event_list').dataTable({
 	"paging": false,
 	"stateSave": true,
