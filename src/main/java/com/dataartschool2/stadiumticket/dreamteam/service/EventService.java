@@ -7,7 +7,14 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 
 public interface EventService {
 
-	List<Event> getEvents();
+	Event findById(Integer id);
 
-	public void sysoutMessage(String id);
+	List<Event> getFutureEvents();
+	
+	List<Event> getPastEvents();
+
+	void updateEvent(Event event);
+
+	void deleteEvent(Event event);
+
 }

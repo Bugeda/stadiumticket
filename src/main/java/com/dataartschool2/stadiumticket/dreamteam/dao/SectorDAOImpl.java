@@ -7,7 +7,7 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
 
 @Repository  
 @Transactional  
-public class SectorDAOImpl extends GenericDAOImpl<Sector, Long> implements SectorDAO  {
+public class SectorDAOImpl extends GenericDAOImpl<Sector> implements SectorDAO  {
     
 
 }

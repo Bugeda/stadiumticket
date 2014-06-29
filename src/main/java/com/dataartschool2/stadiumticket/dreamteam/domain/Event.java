@@ -15,6 +15,7 @@ public class Event {
     private String eventName;
 
     @Temporal(TemporalType.TIMESTAMP)
+    //="dd-MM-yy HH-mm"
     private Date eventDate;
 
     public Event(){}

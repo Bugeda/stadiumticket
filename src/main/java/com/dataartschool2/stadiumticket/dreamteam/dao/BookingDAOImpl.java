@@ -7,7 +7,7 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.Booking;
 
 @Repository  
 @Transactional  
-public class BookingDAOImpl extends GenericDAOImpl<Booking, Long> implements BookingDAO {
+public class BookingDAOImpl extends GenericDAOImpl<Booking> implements BookingDAO {
     
 
 }

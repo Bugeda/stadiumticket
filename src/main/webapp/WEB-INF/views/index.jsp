@@ -4,75 +4,77 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <!--css rules-->
-    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/style.css"/>
-    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/index.css"/>
-    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/jquery.dataTables.css"/>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>stadiumticket - list of events</title>
+    <!-- css -->
+    <link href="<%= request.getContextPath() %>/css/bootstrap.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/jquery.dataTables.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/main.css" type="text/css" rel="stylesheet">
 
-    <!--google font-->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <!-- js -->
+    <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
+    <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
+    <script src="<%= request.getContextPath() %>/js/jquery.dataTables.js"></script>
+    <script src="<%= request.getContextPath() %>/js/main.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+     <style type="text/css">
+     </style>
+   </head>
+   <body>
+     <div class="container">
+       <div class="row">
+	 <div class="col-xs-1 col-md-1"><a href=""><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	 <div class="col-xs-6 col-md-9">
+	   <h1>Events
+	     <a href="<c:url value="new_event"/>"><img src="<%= request.getContextPath() %>/images/add_event_button.png"></a>
+	   </h1>
+	 </div>
+	 <div class="col-xs-4 col-md-2">
+	   <a id="past_events" href="<c:url value="past_events"/>"><img src="<%= request.getContextPath() %>/images/past_events.png"> past events</a><br>
+	   <a id="statistics" href="<c:url value=""/>"><img src="<%= request.getContextPath() %>/images/stats.png"> statistics</a>
+	 </div>
+       </div>
+       <div class="row">
+	 <div>
+	   <table class="hover" id="event_list">
+	     <thead>
+	       <tr>
+		 <th>
+		   <p>Name</p>
+		 </th>
+		<th>
+		  <p>Date & time</p>
+		</th>
+		<th>
+		  <p>Actions</p>
+		</th>
+	      </tr>
+	    </thead>
+	    <c:forEach items="${events}" var="events">
+	    <tr class="event">
+			<td><c:out value="${events.getEventName()}"></c:out></td>
+	      	<td><fmt:formatDate value="${events.getEventDate()}" pattern="dd.MM.yy HH:mm" /></td>
+	      	<td class="action_list" >
+				<a href="#"><img src="images/sell_ticket.png"></a>
+				<a href="#"><img src="images/book_ticket.png"></a>
+				<a href="#"><img src="images/edit_event.png"></a>
+	      	</td>
+	    </tr>
+	    </c:forEach> 
+	   </table>
+	 </div>
+       </div>
+     </div>
 
-    <!--jQuery-->
-    <script src="<%= request.getContextPath() %>/js/jquery.js" language="javascript" type="text/javascript"></script>
-    <script src="<%= request.getContextPath() %>/js/jquery.dataTables.js" language="javascript" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#event_list').dataTable({
-                "paging": false,
-                "stateSave": true,
-                "autoWidth": true
-            });
-        });
-    </script>
-    <style type="text/css">
-    </style>
-    <title>Main page</title>
-</head>
-  <body>
-  <div class="global">
-    <header>
-    
-        <h1>Events<a id="add_event" href="<c:url value="new_event"/>">&nbsp;<img src="<%= request.getContextPath() %>/images/add_event_button.png"></a></h1>
-
-        <!-- <form action="" method="post" id="search_form"> -->
-        <!--     <input type="search" id="search" value="please search upcoming events here"> -->
-        <!-- </form> -->
-        <a id="past_events" href=""><img src="<%= request.getContextPath() %>/images/past_events.png"> past events</a>
-        <a id="statistics" href=""><img src="<%= request.getContextPath() %>/images/stats.png"> statistics</a>
-        <a id="logo" href=""><img src="<%= request.getContextPath() %>/images/logo.png"></a>
-    </header>
-    <div id="center">
-        <table class="hover" id="event_list">
-            <thead>
-            <tr>
-                <th>
-                    <p>Name</p>
-                </th>
-                <th>
-                    <p>Date</p>
-                </th>
-                <th width="40%">
-                    <p>Actions</p>
-                </th>
-            </tr>
-            </thead>
-            <c:forEach items="${events}" var="events">
-			<tr>
-			
-			
-		  		<td><c:out value="${events.getEventName()}"></c:out></td>
-		    	<td><fmt:formatDate value="${events.getEventDate()}" pattern="dd.MM.yy HH:mm" /></td>	
-         		<td class="action_list" ><img src="<%= request.getContextPath() %>/images/sell_ticket.png"><img src="<%= request.getContextPath() %>/images/book_ticket.png"><img src="<%= request.getContextPath() %>/images/edit_event.png"></td>
-            </tr>      
-            </c:forEach>     
-        </table>
-    </div>
-</div>
   </body>
 </html>
-
-
