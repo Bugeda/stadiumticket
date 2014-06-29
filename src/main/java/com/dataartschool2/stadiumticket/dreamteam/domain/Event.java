@@ -1,7 +1,8 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
 import javax.persistence.*;
-import java.util.Calendar;
+
+import java.util.Date;
 
 
 @Entity
@@ -14,14 +15,15 @@ public class Event {
     private String eventName;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar eventTime;
+    //="dd-MM-yy HH-mm"
+    private Date eventDate;
 
     public Event(){}
 
-    public Event(int id, String eventName, Calendar eventTime) {
+    public Event(int id, String eventName, Date eventDate) {
         this.id = id;
         this.eventName = eventName;
-        this.eventTime = eventTime;
+        this.eventDate = eventDate;
     }
 
     public int getId() {
@@ -38,13 +40,13 @@ public class Event {
 
     public void setEventName(String eventName) {
         this.eventName = eventName;
+    }    
+    
+    public Date getEventDate() {
+        return eventDate;
     }
 
-    public Calendar getEventTime() {
-        return eventTime;
-    }
-
-    public void setEventTime(Calendar eventTime) {
-        this.eventTime = eventTime;
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
     }
 }
