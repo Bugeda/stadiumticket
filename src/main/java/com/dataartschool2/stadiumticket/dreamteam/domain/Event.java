@@ -2,31 +2,67 @@ package com.dataartschool2.stadiumticket.dreamteam.domain;
 
 import javax.persistence.*;
 
+import java.sql.Timestamp;
 import java.util.Date;
-
 
 @Entity
 public class Event {
 
-    @Id
+	@Id
     @GeneratedValue
     private int id;
 
     private String eventName;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    //="dd-MM-yy HH-mm"
-    private Date eventDate;
+    private Timestamp eventDate;
 
     public Event(){}
-
-    public Event(int id, String eventName, Date eventDate) {
+   
+    public Event(int id, String eventName, Timestamp eventDate) {
         this.id = id;
         this.eventName = eventName;
-        this.eventDate = eventDate;
+        this.eventDate = eventDate;        
     }
+    
+   
+ 	
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((eventDate == null) ? 0 : eventDate.hashCode());
+		result = prime * result
+				+ ((eventName == null) ? 0 : eventName.hashCode());
+		result = prime * result + id;
+		return result;
+	}
 
-    public int getId() {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Event)) 
+			return false;
+		Event other = (Event) obj;
+		if (eventDate == null) {
+			if (other.getEventDate() != null)
+				return false;
+		} else if (!eventDate.equals(other.getEventDate()))
+			return false;
+		if (eventName == null) {
+			if (other.getEventName() != null)
+				return false;
+		} else if (!eventName.equals(other.getEventName()))
+			return false;
+		if (id != other.getId())
+			return false;
+		return true;
+	}
+
+	public int getId() {
         return id;
     }
 
@@ -42,11 +78,14 @@ public class Event {
         this.eventName = eventName;
     }    
     
-    public Date getEventDate() {
+    public Timestamp getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(Date eventDate) {
+    public void setEventDate(Timestamp eventDate) {
         this.eventDate = eventDate;
     }
+    
+   
+   
 }

@@ -63,7 +63,7 @@
 	    <c:forEach items="${events}" var="events">
 	    <tr class="event">
 			<td><c:out value="${events.getEventName()}"></c:out></td>
-	      	<td><fmt:formatDate value="${events.getEventDate()}" pattern="dd.MM.yy HH:mm" /></td>
+			<td><fmt:formatDate value="${events.getEventDate()}" pattern="dd.MM.yy HH:mm" /></td>
 	      	<td class="action_list" >
 				<a href="#"><img src="images/sell_ticket.png"></a>
 				<a href="#"><img src="images/book_ticket.png"></a>

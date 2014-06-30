@@ -5,16 +5,18 @@ import java.util.List;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 
 
+
 public interface EventService {
-
-	Event findById(Integer id);
-
-	List<Event> getFutureEvents();
 	
-	List<Event> getPastEvents();
-
-	void updateEvent(Event event);
-
-	void deleteEvent(Event event);
+	public void updateEvent(Event event);
+	
+	public void deleteEvent(Event event);
+	
+	public Event findById(Integer id);
+	
+	public List<Event> getFutureEvents();	
+	
+	public List<Event> getPastEvents();
+	
 
 }

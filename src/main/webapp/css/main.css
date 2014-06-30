@@ -5,7 +5,14 @@ input {
 }
 
 body, A { color: RGB(0,0,117);}
-map input {position: absolute; background-color: darkgreen; color: white; font-weight: bold; outline: 1px dashed green; text-align: center;}
+map input {
+    position: absolute;
+    background-color: darkgreen;
+    color: white;
+    font-weight: bold;
+    outline: 1px dashed green;
+    text-align: center;
+}
 #price_vipA { top: 62px; left: 305px;}
 #price_vipD { top: 477px; left: 375px;}
 #price_1 { top: 100px; left: 380px;}
@@ -37,3 +44,7 @@ map input {position: absolute; background-color: darkgreen; color: white; font-w
 .visible_cell {display: table-cell;}
 .event td {height: 35px;}
 .action_list, #event_list_info, .invisible {display:none;}
+.action_list img { margin: 0px 15px; float: left;}
+.action_list {width: 45%;}
+.event_name {width: 40%}
+.event_datetime {width: 15%}
