@@ -50,4 +50,21 @@ $(document).ready(function () {
     $('#cancel_deletion').click( function () {
 	$('#confirm_deletion_warning').hide();
     });
+
+    // Working with tickets
+
+    // recalculate price of all selected tickets
+    function recalculate_price() {
+	var total_price = 0;
+	$('.ticket').each( function () {
+	    total_price = parseInt(total_price) + parseInt($(this).children('.ticket_price').html());
+	});
+	$('#total_price').html(total_price);
+    };
+
+    // delete ticket by clicking '-' button
+    $('.delete_ticket').click( function() {
+	$(this).closest('.ticket').remove();
+	recalculate_price();
+    });
 });
