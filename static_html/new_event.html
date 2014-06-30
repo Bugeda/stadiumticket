@@ -90,53 +90,27 @@
 	      <input class="btn btn-warning" type="button" value="Cancel changes" id="event_cancel">
 	      <input class="btn btn-danger" type="button" value="Delete event" id="event_delete">
 	    </div>
-            <!-- <table> -->
-            <!--   <tr> -->
-	    <!-- 	<th>Title:</th> -->
-	    <!-- 	<td><input type="text" id="title" placeholder="please enter match name"></td> -->
-            <!--   </tr> -->
-            <!--   <tr> -->
-	    <!-- 	<th>Date:</th> -->
-	    <!-- 	<td><input type="text" id="date" placeholder="please enter date"/></td> -->
-            <!--   </tr> -->
-            <!--   <tr> -->
-	    <!-- 	<th>Time:</th> -->
-	    <!-- 	<td><input type="text" id="time" placeholder="please enter time"/></td> -->
-            <!--   </tr> -->
-            <!-- </table> -->
-            <!-- <table class="booking"> -->
-            <!--   <tr> -->
-	    <!-- 	<th><label for="booking_time" id="label_booking">Booking cancel time (min):</label></th> -->
-	    <!-- 	<td><select name="booking" id="booking_time"> -->
-            <!--         <option value="30">30</option> -->
-            <!--         <option value="60">60</option> -->
-            <!--         <option value="90">90</option> -->
-            <!--         <option value="120">120</option> -->
-	    <!-- 	</select></td> -->
-            <!--   </tr> -->
-            <!-- </table> -->
-            <!-- <br/> -->
-            <!-- <span>event changed, but not saved (have to make change of text on JavaScript)</span> -->
-            <!-- <br/> -->
-
-            <!-- <table class="buttons"> -->
-            <!--   <tr> -->
-	    <!-- 	<td><input type="button" value="Save event" id="event_save"></td> -->
-	    <!-- 	<td id="event_can"><input type="button" value="Cancel changes" id="event_cancel"></td> -->
-            <!--   </tr> -->
-            <!-- </table> -->
-            <!-- <br/> -->
-            <!-- <table class="delete_button"> -->
-            <!--   <tr> -->
-	    <!-- 	<td><input type="button" value="Delete event" id="event_delete"></td> -->
-            <!--   </tr> -->
-            <!-- </table> -->
-
           </form>
+
+	  <form action=""  id="confirm_deletion_form" method="post">
+	    <div class="form-group">
+	      <div class="alert-warning" role="alert">
+		Are you sure you want to delete event?<br>
+		Please enter word DELETE here:<br>
+		<input class="form-control" type="text" name="confirm_delete" id="confirm_deletion_text" maxlength="10" size="15" placeholder="enter DELETE here for confirmation"><br>
+		<input class="btn btn-danger"  type="submit" value="Ok, delete event" id="confirm_deletion">
+		<input class="btn btn-warning" type="button" value="Cancel deletion" id="cancel_deletion">
+	      </div>
+	      <div class="alert-error alert-dismissable" id="wrong_confirmation" role="alert">
+		You must enter the word DELETE(capitals, without spaces).
+	      </div>
+	    </div>
+	  </form>
+
 	</div>
 	<div class="col-md-7">
           <img id="new_event_img" class="map" usemap="#stadium" src="images/stadium_plan.png">
-	  <map name="stadIum">
+	  <map name="stadium">
 	    <input type="text" id="price_vipD" size="4" maxlength="4" placeholder="price">
 	    <area id="vipD" alt="vipD" title="vipD" href="" shape="rect" coords="152,472,468,501" />
 
@@ -222,7 +196,7 @@
 	  <div class="row">
 	    <div style="display:none;" class="alert-dismissible alert alert-danger" role="alert">
 	      Only numbers allowed here!
-	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;
+	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
 	    </div>
 	  </div>
 	</div>

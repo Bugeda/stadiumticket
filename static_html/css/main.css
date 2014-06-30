@@ -43,8 +43,10 @@ map input {
 
 .visible_cell {display: table-cell;}
 .event td {height: 35px;}
-.action_list, #event_list_info, .invisible {display:none;}
+.action_list, #event_list_info, .invisible {display: none;}
 .action_list img { margin: 0px 15px; float: left;}
 .action_list {width: 45%;}
-.event_name {width: 40%}
-.event_datetime {width: 15%}
+.event_name {width: 40%;}
+.event_datetime {width: 15%;}
+
+#confirm_deletion_form, #wrong_confirmation {display: none;}
