@@ -49,4 +49,5 @@ map input {
 .event_name {width: 40%;}
 .event_datetime {width: 15%;}
 
+#disable_inputs {cursor: not-allowed;}
 #confirm_deletion_form, #wrong_confirmation {display: none;}

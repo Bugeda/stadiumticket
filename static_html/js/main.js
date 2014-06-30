@@ -66,9 +66,27 @@ $(document).ready(function () {
 	$('#total_price').html(total_price);
     };
 
+    //add ticket to list
+    function add_ticket(sector, row, seat) {
+	$('#ticket_list').append("<tr class=\"ticket\"><td class=\"ticket_number\"></td>"+"<td>"+ sector +"</td>"+ "<td>"+ row + "</td>"+ "<td>" + seat + "</td>" + "<td class=\"ticket_price\">150</td><td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td></tr>");
+	recalculate_price_and_index();
+    };
+
+    //for tests, generate random ticket
+    $('#add_random_ticket').click( function() {
+	var random_sector = Math.floor(Math.random()*24+1);
+	var random_row = Math.floor(Math.random()*20);
+	var random_seat = Math.floor(Math.random()*50)
+	add_ticket(random_sector, random_row, random_seat);
+    });
+
+
     // initial run to set numbers for all tickets
     // possibly move this functionality to backend
     recalculate_price_and_index();
+
+    // restrict changing price when selling or booking
+    $('#disable_inputs > input').attr('disabled','disabled');
 
     // delete ticket by clicking '-' button
     $('.delete_ticket').click( function() {
