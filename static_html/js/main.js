@@ -54,17 +54,25 @@ $(document).ready(function () {
     // Working with tickets
 
     // recalculate price of all selected tickets
-    function recalculate_price() {
+    // and set numbers for all of them
+    function recalculate_price_and_index() {
 	var total_price = 0;
+	var ticket_index = 1;
 	$('.ticket').each( function () {
-	    total_price = parseInt(total_price) + parseInt($(this).children('.ticket_price').html());
+	    $(this).children('.ticket_number').html(ticket_index+'.');
+	    total_price += parseInt($(this).children('.ticket_price').html());
+	    ticket_index += 1;
 	});
 	$('#total_price').html(total_price);
     };
 
+    // initial run to set numbers for all tickets
+    // possibly move this functionality to backend
+    recalculate_price_and_index();
+
     // delete ticket by clicking '-' button
     $('.delete_ticket').click( function() {
 	$(this).closest('.ticket').remove();
-	recalculate_price();
+	recalculate_price_and_index();
     });
 });
