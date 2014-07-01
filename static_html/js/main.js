@@ -19,6 +19,17 @@ $(document).ready(function () {
 	$('#'+ dest_name).val(source_content);
     });
 
+     // initialize input widgets first
+    $('#start_time').timepicker({
+        'showDuration': true,
+        'timeFormat': 'g:ia'
+    });
+
+    $('#date').datepicker({
+        'format': 'm/d/yyyy',
+        'autoclose': true
+    });
+
     if ($('#event_list').length != 0) {
 
 	// dataTable configuration
