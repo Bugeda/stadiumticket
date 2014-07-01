@@ -59,7 +59,7 @@ $(document).ready(function () {
 	};
     });
     $('#cancel_deletion').click( function () {
-	$('#confirm_deletion_warning').hide();
+	$('#confirm_deletion_form').hide();
     });
 
     // Working with tickets
