@@ -223,23 +223,32 @@ td:first-child {
     border-radius: 2px;
 }
 
-.table tbody tr:hover td, .table tbody tr:hover th {
-    background-color: transparent;
-}
-
 .seats {
     background: #C6D2E3;
-}
-
-.table > tbody > tr > th:hover, .table > tbody > tr > td:hover {
-    background: #000075;
 }
 
 hr {
     display: block;
     height: 2px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #000075;
     margin: 10px;
     padding: 0;
-    background-color: blue;
+    background-color: #000075;
+}
+
+.sell_tickets_table > tbody > tr > td:hover {
+    background: #000075;
+}
+
+.sell_tickets_header {
+    font-size: medium;
+    padding: 0;
+    margin: 0;
+}
+
+.sell_tickets_header > tbody > tr > td > div {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -khtml-border-radius: 2px;
+    border-radius: 2px;
 }
