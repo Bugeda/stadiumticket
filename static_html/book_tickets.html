@@ -28,12 +28,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style type="text/css">
+
     </style>
-    <script>
-        $("td").hover(function(obj) {
-            obj.setsty
-        })
-    </script>
 </head>
 <body>
 <div class="container">
@@ -274,15 +270,19 @@
 <br/>
 
 <div class="container seats">
-<div class="row-fluid">
-    <div class="col-xs-6 col-md-6"><strong>Sector 12 seats:</strong></div>
-    <div class="col-xs-1 col-md-1"><strong>42</strong></div>
-    <div class="col-xs-1 col-md-1">Vacant</div>
-    <div class="col-xs-1 col-md-1"><strong>42</strong></div>
-    <div class="col-xs-1 col-md-1">Booked</div>
-    <div class="col-xs-1 col-md-1"><strong>42</strong></div>
-    <div class="col-xs-1 col-md-1">Occupied</div>
-</div>
+<table class="table table-condensed table-responsive" style="font-size: medium; padding: 0; margin: 0;">
+    <tbody>
+    <tr>
+        <td style="width: 70%; text-align: left; padding-left: 10px; font-size: large">Sector 12 seats:</td>
+        <td style="width: 5%; text-align: right"><strong>42</strong></td>
+        <td style="width: 5%; text-align: left">Vacant</td>
+        <td style="width: 5%; text-align: right"><strong>42</strong></td>
+        <td style="width: 5%; text-align: left">Booked</td>
+        <td style="width: 5%; text-align: right"><strong>42</strong></td>
+        <td style="width: 5%; text-align: left">Occupied</td>
+    </tr>
+    </tbody>
+</table>
 <hr>
 <div class="table-responsive">
 <table class="table table-condensed table-responsive">
