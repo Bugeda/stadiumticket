@@ -16,12 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-/**
-* Created by on 24.06.14.
-*/
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring/root-context.xml"})
 @Transactional
@@ -33,12 +31,12 @@ public class EventServiceTest{
     @Test
     public void readEventTest(){
     	Date date = new Date();
-        Event expected = new Event(15, "1", date);
+    	Timestamp stamp = new Timestamp(date.getTime());
     	
+        Event expected = new Event(15, "1", stamp);    	
     	eventService.updateEvent(expected);
     	
-        Event actual = eventService.findById((Integer) 15);
-        
+        Event actual = eventService.findById((Integer) 15);        
         Assert.assertEquals(expected, actual);
         Assert.assertNotNull(actual);
     }
@@ -46,13 +44,15 @@ public class EventServiceTest{
     @Test
     public void deleteEventTest(){        
     	Date date = new Date();
-        Event event = new Event(15, "1", date);
-    	
+    	Timestamp stamp = new Timestamp(date.getTime());
+    	    	
+        Event event = new Event(15, "1", stamp); 	
     	eventService.updateEvent(event);
+    	
     	Event actual = eventService.findById((Integer) 15);
     	Assert.assertNotNull(actual);
     	Assert.assertEquals(event, actual);
-    	 
+  
     	eventService.deleteEvent(event);
         actual = eventService.findById((Integer) 15);        
         Assert.assertNull(actual);
@@ -61,50 +61,55 @@ public class EventServiceTest{
     @Test
     public void editEventTest(){       
     	Date date = new Date();
+    	Timestamp stamp = new Timestamp(date.getTime());
+    	
         //new event
-    	Event begEvent = new Event(15, "1", date);
-        Event dbEvent = new Event(15, "1", date);
+    	Event begEvent = new Event(15, "1", stamp);
+        Event dbEvent = new Event(15, "1", stamp);
+        
         //insert in db
         eventService.updateEvent(dbEvent);
         Event currentEvent = eventService.findById((Integer) 15);    	        
     	Assert.assertNotNull(currentEvent);
     	Assert.assertEquals(dbEvent, currentEvent);  
-    	//change event
-    	
-    	date.setYear(10);
-    	date.setMonth(8);
-    	date.setDate(25);   	
-    	dbEvent.setEventDate(date);
+
+    	//change event    	
+    	stamp.setYear(10);
+    	stamp.setMonth(8);
+    	stamp.setDate(25);  
+    	//eventService
+    	dbEvent.setEventDate(stamp);
     	dbEvent.setEventName("testname");
-    	
+    	eventService.updateEvent(dbEvent);
     	Assert.assertNotSame(dbEvent, begEvent);
 
-    	//update in db
     	Event actual = eventService.findById((Integer) 15);
-    	Assert.assertEquals(dbEvent, actual);
-    	
+    	Assert.assertEquals(dbEvent, actual);    	
         Assert.assertNotSame(begEvent, actual);
         Assert.assertNotNull(actual);       
     }
     
     @Test
-    public void notNullEventTest(){       
+    public void createEventTest(){       
     	Date date = new Date();
+    	Timestamp stamp = new Timestamp(date.getTime());
+    	
         //new event
-    	Event newEvent = new Event(15, "1", date);
-        //insert in db
-        eventService.updateEvent(newEvent);
+    	Event newEvent = new Event(15, "1", stamp);
+        eventService.updateEvent(newEvent);                       
+
         Event currentEvent = eventService.findById((Integer) 15);    	        
     	Assert.assertNotNull(currentEvent);
     	Assert.assertEquals(newEvent, currentEvent);  
-    	
-    	date = new Date();
+    	/*
+     	date = new Date();
+    	stamp.setTime(date.getTime());
         //recreate event
-    	editEvent = new Event(15, "2", date);
-    	eventService.updateEvent(begEvent);
-    	actual = eventService.findById((Integer) 15); 
-    	Assert.assertNotSame(dbEvent, actual);
+    	Event editEvent = new Event(15, "2", stamp);
+    	eventService.updateEvent(editEvent);
+    	Event actual = eventService.findById((Integer) 15); 
+    	Assert.assertNotSame(newEvent, actual);
         Assert.assertNotNull(actual);
-        
+        */
     }
 }

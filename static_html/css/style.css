@@ -11,7 +11,7 @@ input, button, select {
     border: none;
     padding: 5px 5px;
     background-color: rgb(198, 210, 227);
-    font-family: Open Sans;
+    font-family: Open Sans, serif;
     font-size: 1em;
 }
 
@@ -20,7 +20,7 @@ input, button, select {
     border: 1px dotted black;
     width: 1280px;
     height: 750px;
-    margin: 0px auto;
+    margin: 0 auto;
 }
 
 header {
@@ -74,7 +74,10 @@ header > h5 {
     top: -55px;
 }
 
-.action_list { display: none;}
+.action_list {
+    display: none;
+}
+
 /* disable item counter */
 #event_list_info {
     display: none;
@@ -84,7 +87,7 @@ header > h5 {
     width: 100%;
     height: auto;
     float: left;
-    margin-left: 0px;
+    margin-left: 0;
     /*border: 1px dotted black;*/
 }
 
@@ -281,6 +284,7 @@ table {
 .cancel_changes {
     text-align: right;
 }
+
 /* END BOOKING PAGE RULES */
 
 /* BEGIN NEW EVENT PAGE RULES */
@@ -392,5 +396,8 @@ span {
     position: relative;
     left: -14px;
 }
+
 /* END NEW EVENT PAGE RULES */
 
+body {
+}

@@ -1,14 +1,18 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.springframework.util.AutoPopulatingList;
+
 @Entity
 public class SectorPrice {
-
-    @Id
+	
+   @Id
     @GeneratedValue
     private int id;
 

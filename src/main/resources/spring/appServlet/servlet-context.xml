@@ -15,6 +15,7 @@
 <resources mapping="/images/**" location="/images/"/>
 <resources mapping="/js/**" location="/js/"/>
 <resources mapping="/css/**" location="/css/"/>
+<resources mapping="/fonts/**" location="/fonts/"/>
 <!--
  Отображение видов на jsp-файлы, лежащие в папке /WEB-INF/views 
 -->

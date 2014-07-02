@@ -12,6 +12,7 @@
 -->
 <context:component-scan base-package="com.dataartschool2.stadiumticket.dreamteam.dao"/>
 <context:component-scan base-package="com.dataartschool2.stadiumticket.dreamteam.service"/>
+
 <!--
  Файл с настройками ресурсов для работы с данными (Data Access Resources) 
 -->

@@ -1,5 +1,6 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
+import com.mysql.jdbc.Field;
 
 @Repository  
 @Transactional  
@@ -17,7 +19,7 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 	@Override
 	public List<Event> findFutureEvents() {
 		Date date= new Date();
-		Criterion criterion = Restrictions.lt("eventDate", date);      
+		Criterion criterion = Restrictions.ge("eventDate", date);      
 		List<Event> events=findByCriteria(criterion);
 		return events;
 	}
@@ -29,5 +31,8 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 		List<Event> events=findByCriteria(criterion); 
 		return events;
 	}
+	
+
+	    
 
 }

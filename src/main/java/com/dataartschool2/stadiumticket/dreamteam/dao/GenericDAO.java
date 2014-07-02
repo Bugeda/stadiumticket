@@ -1,20 +1,18 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
-import java.io.Serializable;
 import java.util.List;
-
 
 public abstract interface GenericDAO<EntityClass>{
 	//entityClass
-	EntityClass makePersistent(EntityClass entity);  
+	public EntityClass updateEntity(EntityClass entity);  
+	
+	public void deleteEntity(EntityClass entity);  
     
-    void deletePersistent(EntityClass entity);  
+    public  List<EntityClass> findAll();  
     
-    List<EntityClass> findAll();  
+    public EntityClass findById(Integer integer); 
     
-    EntityClass findById(Integer integer); 
-    
-	int countAll();
+    public int countAll();
  
 }
  
