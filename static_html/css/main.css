@@ -51,3 +51,36 @@ map input {
 
 #disable_inputs {cursor: not-allowed;}
 #confirm_deletion_form, #wrong_confirmation {display: none;}
+
+/*styles for table with tickets*/
+table {
+    font-size: 0.8em;
+}
+
+td {
+    width: 1.95%;
+    padding: 0;
+    text-align: center;
+}
+
+td:first-child {
+    font-weight: bolder;
+}
+
+.table > tbody > tr > th, .table > tbody > tr > td {
+    border-top: none;
+}
+
+.table > tbody > tr > td {
+    padding: 2px 2px 2px 0;
+}
+.table > tbody > tr > td > div {
+    background: #ffffff;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -khtml-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
+}
+#seats {
+    background: #C6D2E3;
+}
