@@ -227,6 +227,7 @@ td:first-child {
     background: #C6D2E3;
 }
 
+/* hr line style */
 hr {
     display: block;
     height: 2px;
@@ -235,11 +236,12 @@ hr {
     padding: 0;
     background-color: #000075;
 }
-
+/* sell_tickets_table styles */
 .sell_tickets_table > tbody > tr > td:hover {
     background: #000075;
 }
 
+/* sell_tickets_header styles */
 .sell_tickets_header {
     font-size: medium;
     padding: 0;
@@ -251,4 +253,34 @@ hr {
     -moz-border-radius: 2px;
     -khtml-border-radius: 2px;
     border-radius: 2px;
+}
+
+.sell_tickets_header > tbody > tr > td:first-child {
+    width: 70%;
+    text-align: left;
+    padding-left: 10px;
+    font-size: large;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(2), .sell_tickets_header > tbody > tr > td:nth-child(4), .sell_tickets_header > tbody > tr > td:nth-child(6) {
+    width: 3%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(3), .sell_tickets_header > tbody > tr > td:nth-child(5), .sell_tickets_header > tbody > tr > td:nth-child(7) {
+    width: 7%;
+    text-align: left;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(2) > div {
+    background: #ffffff;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(4) > div {
+    background: #A8C901;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(6) > div {
+    background: #FE2B2C;
 }
