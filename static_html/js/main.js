@@ -4,18 +4,13 @@ $(document).ready(function () {
 	$('.map').maphilight();
     }
 
-    // copy data from sector plan to hidden form, in order to send it to server
+    // copy data from sector plan to hidden form on edit/new event page
     $('map > input').change( function () {
 	var source_id = $(this).attr('id');
 	var source_content = $(this).val();
-
 	// var reg = /^\d+$/;
 	// if (!reg.test(source_content)) { $(".alert").show();}
-
-	if ( source_id.substr(6) == 'vipA' || source_id.substr(6) == 'vipD' ) {
-	    var dest_name = source_id.substr(6);
-	}
-	else var dest_name = 's'+ source_id.substr(6);
+	var dest_name = 's'+ source_id.substr(6);
 	$('#'+ dest_name).val(source_content);
     });
 
@@ -106,9 +101,13 @@ $(document).ready(function () {
 	    $(this).addClass('selected');
 	    var id = $(this).attr('id').split('_');
 	    var sector = $('#sector_name').html().substr(6).slice(0,-6);
+	    if (sector == 'VIP A') {sector = 27}
+	    else sector = parseInt(sector);
+	    if (sector == 'VIP D') {sector = 26}
+	    else sector = parseInt(sector);
 	    var row = id[0];
 	    var seat = id[1];
-	    var price = Math.floor(Math.random()*550);
+	    var price = $("#price_" + sector).val();
 	    add_ticket(sector,row,seat,price);
 	};
     });

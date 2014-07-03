@@ -17,14 +17,14 @@ map input {
     text-align: center;
 }
 
-#price_vipA {
-    top: 62px;
-    left: 305px;
-}
-
-#price_vipD {
+#price_26 {
     top: 477px;
     left: 375px;
+}
+
+#price_27 {
+    top: 62px;
+    left: 305px;
 }
 
 #price_1 {
