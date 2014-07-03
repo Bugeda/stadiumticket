@@ -18,21 +18,21 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
 	@Override
 	public List<Event> findFutureEvents() {
-		Date date= new Date();
-		Criterion criterion = Restrictions.ge("eventDate", date);      
-		List<Event> events=findByCriteria(criterion);
+		Date date= new Date();		
+		Criterion criterion1 = Restrictions.ge("eventDate", date);   
+		Criterion criterion2 = Restrictions.eq("isDelete", false);
+		List<Event> events=findByCriteria(criterion1, criterion2);
 		return events;
 	}
 	
 	@Override
 	public List<Event> findPastEvents() {
 		Date date= new Date();
-		Criterion criterion = Restrictions.lt("eventDate", date);      		
-		List<Event> events=findByCriteria(criterion); 
+		Criterion criterion1 = Restrictions.lt("eventDate", date);   
+		Criterion criterion2 = Restrictions.eq("isDelete", false);
+		List<Event> events=findByCriteria(criterion1, criterion2);
 		return events;
 	}
-	
-
-	    
+	  
 
 }

@@ -192,13 +192,22 @@ public class NewEventForm {
 	public void setS25(String s25) {
 		this.s25 = s25;
 	}*/
+	private	int id;
+	
 	private	String eventName;
 	
 	private String[] sectorPrice;
-	
-	
+		
 	private	String eventDate;
 	
+	private String bookingCanceltime;
+	
+	public  int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getEventName() {
 		return eventName;
 	}
@@ -217,6 +226,12 @@ public class NewEventForm {
 	}
 	public void setSectorPrice(String[] sectorPrice) {
 		this.sectorPrice = sectorPrice;
+	}
+	public String getBookingCanceltime() {
+		return bookingCanceltime;
+	}
+	public void setBookingCanceltime(String bookingCanceltime) {
+		this.bookingCanceltime = bookingCanceltime;
 	}
 	
 

@@ -12,10 +12,11 @@ $(document).ready(function () {
 	// var reg = /^\d+$/;
 	// if (!reg.test(source_content)) { $(".alert").show();}
 
-	if ( source_id.substr(6) == 'vipA' || source_id.substr(6) == 'vipD' ) {
-	    var dest_name = source_id.substr(6);
-	}
-	else var dest_name = 's'+ source_id.substr(6);
+	//if ( source_id.substr(6) == 'vipA' || source_id.substr(6) == 'vipD' ) {
+	 //   var dest_name = source_id.substr(6);
+	//}
+//	else 
+var dest_name = 's'+ source_id.substr(6);
 	$('#'+ dest_name).val(source_content);
     });
 
@@ -78,8 +79,13 @@ $(document).ready(function () {
     };
 
     //add ticket to list
-    function add_ticket(sector, row, seat) {
-	$('#ticket_list').append("<tr class=\"ticket\"><td class=\"ticket_number\"></td>"+"<td>"+ sector +"</td>"+ "<td>"+ row + "</td>"+ "<td>" + seat + "</td>" + "<td class=\"ticket_price\">150</td><td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td></tr>");
+    function add_ticket(sector, row, seat,price) {
+	$('#ticket_list').append("<tr class=\"ticket\"><td class=\"ticket_number\"></td>"+"<td>"
+				 + sector +"</td>"
+				 + "<td>"+ row + "</td>"
+				 + "<td>" + seat + "</td>"
+				 + "<td class=\"ticket_price\">"+ price + "</td>"
+				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td></tr>");
 	recalculate_price_and_index();
     };
 
@@ -87,10 +93,35 @@ $(document).ready(function () {
     $('#add_random_ticket').click( function() {
 	var random_sector = Math.floor(Math.random()*24+1);
 	var random_row = Math.floor(Math.random()*20);
-	var random_seat = Math.floor(Math.random()*50)
-	add_ticket(random_sector, random_row, random_seat);
+	var random_seat = Math.floor(Math.random()*50);
+	var random_price = Math.floor(Math.random()*550);
+	add_ticket(random_sector, random_row, random_seat, random_price);
     });
 
+    //add ticket by clicking seat on sector plan
+    $('.sell_tickets_table td').click(function() {
+	if ($(this).is('[id]')
+	    && !($(this).hasClass('booked'))
+	    && !($(this).hasClass('occupied'))
+	    && !($(this).hasClass('selected')) ){
+	    $(this).addClass('selected');
+	    var id = $(this).attr('id').split('_');
+	    var sector = $('#sector_name').html().substr(6).slice(0,-6);
+	    var row = id[0];
+	    var seat = id[1];
+	    var price = Math.floor(Math.random()*550);
+	    add_ticket(sector,row,seat,price);
+	};
+    });
+
+    // delete ticket by clicking '-' button
+    $('#ticket_list').on('click', '.delete_ticket', function () {
+        var ticket = $(this).closest('td').siblings().map(function () { return $(this).text()});
+	var id = (ticket[2]+'_'+ticket[3]);
+	$('#'+id).toggleClass('selected');
+	$(this).closest('.ticket').remove();
+	recalculate_price_and_index();
+    });
 
     // initial run to set numbers for all tickets
     // possibly move this functionality to backend
@@ -99,9 +130,4 @@ $(document).ready(function () {
     // restrict changing price when selling or booking
     $('#disable_inputs > input').attr('disabled','disabled');
 
-    // delete ticket by clicking '-' button
-    $('.delete_ticket').click( function() {
-	$(this).closest('.ticket').remove();
-	recalculate_price_and_index();
-    });
 });

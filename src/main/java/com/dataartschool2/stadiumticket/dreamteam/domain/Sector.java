@@ -10,33 +10,65 @@ public class Sector {
     @GeneratedValue
     private int id;
 
-    private String number;
+    private String name;
 
     private int seatsQuantity;
 
     public Sector(){}
 
-    public Sector(int id, String number, int seatsQuantity) {
+    public Sector(int id, String name, int seatsQuantity) {
         this.id = id;
-        this.number = number;
+        this.name = name;
         this.seatsQuantity = seatsQuantity;
     }
-
+    
+    
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + seatsQuantity;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Sector))
+			return false;
+		Sector other = (Sector) obj;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (seatsQuantity != other.seatsQuantity)
+			return false;
+		return true;
+	}
+
+	public void setId(int id) {
         this.id = id;
     }
 
-    public String getNumber() {
-        return number;
+    public String getName() {
+        return name;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getSeatsQuantity() {

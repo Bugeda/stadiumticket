@@ -12,10 +12,11 @@ $(document).ready(function () {
 	// var reg = /^\d+$/;
 	// if (!reg.test(source_content)) { $(".alert").show();}
 
-	if ( source_id.substr(6) == 'vipA' || source_id.substr(6) == 'vipD' ) {
-	    var dest_name = source_id.substr(6);
-	}
-	else var dest_name = 's'+ source_id.substr(6);
+	//if ( source_id.substr(6) == 'vipA' || source_id.substr(6) == 'vipD' ) {
+	 //   var dest_name = source_id.substr(6);
+	//}
+//	else 
+var dest_name = 's'+ source_id.substr(6);
 	$('#'+ dest_name).val(source_content);
     });
 

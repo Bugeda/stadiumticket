@@ -7,8 +7,6 @@ public interface SectorService {
 
 	public void updateSector(Sector sector);
 
-	public void deleteSector(Sector sector);
-
 	public Sector findById(Integer id);
 
 }

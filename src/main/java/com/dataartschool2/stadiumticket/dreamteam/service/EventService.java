@@ -10,13 +10,13 @@ public interface EventService {
 	
 	public void updateEvent(Event event);
 	
-	public void deleteEvent(Event event);
-	
 	public Event findById(Integer id);
 	
 	public List<Event> getFutureEvents();	
 	
 	public List<Event> getPastEvents();
+
+	
 	
 
 }

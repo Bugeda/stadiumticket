@@ -28,8 +28,7 @@ public class SectorPriceServiceImpl implements SectorPriceService {
 	@Override
 	@Transactional
 	public List<SectorPrice> getPricesSectorsOfEvent(Event ev) {
-		// TODO Auto-generated method stub
-		return null;
+		return sectorPriceDAO.getPricesSectorsOfEvent(ev) ;
 	}
 	
 }

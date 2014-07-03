@@ -21,12 +21,6 @@ public class SectorServiceImpl implements SectorService {
 	
 	@Override
 	@Transactional
-	public void deleteSector(Sector sector){
-		sectorDAO.deleteEntity(sector);
-	}
-		
-	@Override
-	@Transactional
 	public Sector findById(Integer id){
 		return sectorDAO.findById(id);	 
 	}

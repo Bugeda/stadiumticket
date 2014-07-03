@@ -36,7 +36,7 @@
    <body>
      <div class="container">
        <div class="row">
-	 <div class="col-xs-1 col-md-1"><a href=""><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	 <div class="col-xs-1 col-md-1"><a href="<c:url value=""/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	 <div class="col-xs-6 col-md-9">
 	   <h1>Events
 	     <a href="<c:url value="/events/new_event"/>"><img src="<%= request.getContextPath() %>/images/add_event_button.png"></a>
@@ -71,7 +71,7 @@
 				<a href="#"><img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/search_booked.png"></a>				
-				<a href="<c:url value="/events/edit_event/?id=${events.getId()}"/>">
+				<a href="<c:url value="/events/edit_event?id=${events.getId()}"/>">
 					<img src="<%= request.getContextPath() %>/images/edit_event.png">
 				</a>
 	      	</td>
