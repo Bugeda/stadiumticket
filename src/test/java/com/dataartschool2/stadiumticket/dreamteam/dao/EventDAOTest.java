@@ -43,7 +43,7 @@ public class EventDAOTest{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 		Date d = sdf.parse("2014-05-16 17:00:00.0");
 		Timestamp stamp = new Timestamp(d.getTime());		
-        Event expected = new Event(5, "Черноморец - Карпаты", stamp);
+        Event expected = new Event(5, "Черноморец - Карпаты", stamp, 30);
 
         Event actual = eventDAO.findById(5);
         assertNotNull(actual);
@@ -56,8 +56,8 @@ public class EventDAOTest{
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
         //create    	
-    	Event expected = new Event(15, "1", stamp); 
-    	eventDAO.updateEntity(new Event(15, "1", stamp));        
+    	Event expected = new Event(15, "1", stamp, 30); 
+    	eventDAO.updateEntity(new Event(15, "1", stamp, 30));        
         //read
     	Event actual = eventDAO.findById(15);     	
     	assertEquals(actual,expected);
@@ -71,7 +71,7 @@ public class EventDAOTest{
         stamp.setYear(10);
         stamp.setMonth(8);
         stamp.setDate(25);
-        Event ev = new Event(15, "newname", stamp);  
+        Event ev = new Event(15, "newname", stamp,30);  
     	eventDAO.updateEntity(ev);    	
         Event actual = eventDAO.findById(15);	
   
@@ -83,7 +83,7 @@ public class EventDAOTest{
     public void entityDeleteTest(){
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
-    	Event ev = new Event(15, "newname", stamp);  
+    	Event ev = new Event(15, "newname", stamp,30);  
     	eventDAO.updateEntity(ev);    	
     	eventDAO.deleteEntity(ev);
         Event actual = eventDAO.findById(15);	
@@ -93,14 +93,14 @@ public class EventDAOTest{
     @Test
     public void entityListTest() throws ParseException{
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	 	Event ev1=new Event(1, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-18 15:00:00").getTime()));
-    	Event ev2=new Event(2, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-20 16:00:00").getTime()));
-    	Event ev3=new Event(3, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-23 11:00:00").getTime()));
-    	Event ev4=new Event(4, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-23 19:00:00").getTime()));
-    	Event ev5=new Event(5, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-16 17:00:00").getTime()));
-    	Event ev6=new Event(6, "Шахтер - Волынь", new Timestamp(sdf.parse("2014-05-18 14:00:00").getTime()));
-    	Event ev7=new Event(7, "Металлист - Карпаты", new Timestamp(sdf.parse("2014-05-18 12:00:00").getTime()));    
-    	Event ev8=new Event(8, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-20 14:00:00").getTime()));
+	 	Event ev1=new Event(1, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-18 15:00:00").getTime()), 30);
+    	Event ev2=new Event(2, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-20 16:00:00").getTime()), 30);
+    	Event ev3=new Event(3, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-23 11:00:00").getTime()), 30);
+    	Event ev4=new Event(4, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-23 19:00:00").getTime()), 30);
+    	Event ev5=new Event(5, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-16 17:00:00").getTime()), 30);
+    	Event ev6=new Event(6, "Шахтер - Волынь", new Timestamp(sdf.parse("2014-05-18 14:00:00").getTime()), 30);
+    	Event ev7=new Event(7, "Металлист - Карпаты", new Timestamp(sdf.parse("2014-05-18 12:00:00").getTime()), 30);    
+    	Event ev8=new Event(8, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-20 14:00:00").getTime()), 30);
     	List<Event> expecteds = Arrays.asList(ev1,ev2,ev3,ev4,ev5,ev6,ev7,ev8);
     			
         List<Event> actuals = eventDAO.findAll();

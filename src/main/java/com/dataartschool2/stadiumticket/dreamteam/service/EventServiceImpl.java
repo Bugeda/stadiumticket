@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dataartschool2.stadiumticket.dreamteam.dao.EventDAO;
+import com.dataartschool2.stadiumticket.dreamteam.dao.SectorPriceDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import com.mysql.jdbc.Field;
 
@@ -19,6 +20,8 @@ public class EventServiceImpl implements EventService{
 	@Autowired
 	private EventDAO eventDAO;
 	
+	@Autowired
+	private SectorPriceDAO sectorPriceDAO;
 	
 	@Override
 	@Transactional
@@ -26,12 +29,6 @@ public class EventServiceImpl implements EventService{
 		eventDAO.updateEntity(event);
 	}
 	
-	@Override
-	@Transactional
-	public void deleteEvent(Event event){
-		eventDAO.deleteEntity(event);
-	}
-		
 	@Override
 	@Transactional
 	public Event findById(Integer id){
@@ -50,9 +47,5 @@ public class EventServiceImpl implements EventService{
 		return 	eventDAO.findPastEvents();
 	}
 
-
-
-
-	
 }
 

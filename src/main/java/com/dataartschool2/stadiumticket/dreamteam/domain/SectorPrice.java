@@ -1,21 +1,23 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+
+import javax.persistence.*;
+
+import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
+
+
 
 @Entity
 public class SectorPrice {
-
-    @Id
+	
+   @Id
     @GeneratedValue
     private int id;
 
     @OneToOne
     private Sector sector;
-
-    @OneToOne
+    
+    @ManyToOne	
     private Event event;
 
     private double price;
@@ -28,8 +30,48 @@ public class SectorPrice {
         this.event = event;
         this.price = price;
     }
+    
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((event == null) ? 0 : event.hashCode());
+		result = prime * result + id;
+		long temp;
+		temp = Double.doubleToLongBits(price);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((sector == null) ? 0 : sector.hashCode());
+		return result;
+	}
 
-    public int getId() {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof SectorPrice))
+			return false;
+		SectorPrice other = (SectorPrice) obj;
+		if (event == null) {
+			if (other.event != null)
+				return false;
+		} else if (!event.equals(other.event))
+			return false;
+		if (id != other.id)
+			return false;
+		if (Double.doubleToLongBits(price) != Double
+				.doubleToLongBits(other.price))
+			return false;
+		if (sector == null) {
+			if (other.sector != null)
+				return false;
+		} else if (!sector.equals(other.sector))
+			return false;
+		return true;
+	}
+
+	public int getId() {
         return id;
     }
 

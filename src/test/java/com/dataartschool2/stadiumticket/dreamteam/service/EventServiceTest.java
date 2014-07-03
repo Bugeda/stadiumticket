@@ -33,7 +33,7 @@ public class EventServiceTest{
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
     	
-        Event expected = new Event(15, "1", stamp);    	
+        Event expected = new Event(15, "1", stamp, 30);    	
     	eventService.updateEvent(expected);
     	
         Event actual = eventService.findById((Integer) 15);        
@@ -46,7 +46,7 @@ public class EventServiceTest{
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
     	    	
-        Event event = new Event(15, "1", stamp); 	
+        Event event = new Event(15, "1", stamp, 30); 	
     	eventService.updateEvent(event);
     	
     	Event actual = eventService.findById((Integer) 15);
@@ -64,8 +64,8 @@ public class EventServiceTest{
     	Timestamp stamp = new Timestamp(date.getTime());
     	
         //new event
-    	Event begEvent = new Event(15, "1", stamp);
-        Event dbEvent = new Event(15, "1", stamp);
+    	Event begEvent = new Event(15, "1", stamp, 30);
+        Event dbEvent = new Event(15, "1", stamp, 30);
         
         //insert in db
         eventService.updateEvent(dbEvent);
@@ -95,7 +95,7 @@ public class EventServiceTest{
     	Timestamp stamp = new Timestamp(date.getTime());
     	
         //new event
-    	Event newEvent = new Event(15, "1", stamp);
+    	Event newEvent = new Event(15, "1", stamp, 30);
         eventService.updateEvent(newEvent);                       
 
         Event currentEvent = eventService.findById((Integer) 15);    	        
