@@ -237,7 +237,7 @@ hr {
     background-color: #000075;
 }
 /* sell_tickets_table styles */
-.sell_tickets_table > tbody > tr > td:hover {
+.sell_tickets_table > tbody > tr > td:hover, .selected {
     background: #000075;
 }
 
