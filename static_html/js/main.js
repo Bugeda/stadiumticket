@@ -78,8 +78,11 @@ $(document).ready(function () {
 				 + sector +"</td>"
 				 + "<td>"+ row + "</td>"
 				 + "<td>" + seat + "</td>"
-				 + "<td class=\"ticket_price\">"+ price + "</td>"
-				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td></tr>");
+				 + "<td class=\"ticket_price\">"+ 2*price + "</td>"
+				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
+				 + "<td><input name=\"sector\" type=\"hidden\" value="+sector+">"
+				 + "<input name=\"row\" type=\"hidden\" value="+row+">"
+				 + "<input name=\"seat\" type=\"hidden\" value="+seat+"></td></tr>" );
 	recalculate_price_and_index();
     };
 
@@ -122,8 +125,7 @@ $(document).ready(function () {
     });
 
     // initial run to set numbers for all tickets
-    // possibly move this functionality to backend
-    recalculate_price_and_index();
+    // recalculate_price_and_index();
 
     // restrict changing price when selling or booking
     $('#disable_inputs > input').attr('disabled','disabled');
