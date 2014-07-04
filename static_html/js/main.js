@@ -20,7 +20,7 @@ $(document).ready(function () {
 	timepicker:true,
 	step:15,
 	format:'d-m-Y H:i',
-	minTime:0,
+	startDate:'+1970/01/02',
   	minDate:0,
 	dayOfWeekStart: 1
     });
