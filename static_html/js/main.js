@@ -14,6 +14,7 @@ $(document).ready(function () {
 	$('#'+ dest_name).val(source_content);
     });
 
+    //datetimepicker configuration
     $('#start').datetimepicker({
 	lang:'en',
 	timepicker:true,
@@ -113,13 +114,17 @@ $(document).ready(function () {
 	    $(this).addClass('selected');
 	    var id = $(this).attr('id').split('_');
 	    var sector = $('#sector_name').html().substr(6).slice(0,-6);
-	    if (sector == 'VIP A') {sector = 27}
-	    else sector = parseInt(sector);
-	    if (sector == 'VIP D') {sector = 26}
-	    else sector = parseInt(sector);
+	    var sector_number = 0;
+	    console.log((sector == ' VIP A '));
+	    console.log(sector,sector_number);
+	    if ((sector != ' VIP A ') && (sector != ' VIP D '))
+	    {sector_number = parseInt(sector)};
+	    if (sector == ' VIP A ') {sector_number= 27}
+	    if (sector == ' VIP D ') {sector_number= 26}
+	    console.log(sector,sector_number);
+	    var price = $("#price_" + sector_number).val();
 	    var row = id[0];
 	    var seat = id[1];
-	    var price = $("#price_" + sector).val();
 	    add_ticket(sector,row,seat,price);
 	};
     });
