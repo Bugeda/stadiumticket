@@ -14,16 +14,25 @@ $(document).ready(function () {
 	$('#'+ dest_name).val(source_content);
     });
 
-     // initialize input widgets first
-    $('#start_time').timepicker({
-        'showDuration': true,
-        'timeFormat': 'g:ia'
+    $('#start').datetimepicker({
+	lang:'en',
+	timepicker:true,
+	step:15,
+	format:'d-m-Y H:i',
+	minTime:0,
+  	minDate:0,
+	dayOfWeekStart: 1
     });
 
-    $('#date').datepicker({
-        'format': 'm/d/yyyy',
-        'autoclose': true
+    $('#booking_time').datetimepicker({
+	lang:'en',
+	datepicker:false,
+	value: 30,
+	step:5,
+	format: 'i',
+	formatTime: 'i'
     });
+
 
     if ($('#event_list').length != 0) {
 
