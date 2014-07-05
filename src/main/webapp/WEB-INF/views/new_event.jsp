@@ -47,18 +47,21 @@
 	 </div>
     <div class="row">
 	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/submit/new_event" modelAttribute="newEventForm">
+	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/new_event" modelAttribute="newEventForm">
 	    <div class="form-group">
 	      <label for="title">Title:</label>
-	      <input class="form-control" type="text" name="eventName" id="title" placeholder="please enter event name"/>
+	      <form:input class="form-control" path="eventName" id="title" placeholder="please enter event name"/>
+	      <form:errors path="eventName" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
 	      <label for="eventDate">Start at:</label>
-	      <input class="form-control" type="text" name="eventDate"  id="start" placeholder="Select event start time and date"/>
+	      <form:input class="form-control" type="text" path="eventDate"  id="start" placeholder="Select event start time and date"/>
+	      <form:errors path="eventDate" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
 	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
-	      <input class="form-control" type="text" name="bookingCanceltime" id="booking_time" placeholder="Enter time, before which all booked tickets are cancelled">       
+	      <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time" placeholder="Enter time, before which all booked tickets are cancelled"/>
+	      <form:errors path="bookingCanceltime" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
 	      <% for (int i=1;i<28;i++) {%>

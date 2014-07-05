@@ -1,5 +1,8 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class NewEventForm {
 	
 	/*private	String vipA;
@@ -193,13 +196,18 @@ public class NewEventForm {
 		this.s25 = s25;
 	}*/
 	private	int id;
-	
+
+    @NotNull(message = "Event name must be filled.")
+    @Size(min = 1, message ="Event name must be filled.")
 	private	String eventName;
-	
+
+    @NotNull(message = "Sector prices must be filled.")
 	private String[] sectorPrice;
-		
+
+    @NotNull(message = "Event date must be filled.")
 	private	String eventDate;
-	
+
+    @NotNull(message = "Booking cancel time must be filled")
 	private String bookingCanceltime;
 	
 	public  int getId() {
