@@ -1,4 +1,4 @@
-package com.dataartschool2.stadiumticket.dreamteam.web;
+﻿package com.dataartschool2.stadiumticket.dreamteam.web;
 
 
 import java.sql.Timestamp;
@@ -191,4 +191,29 @@ public class EventsController{
 		eventService.updateEvent(ev);
 		return "redirect:/index";
 	}
+	
+	   @RequestMapping(value = "/booking/book_tickets")
+	    public String book_ticket(@RequestParam Integer id, Map<String, Object> map, Model model) {
+			model.asMap().clear();
+			Event ev=null; 
+			ev = eventService.findById(id);
+			if ((ev==null)||(ev.isDelete())){
+				JOptionPane.showMessageDialog(null,	"Event with id="+id +" not found", "Error",  JOptionPane.ERROR_MESSAGE);
+				return "redirect:/index";
+			}
+			else
+				if (ev.getEventDate().before(new Date())){
+					return "redirect:/index";
+				}
+				else
+				{   
+					model.asMap().clear();
+					map.put("event", ev);
+					List<SectorPrice> sps = sectorPriceService.getPricesSectorsOfEvent(ev);
+					map.put("sectorPrices", sps);
+				
+					return "/booking/book_tickets";
+				}
+	    }
+	  	   
 }
