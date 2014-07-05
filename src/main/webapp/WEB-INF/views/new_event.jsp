@@ -47,7 +47,7 @@
 	 </div>
     <div class="row">
 	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  method="post" modelAttribute="newEventForm">
+	 	<form:form class="form-horizontal"  action="/stadiumticket/new_event" method="post" modelAttribute="newEventForm">
             <div class="form-group">
               <label for="title">Title:</label>
               <form:input class="form-control" path="eventName" id="title" placeholder="please enter event name"/>
