@@ -1,10 +1,5 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.List;
-
-import javax.swing.JOptionPane;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +7,10 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.swing.*;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 
 public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityClass>{
@@ -43,17 +42,9 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 		this.session = session;
 	}
 	//CRUD
-	public EntityClass updateEntity(EntityClass entity) { 
-		EntityClass result= null;
-
-	    try {
-			getSession().saveOrUpdate(entity); 
-			result = entity;
-	    }
-		catch (Exception e) {  
-	    //	System.out.println(e.getMessage());
-		}
-		return result;  
+	public EntityClass updateEntity(EntityClass entity) {
+	    getSession().saveOrUpdate(entity);
+		return entity;
 	}  
 	//
 

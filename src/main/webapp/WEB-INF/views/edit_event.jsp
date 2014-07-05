@@ -49,10 +49,10 @@
 	 </div>
     <div class="row">
 	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/submit/edit_event" modelAttribute="newEventForm">
+	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/edit_event" modelAttribute="editEventForm">
 	    <div class="form-group">
 	      <label for="title">Title:</label>
-	      <form:input class="form-control" type="text" path="eventName" id="title" value="${event.eventName}"/>
+	      <form:input class="form-control" type="text" path="eventName" id="title"/>
 	    </div>
 	    <div class="form-group">
 	      <label for="eventDate">Start at:</label>

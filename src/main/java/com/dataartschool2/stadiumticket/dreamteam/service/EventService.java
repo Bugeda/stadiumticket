@@ -12,9 +12,9 @@ public interface EventService {
 
     void deleteEvent(Event event);
 
-    NewEventForm getEventForm(Integer id);
+    NewEventForm getEventForm(int  id);
 
-    public void updateEvent(Event event);
+    public Event updateEvent(Event event);
 	
 	public Event findById(Integer id);
 	
@@ -23,6 +23,8 @@ public interface EventService {
 	public List<Event> getPastEvents();
 
     public void createEvent(NewEventForm evForm) throws ParseException;
-	
+
+    public void editEvent(NewEventForm editEventForm) throws ParseException;
+
 
 }

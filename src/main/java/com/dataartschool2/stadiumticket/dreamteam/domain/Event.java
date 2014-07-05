@@ -1,18 +1,16 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
-import javax.persistence.*;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Entity
 public class Event {
 
 	@Id
     @GeneratedValue  
-    private int id;
+    private Integer id;
 
 	private String eventName;
 
@@ -29,55 +27,53 @@ public class Event {
         this.eventDate = eventDate; 
         this.bookingCanceltime = bookingCanceltime;        
     }
-    
-       
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + bookingCanceltime;
-		result = prime * result
-				+ ((eventDate == null) ? 0 : eventDate.hashCode());
-		result = prime * result
-				+ ((eventName == null) ? 0 : eventName.hashCode());
-		result = prime * result + id;
-		result = prime * result + (isDelete ? 1231 : 1237);
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Event))
-			return false;
-		Event other = (Event) obj;
-		if (bookingCanceltime != other.bookingCanceltime)
-			return false;
-		if (eventDate == null) {
-			if (other.eventDate != null)
-				return false;
-		} else if (!eventDate.equals(other.eventDate))
-			return false;
-		if (eventName == null) {
-			if (other.eventName != null)
-				return false;
-		} else if (!eventName.equals(other.eventName))
-			return false;
-		if (id != other.id)
-			return false;
-		if (isDelete != other.isDelete)
-			return false;
-		return true;
-	}
 
-	public int getId() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Event event = (Event) o;
+
+        if (bookingCanceltime != event.bookingCanceltime) {
+            return false;
+        }
+        if (isDelete != event.isDelete) {
+            return false;
+        }
+        if (!eventDate.equals(event.eventDate)) {
+            return false;
+        }
+        if (!eventName.equals(event.eventName)) {
+            return false;
+        }
+        if (id != null ? !id.equals(event.id) : event.id != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + eventName.hashCode();
+        result = 31 * result + eventDate.hashCode();
+        result = 31 * result + bookingCanceltime;
+        result = 31 * result + (isDelete ? 1 : 0);
+        return result;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

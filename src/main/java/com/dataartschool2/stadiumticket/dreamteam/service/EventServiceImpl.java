@@ -36,15 +36,29 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public NewEventForm getEventForm(Integer id) {
+    public NewEventForm getEventForm(int id) {
         NewEventForm newEventForm = new NewEventForm();
+        Event event = eventDAO.findById(id);
+        List<SectorPrice> prices = sectorPriceDAO.getPricesSectorsOfEvent(event);
+
+        newEventForm.setId(event.getId());
+        newEventForm.setBookingCanceltime(Integer.toString(event.getBookingCanceltime()));
+        newEventForm.setEventDate(event.getEventDate().toString());
+        newEventForm.setEventName(event.getEventName());
+        SectorPrice[] sectorPrices = prices.toArray(new SectorPrice[1]);
+        String[] sectorPricesStrings = new String[sectorPrices.length];
+        for(int i = 0; i < sectorPrices.length; ++i){
+            sectorPricesStrings[i] = sectorPrices[i].toString();
+        }
+        newEventForm.setSectorPrice(sectorPricesStrings);
+
         return newEventForm;
     }
 
     @Override
 	@Transactional
-	public void updateEvent(Event event){
-		eventDAO.updateEntity(event);
+	public Event updateEvent(Event event){
+		return eventDAO.updateEntity(event);
 	}
 	
 	@Override
@@ -67,25 +81,52 @@ public class EventServiceImpl implements EventService{
 
     @Override
     @Transactional
-    public void createEvent(NewEventForm evForm) throws ParseException {
+    public void createEvent(NewEventForm eventForm) throws ParseException {
+        System.out.println("CREATING EVENT");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Date date = simpleDateFormat.parse(eventForm.getEventDate());
+        Timestamp stamp = new Timestamp(date.getTime());
+        stamp.setSeconds(0);
+        Event event = new Event();
+
+        event.setEventName(eventForm.getEventName());
+        event.setEventDate(stamp);
+        event.setBookingCanceltime(Integer.parseInt(eventForm.getBookingCanceltime()));
+        event = updateEvent(event);
+        System.out.println("Event ID: " + event.getId());
+        int sectorId=1;
+        for (String e : eventForm.getSectorPrice()){
+            System.out.println(e);
+            SectorPrice sectorPrice =new SectorPrice();
+            sectorPrice.setEvent(event);
+            Sector sector= sectorDAO.findById(sectorId);
+            sectorPrice.setSector(sector);
+            sectorPrice.setPrice(Double.parseDouble(e));
+            sectorPriceDAO.updateEntity(sectorPrice);
+            sectorId++;
+        }
+    }
+
+    @Override
+    @Transactional
+    public void editEvent(NewEventForm editEventForm) throws ParseException {
+        Integer eventId=editEventForm.getId();
+
+        Event event = findById(eventId);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        Date d = sdf.parse(evForm.getEventDate());
+        Date d = sdf.parse(editEventForm.getEventDate());
         Timestamp stamp = new Timestamp(d.getTime());
         stamp.setSeconds(0);
-        Event ev=new Event();
-        ev.setEventName(evForm.getEventName());
-        ev.setEventDate(stamp);
-        ev.setBookingCanceltime(Integer.parseInt(evForm.getBookingCanceltime()));
-        updateEvent(ev);
-        Integer evId=ev.getId();
-        SectorPrice sp = null;
-        Sector sector=null;
+        event.setEventName(editEventForm.getEventName());
+        event.setEventDate(stamp);
+        event.setBookingCanceltime(Integer.parseInt(editEventForm.getBookingCanceltime()));
+        updateEvent(event);
         int sectorId=1;
-        for (String e : evForm.getSectorPrice()){
-            System.out.println(e);
-            sp=new SectorPrice();
-            sp.setEvent(ev);
-            sector= sectorDAO.findById(sectorId);
+        for (String e : editEventForm.getSectorPrice()){
+
+            SectorPrice sp=new SectorPrice();
+            sp.setEvent(event);
+            Sector sector = sectorDAO.findById(sectorId);
             sp.setSector(sector);
             sp.setPrice(Double.parseDouble(e));
             sectorPriceDAO.updateEntity(sp);
