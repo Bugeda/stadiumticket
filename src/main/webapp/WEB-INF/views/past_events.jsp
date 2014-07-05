@@ -32,10 +32,10 @@
    <body>
      <div class="container">
        <div class="row">
-	 <div class="col-xs-1 col-md-1"><a href=""><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	 <div class="col-xs-1 col-md-1"><a href="index"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	 <div class="col-xs-6 col-md-9">
 	   <h3>
-		<a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;Past events
+		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;Past events
 	   </h3>
 	 </div>	
        </div>
@@ -58,7 +58,7 @@
 	    <c:forEach items="${events}" var="events">
 	    <tr class="event">
 		<td class="event_name"><c:out value="${events.getEventName()}"></c:out></td>
-		<td class="event_datetime"><fmt:formatDate value="${events.getEventDate()}" pattern="dd.MM.yy HH:mm" /></td>
+		<td class="event_datetime"><fmt:formatDate value="${events.getEventDate()}" pattern="dd-MM-yyyy HH:mm" /></td>
 	      	<td class="action_list" style="{display: none;}" >
 				<a href="#"><img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>

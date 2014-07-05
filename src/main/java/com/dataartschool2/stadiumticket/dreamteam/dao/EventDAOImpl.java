@@ -1,6 +1,5 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.mysql.jdbc.Field;
 
 @Repository  
 @Transactional  

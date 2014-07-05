@@ -1,8 +1,6 @@
 package com.dataartschool2.stadiumticket.dreamteam.web;
 
 
-import java.io.ObjectOutputStream.PutField;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,8 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
 import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
@@ -56,34 +51,35 @@ public class EventsController{
         return "/index";
     }
 	
-    @RequestMapping(value = "/events/past_events")
+    @RequestMapping(value = "/past_events")
     public String getArchiveEvents(Map<String, Object> map) {
     	
     	List<Event> allEvents = eventService.getPastEvents();
     	map.put("events", allEvents);
 		   	
-        return "/events/past_events";
+        return "/past_events";
     }
     
 
-    @RequestMapping(value = "/events/new_event")
+    @RequestMapping(value = "/new_event")
     public String new_event(Map<String, Object> map, Model model) {
     	model.asMap().clear();
-        return "/events/new_event";
+        return "/new_event";
     }
 	
-	@RequestMapping(value="/events/submitnew_event")
+	@RequestMapping(value="/submit/new_event")
     public String submit_new_event(@ModelAttribute("submit") String submit, @ModelAttribute("newEventForm") NewEventForm evForm, Map<String, Object> map, Model model) throws ParseException {
 		model.asMap().clear();
 		if (submit.equals("Cancel changes")){ 
 			
-			return "redirect:/events/new_event";
+			return "redirect:/new_event";
 		}
 	
     	//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-		SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy HH:mm:ss.S");
-		Date d = sdf.parse(evForm.getEventDate()+" 17:00:00.0");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		Date d = sdf.parse(evForm.getEventDate());
 		Timestamp stamp = new Timestamp(d.getTime());	
+		stamp.setSeconds(0);
 		Event ev=new Event();
 		ev.setEventName(evForm.getEventName());
 		ev.setEventDate(stamp);
@@ -106,11 +102,11 @@ public class EventsController{
         
         return "redirect:/index";     
 	}
-    @RequestMapping(value = "/events/submitedit_event")
+    @RequestMapping(value = "/submit/edit_event")
     public String submit_edit_event(@ModelAttribute("submit") String submit, @ModelAttribute("newEventForm") NewEventForm evForm, Map<String, Object> map, Model model) throws ParseException {
     	model.asMap().clear();
     	if (submit.equals("Cancel changes")){ 
-			 return "redirect:/events/edit_event?id="+evForm.getId();
+			 return "redirect:/edit_event?id="+evForm.getId();
 		}
    		Integer evId=evForm.getId();
 		Event ev=null; 
@@ -121,12 +117,12 @@ public class EventsController{
 		}
 		else
 			if (ev.getEventDate().before(new Date()))
-				return "/events/past_events";
+				return "/past_events";
 			else{   
-				SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy HH:mm:ss.S");
-				Date d = sdf.parse(evForm.getEventDate()+" 17:00:00.0");
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+				Date d = sdf.parse(evForm.getEventDate());
 				Timestamp stamp = new Timestamp(d.getTime());	
-				
+				stamp.setSeconds(0);
 				ev.setEventName(evForm.getEventName());
 				ev.setEventDate(stamp);
 				ev.setBookingCanceltime(Integer.parseInt(evForm.getBookingCanceltime()));
@@ -149,7 +145,7 @@ public class EventsController{
 		}
     }
 	
-	@RequestMapping(value = "/events/edit_event")
+	@RequestMapping(value = "/edit_event")
 	public String edit_event(@RequestParam Integer id, Map<String, Object> map, Model model) {	
 		model.asMap().clear();
 		Event ev=null; 
@@ -164,7 +160,7 @@ public class EventsController{
 		}
 		else
 			if (ev.getEventDate().before(new Date())){
-				return "/events/past_events";
+				return "/past_events";
 			}
 			else
 			{   
@@ -173,11 +169,11 @@ public class EventsController{
 				List<SectorPrice> sps = sectorPriceService.getPricesSectorsOfEvent(ev);
 				map.put("sectorPrices", sps);
 			
-				return "/events/edit_event";
+				return "/edit_event";
 			}
 	}
 	
-	@RequestMapping(value="/events/submitdelete_event")
+	@RequestMapping(value="/submit/delete_event")
     public String submit_delete_event(@ModelAttribute("newEventForm") NewEventForm evForm, Map<String, Object> map, Model model) {
 		model.asMap().clear();
 		Event ev=null; 

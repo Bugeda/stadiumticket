@@ -2,7 +2,6 @@ package com.dataartschool2.stadiumticket.dreamteam.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;

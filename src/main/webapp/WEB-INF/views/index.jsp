@@ -10,20 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>stadiumticket - list of events</title>
     <!-- css -->
+     <!-- css -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/bootstrap-theme.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.dataTables.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/css/jquery.timepicker.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/jquery.datetimepicker.css" rel="stylesheet">    
     <link href="<%= request.getContextPath() %>/css/main.css" type="text/css" rel="stylesheet">
 
     <!-- js -->
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     <script src="<%= request.getContextPath() %>/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.timepicker.js"></script>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/js/datepair.js"></script>
-    <script src="<%= request.getContextPath() %>/js/main.js"></script>
+    <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.datetimepicker.js"></script>
+    <script src="<%= request.getContextPath() %>/js/main.js"></script>  
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,14 +35,14 @@
    <body>
      <div class="container">
        <div class="row">
-	 <div class="col-xs-1 col-md-1"><a href="<c:url value=""/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	 <div class="col-xs-1 col-md-1"><a href="index"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	 <div class="col-xs-6 col-md-9">
 	   <h1>Events
-	     <a href="<c:url value="/events/new_event"/>"><img src="<%= request.getContextPath() %>/images/add_event_button.png"></a>
+	     <a href="<c:url value="/new_event"/>"><img src="<%= request.getContextPath() %>/images/add_event_button.png"></a>
 	   </h1>
 	 </div>
 	 <div class="col-xs-4 col-md-2">
-	   <a id="past_events" href="<c:url value="/events/past_events"/>"><img src="<%= request.getContextPath() %>/images/past_events.png"> past events</a><br>
+	   <a id="past_events" href="<c:url value="/past_events"/>"><img src="<%= request.getContextPath() %>/images/past_events.png"> past events</a><br>
 	   <a id="statistics" href="<c:url value=""/>"><img src="<%= request.getContextPath() %>/images/stats.png"> statistics</a>
 	 </div>
        </div>
@@ -66,12 +65,12 @@
 	    <c:forEach items="${events}" var="events">
 	    <tr class="event">
 		<td class="event_name"><c:out value="${events.getEventName()}"></c:out></td>
-		<td class="event_datetime"><fmt:formatDate value="${events.getEventDate()}" pattern="dd.MM.yy HH:mm" /></td>
+		<td class="event_datetime"><fmt:formatDate value="${events.getEventDate()}" pattern="dd-MM-yyyy HH:mm" /></td>
 	      	<td class="action_list" >
 				<a href="#"><img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/search_booked.png"></a>				
-				<a href="<c:url value="/events/edit_event?id=${events.getId()}"/>">
+				<a href="<c:url value="/edit_event?id=${events.getId()}"/>">
 					<img src="<%= request.getContextPath() %>/images/edit_event.png">
 				</a>
 	      	</td>
