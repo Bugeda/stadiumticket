@@ -55,13 +55,12 @@ public class NewEventValidator implements Validator {
             String eventDate = newEventForm.getEventDate();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             Date date = simpleDateFormat.parse(eventDate);
-            System.out.println("Parsed");
             Date now = new Date();
             if(date.before(now)){
                 errors.rejectValue("eventDate", "shouldBeInThePast", "Wrong date. Should be in the past.");
             }
         }catch (ParseException e){
-            errors.rejectValue("eventDate", "wrongDateFormat", "Wrong date. Should be dd-MM-yyyy HH-mm.");
+            errors.rejectValue("eventDate", "wrongDateFormat", "Wrong date. Should be dd-MM-yyyy HH:mm.");
         }
     }
 }
