@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `booking` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bookingStatus` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `ticket_id` int(11) DEFAULT NULL,
+  `bookingStatus` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'sold',
+  `customer_id` int(11) NOT NULL,
+  `ticket_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_BOOKING_TICKET` (`ticket_id`),
   KEY `FK_BOOKING_CUSTOMER` (`customer_id`)
@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS `booking` (
 
 CREATE TABLE IF NOT EXISTS `customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customerName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `customerSurname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customerName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `customerSurname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -58,8 +58,8 @@ CREATE TABLE IF NOT EXISTS `customer` (
 CREATE TABLE IF NOT EXISTS `event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bookingCanceltime` int(11) NOT NULL DEFAULT '30',
-  `eventDate` datetime DEFAULT NULL,
-  `eventName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `eventDate` datetime NOT NULL,
+  `eventName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `isDelete` boolean DEFAULT FALSE,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `seat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `rowNumber` int(11) NOT NULL,
   `seatNumber` int(11) NOT NULL,
-  `sector_id` int(11) DEFAULT NULL,
+  `sector_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_SEAT_SECTOR` (`sector_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `seat` (
 
 CREATE TABLE IF NOT EXISTS `sector` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `seatsQuantity` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
@@ -148,8 +148,8 @@ INSERT INTO `sector` (`id`, `name`, `seatsQuantity`) VALUES
 CREATE TABLE IF NOT EXISTS `sectorprice` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `price` double NOT NULL,
-  `event_id` int(11) DEFAULT NULL,
-  `sector_id` int(11) DEFAULT NULL,
+  `event_id` int(11) NOT NULL,
+  `sector_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_SECTORPRICE_SECTOR` (`sector_id`),
   KEY `FK_SECTORPRICE_EVENT` (`event_id`)
@@ -163,9 +163,9 @@ CREATE TABLE IF NOT EXISTS `sectorprice` (
 
 CREATE TABLE IF NOT EXISTS `ticket` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ticketNumber` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `event_id` int(11) DEFAULT NULL,
-  `seat_id` int(11) DEFAULT NULL,
+  `ticketNumber` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `seat_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_TICKET_EVENT` (`event_id`),
   KEY `FK_TICKET_SEAT` (`seat_id`)

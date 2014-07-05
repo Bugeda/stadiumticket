@@ -1,4 +1,4 @@
-﻿package com.dataartschool2.stadiumticket.dreamteam.web;
+package com.dataartschool2.stadiumticket.dreamteam.web;
 
 
 import java.sql.Timestamp;
@@ -193,7 +193,7 @@ public class EventsController{
 	}
 	
 	   @RequestMapping(value = "/booking/book_tickets")
-	    public String book_ticket(@RequestParam Integer id, Map<String, Object> map, Model model) {
+	    public String book_tickets(@RequestParam Integer id, Map<String, Object> map, Model model) {
 			model.asMap().clear();
 			Event ev=null; 
 			ev = eventService.findById(id);
