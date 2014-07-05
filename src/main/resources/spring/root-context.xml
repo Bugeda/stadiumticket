@@ -5,17 +5,18 @@
 -->
 <!--
  Включаем опцию использования конфигурационных аннотаций (@Annotation-based configuration)
--->
+ -->
 <context:annotation-config/>
 <!--
  Определяем папки, в которых будем автоматически искать бины-компоненты (@Component, @Service)  
 -->
-<context:component-scan base-package="com.dataartschool2.stadiumticket.dao"/>
-<context:component-scan base-package="com.dataartschool2.stadiumticket.service"/>
+<context:component-scan base-package="com.dataartschool2.stadiumticket.dreamteam.dao"/>
+<context:component-scan base-package="com.dataartschool2.stadiumticket.dreamteam.service"/>
+
 <!--
  Файл с настройками ресурсов для работы с данными (Data Access Resources) 
 -->
 <import resource="data.xml"/>
 <!--  Файл с настройками безопасности  -->
-<import resource="security.xml"/>
+<!--import resource="security.xml"/-->
 </beans>

@@ -16,6 +16,7 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
+
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basename" value="classpath:messages" />

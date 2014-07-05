@@ -165,7 +165,7 @@ map input {
 }
 
 .action_list img {
-    margin: 0 15px;
+    margin: 0px 15px;
     float: left;
 }
 
@@ -190,24 +190,24 @@ map input {
 }
 
 /*styles for table with tickets*/
-.table-responsive {
+table {
     font-size: 0.8em;
 }
 
-.table-responsive > tbody > tr > td {
+table > tbody > tr > td {
     width: 1.9%;
     text-align: center;
 }
 
-.table-responsive td:first-child {
+td:first-child {
     font-weight: bolder;
 }
 
-.table-responsive > tbody > tr > th, .table > tbody > tr > td {
+.table > tbody > tr > th, .table > tbody > tr > td {
     border-top: none;
 }
 
-.table-responsive > tbody > tr > td {
+.table > tbody > tr > td {
     padding: 2px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -215,7 +215,7 @@ map input {
     border-radius: 2px;
 }
 
-.table-responsive > tbody > tr > td > div {
+.table > tbody > tr > td > div {
     background: #ffffff;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
