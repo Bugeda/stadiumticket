@@ -1,4 +1,4 @@
-package com.dataartschool2.stadiumticket.dreamteam.dao;
+﻿package com.dataartschool2.stadiumticket.dreamteam.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;

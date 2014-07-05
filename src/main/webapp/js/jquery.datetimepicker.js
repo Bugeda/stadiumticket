@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @preserve jQuery DateTimePicker plugin v2.3.0
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
@@ -9,26 +9,26 @@
 		i18n:{
 			bg:{ // Bulgarian
 				months:[
-					"Януари", "Февруари", "Март", "Април", "Май", "Юни", "Юли", "Август", "Септември", "Октомври", "Ноември", "Декември"
+					"РЇРЅСѓР°СЂРё", "Р¤РµРІСЂСѓР°СЂРё", "РњР°СЂС‚", "РђРїСЂРёР»", "РњР°Р№", "Р®РЅРё", "Р®Р»Рё", "РђРІРіСѓСЃС‚", "РЎРµРїС‚РµРјРІСЂРё", "РћРєС‚РѕРјРІСЂРё", "РќРѕРµРјРІСЂРё", "Р”РµРєРµРјРІСЂРё"
 				],
 				dayOfWeek:[
-					"Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"
+					"РќРґ", "РџРЅ", "Р’С‚", "РЎСЂ", "Р§С‚", "РџС‚", "РЎР±"
 				]
 			},
 			fa:{ // Persian/Farsi
 				months:[
-					'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+					'ЩЃШ±Щ€Ш±ШЇЫЊЩ†', 'Ш§Ш±ШЇЫЊШЁЩ‡ШґШЄ', 'Ш®Ш±ШЇШ§ШЇ', 'ШЄЫЊШ±', 'Щ…Ш±ШЇШ§ШЇ', 'ШґЩ‡Ш±ЫЊЩ€Ш±', 'Щ…Щ‡Ш±', 'ШўШЁШ§Щ†', 'ШўШ°Ш±', 'ШЇЫЊ', 'ШЁЩ‡Щ…Щ†', 'Ш§ШіЩЃЩ†ШЇ'
 				],
 				dayOfWeek:[
-					'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه'
+					'ЫЊЪ©ШґЩ†ШЁЩ‡', 'ШЇЩ€ШґЩ†ШЁЩ‡', 'ШіЩ‡ ШґЩ†ШЁЩ‡', 'Ъ†Щ‡Ш§Ш±ШґЩ†ШЁЩ‡', 'ЩѕЩ†Ш¬ШґЩ†ШЁЩ‡', 'Ш¬Щ…Ш№Щ‡', 'ШґЩ†ШЁЩ‡'
 				]
 			},
 			ru:{ // Russian
 				months:[
-					'Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'
+					'РЇРЅРІР°СЂСЊ','Р¤РµРІСЂР°Р»СЊ','РњР°СЂС‚','РђРїСЂРµР»СЊ','РњР°Р№','РСЋРЅСЊ','РСЋР»СЊ','РђРІРіСѓСЃС‚','РЎРµРЅС‚СЏР±СЂСЊ','РћРєС‚СЏР±СЂСЊ','РќРѕСЏР±СЂСЊ','Р”РµРєР°Р±СЂСЊ'
 				],
 				dayOfWeek:[
-					"Вск", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"
+					"Р’СЃРє", "РџРЅ", "Р’С‚", "РЎСЂ", "Р§С‚", "РџС‚", "РЎР±"
 				]
 			},
 			en:{ // English
@@ -39,17 +39,17 @@
 					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
 				]
 			},
-			el:{ // Ελληνικά
+			el:{ // О•О»О»О·ОЅО№ОєО¬
 				months: [
-					"Ιανουάριος", "Φεβρουάριος", "Μάρτιος", "Απρίλιος", "Μάιος", "Ιούνιος", "Ιούλιος", "Αύγουστος", "Σεπτέμβριος", "Οκτώβριος", "Νοέμβριος", "Δεκέμβριος"
+					"О™О±ОЅОїП…О¬ПЃО№ОїП‚", "О¦ОµОІПЃОїП…О¬ПЃО№ОїП‚", "ОњО¬ПЃП„О№ОїП‚", "О‘ПЂПЃОЇО»О№ОїП‚", "ОњО¬О№ОїП‚", "О™ОїПЌОЅО№ОїП‚", "О™ОїПЌО»О№ОїП‚", "О‘ПЌОіОїП…ПѓП„ОїП‚", "ОЈОµПЂП„О­ОјОІПЃО№ОїП‚", "ОџОєП„ПЋОІПЃО№ОїП‚", "ОќОїО­ОјОІПЃО№ОїП‚", "О”ОµОєО­ОјОІПЃО№ОїП‚"
 				],
 				dayOfWeek: [
-					"Κυρ", "Δευ", "Τρι", "Τετ", "Πεμ", "Παρ", "Σαβ"
+					"ОљП…ПЃ", "О”ОµП…", "О¤ПЃО№", "О¤ОµП„", "О ОµОј", "О О±ПЃ", "ОЈО±ОІ"
 				]
 			},
 			de:{ // German
 				months:[
-					'Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'
+					'Januar','Februar','MГ¤rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'
 				],
 				dayOfWeek:[
 					"So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"
@@ -65,15 +65,15 @@
 			},
 			tr:{ // Turkish
 				months:[
-					"Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"
+					"Ocak", "Ећubat", "Mart", "Nisan", "MayД±s", "Haziran", "Temmuz", "AДџustos", "EylГјl", "Ekim", "KasД±m", "AralД±k"
 				],
 				dayOfWeek:[
-					"Paz", "Pts", "Sal", "Çar", "Per", "Cum", "Cts"
+					"Paz", "Pts", "Sal", "Г‡ar", "Per", "Cum", "Cts"
 				]
 			},
 			fr:{ //French
 				months:[
-			    "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+			    "Janvier", "FГ©vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "AoГ»t", "Septembre", "Octobre", "Novembre", "DГ©cembre"
 				],
 				dayOfWeek:[
 					"Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"
@@ -84,28 +84,28 @@
 					"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
 				],
 				dayOfWeek: [
-					"Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"
+					"Dom", "Lun", "Mar", "MiГ©", "Jue", "Vie", "SГЎb"
 				]
 			},
 			th:{ // Thai
 				months:[
-					'มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'
+					'аёЎаёЃаёЈаёІаё„аёЎ','аёЃаёёаёЎаё аёІаёћаё±аё™аёа№Њ','аёЎаёµаё™аёІаё„аёЎ','а№ЂаёЎаё©аёІаёўаё™','аёћаё¤аё©аё аёІаё„аёЎ','аёЎаёґаё–аёёаё™аёІаёўаё™','аёЃаёЈаёЃаёЋаёІаё„аёЎ','аёЄаёґаё‡аё«аёІаё„аёЎ','аёЃаё±аё™аёўаёІаёўаё™','аё•аёёаёҐаёІаё„аёЎ','аёћаё¤аёЁаё€аёґаёЃаёІаёўаё™','аёаё±аё™аё§аёІаё„аёЎ'
 				],
 				dayOfWeek:[
-					'อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'
+					'аё­аёІ.','аё€.','аё­.','аёћ.','аёћаё¤.','аёЁ.','аёЄ.'
 				]
 			},
 			pl:{ // Polish
 				months: [
-					"styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"
+					"styczeЕ„", "luty", "marzec", "kwiecieЕ„", "maj", "czerwiec", "lipiec", "sierpieЕ„", "wrzesieЕ„", "paЕєdziernik", "listopad", "grudzieЕ„"
 				],
 				dayOfWeek: [
-					"nd", "pn", "wt", "śr", "cz", "pt", "sb"
+					"nd", "pn", "wt", "Е›r", "cz", "pt", "sb"
 				]
 			},
 			pt:{ // Portuguese
 				months: [
-					"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+					"Janeiro", "Fevereiro", "MarГ§o", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
 				],
 				dayOfWeek: [
 					"Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"
@@ -113,10 +113,10 @@
 			},
 			ch:{ // Simplified Chinese
 				months: [
-					"一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"
+					"дёЂжњ€","дєЊжњ€","дё‰жњ€","е››жњ€","дє”жњ€","е…­жњ€","дёѓжњ€","е…«жњ€","д№ќжњ€","еЌЃжњ€","еЌЃдёЂжњ€","еЌЃдєЊжњ€"
 				],
 				dayOfWeek: [
-					"日", "一","二","三","四","五","六"
+					"ж—Ґ", "дёЂ","дєЊ","дё‰","е››","дє”","е…­"
 				]
 			},
 			se:{ // Swedish
@@ -124,15 +124,15 @@
 					"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September","Oktober", "November", "December"
 				],
 				dayOfWeek: [
-					"Sön", "Mån", "Tis", "Ons", "Tor", "Fre", "Lör"
+					"SГ¶n", "MГҐn", "Tis", "Ons", "Tor", "Fre", "LГ¶r"
 				]
 			},
 			kr:{ // Korean
 				months: [
-					"1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"
+					"1м›”", "2м›”", "3м›”", "4м›”", "5м›”", "6м›”", "7м›”", "8м›”", "9м›”", "10м›”", "11м›”", "12м›”"
 				],
 				dayOfWeek: [
-					"일", "월", "화", "수", "목", "금", "토"
+					"мќј", "м›”", "н™”", "м€", "лЄ©", "кё€", "н† "
 				]
 			},
 			it:{ // Italian
@@ -148,7 +148,7 @@
 					"January", "Februar", "Marts", "April", "Maj", "Juni", "July", "August", "September", "Oktober", "November", "December"
 				],
 				dayOfWeek: [
-					"Søn", "Man", "Tir", "ons", "Tor", "Fre", "lør"
+					"SГёn", "Man", "Tir", "ons", "Tor", "Fre", "lГёr"
 				]
 			},
 			no:{ // Norwegian
@@ -156,47 +156,47 @@
 					"Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"
 				],
 				dayOfWeek: [
-					"Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"
+					"SГёn", "Man", "Tir", "Ons", "Tor", "Fre", "LГёr"
 				]
 			},
 			ja:{ // Japanese
 				months: [
-					"1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"
+					"1жњ€", "2жњ€", "3жњ€", "4жњ€", "5жњ€", "6жњ€", "7жњ€", "8жњ€", "9жњ€", "10жњ€", "11жњ€", "12жњ€"
 				],
 				dayOfWeek: [
-					"日", "月", "火", "水", "木", "金", "土"
+					"ж—Ґ", "жњ€", "зЃ«", "ж°ґ", "жњЁ", "й‡‘", "ењџ"
 				]
 			},
 			vi:{ // Vietnamese
 				months: [
-					"Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+					"ThГЎng 1", "ThГЎng 2", "ThГЎng 3", "ThГЎng 4", "ThГЎng 5", "ThГЎng 6", "ThГЎng 7", "ThГЎng 8", "ThГЎng 9", "ThГЎng 10", "ThГЎng 11", "ThГЎng 12"
 				],
 				dayOfWeek: [
 					"CN", "T2", "T3", "T4", "T5", "T6", "T7"
 				]
 			},
-			sl:{ // Slovenščina
+			sl:{ // SlovenЕЎДЌina
 				months: [
 					"Januar", "Februar", "Marec", "April", "Maj", "Junij", "Julij", "Avgust", "September", "Oktober", "November", "December"
 				],
 				dayOfWeek: [
-					"Ned", "Pon", "Tor", "Sre", "Čet", "Pet", "Sob"
+					"Ned", "Pon", "Tor", "Sre", "ДЊet", "Pet", "Sob"
 				]
 			},
-			cs:{ // Čeština
+			cs:{ // ДЊeЕЎtina
 				months: [
-					"Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"
+					"Leden", "Гљnor", "BЕ™ezen", "Duben", "KvД›ten", "ДЊerven", "ДЊervenec", "Srpen", "ZГЎЕ™Г­", "ЕГ­jen", "Listopad", "Prosinec"
 				],
 				dayOfWeek: [
-					"Ne", "Po", "Út", "St", "Čt", "Pá", "So"
+					"Ne", "Po", "Гљt", "St", "ДЊt", "PГЎ", "So"
 				]
 			},
 			hu:{ // Hungarian
 			    months: [
-					"Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"
+					"JanuГЎr", "FebruГЎr", "MГЎrcius", "ГЃprilis", "MГЎjus", "JГєnius", "JГєlius", "Augusztus", "Szeptember", "OktГіber", "November", "December"
 			    ],
 			    dayOfWeek: [
-					"Va", "Hé", "Ke", "Sze", "Cs", "Pé", "Szo"
+					"Va", "HГ©", "Ke", "Sze", "Cs", "PГ©", "Szo"
 			    ]
 			}
 		},

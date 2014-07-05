@@ -1,4 +1,4 @@
-package com.dataartschool2.stadiumticket.dreamteam.domain;
+﻿package com.dataartschool2.stadiumticket.dreamteam.domain;
 
 import javax.persistence.*;
 
