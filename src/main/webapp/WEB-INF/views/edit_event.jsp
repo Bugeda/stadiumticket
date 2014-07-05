@@ -58,7 +58,7 @@
 	    <div class="form-group">
             <fmt:formatDate value="${editEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate"/>
 	      <label for="eventDate">Start at:</label>
-	      <input class="form-control"  name="eventDate"  id="start" value=${formattedDate}/>
+	      <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}"/>
 	    </div>
 	    <div class="form-group">
 	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
