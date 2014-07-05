@@ -50,13 +50,15 @@
     <div class="row">
 	<div class="col-md-5">
 	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/edit_event" modelAttribute="editEvent">
+	 	 <form:errors path="*" cssClass="alert-danger" />
 	    <div class="form-group">
 	      <label for="title">Title:</label>
 	      <form:input class="form-control"  path="eventName" id="title"/>
 	    </div>
 	    <div class="form-group">
+            <fmt:formatDate value="${editEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate"/>
 	      <label for="eventDate">Start at:</label>
-	      <input class="form-control" type="text" path="eventDate"  id="start" value='<fmt:formatDate value="${editEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" />'/>
+	      <input class="form-control"  name="eventDate"  id="start" value=${formattedDate}/>
 	    </div>
 	    <div class="form-group">
 	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
@@ -64,7 +66,7 @@
 	    </div>	    
 	    <div class="form-group">
 	      <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
-	        <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].sector.id"/>
+	        <input type="hidden" id="s${sectorPrice.sector.id}" name="editEvent.sectorPriceSet[${priceStatus.index}].sectorPrice.price"/>
 	      </c:forEach>
 	 	<form:hidden path="id"/>
 	    </div>
@@ -95,11 +97,10 @@
 	<div class="col-md-7">
           <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
 	  <map name="stadium">
-      <form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/edit_event" modelAttribute="editEvent">
-	 	<c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
-	         <form:input id="price_${sectorPrice.sector.id}" size="4" maxlength="4" path="sectorPriceSet[${priceStatus.index}].price"/>
+
+	 	<c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice">
+	         <input id="price_${sectorPrice.sector.id}" size="4" maxlength="4" value="${sectorPrice.price}"/>
 	    </c:forEach>
-      </form:form>
 
 	    <area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
 	    <area id="2" alt="2" title="2"  shape="poly" coords="431,119,431,53,446,53,446,20,485,20,520,29,478,117" />

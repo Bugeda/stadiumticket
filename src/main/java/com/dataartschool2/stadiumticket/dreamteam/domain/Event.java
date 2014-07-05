@@ -1,7 +1,10 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,7 +16,8 @@ public class Event {
 
 	private String eventName;
 
-    private Timestamp eventDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+    private Date eventDate;
 
     private int bookingCanceltime;
 
@@ -89,11 +93,11 @@ public class Event {
         this.eventName = eventName;
     }    
     
-    public Timestamp getEventDate() {
+    public Date getEventDate() {
     	return eventDate;
     }
 
-    public void setEventDate(Timestamp eventDate) {
+    public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
     }
 

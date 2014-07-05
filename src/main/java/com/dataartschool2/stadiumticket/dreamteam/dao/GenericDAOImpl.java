@@ -59,7 +59,6 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	@SuppressWarnings("unchecked")
 	public EntityClass findById(final Integer id) {
 		EntityClass result = (EntityClass) getSession().get(getEntityClass(), id);
-        System.out.println("GET BY ID " + id + " VALUE  " + result);
         return result;
 	}	
 	
@@ -68,7 +67,6 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    return findByCriteria();  
 	}  
 	protected List<EntityClass> findByCriteria(final Criterion... criterion) {
-		System.out.println(criterion.toString());
 		return findByCriteria(-1, -1, false, null, criterion);
 	}
 	@SuppressWarnings("unchecked")
@@ -92,7 +90,7 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    	if (order)  {
 	    		crit.addOrder(addorder);
 	    	}
-	    	System.out.println(crit.toString());
+
 	    	result = crit.list();
 	    }
 	    catch (Exception e) {

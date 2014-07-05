@@ -3,6 +3,7 @@ package com.dataartschool2.stadiumticket.dreamteam.web;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import com.dataartschool2.stadiumticket.dreamteam.domain.NewEventForm;
+import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 import com.dataartschool2.stadiumticket.dreamteam.service.EventService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorPriceService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorService;
@@ -118,13 +119,19 @@ public class EventsController{
                                     ModelMap modelMap) throws ParseException {
 
         if(bindingResult.hasErrors()){
+            System.out.println("Errors");
             modelMap.put("result", bindingResult);
             return "edit_event";
         }else{
             if (submit.equals("Cancel changes")){
+                System.out.println("Cancel");
                 return "redirect:/edit_event?id="+event.getId();
             }
-            eventService.updateEvent(event);
+                System.out.println(event.getEventDate());
+                for(SectorPrice sectorPrice : event.getSectorPriceSet()){
+                    System.out.println(sectorPrice.getPrice());
+                }
+                eventService.updateEvent(event);
                 return "redirect:/index";
         }
 
