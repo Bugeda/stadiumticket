@@ -9,13 +9,11 @@ import com.dataartschool2.stadiumticket.dreamteam.service.SectorService;
 import com.dataartschool2.stadiumticket.dreamteam.web.validator.NewEventValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.*;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
@@ -139,22 +137,9 @@ public class EventsController{
         return "edit_event";
 	}
 	
-	@RequestMapping(value="/submit/delete_event")
-    public String submit_delete_event(@ModelAttribute("newEventForm") NewEventForm evForm, Map<String, Object> map, Model model) {
-		model.asMap().clear();
-		Event ev=null; 
-		
-		ev = eventService.findById(evForm.getId());
-		
-		if (ev==null){
-			JOptionPane.showMessageDialog(null,	"Event with id="+evForm.getId() +" not found", "Error",  JOptionPane.ERROR_MESSAGE);
-			return "redirect:/index";
-		}else if (ev.isDelete()) {
-			JOptionPane.showMessageDialog(null,	"This event has deleted", "warning",  JOptionPane.WARNING_MESSAGE);
-			return "/index";
-		}
-		ev.setDelete(true);
-		eventService.updateEvent(ev);
+	@RequestMapping(value="/delete_event")
+    public String submit_delete_event(@ModelAttribute("editEvent") Event event, ModelMap modelMap) {
+        eventService.markAsDeleted(event);
 		return "redirect:/index";
 	}
 }

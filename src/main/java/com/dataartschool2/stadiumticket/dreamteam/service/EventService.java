@@ -14,6 +14,8 @@ public interface EventService {
 
     NewEventForm getEventForm(int  id);
 
+    void markAsDeleted(Event event);
+
     public Event updateEvent(Event event);
 	
 	public Event findById(Integer id);

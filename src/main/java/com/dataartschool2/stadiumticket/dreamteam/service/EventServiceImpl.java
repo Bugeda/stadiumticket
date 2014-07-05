@@ -57,6 +57,12 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
+    public void markAsDeleted(Event event) {
+        event.setDelete(true);
+        updateEvent(event);
+    }
+
+    @Override
 	@Transactional
 	public Event updateEvent(Event event){
 		return eventDAO.updateEntity(event);

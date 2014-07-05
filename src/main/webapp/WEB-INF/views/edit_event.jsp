@@ -73,7 +73,7 @@
 	 	  <input class="btn btn-warning" type="submit" name="submit" value="Cancel changes" id="event_cancel">
    	      <input class="btn btn-danger" type="button" value="Delete event" id="event_delete">
 	    </div>
-          </form:form>
+      </form:form>
 
 	  <form:form id="confirm_deletion_form"  method="post" action="${pageContext.request.contextPath}/events/delete_event" modelAttribute="editEvent">
 	    <div class="form-group">
