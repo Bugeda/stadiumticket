@@ -70,7 +70,7 @@
 				<a href="#"><img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/search_booked.png"></a>				
-				<a href="<c:url value="/edit_event?id=${events.Id}"/>">
+				<a href="<c:url value="/edit_event?id=${events.id}"/>">
 					<img src="<%= request.getContextPath() %>/images/edit_event.png">
 				</a>
 	      	</td>

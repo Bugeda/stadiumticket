@@ -85,6 +85,9 @@ public class EventsController{
                                    @Valid @ModelAttribute("newEventForm") NewEventForm evForm,
                                    BindingResult bindingResult,
                                    ModelMap modelMap) throws ParseException {
+        for(String s : evForm.getSectorPrice()){
+            System.out.println(s);
+        }
         if(bindingResult.hasErrors()){
             modelMap.put("result", bindingResult);
             return "new_event";
@@ -93,7 +96,6 @@ public class EventsController{
                 return "redirect:/new_event";
             }
 
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             Date d = sdf.parse(evForm.getEventDate());
             Timestamp stamp = new Timestamp(d.getTime());
