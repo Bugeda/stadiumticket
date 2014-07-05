@@ -1,15 +1,13 @@
 package com.dataartschool2.stadiumticket.dreamteam.service;
 
-import java.util.List;
-
-
+import com.dataartschool2.stadiumticket.dreamteam.dao.EventDAO;
+import com.dataartschool2.stadiumticket.dreamteam.dao.SectorPriceDAO;
+import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dataartschool2.stadiumticket.dreamteam.dao.EventDAO;
-import com.dataartschool2.stadiumticket.dreamteam.dao.SectorPriceDAO;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
+import java.util.List;
 
 
 @Service
@@ -20,8 +18,13 @@ public class EventServiceImpl implements EventService{
 	
 	@Autowired
 	private SectorPriceDAO sectorPriceDAO;
-	
-	@Override
+
+    @Override
+    public void deleteEvent(Event event) {
+        eventDAO.deleteEntity(event);
+    }
+
+    @Override
 	@Transactional
 	public void updateEvent(Event event){
 		eventDAO.updateEntity(event);

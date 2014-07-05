@@ -1,14 +1,16 @@
 package com.dataartschool2.stadiumticket.dreamteam.service;
 
-import java.util.List;
-
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
+
+import java.util.List;
 
 
 
 public interface EventService {
-	
-	public void updateEvent(Event event);
+
+    void deleteEvent(Event event);
+
+    public void updateEvent(Event event);
 	
 	public Event findById(Integer id);
 	

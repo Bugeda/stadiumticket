@@ -14,4 +14,5 @@ target/
 .git
 *.lnk
 .gitignore
-
+/src/main/resources/*.properties
+/src/main/resources/*.properties
