@@ -1,4 +1,4 @@
-﻿package com.dataartschool2.stadiumticket.dreamteam.service;
+package com.dataartschool2.stadiumticket.dreamteam.service;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
 

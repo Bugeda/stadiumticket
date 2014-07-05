@@ -1,4 +1,4 @@
-﻿package com.dataartschool2.stadiumticket.dreamteam.service;
+package com.dataartschool2.stadiumticket.dreamteam.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
