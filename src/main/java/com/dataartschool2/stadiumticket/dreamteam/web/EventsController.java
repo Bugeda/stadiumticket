@@ -51,6 +51,17 @@ public class EventsController{
         return new NewEventForm();
     }
 
+    @ModelAttribute("editEventForm")
+    public NewEventForm getEditEventForm(@RequestParam(value = "id", required = false) Integer id){
+        if(id != null) {
+            NewEventForm newEventForm = eventService.getEventForm(id);
+            if (newEventForm != null) {
+                return newEventForm;
+            }
+        }
+        return null;
+    }
+
 	@RequestMapping("/")
 	public String home(Map<String, Object> map) {
 		return "redirect:/index";
@@ -85,9 +96,7 @@ public class EventsController{
                                    @Valid @ModelAttribute("newEventForm") NewEventForm evForm,
                                    BindingResult bindingResult,
                                    ModelMap modelMap) throws ParseException {
-        for(String s : evForm.getSectorPrice()){
-            System.out.println(s);
-        }
+
         if(bindingResult.hasErrors()){
             modelMap.put("result", bindingResult);
             return "new_event";
@@ -95,35 +104,16 @@ public class EventsController{
             if (submit.equals("Cancel changes")){
                 return "redirect:/new_event";
             }
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-            Date d = sdf.parse(evForm.getEventDate());
-            Timestamp stamp = new Timestamp(d.getTime());
-            stamp.setSeconds(0);
-            Event ev=new Event();
-            ev.setEventName(evForm.getEventName());
-            ev.setEventDate(stamp);
-            ev.setBookingCanceltime(Integer.parseInt(evForm.getBookingCanceltime()));
-            eventService.updateEvent(ev);
-            Integer evId=ev.getId();
-            SectorPrice sp = null;
-            Sector sector=null;
-            int sectorId=1;
-            for (String e : evForm.getSectorPrice()){
-                System.out.println(e);
-                sp=new SectorPrice();
-                sp.setEvent(ev);
-                sector=sectorService.findById(sectorId);
-                sp.setSector(sector);
-                sp.setPrice(Double.parseDouble(e));
-                sectorPriceService.updateSectorPrice(sp);
-                sectorId++;
-            }
+            
+            eventService.createEvent(evForm);
 
             return "redirect:/index";
         }
 
 	}
+
+
+
     @RequestMapping(value = "/submit/edit_event")
     public String submit_edit_event(@ModelAttribute("submit") String submit, @ModelAttribute("newEventForm") NewEventForm evForm, Map<String, Object> map, Model model) throws ParseException {
     	model.asMap().clear();

@@ -52,21 +52,21 @@
 	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/submit/edit_event" modelAttribute="newEventForm">
 	    <div class="form-group">
 	      <label for="title">Title:</label>
-	      <input class="form-control" type="text" name="eventName" id="title" value="${event.getEventName()}"/>
+	      <form:input class="form-control" type="text" path="eventName" id="title" value="${event.eventName}"/>
 	    </div>
 	    <div class="form-group">
 	      <label for="eventDate">Start at:</label>
-	      <input class="form-control" type="text" name="eventDate"  id="start" value='<fmt:formatDate value="${event.getEventDate()}" pattern="dd-MM-yyyy HH:mm" />'/>
+	      <input class="form-control" type="text" path="eventDate"  id="start" value='<fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy HH:mm" />'/>
 	    </div>
 	    <div class="form-group">
 	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
-	      <input class="form-control" type="text" name="bookingCanceltime" id="booking_time" value="${event.getBookingCanceltime()}">       
+	      <form:input class="form-control" type="text" path="event.bookingCanceltime" id="booking_time"/>
 	    </div>	    
 	    <div class="form-group">
 	      <c:forEach items="${sectorPrices}" var="sectorPrice">	    
-	      <input type="hidden" id="s${sectorPrice.getSector().getId()}" name="sectorPrice" value="${sectorPrice.getPrice()}">
+	        <form:input type="hidden" id="s${sectorPrice.sector.id}" path="sectorPrice.price"/>
 	      </c:forEach>
-	 	<input type="hidden" id="id" name="id" value="${event.getId()}">
+	 	<input type="hidden" id="id" name="id" value="${event.id}">
 	    </div>
 	    <div class="form-group">
 	      <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
@@ -80,7 +80,7 @@
 	      <div class="alert-warning" role="alert">
 			Are you sure you want to delete event?<br>
 			Please enter word DELETE here:<br>
-			<input type="hidden" id="id" name="id" value="${event.getId()}">
+			<form:input type="hidden" id="id" path="id"/>
 			<input class="form-control" type="text" name="confirm_delete" id="confirm_deletion_text" maxlength="10" size="15" placeholder="enter DELETE here for confirmation"><br>
 			<input class="btn btn-danger"  type="submit" value="Ok, delete event" id="confirm_deletion">
 			<input class="btn btn-warning" type="button" value="Cancel deletion" id="cancel_deletion">
@@ -96,7 +96,7 @@
           <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
 	  <map name="stadium">
 	 	<c:forEach items="${sectorPrices}" var="sectorPrice">	  
-	    <input type="text" id="price_${sectorPrice.getSector().getId()}" size="4" maxlength="4" value="${sectorPrice.getPrice()}">	  
+	    <form:input type="text" id="price_${sectorPrice.sector.id}" size="4" maxlength="4" path="${sectorPrice.price}"/>
 	    </c:forEach>    
 	    
 	    <area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />

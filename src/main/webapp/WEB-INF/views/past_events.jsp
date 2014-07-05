@@ -57,8 +57,8 @@
 	    </thead>
 	    <c:forEach items="${events}" var="events">
 	    <tr class="event">
-		<td class="event_name"><c:out value="${events.getEventName()}"></c:out></td>
-		<td class="event_datetime"><fmt:formatDate value="${events.getEventDate()}" pattern="dd-MM-yyyy HH:mm" /></td>
+		<td class="event_name"><c:out value="${events.eventName}"></c:out></td>
+		<td class="event_datetime"><fmt:formatDate value="${events.eventDate}" pattern="dd-MM-yyyy HH:mm" /></td>
 	      	<td class="action_list" style="{display: none;}" >
 				<a href="#"><img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
