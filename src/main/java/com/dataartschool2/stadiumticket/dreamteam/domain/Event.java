@@ -1,9 +1,8 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class Event {
@@ -19,13 +18,18 @@ public class Event {
     private int bookingCanceltime;
 
     private boolean isDelete;
+
+    @OneToMany(cascade= CascadeType.ALL)
+    private List<SectorPrice> sectorPriceSet;
+
     public Event(){}
    
-    public Event(int id, String eventName, Timestamp eventDate, int bookingCanceltime) {
+    public Event(int id, String eventName, Timestamp eventDate, int bookingCanceltime, List<SectorPrice> sectorPriceSet) {
         this.id = id;
         this.eventName = eventName;
         this.eventDate = eventDate; 
-        this.bookingCanceltime = bookingCanceltime;        
+        this.bookingCanceltime = bookingCanceltime;
+        this.sectorPriceSet = sectorPriceSet;
     }
 
 
@@ -107,6 +111,13 @@ public class Event {
 
 	public void setDelete(boolean isDelete) {
 		this.isDelete = isDelete;
-	} 
-   
+	}
+
+    public List<SectorPrice> getSectorPriceSet() {
+        return sectorPriceSet;
+    }
+
+    public void setSectorPriceSet(List<SectorPrice> sectorPriceSet) {
+        this.sectorPriceSet = sectorPriceSet;
+    }
 }

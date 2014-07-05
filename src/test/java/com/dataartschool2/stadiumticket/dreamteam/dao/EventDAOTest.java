@@ -1,33 +1,23 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
-import static org.junit.Assert.*;
-
-import com.dataartschool2.stadiumticket.dreamteam.dao.EventDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-
-import org.hibernate.criterion.Criterion;
-import org.junit.Assert;
+import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring/root-context.xml"})
@@ -43,7 +33,7 @@ public class EventDAOTest{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 		Date d = sdf.parse("2014-05-16 17:00:00.0");
 		Timestamp stamp = new Timestamp(d.getTime());		
-        Event expected = new Event(5, "Черноморец - Карпаты", stamp, 30);
+        Event expected = new Event(5, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", stamp, 30, new ArrayList<SectorPrice>());
 
         Event actual = eventDAO.findById(5);
         assertNotNull(actual);
@@ -56,8 +46,8 @@ public class EventDAOTest{
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
         //create    	
-    	Event expected = new Event(15, "1", stamp, 30); 
-    	eventDAO.updateEntity(new Event(15, "1", stamp, 30));        
+    	Event expected = new Event(15, "1", stamp, 30, new ArrayList<SectorPrice>());
+    	eventDAO.updateEntity(new Event(15, "1", stamp, 30, new ArrayList<SectorPrice>()));
         //read
     	Event actual = eventDAO.findById(15);     	
     	assertEquals(actual,expected);
@@ -71,7 +61,7 @@ public class EventDAOTest{
         stamp.setYear(10);
         stamp.setMonth(8);
         stamp.setDate(25);
-        Event ev = new Event(15, "newname", stamp,30);  
+        Event ev = new Event(15, "newname", stamp,30, new ArrayList<SectorPrice>());
     	eventDAO.updateEntity(ev);    	
         Event actual = eventDAO.findById(15);	
   
@@ -83,7 +73,7 @@ public class EventDAOTest{
     public void entityDeleteTest(){
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
-    	Event ev = new Event(15, "newname", stamp,30);  
+    	Event ev = new Event(15, "newname", stamp,30, new ArrayList<SectorPrice>());
     	eventDAO.updateEntity(ev);    	
     	eventDAO.deleteEntity(ev);
         Event actual = eventDAO.findById(15);	
@@ -93,14 +83,14 @@ public class EventDAOTest{
     @Test
     public void entityListTest() throws ParseException{
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	 	Event ev1=new Event(1, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-18 15:00:00").getTime()), 30);
-    	Event ev2=new Event(2, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-20 16:00:00").getTime()), 30);
-    	Event ev3=new Event(3, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-23 11:00:00").getTime()), 30);
-    	Event ev4=new Event(4, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-23 19:00:00").getTime()), 30);
-    	Event ev5=new Event(5, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-16 17:00:00").getTime()), 30);
-    	Event ev6=new Event(6, "Шахтер - Волынь", new Timestamp(sdf.parse("2014-05-18 14:00:00").getTime()), 30);
-    	Event ev7=new Event(7, "Металлист - Карпаты", new Timestamp(sdf.parse("2014-05-18 12:00:00").getTime()), 30);    
-    	Event ev8=new Event(8, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-20 14:00:00").getTime()), 30);
+	 	Event ev1=new Event(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", new Timestamp(sdf.parse("2014-05-18 15:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev2=new Event(2, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", new Timestamp(sdf.parse("2014-05-20 16:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev3=new Event(3, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", new Timestamp(sdf.parse("2014-05-23 11:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev4=new Event(4, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", new Timestamp(sdf.parse("2014-05-23 19:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev5=new Event(5, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", new Timestamp(sdf.parse("2014-05-16 17:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev6=new Event(6, "пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅ", new Timestamp(sdf.parse("2014-05-18 14:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev7=new Event(7, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", new Timestamp(sdf.parse("2014-05-18 12:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev8=new Event(8, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", new Timestamp(sdf.parse("2014-05-20 14:00:00").getTime()), 30, new ArrayList<SectorPrice>());
     	List<Event> expecteds = Arrays.asList(ev1,ev2,ev3,ev4,ev5,ev6,ev7,ev8);
     			
         List<Event> actuals = eventDAO.findAll();

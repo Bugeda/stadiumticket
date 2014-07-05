@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -92,19 +93,19 @@ public class EventServiceImpl implements EventService{
         event.setEventName(eventForm.getEventName());
         event.setEventDate(stamp);
         event.setBookingCanceltime(Integer.parseInt(eventForm.getBookingCanceltime()));
-        event = updateEvent(event);
-        System.out.println("Event ID: " + event.getId());
+        event.setSectorPriceSet(new ArrayList<SectorPrice>());
         int sectorId=1;
         for (String e : eventForm.getSectorPrice()){
             System.out.println(e);
-            SectorPrice sectorPrice =new SectorPrice();
+            SectorPrice sectorPrice = new SectorPrice();
             sectorPrice.setEvent(event);
             Sector sector= sectorDAO.findById(sectorId);
             sectorPrice.setSector(sector);
             sectorPrice.setPrice(Double.parseDouble(e));
-            sectorPriceDAO.updateEntity(sectorPrice);
+            event.getSectorPriceSet().add(sectorPrice);
             sectorId++;
         }
+        updateEvent(event);
     }
 
     @Override

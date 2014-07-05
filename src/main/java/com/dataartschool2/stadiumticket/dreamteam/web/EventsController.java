@@ -3,7 +3,6 @@ package com.dataartschool2.stadiumticket.dreamteam.web;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import com.dataartschool2.stadiumticket.dreamteam.domain.NewEventForm;
-import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 import com.dataartschool2.stadiumticket.dreamteam.service.EventService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorPriceService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorService;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.swing.*;
 import javax.validation.Valid;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -48,24 +46,25 @@ public class EventsController{
         return new NewEventForm();
     }
 
-    @ModelAttribute("editEventForm")
-    public NewEventForm getEditEventForm(@RequestParam(value = "id", required = false) Integer id){
+    @ModelAttribute("editEvent")
+    public Event getEditEvent(@RequestParam(value = "id", required = false) Integer id){
         if(id != null) {
-            NewEventForm newEventForm = eventService.getEventForm(id);
-            if (newEventForm != null) {
-                return newEventForm;
+
+            Event event = eventService.findById(id);
+            if (event != null) {
+                return event;
             }
         }
         return null;
     }
 
-	@RequestMapping("/")
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Map<String, Object> map) {
 		return "redirect:/index";
 	}
 	
-    @RequestMapping(value = "/index")
-    public String getActiveEvents(Map<String, Object> map) {
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String getActiveEvents(ModelMap map) {
     	
     	List<Event> allEvents = eventService.getFutureEvents();
     	map.put("events", allEvents);
@@ -73,8 +72,8 @@ public class EventsController{
         return "/index";
     }
 	
-    @RequestMapping(value = "/past_events")
-    public String getArchiveEvents(Map<String, Object> map) {
+    @RequestMapping(value = "/past_events", method = RequestMethod.GET)
+    public String getArchiveEvents(ModelMap map) {
     	
     	List<Event> allEvents = eventService.getPastEvents();
     	map.put("events", allEvents);
@@ -94,7 +93,7 @@ public class EventsController{
                                    BindingResult bindingResult,
                                    ModelMap modelMap) throws ParseException {
         System.out.println("POST");
-
+        modelMap.clear();
         if(bindingResult.hasErrors()){
             System.out.println("POST1");
             modelMap.put("result", bindingResult);
@@ -107,7 +106,7 @@ public class EventsController{
             }else{
                 System.out.println("Creating");
                 eventService.createEvent(newEventForm);
-                return "redirect:/index";
+                return "redirect:/new_event";
             }
         }
 	}
@@ -116,7 +115,7 @@ public class EventsController{
 
     @RequestMapping(value = "/edit_event", method = RequestMethod.POST)
     public String submit_edit_event(@ModelAttribute("submit") String submit,
-                                    @Valid @ModelAttribute("editEventForm") NewEventForm editEventForm,
+                                    @Valid @ModelAttribute("editEvent") Event event,
                                     BindingResult bindingResult,
                                     ModelMap modelMap) throws ParseException {
 
@@ -125,9 +124,9 @@ public class EventsController{
             return "edit_event";
         }else{
             if (submit.equals("Cancel changes")){
-                return "redirect:/edit_event?id="+editEventForm.getId();
+                return "redirect:/edit_event?id="+event.getId();
             }
-            eventService.editEvent(editEventForm);
+            eventService.updateEvent(event);
                 return "redirect:/index";
         }
 
@@ -136,30 +135,8 @@ public class EventsController{
 
 
     @RequestMapping(value = "/edit_event" ,method = RequestMethod.GET)
-	public String edit_event(@RequestParam("id") Integer id, Map<String, Object> map, Model model) {
-		model.asMap().clear();
-        Event event = eventService.findById(id);
-		if (event==null){
-			JOptionPane.showMessageDialog(null,	"Event with id="+id +" not found", "Error",  JOptionPane.ERROR_MESSAGE);
-			return "/index";
-		}
-		else if (event.isDelete()) {
-			JOptionPane.showMessageDialog(null,	"This event has deleted", "warning",  JOptionPane.WARNING_MESSAGE);
-			return "/index";
-		}
-		else
-			if (event.getEventDate().before(new Date())){
-				return "/past_events";
-			}
-			else
-			{   
-				model.asMap().clear();
-				map.put("event", event);
-				List<SectorPrice> sps = sectorPriceService.getPricesSectorsOfEvent(event);
-				map.put("sectorPrices", sps);
-			
-				return "/edit_event";
-			}
+	public String edit_event() {
+        return "edit_event";
 	}
 	
 	@RequestMapping(value="/submit/delete_event")

@@ -8,7 +8,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.swing.*;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -59,18 +58,9 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	
 	@SuppressWarnings("unchecked")
 	public EntityClass findById(final Integer id) {
-		EntityClass result = null;
-
-	    try {
-	    	//result = (EntityClass) getSession().load(getEntityClass(), id);	
-	    	result = (EntityClass) getSession().get(getEntityClass(), id);	    	 
-	    }
-	    catch (Exception e) { 	    	
-	    	JOptionPane.showMessageDialog(null,	"incorrect request", "Error",  JOptionPane.ERROR_MESSAGE);
-			return null;
-	    }
-
-        return (result);
+		EntityClass result = (EntityClass) getSession().get(getEntityClass(), id);
+        System.out.println("GET BY ID " + id + " VALUE  " + result);
+        return result;
 	}	
 	
 	@Override

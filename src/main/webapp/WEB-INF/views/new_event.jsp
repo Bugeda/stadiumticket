@@ -47,7 +47,7 @@
 	 </div>
     <div class="row">
 	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  action="/stadiumticket/new_event" method="post" modelAttribute="newEventForm">
+	 	<form:form class="form-horizontal"  action="${pageContext.request.contextPath}/new_event" method="post" modelAttribute="newEventForm">
             <div class="form-group">
               <label for="title">Title:</label>
               <form:input class="form-control" path="eventName" id="title" placeholder="please enter event name"/>
@@ -67,7 +67,7 @@
               <% for (int i=1;i<28;i++) {%>
               <input type="hidden" id="s<%=i %>" name="sectorPrice" placeholder="0">
               <%} %>
-              <input type="hidden" id="id" name="id" value="0">
+
             </div>
             <div class="form-group">
               <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
