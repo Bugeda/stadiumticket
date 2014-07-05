@@ -4,31 +4,24 @@ $(document).ready(function () {
 	$('.map').maphilight();
     }
 
-    // copy data from sector plan to hidden form, in order to send it to server
+    // copy data from sector plan to hidden form on edit/new event page
     $('map > input').change( function () {
 	var source_id = $(this).attr('id');
 	var source_content = $(this).val();
-
 	// var reg = /^\d+$/;
 	// if (!reg.test(source_content)) { $(".alert").show();}
-
-	//if ( source_id.substr(6) == 'vipA' || source_id.substr(6) == 'vipD' ) {
-	 //   var dest_name = source_id.substr(6);
-	//}
-//	else 
-var dest_name = 's'+ source_id.substr(6);
+	var dest_name = 's'+ source_id.substr(6);
 	$('#'+ dest_name).val(source_content);
     });
 
-     // initialize input widgets first
-    $('#start_time').timepicker({
-        'showDuration': true,
-        'timeFormat': 'g:ia'
-    });
-
-    $('#date').datepicker({
-        'format': 'm/d/yyyy',
-        'autoclose': true
+    //datetimepicker configuration
+    $('#start').datetimepicker({
+	lang:'en',
+	timepicker:true,
+	step:15,
+	format:'d-m-Y H:i',
+  	minDate : '-1969/12/31',
+	dayOfWeekStart: 1
     });
 
     if ($('#event_list').length != 0) {
@@ -84,8 +77,11 @@ var dest_name = 's'+ source_id.substr(6);
 				 + sector +"</td>"
 				 + "<td>"+ row + "</td>"
 				 + "<td>" + seat + "</td>"
-				 + "<td class=\"ticket_price\">"+ price + "</td>"
-				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td></tr>");
+				 + "<td class=\"ticket_price\">"+ 2*price + "</td>"
+				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
+				 + "<td><input name=\"sector\" type=\"hidden\" value="+sector+">"
+				 + "<input name=\"row\" type=\"hidden\" value="+row+">"
+				 + "<input name=\"seat\" type=\"hidden\" value="+seat+"></td></tr>" );
 	recalculate_price_and_index();
     };
 
@@ -107,9 +103,17 @@ var dest_name = 's'+ source_id.substr(6);
 	    $(this).addClass('selected');
 	    var id = $(this).attr('id').split('_');
 	    var sector = $('#sector_name').html().substr(6).slice(0,-6);
+	    var sector_number = 0;
+	    console.log((sector == ' VIP A '));
+	    console.log(sector,sector_number);
+	    if ((sector != ' VIP A ') && (sector != ' VIP D '))
+	    {sector_number = parseInt(sector)};
+	    if (sector == ' VIP A ') {sector_number= 27}
+	    if (sector == ' VIP D ') {sector_number= 26}
+	    console.log(sector,sector_number);
+	    var price = $("#price_" + sector_number).val();
 	    var row = id[0];
 	    var seat = id[1];
-	    var price = Math.floor(Math.random()*550);
 	    add_ticket(sector,row,seat,price);
 	};
     });
@@ -124,8 +128,7 @@ var dest_name = 's'+ source_id.substr(6);
     });
 
     // initial run to set numbers for all tickets
-    // possibly move this functionality to backend
-    recalculate_price_and_index();
+    // recalculate_price_and_index();
 
     // restrict changing price when selling or booking
     $('#disable_inputs > input').attr('disabled','disabled');

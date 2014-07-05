@@ -2,12 +2,10 @@ package com.dataartschool2.stadiumticket.dreamteam.domain;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 public class Event {
@@ -92,7 +90,7 @@ public class Event {
     }    
     
     public Timestamp getEventDate() {
-        return eventDate;
+    	return eventDate;
     }
 
     public void setEventDate(Timestamp eventDate) {

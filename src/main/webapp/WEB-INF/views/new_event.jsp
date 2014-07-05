@@ -9,24 +9,21 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>stadiumticket - new\edit event</title>
+    <title>stadiumticket - new event</title>
    <!-- css -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/bootstrap-theme.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.dataTables.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/css/jquery.timepicker.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/css/main.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/jquery.datetimepicker.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/main.css" type="text/css" rel="stylesheet">
 
     <!-- js -->
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     <script src="<%= request.getContextPath() %>/js/jquery.dataTables.js"></script>
-    <script src="<%= request.getContextPath() %>/js/jquery.maphighlight.js"></script>
-    <script src="<%= request.getContextPath() %>/js/main.js"></script>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.timepicker.js"></script>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/js/datepair.js"></script>
-    
+    <script src="<%= request.getContextPath() %>/js/jquery.maphighlight.js"></script>    
+    <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.datetimepicker.js"></script>
+    <script src="<%= request.getContextPath() %>/js/main.js"></script>  
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,32 +37,28 @@
   <body>
     <div class="container">
        <div class="row">
-	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	<div class="col-xs-1 col-md-1"><a href="index"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
 	   <h3>
-		<a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;New event
+		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;New event
 	   </h3>
 	   <h2 id="event_name">Event name</h2>
 	 </div>
 	 </div>
     <div class="row">
 	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/events/submitnew_event" modelAttribute="newEventForm">
+	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/submit/new_event" modelAttribute="newEventForm">
 	    <div class="form-group">
 	      <label for="title">Title:</label>
 	      <input class="form-control" type="text" name="eventName" id="title" placeholder="please enter event name"/>
 	    </div>
 	    <div class="form-group">
-	      <label for="title">Date:</label>
-	      <input class="form-control" type="text" name="eventDate"  id="date" placeholder="please enter date"/>
-	    </div>
-	    <div class="form-group">
-	      <label for="start_time">Start time:</label>
-	      <input class="form-control" type="text" id="start_time" placeholder="please enter time"/>
+	      <label for="eventDate">Start at:</label>
+	      <input class="form-control" type="text" name="eventDate"  id="start" placeholder="Select event start time and date"/>
 	    </div>
 	    <div class="form-group">
 	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
-	      <input class="form-control" type="text" name="bookingCanceltime" id="booking_time">
+	      <input class="form-control" type="text" name="bookingCanceltime" id="booking_time" placeholder="Enter time, before which all booked tickets are cancelled">       
 	    </div>
 	    <div class="form-group">
 	      <% for (int i=1;i<28;i++) {%>

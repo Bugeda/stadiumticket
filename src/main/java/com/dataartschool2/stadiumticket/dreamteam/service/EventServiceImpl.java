@@ -1,10 +1,8 @@
 package com.dataartschool2.stadiumticket.dreamteam.service;
 
-import java.sql.Timestamp;
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.hibernate.ObjectNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dataartschool2.stadiumticket.dreamteam.dao.EventDAO;
 import com.dataartschool2.stadiumticket.dreamteam.dao.SectorPriceDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.mysql.jdbc.Field;
+
 
 @Service
 public class EventServiceImpl implements EventService{

@@ -17,7 +17,15 @@ map input {
     text-align: center;
 }
 
+#price_26 {
+    top: 477px;
+    left: 375px;
+}
 
+#price_27 {
+    top: 62px;
+    left: 305px;
+}
 
 #price_1 {
     top: 100px;
@@ -144,15 +152,6 @@ map input {
     left: 230px;
 }
 
-#price_26 {
-    top: 62px;
-    left: 305px;
-}
-
-#price_27 {
-    top: 477px;
-    left: 375px;
-}
 .visible_cell {
     display: table-cell;
 }
