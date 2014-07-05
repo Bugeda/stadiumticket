@@ -66,7 +66,7 @@
 	    </div>	    
 	    <div class="form-group">
 	      <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
-	        <input type="hidden" id="s${sectorPrice.sector.id}" name="editEvent.sectorPriceSet[${priceStatus.index}].sectorPrice.price"/>
+	        <form:hidden  id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
 	      </c:forEach>
 	 	<form:hidden path="id"/>
 	    </div>
