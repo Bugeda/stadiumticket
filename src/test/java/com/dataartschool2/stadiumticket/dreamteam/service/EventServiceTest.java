@@ -1,5 +1,7 @@
 package com.dataartschool2.stadiumticket.dreamteam.service;
 
+import static org.junit.Assert.*;
+
 import com.dataartschool2.stadiumticket.dreamteam.dao.EventDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 
@@ -45,17 +47,22 @@ public class EventServiceTest{
     public void deleteEventTest(){        
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
-    	    	
-        Event event = new Event(15, "1", stamp, 30); 	
-    	eventService.updateEvent(event);
+    	
+    	Event template = new Event(15, "1", stamp, 30);
+    	
+    	Event expected = new Event(15, "1", stamp, 30);         
+    	eventService.updateEvent(expected);
     	
     	Event actual = eventService.findById((Integer) 15);
     	Assert.assertNotNull(actual);
-    	Assert.assertEquals(event, actual);
-  
-    	eventService.deleteEvent(event);
-        actual = eventService.findById((Integer) 15);        
-        Assert.assertNull(actual);
+    	Assert.assertEquals(expected, actual);
+    	
+    	actual.setDelete(true);
+    	eventService.updateEvent(actual);
+    	Event lastActual = eventService.findById((Integer) 15);        
+        assertNotNull(lastActual);
+        Assert.assertEquals(lastActual, actual);
+        Assert.assertNotSame(template, actual);        
     }
     
     @Test
@@ -64,7 +71,7 @@ public class EventServiceTest{
     	Timestamp stamp = new Timestamp(date.getTime());
     	
         //new event
-    	Event begEvent = new Event(15, "1", stamp, 30);
+    	Event template = new Event(15, "1", stamp, 30);
         Event dbEvent = new Event(15, "1", stamp, 30);
         
         //insert in db
@@ -80,12 +87,13 @@ public class EventServiceTest{
     	//eventService
     	dbEvent.setEventDate(stamp);
     	dbEvent.setEventName("testname");
+    	dbEvent.setBookingCanceltime(20);
     	eventService.updateEvent(dbEvent);
-    	Assert.assertNotSame(dbEvent, begEvent);
+    	Assert.assertNotSame(dbEvent, template);
 
     	Event actual = eventService.findById((Integer) 15);
     	Assert.assertEquals(dbEvent, actual);    	
-        Assert.assertNotSame(begEvent, actual);
+        Assert.assertNotSame(template, actual);
         Assert.assertNotNull(actual);       
     }
     
@@ -101,15 +109,5 @@ public class EventServiceTest{
         Event currentEvent = eventService.findById((Integer) 15);    	        
     	Assert.assertNotNull(currentEvent);
     	Assert.assertEquals(newEvent, currentEvent);  
-    	/*
-     	date = new Date();
-    	stamp.setTime(date.getTime());
-        //recreate event
-    	Event editEvent = new Event(15, "2", stamp);
-    	eventService.updateEvent(editEvent);
-    	Event actual = eventService.findById((Integer) 15); 
-    	Assert.assertNotSame(newEvent, actual);
-        Assert.assertNotNull(actual);
-        */
     }
 }

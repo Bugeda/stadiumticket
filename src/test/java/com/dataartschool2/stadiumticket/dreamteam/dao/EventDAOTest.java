@@ -71,7 +71,7 @@ public class EventDAOTest{
         stamp.setYear(10);
         stamp.setMonth(8);
         stamp.setDate(25);
-        Event ev = new Event(15, "newname", stamp,30);  
+        Event ev = new Event(15, "newname", stamp, 20);  
     	eventDAO.updateEntity(ev);    	
         Event actual = eventDAO.findById(15);	
   
