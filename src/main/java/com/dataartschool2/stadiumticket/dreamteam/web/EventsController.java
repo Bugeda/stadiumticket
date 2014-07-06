@@ -90,18 +90,18 @@ public class EventsController{
                                    @Valid @ModelAttribute("newEventForm") NewEventForm newEventForm,
                                    BindingResult bindingResult,
                                    ModelMap modelMap) throws ParseException {
-        modelMap.clear();
-        if(bindingResult.hasErrors()){
-            modelMap.put("result", bindingResult);
-            return "new_event";
-        }else{
+
             if (submit.equals("Cancel changes")){
                 return "redirect:/new_event";
             }else{
+                if(bindingResult.hasErrors()){
+                    modelMap.put("result", bindingResult);
+                    return "new_event";
+                }else{
                 eventService.createEvent(newEventForm);
                 return "redirect:/new_event";
+                }
             }
-        }
 	}
 
 
