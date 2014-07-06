@@ -6,7 +6,6 @@ import com.dataartschool2.stadiumticket.dreamteam.service.EventService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorPriceService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorService;
 import com.dataartschool2.stadiumticket.dreamteam.web.validator.EventValidator;
-import com.dataartschool2.stadiumticket.dreamteam.web.validator.NewEventValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,9 +29,6 @@ public class EventsController{
 	
 	@Autowired
 	private SectorPriceService sectorPriceService;
-
-    @Autowired
-    private NewEventValidator newEventValidator;
 
     @Autowired
     private EventValidator eventValidator;

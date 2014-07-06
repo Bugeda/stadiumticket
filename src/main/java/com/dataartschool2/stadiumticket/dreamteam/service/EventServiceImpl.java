@@ -38,26 +38,6 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public NewEventForm getEventForm(int id) {
-        NewEventForm newEventForm = new NewEventForm();
-        Event event = eventDAO.findById(id);
-        List<SectorPrice> prices = sectorPriceDAO.getPricesSectorsOfEvent(event);
-
-        newEventForm.setId(event.getId());
-        newEventForm.setBookingCanceltime(Integer.toString(event.getBookingCanceltime()));
-        newEventForm.setEventDate(event.getEventDate().toString());
-        newEventForm.setEventName(event.getEventName());
-        SectorPrice[] sectorPrices = prices.toArray(new SectorPrice[1]);
-        String[] sectorPricesStrings = new String[sectorPrices.length];
-        for(int i = 0; i < sectorPrices.length; ++i){
-            sectorPricesStrings[i] = sectorPrices[i].toString();
-        }
-        newEventForm.setSectorPrice(sectorPricesStrings);
-
-        return newEventForm;
-    }
-
-    @Override
     public void markAsDeleted(Event event) {
         event.setDelete(true);
         updateEvent(event);
