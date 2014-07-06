@@ -3,7 +3,6 @@ package com.dataartschool2.stadiumticket.dreamteam.web;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import com.dataartschool2.stadiumticket.dreamteam.domain.NewEventForm;
-import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 import com.dataartschool2.stadiumticket.dreamteam.service.EventService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorPriceService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorService;
@@ -91,19 +90,14 @@ public class EventsController{
                                    @Valid @ModelAttribute("newEventForm") NewEventForm newEventForm,
                                    BindingResult bindingResult,
                                    ModelMap modelMap) throws ParseException {
-        System.out.println("POST");
         modelMap.clear();
         if(bindingResult.hasErrors()){
-            System.out.println("POST1");
             modelMap.put("result", bindingResult);
             return "new_event";
         }else{
-            System.out.println("POST2");
             if (submit.equals("Cancel changes")){
-                System.out.println("POST3");
                 return "redirect:/new_event";
             }else{
-                System.out.println("Creating");
                 eventService.createEvent(newEventForm);
                 return "redirect:/new_event";
             }
@@ -119,18 +113,12 @@ public class EventsController{
                                     ModelMap modelMap) throws ParseException {
 
         if(bindingResult.hasErrors()){
-            System.out.println("Errors");
             modelMap.put("result", bindingResult);
             return "edit_event";
         }else{
             if (submit.equals("Cancel changes")){
-                System.out.println("Cancel");
                 return "redirect:/edit_event?id="+event.getId();
             }
-                System.out.println(event.getEventDate());
-                for(SectorPrice sectorPrice : event.getSectorPriceSet()){
-                    System.out.println(sectorPrice.getPrice());
-                }
                 eventService.updateEvent(event);
                 return "redirect:/index";
         }
@@ -144,8 +132,8 @@ public class EventsController{
         return "edit_event";
 	}
 	
-	@RequestMapping(value="/delete_event")
-    public String submit_delete_event(@ModelAttribute("editEvent") Event event, ModelMap modelMap) {
+	@RequestMapping(value="/delete_event", method = RequestMethod.POST)
+    public String submit_delete_event(@ModelAttribute("editEvent") Event event) {
         eventService.markAsDeleted(event);
 		return "redirect:/index";
 	}

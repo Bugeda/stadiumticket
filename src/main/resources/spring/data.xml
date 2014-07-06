@@ -51,9 +51,7 @@
 
 
     <!-- Начальное наполнение базы-->
-    <jdbc:initialize-database data-source="dataSource">
-        <jdbc:script location="classpath:db.sql"/>
-    </jdbc:initialize-database>
+
 
 	<!-- Настройки фабрики сессий Хибернейта -->
 	<bean id="sessionFactory"

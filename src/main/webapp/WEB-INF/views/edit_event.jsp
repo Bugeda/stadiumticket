@@ -77,7 +77,7 @@
 	    </div>
       </form:form>
 
-	  <form:form id="confirm_deletion_form"  method="post" action="${pageContext.request.contextPath}/events/delete_event" modelAttribute="editEvent">
+	  <form:form id="confirm_deletion_form"  method="post" action="${pageContext.request.contextPath}/delete_event" modelAttribute="deleteEvent">
 	    <div class="form-group">
 	      <div class="alert-warning" role="alert">
 			Are you sure you want to delete event?<br>
