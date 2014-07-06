@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -9,8 +9,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>stadiumticket - new event</title>
-   <!-- css -->
+     <title>stadiumticket - booking</title>
+	<!-- css -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/bootstrap-theme.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.dataTables.css" rel="stylesheet">
@@ -21,65 +21,67 @@
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     <script src="<%= request.getContextPath() %>/js/jquery.dataTables.js"></script>
-    <script src="<%= request.getContextPath() %>/js/jquery.maphighlight.js"></script>    
+    <script src="<%= request.getContextPath() %>/js/jquery.maphighlight.js"></script>
     <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.datetimepicker.js"></script>
-    <script src="<%= request.getContextPath() %>/js/main.js"></script>  
-
+    <script src="<%= request.getContextPath() %>/js/main.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
-    <style type="text/css">
-    </style>
-  </head>
-  <body>
-    <div class="container">
-       <div class="row">
-	<div class="col-xs-1 col-md-1"><a href="index"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
-	<div class="col-xs-6 col-md-9">
-	   <h3>
-		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;New event
-	   </h3>
-	   <h2 id="event_name">Event name</h2>
-	 </div>
-	 </div>
-    <div class="row">
-	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/submit/new_event" modelAttribute="newEventForm">
-	    <div class="form-group">
-	      <label for="title">Title:</label>
-	      <input class="form-control" type="text" name="eventName" id="title" placeholder="please enter event name"/>
-	    </div>
-	    <div class="form-group">
-	      <label for="eventDate">Start at:</label>
-	      <input class="form-control" type="text" name="eventDate"  id="start" placeholder="Select event start time and date"/>
-	    </div>
-	    <div class="form-group">
-	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
-	      <input class="form-control" type="text" name="bookingCanceltime" id="booking_time" placeholder="Enter time, before which all booked tickets are cancelled">       
-	    </div>
-	    <div class="form-group">
-	      <% for (int i=1;i<28;i++) {%>
-	      <input type="hidden" id="s<%=i %>" name="sectorPrice" placeholder="0">
-	      <%} %>	
-	      <input type="hidden" id="id" name="id" value="0">
-	    </div>
-	    <div class="form-group">
-	      <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
-		  <input class="btn btn-warning" type="submit" name="submit" value="Cancel changes" id="event_cancel">
-	    </div>
-          </form:form>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+ </head>
+<body>
+<div class="container">
+<div class="row">
+    <div class="col-xs-1 col-md-1"><a href="index.html"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+    <div class="col-xs-6 col-md-9">
+        <h3>
+            <a id="arrow_back" href="index.html"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;book tickets
+        </h3>
+        <h2 id="event_name"><c:out value="${event.eventName}"></c:out>
+        </h2>
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+   	<form:form method="post" action="${pageContext.request.contextPath}/submit/book_tickets">
+        <label for="booking_name">Book selected tickets for: <img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
+        <input class="form-control" type="text" name="booking_name" id="booking_name" title="Full name of person to book" placeholder="Full name of person to book">
+        <b>Ticket(s):</b>
+        <table class="table" id="ticket_list">
+            <thead>
+            <tr>
+                <td>№</td>
+                <td>Sector</td>
+                <td>Row</td>
+                <td>Seat</td>
+                <td>Price</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4"><b>Total price:</b></td>
+                <td id="total_price"></td>
+                <td>UAH</td>
+            </tr>
+            </tfoot>
+        </table>
+        <br>
+        <!-- <input class="btn" type="button" id="add_random_ticket" value="add random ticket"> -->
+        <input class="btn" type="submit" name="submit" value="Book tickets" id="book_tickets">
+    </form:form>
+  </div>
+  <div class="col-md-7">
+    <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
+     <map name="stadium">
+	 	<c:forEach items="${sectorPrices}" var="sectorPrice">	  
+	    <input type="text" id="price_${sectorPrice.getSector().getId()}" size="4" maxlength="4" value="${sectorPrice.getPrice()}">	  
+	    </c:forEach> 
 
-	</div>
-	<div class="col-md-7">
-          <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
-	  <map name="stadium">
-	 	<% for (int i=1;i<28;i++) {%>
-	    <input type="text" id="price_<%=i %>" size="4" maxlength="4" placeholder="price">	  
-	    <%} %>	    
-	          
 	  	<area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
 	    <area id="2" alt="2" title="2"  shape="poly" coords="431,119,431,53,446,53,446,20,485,20,520,29,478,117" />
 	    <area id="3" alt="3" title="3"  shape="poly" coords="485,122,526,32,564,55,586,92,497,137" />
@@ -107,18 +109,44 @@
 	    <area id="25" alt="25" title="25" shape="poly" coords="186,32,263,33,266,47,259,46,261,92,303,93,304,109,241,109,238,120,202,119,201,56,201,46,185,46"/>
 	    <area id="26" alt="vipD" title="vipD" shape="rect" coords="152,472,468,501" />
 	    <area id="27" alt="vipA" title="vipA" shape="rect" coords="266,32,356,83" />
-	    
-	  </map>
-	  <br>
-	  <div class="row">
-	    <div style="display:none;" class="alert-dismissible alert alert-danger" role="alert">
-	      Only numbers allowed here!
-	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-	    </div>
-	  </div>
-	</div>
-      </div>
-    </div>
-  </body>
-</html>
 
+	  </map>
+  </div>
+</div>
+</div>
+<br/>
+
+<div class="container seats">
+<table class="table table-condensed table-responsive sell_tickets_header">
+    <tbody>
+    <tr>
+        <td id="sector_name">Sector 12 seats:</td>
+        <td><div>42</div></td>
+        <td>Vacant</td>
+        <td><div>42</div></td>
+        <td>Booked</td>
+        <td><div>42</div></td>
+        <td>Occupied</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<div class="table-responsive">
+<table class="table table-condensed table-responsive sell_tickets_table">
+<tbody>
+<% for (int i=1;i<21;i++) {%>
+<tr>
+   <td> <div><%=i %></div> </td>
+   <% for (int j=1;j<51;j++) {%>
+   <td id="<%=i %>_<%=j %>"><div><%=j %></div></td>
+   <%} %>
+</tr>
+<%} %>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<br/>
+</body>
+</html>
