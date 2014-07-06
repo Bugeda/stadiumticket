@@ -30,18 +30,24 @@ public class EventValidator implements Validator{
         Event event = (Event) o;
         List<SectorPrice> prices = event.getSectorPriceSet();
         for(SectorPrice sectorPrice : prices){
-            validatePrice(sectorPrice, errors);
+            boolean result = validatePrice(sectorPrice, errors);
+            if(!result){
+                break;
+            }
         }
     }
 
-    private void validatePrice(SectorPrice sectorPrice, Errors errors) {
+    private boolean validatePrice(SectorPrice sectorPrice, Errors errors) {
         Double price = sectorPrice.getPrice();
         if(price == null){
             errors.rejectValue("sectorPriceSet", "pricesMustBeFilled", "All prices must be filled");
+            return false;
         }else {
             if (Double.compare(price, 0) <= 0) {
                 errors.rejectValue("sectorPriceSet", "notPositivePrices", "Prices should be positive");
+                return false;
             }
         }
+        return true;
     }
 }

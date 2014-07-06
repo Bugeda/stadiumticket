@@ -2,7 +2,6 @@ package com.dataartschool2.stadiumticket.dreamteam.web;
 
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.dataartschool2.stadiumticket.dreamteam.domain.NewEventForm;
 import com.dataartschool2.stadiumticket.dreamteam.service.EventService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorPriceService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorService;
@@ -23,7 +22,7 @@ import java.util.Map;
 @Controller
 public class EventsController{
 
-	@Autowired
+    @Autowired
 	private EventService eventService;
 	
 	@Autowired
@@ -38,9 +37,9 @@ public class EventsController{
     @Autowired
     private EventValidator eventValidator;
 
-    @InitBinder("newEventForm")
+    @InitBinder("newEvent")
     public void bindNewEventFormValidator(WebDataBinder webDataBinder){
-        webDataBinder.setValidator(newEventValidator);
+        webDataBinder.setValidator(eventValidator);
     }
 
     @InitBinder("editEvent")
@@ -48,9 +47,10 @@ public class EventsController{
         webDataBinder.setValidator(eventValidator);
     }
 
-    @ModelAttribute("newEventForm")
-    public NewEventForm getNewEventForm(){
-        return new NewEventForm();
+    @ModelAttribute("newEvent")
+    public Event getNewEvent(){
+        Event event = eventService.createEmptyEvent();
+        return event;
     }
 
     @ModelAttribute("editEvent")
@@ -96,7 +96,7 @@ public class EventsController{
 	
 	@RequestMapping(value="/new_event", method = RequestMethod.POST)
     public String submit_new_event(@ModelAttribute("submit") String submit,
-                                   @Valid @ModelAttribute("newEventForm") NewEventForm newEventForm,
+                                   @Valid @ModelAttribute("newEvent") Event event,
                                    BindingResult bindingResult,
                                    ModelMap modelMap) throws ParseException {
 
@@ -107,8 +107,8 @@ public class EventsController{
                     modelMap.put("result", bindingResult);
                     return "new_event";
                 }else{
-                eventService.createEvent(newEventForm);
-                return "redirect:/index";
+                    eventService.createEvent(event);
+                    return "redirect:/index";
                 }
             }
 	}
@@ -121,17 +121,18 @@ public class EventsController{
                                     BindingResult bindingResult,
                                     ModelMap modelMap) throws ParseException {
 
-        if(bindingResult.hasErrors()){
-            modelMap.put("result", bindingResult);
-            return "edit_event";
-        }else{
+
             if (submit.equals("Cancel changes")){
                 return "redirect:/edit_event?id="+event.getId();
+            }else {
+                if(bindingResult.hasErrors()){
+                    modelMap.put("result", bindingResult);
+                    return "edit_event";
+                }else{
+                    eventService.updateEvent(event);
+                    return "redirect:/index";
             }
-                eventService.updateEvent(event);
-                return "redirect:/index";
         }
-
     }
 
 

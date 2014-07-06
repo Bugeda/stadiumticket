@@ -24,7 +24,9 @@ public interface EventService {
 	
 	public List<Event> getPastEvents();
 
-    public void createEvent(NewEventForm evForm) throws ParseException;
+    public void createEvent(Event event) throws ParseException;
+
+    public Event createEmptyEvent();
 
     public void editEvent(NewEventForm editEventForm) throws ParseException;
 

@@ -21,8 +21,9 @@ import java.util.List;
 
 @Service
 public class EventServiceImpl implements EventService{
-	
-	@Autowired
+
+    public static final int SECTORS_COUNT = 27;
+    @Autowired
 	private EventDAO eventDAO;
 	
 	@Autowired
@@ -88,29 +89,25 @@ public class EventServiceImpl implements EventService{
 
     @Override
     @Transactional
-    public void createEvent(NewEventForm eventForm) throws ParseException {
-        System.out.println("CREATING EVENT");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        Date date = simpleDateFormat.parse(eventForm.getEventDate());
-        Timestamp stamp = new Timestamp(date.getTime());
-        stamp.setSeconds(0);
+    public void createEvent(Event event) throws ParseException {
+
+        updateEvent(event);
+    }
+
+    @Override
+    public Event createEmptyEvent() {
         Event event = new Event();
 
-        event.setEventName(eventForm.getEventName());
-        event.setEventDate(stamp);
-        event.setBookingCanceltime(Integer.parseInt(eventForm.getBookingCanceltime()));
         event.setSectorPriceSet(new ArrayList<SectorPrice>());
-        int sectorId=1;
-        for (String e : eventForm.getSectorPrice()){
+
+        for (int sectorId=1; sectorId <= SECTORS_COUNT; ++sectorId){
             SectorPrice sectorPrice = new SectorPrice();
             sectorPrice.setEvent(event);
             Sector sector= sectorDAO.findById(sectorId);
             sectorPrice.setSector(sector);
-            sectorPrice.setPrice(Double.parseDouble(e));
             event.getSectorPriceSet().add(sectorPrice);
-            sectorId++;
         }
-        updateEvent(event);
+        return event;
     }
 
     @Override
