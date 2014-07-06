@@ -2,9 +2,7 @@ package com.dataartschool2.stadiumticket.dreamteam.domain;
 
 
 import javax.persistence.*;
-
-import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -20,7 +18,8 @@ public class SectorPrice {
     @ManyToOne	
     private Event event;
 
-    private double price;
+    @NotNull(message = "Enter price.")
+    private Double price;
 
     public SectorPrice(){}
 

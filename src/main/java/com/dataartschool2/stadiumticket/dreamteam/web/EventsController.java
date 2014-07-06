@@ -6,6 +6,7 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.NewEventForm;
 import com.dataartschool2.stadiumticket.dreamteam.service.EventService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorPriceService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorService;
+import com.dataartschool2.stadiumticket.dreamteam.web.validator.EventValidator;
 import com.dataartschool2.stadiumticket.dreamteam.web.validator.NewEventValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,9 +35,17 @@ public class EventsController{
     @Autowired
     private NewEventValidator newEventValidator;
 
+    @Autowired
+    private EventValidator eventValidator;
+
     @InitBinder("newEventForm")
     public void bindNewEventFormValidator(WebDataBinder webDataBinder){
         webDataBinder.setValidator(newEventValidator);
+    }
+
+    @InitBinder("editEvent")
+    public void bindEditEventValidator(WebDataBinder webDataBinder){
+        webDataBinder.setValidator(eventValidator);
     }
 
     @ModelAttribute("newEventForm")
@@ -99,7 +108,7 @@ public class EventsController{
                     return "new_event";
                 }else{
                 eventService.createEvent(newEventForm);
-                return "redirect:/new_event";
+                return "redirect:/index";
                 }
             }
 	}

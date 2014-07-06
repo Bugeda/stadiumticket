@@ -3,6 +3,10 @@ package com.dataartschool2.stadiumticket.dreamteam.domain;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -14,12 +18,17 @@ public class Event {
     @GeneratedValue  
     private Integer id;
 
+    @NotNull(message = "Must be filled.")
+    @Size(min = 1, message = "Must be filled.")
 	private String eventName;
 
+    @Future(message = "Event date must be in the future.")
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     private Date eventDate;
 
-    private int bookingCanceltime;
+    @NotNull(message = "Must be filled")
+    @Min(value = 1, message = "Should be greater than zero.")
+    private Integer bookingCanceltime;
 
     private boolean isDelete;
 

@@ -50,21 +50,24 @@
     <div class="row">
 	<div class="col-md-5">
 	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/edit_event" modelAttribute="editEvent">
-	 	 <form:errors path="*" cssClass="alert-danger" />
 	    <div class="form-group">
 	      <label for="title">Title:</label>
 	      <form:input class="form-control"  path="eventName" id="title"/>
+	      <form:errors path="eventName" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
             <fmt:formatDate value="${editEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate"/>
 	      <label for="eventDate">Start at:</label>
 	      <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}"/>
+	      <form:errors path="eventDate" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
 	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
 	      <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time"/>
-	    </div>	    
+	      <form:errors path="bookingCanceltime" cssClass="alert-danger" />
+	    </div>
 	    <div class="form-group">
+	        <form:errors path="sectorPriceSet" cssClass="alert-danger" />
 	      <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
 	        <form:hidden  id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
 	      </c:forEach>
@@ -77,7 +80,7 @@
 	    </div>
       </form:form>
 
-	  <form:form id="confirm_deletion_form"  method="post" action="${pageContext.request.contextPath}/delete_event" modelAttribute="deleteEvent">
+	  <form:form id="confirm_deletion_form"  method="post" action="${pageContext.request.contextPath}/delete_event" modelAttribute="editEvent">
 	    <div class="form-group">
 	      <div class="alert-warning" role="alert">
 			Are you sure you want to delete event?<br>
