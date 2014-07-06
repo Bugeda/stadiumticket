@@ -102,7 +102,6 @@ public class EventServiceImpl implements EventService{
         event.setSectorPriceSet(new ArrayList<SectorPrice>());
         int sectorId=1;
         for (String e : eventForm.getSectorPrice()){
-            System.out.println(e);
             SectorPrice sectorPrice = new SectorPrice();
             sectorPrice.setEvent(event);
             Sector sector= sectorDAO.findById(sectorId);

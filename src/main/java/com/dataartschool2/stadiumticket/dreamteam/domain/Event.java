@@ -22,6 +22,7 @@ public class Event {
     @Size(min = 1, message = "Must be filled.")
 	private String eventName;
 
+    @NotNull(message = "Date must be filled.")
     @Future(message = "Event date must be in the future.")
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     private Date eventDate;
@@ -45,7 +46,6 @@ public class Event {
         this.sectorPriceSet = sectorPriceSet;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -57,19 +57,10 @@ public class Event {
 
         Event event = (Event) o;
 
-        if (bookingCanceltime != event.bookingCanceltime) {
+        if (eventDate != null ? !eventDate.equals(event.eventDate) : event.eventDate != null) {
             return false;
         }
-        if (isDelete != event.isDelete) {
-            return false;
-        }
-        if (!eventDate.equals(event.eventDate)) {
-            return false;
-        }
-        if (!eventName.equals(event.eventName)) {
-            return false;
-        }
-        if (id != null ? !id.equals(event.id) : event.id != null) {
+        if (eventName != null ? !eventName.equals(event.eventName) : event.eventName != null) {
             return false;
         }
 
@@ -78,11 +69,8 @@ public class Event {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + eventName.hashCode();
-        result = 31 * result + eventDate.hashCode();
-        result = 31 * result + bookingCanceltime;
-        result = 31 * result + (isDelete ? 1 : 0);
+        int result = eventName != null ? eventName.hashCode() : 0;
+        result = 31 * result + (eventDate != null ? eventDate.hashCode() : 0);
         return result;
     }
 
@@ -110,11 +98,11 @@ public class Event {
         this.eventDate = eventDate;
     }
 
-	public int getBookingCanceltime() {
+	public Integer getBookingCanceltime() {
 		return bookingCanceltime;
 	}
 
-	public void setBookingCanceltime(int bookingCanceltime) {
+	public void setBookingCanceltime(Integer bookingCanceltime) {
 		this.bookingCanceltime = bookingCanceltime;
 	}
 

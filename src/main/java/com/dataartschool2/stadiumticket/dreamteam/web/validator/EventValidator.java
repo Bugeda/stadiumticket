@@ -38,9 +38,10 @@ public class EventValidator implements Validator{
         Double price = sectorPrice.getPrice();
         if(price == null){
             errors.rejectValue("sectorPriceSet", "pricesMustBeFilled", "All prices must be filled");
-        }
-        if(Double.compare(price, 0) <= 0){
-            errors.rejectValue("sectorPriceSet", "notPositivePrices", "Prices should be positive");
+        }else {
+            if (Double.compare(price, 0) <= 0) {
+                errors.rejectValue("sectorPriceSet", "notPositivePrices", "Prices should be positive");
+            }
         }
     }
 }
