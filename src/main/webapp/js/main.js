@@ -21,13 +21,24 @@ $(document).ready(function () {
 	step:15,
 	format:'d-m-Y H:i',
   	minDate : '-1969/12/31',
+	startDate : '-1969/12/31',
 	dayOfWeekStart: 1
     });
 
-    if ($('#event_list').length != 0) {
+    $('#booking_time').datetimepicker({
+	lang:'en',
+	datepicker:false,
+	value: 30,
+	step:5,
+	format: 'i',
+	formatTime: 'i'
+    });
+
+
+    if ($('#events_list').length != 0) {
 
 	// dataTable configuration
-	$('#event_list').dataTable({
+	$('#events_list').dataTable({
 	    "paging": false,
 	    "stateSave": true,
 	    "autoWidth": true,

@@ -32,10 +32,10 @@ public class EventServiceImpl implements EventService{
     @Autowired
     private SectorDAO sectorDAO;
 
-    @Override
+   /* @Override
     public void deleteEvent(Event event) {
         eventDAO.deleteEntity(event);
-    }
+    }*/
 
     @Override
     public void markAsDeleted(Event event) {
@@ -70,7 +70,6 @@ public class EventServiceImpl implements EventService{
     @Override
     @Transactional
     public void createEvent(Event event) throws ParseException {
-
         updateEvent(event);
     }
 
@@ -90,7 +89,7 @@ public class EventServiceImpl implements EventService{
         return event;
     }
 
-    @Override
+    /*@Override
     @Transactional
     public void editEvent(NewEventForm editEventForm) throws ParseException {
         Integer eventId=editEventForm.getId();
@@ -115,7 +114,7 @@ public class EventServiceImpl implements EventService{
             sectorPriceDAO.updateEntity(sp);
             sectorId++;
         }
-    }
+    }*/
 
 }
 

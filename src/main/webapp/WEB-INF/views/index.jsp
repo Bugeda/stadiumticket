@@ -1,7 +1,7 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
   <head>
@@ -48,7 +48,7 @@
        </div>
        <div class="row">
 	 <div>
-	   <table class="hover" id="event_list">
+	   <table class="hover" id="events_list">
 	     <thead>
 	       <tr>
 		 <th>
@@ -68,7 +68,7 @@
 		<td class="event_datetime"><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy HH:mm" /></td>
 	      	<td class="action_list" >
 				<a href="#"><img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
-				<a href="<c:url value="/booking/book_tickets?id=${events.getId()}"/>"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
+				<a href="#"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/search_booked.png"></a>				
 				<a href="<c:url value="/edit_event?id=${event.id}"/>">
 					<img src="<%= request.getContextPath() %>/images/edit_event.png">

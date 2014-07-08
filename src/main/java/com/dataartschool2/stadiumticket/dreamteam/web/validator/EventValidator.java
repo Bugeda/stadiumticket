@@ -15,6 +15,7 @@ import java.util.List;
  */
 @Component
 public class EventValidator implements Validator{
+	
     @Autowired
     private SpringValidatorAdapter validator;
 

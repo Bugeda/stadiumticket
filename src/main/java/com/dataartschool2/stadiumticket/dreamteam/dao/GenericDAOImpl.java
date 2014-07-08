@@ -67,11 +67,12 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    return findByCriteria();  
 	}  
 	protected List<EntityClass> findByCriteria(final Criterion... criterion) {
-		return findByCriteria(-1, -1, false, null, criterion);
+		System.out.println(criterion.toString());	
+		return findByCriteria(-1, -1, null, criterion);
 	}
 	@SuppressWarnings("unchecked")
 	protected List<EntityClass> findByCriteria(final int firstResult,
-		final int maxResults, final boolean order, final Order addorder, final Criterion... criterion ) {
+		final int maxResults, final Order order, final Criterion... criterion ) {
 		List<EntityClass> result = null;
 	    try {
 	    	Criteria crit = getSession().createCriteria(getEntityClass());
@@ -87,15 +88,17 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    	if (maxResults > 0) {
 	    		crit.setMaxResults(maxResults);
 	    	}
-	    	if (order)  {
-	    		crit.addOrder(addorder);
+	     	if ((order!=null))  {	  
+	    		
+	    		crit.addOrder(order);
 	    	}
-
+	    	 	
 	    	result = crit.list();
 	    }
 	    catch (Exception e) {
-	    //	System.out.println(e.getMessage());	    	
+	    	e.printStackTrace();    	
 	    }		    
+	   
 		return result;
 	}
 	  

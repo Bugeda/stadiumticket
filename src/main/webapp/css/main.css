@@ -160,7 +160,7 @@ map input {
     height: 35px;
 }
 
-.action_list, #event_list_info, .invisible {
+.action_list, #events_list_info, .invisible {
     display: none;
 }
 
@@ -190,24 +190,24 @@ map input {
 }
 
 /*styles for table with tickets*/
-table {
+.table-responsive {
     font-size: 0.8em;
 }
 
-table > tbody > tr > td {
+.table-responsive > tbody > tr > td {
     width: 1.9%;
     text-align: center;
 }
 
-td:first-child {
+.table-responsive td:first-child {
     font-weight: bolder;
 }
 
-.table > tbody > tr > th, .table > tbody > tr > td {
+.table-responsive.table > tbody > tr > th, .table > tbody > tr > td {
     border-top: none;
 }
 
-.table > tbody > tr > td {
+.table-responsive > tbody > tr > td {
     padding: 2px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -215,7 +215,7 @@ td:first-child {
     border-radius: 2px;
 }
 
-.table > tbody > tr > td > div {
+.table-responsive > tbody > tr > td > div {
     background: #ffffff;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -283,4 +283,10 @@ hr {
 
 .sell_tickets_header > tbody > tr > td:nth-child(6) > div {
     background: #FE2B2C;
+}
+.sectorPrice-danger{
+	position:absolute;
+	left:730px;
+	top:-30px;
+	white-space: nowrap;
 }

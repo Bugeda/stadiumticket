@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -24,6 +24,7 @@
     <script src="<%= request.getContextPath() %>/js/jquery.maphighlight.js"></script>    
     <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.datetimepicker.js"></script>
     <script src="<%= request.getContextPath() %>/js/main.js"></script>  
+    <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.alphanum.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,24 +51,24 @@
 	 	<form:form class="form-horizontal"  action="${pageContext.request.contextPath}/new_event" method="post" modelAttribute="newEvent">
             <div class="form-group">
               <label for="title">Title:</label>
-              <form:input class="form-control"  path="eventName" id="title"/>
+              <form:input class="form-control"  path="eventName" id="title" placeholder="please enter event name" title="please enter event name"/>
               <form:errors path="eventName" cssClass="alert-danger" />
             </div>
             <div class="form-group">
-                <fmt:formatDate value="${newEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate"/>
+                <fmt:formatDate value="${newEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate" />
               <label for="eventDate">Start at:</label>
-              <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}"/>
+              <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}" placeholder="Select event start time and date" title="Select event start time and date"/>
               <form:errors path="eventDate" cssClass="alert-danger" />
             </div>
             <div class="form-group">
               <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
-              <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time"/>
+              <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time" value="30" placeholder="Enter time, before which all booked tickets are cancelled" title="Enter time, before which all booked tickets are cancelled"/>
               <form:errors path="bookingCanceltime" cssClass="alert-danger" />
             </div>
             <div class="form-group">
-                <form:errors path="sectorPriceSet" cssClass="alert-danger" />
+              <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />          
               <c:forEach items="${newEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
-                <form:hidden  id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
+                <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"  />
               </c:forEach>
             </div>
             <div class="form-group">
@@ -77,12 +78,12 @@
          </form:form>
 
 	</div>
-	<div class="col-md-7">
-          <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
+	<div class="col-md-7">   
+	<img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
 	  <map name="stadium">
-	 	<% for (int i=1;i<28;i++) {%>
-	    <input type="text" id="price_<%=i %>" size="4" maxlength="4" placeholder="price">
-	    <%} %>	    
+	   <% for (int i=1;i<28;i++) {%>
+	      <input type="text" id="price_<%=i %>" size="4" maxlength="4" placeholder="price">
+	   <%} %>	    
 	          
 	  	<area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
 	    <area id="2" alt="2" title="2"  shape="poly" coords="431,119,431,53,446,53,446,20,485,20,520,29,478,117" />
@@ -114,6 +115,7 @@
 	    
 	  </map>
 	  <br>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/js/allowDigitsOnly.js"></script>
 	  <div class="row">
 	    <div style="display:none;" class="alert-dismissible alert alert-danger" role="alert">
 	      Only numbers allowed here!
