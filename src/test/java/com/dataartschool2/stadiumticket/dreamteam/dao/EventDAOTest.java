@@ -34,7 +34,6 @@ public class EventDAOTest{
 		Date d = sdf.parse("2014-05-16 17:00:00.0");
 		Timestamp stamp = new Timestamp(d.getTime());		
         Event expected = new Event(5, "���������� - �������", stamp, 30, new ArrayList<SectorPrice>());
-
         Event actual = eventDAO.findById(5);
         assertNotNull(actual);
         assertNotSame(expected, actual);
@@ -58,15 +57,15 @@ public class EventDAOTest{
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
   
-        stamp.setYear(10);
-        stamp.setMonth(8);
-        stamp.setDate(25);
-        Event ev = new Event(15, "newname", stamp,30, new ArrayList<SectorPrice>());
-    	eventDAO.updateEntity(ev);    	
-        Event actual = eventDAO.findById(15);	
+	stamp.setYear(10);
+	stamp.setMonth(8);
+	stamp.setDate(25);
+	Event ev = new Event(15, "newname", stamp,30, new ArrayList<SectorPrice>());
+	eventDAO.updateEntity(ev);    	
+	Event actual = eventDAO.findById(15);	
   
-        assertEquals(actual,ev);
-        assertNotNull(actual);     
+	assertEquals(actual,ev);
+	assertNotNull(actual);     
     } 
     
     @Test
@@ -83,7 +82,7 @@ public class EventDAOTest{
     @Test
     public void entityListTest() throws ParseException{
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	 	Event ev1=new Event(1, "���������� - �������", new Timestamp(sdf.parse("2014-05-18 15:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+	Event ev1=new Event(1, "���������� - �������", new Timestamp(sdf.parse("2014-05-18 15:00:00").getTime()), 30, new ArrayList<SectorPrice>());
     	Event ev2=new Event(2, "������� - ����������", new Timestamp(sdf.parse("2014-05-20 16:00:00").getTime()), 30, new ArrayList<SectorPrice>());
     	Event ev3=new Event(3, "���������� - �������", new Timestamp(sdf.parse("2014-05-23 11:00:00").getTime()), 30, new ArrayList<SectorPrice>());
     	Event ev4=new Event(4, "������� - ����������", new Timestamp(sdf.parse("2014-05-23 19:00:00").getTime()), 30, new ArrayList<SectorPrice>());
@@ -103,6 +102,6 @@ public class EventDAOTest{
         assertEquals(ev5, actuals.get(4));
         assertEquals(ev6, actuals.get(5));
         assertEquals(ev7, actuals.get(6));
-        assertEquals(ev8, actuals.get(7));
+        assertEquals(ev8, actuals.get(7));*/
 	}  
 }
