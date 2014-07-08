@@ -1,10 +1,5 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.List;
-
-import javax.swing.JOptionPane;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +7,9 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 
 public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityClass>{
@@ -43,17 +41,9 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 		this.session = session;
 	}
 	//CRUD
-	public EntityClass updateEntity(EntityClass entity) { 
-		EntityClass result= null;
-
-	    try {
-			getSession().saveOrUpdate(entity); 
-			result = entity;
-	    }
-		catch (Exception e) {  
-	    //	System.out.println(e.getMessage());
-		}
-		return result;  
+	public EntityClass updateEntity(EntityClass entity) {
+	    getSession().saveOrUpdate(entity);
+		return entity;
 	}  
 	//
 
@@ -68,18 +58,8 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	
 	@SuppressWarnings("unchecked")
 	public EntityClass findById(final Integer id) {
-		EntityClass result = null;
-
-	    try {
-	    	//result = (EntityClass) getSession().load(getEntityClass(), id);	
-	    	result = (EntityClass) getSession().get(getEntityClass(), id);	    	 
-	    }
-	    catch (Exception e) { 	    	
-	    	JOptionPane.showMessageDialog(null,	"incorrect request", "Error",  JOptionPane.ERROR_MESSAGE);
-			return null;
-	    }
-
-        return (result);
+		EntityClass result = (EntityClass) getSession().get(getEntityClass(), id);
+        return result;
 	}	
 	
 	@Override
@@ -87,7 +67,6 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    return findByCriteria();  
 	}  
 	protected List<EntityClass> findByCriteria(final Criterion... criterion) {
-		System.out.println(criterion.toString());
 		return findByCriteria(-1, -1, false, null, criterion);
 	}
 	@SuppressWarnings("unchecked")
@@ -111,7 +90,7 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    	if (order)  {
 	    		crit.addOrder(addorder);
 	    	}
-	    	System.out.println(crit.toString());
+
 	    	result = crit.list();
 	    }
 	    catch (Exception e) {

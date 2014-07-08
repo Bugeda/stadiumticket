@@ -49,38 +49,43 @@
 	 </div>
     <div class="row">
 	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/submit/edit_event" modelAttribute="newEventForm">
+	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/edit_event" modelAttribute="editEvent">
 	    <div class="form-group">
 	      <label for="title">Title:</label>
-	      <input class="form-control" type="text" name="eventName" id="title" value="${event.getEventName()}"/>
+	      <form:input class="form-control"  path="eventName" id="title"/>
+	      <form:errors path="eventName" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
+            <fmt:formatDate value="${editEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate"/>
 	      <label for="eventDate">Start at:</label>
-	      <input class="form-control" type="text" name="eventDate"  id="start" value='<fmt:formatDate value="${event.getEventDate()}" pattern="dd-MM-yyyy HH:mm" />'/>
+	      <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}"/>
+	      <form:errors path="eventDate" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
 	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
-	      <input class="form-control" type="text" name="bookingCanceltime" id="booking_time" value="${event.getBookingCanceltime()}">       
-	    </div>	    
+	      <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time"/>
+	      <form:errors path="bookingCanceltime" cssClass="alert-danger" />
+	    </div>
 	    <div class="form-group">
-	      <c:forEach items="${sectorPrices}" var="sectorPrice">	    
-	      <input type="hidden" id="s${sectorPrice.getSector().getId()}" name="sectorPrice" value="${sectorPrice.getPrice()}">
+	        <form:errors path="sectorPriceSet" cssClass="alert-danger" />
+	      <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
+	        <form:hidden  id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
 	      </c:forEach>
-	 	<input type="hidden" id="id" name="id" value="${event.getId()}">
+	 	<form:hidden path="id"/>
 	    </div>
 	    <div class="form-group">
 	      <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
 	 	  <input class="btn btn-warning" type="submit" name="submit" value="Cancel changes" id="event_cancel">
    	      <input class="btn btn-danger" type="button" value="Delete event" id="event_delete">
 	    </div>
-          </form:form>
+      </form:form>
 
-	  <form:form id="confirm_deletion_form"  method="post" action="${pageContext.request.contextPath}/events/submitdelete_event" modelAttribute="event">
+	  <form:form id="confirm_deletion_form"  method="post" action="${pageContext.request.contextPath}/delete_event" modelAttribute="editEvent">
 	    <div class="form-group">
 	      <div class="alert-warning" role="alert">
 			Are you sure you want to delete event?<br>
 			Please enter word DELETE here:<br>
-			<input type="hidden" id="id" name="id" value="${event.getId()}">
+			<form:hidden id="id" path="id"/>
 			<input class="form-control" type="text" name="confirm_delete" id="confirm_deletion_text" maxlength="10" size="15" placeholder="enter DELETE here for confirmation"><br>
 			<input class="btn btn-danger"  type="submit" value="Ok, delete event" id="confirm_deletion">
 			<input class="btn btn-warning" type="button" value="Cancel deletion" id="cancel_deletion">
@@ -95,10 +100,11 @@
 	<div class="col-md-7">
           <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
 	  <map name="stadium">
-	 	<c:forEach items="${sectorPrices}" var="sectorPrice">	  
-	    <input type="text" id="price_${sectorPrice.getSector().getId()}" size="4" maxlength="4" value="${sectorPrice.getPrice()}">	  
-	    </c:forEach>    
-	    
+
+	 	<c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice">
+	         <input id="price_${sectorPrice.sector.id}" size="4" maxlength="4" value="${sectorPrice.price}"/>
+	    </c:forEach>
+
 	    <area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
 	    <area id="2" alt="2" title="2"  shape="poly" coords="431,119,431,53,446,53,446,20,485,20,520,29,478,117" />
 	    <area id="3" alt="3" title="3"  shape="poly" coords="485,122,526,32,564,55,586,92,497,137" />
@@ -126,7 +132,7 @@
 	    <area id="25" alt="25" title="25" shape="poly" coords="186,32,263,33,266,47,259,46,261,92,303,93,304,109,241,109,238,120,202,119,201,56,201,46,185,46"/>
 	    <area id="26" alt="vipD" title="vipD" shape="rect" coords="152,472,468,501" />
 	    <area id="27" alt="vipA" title="vipA" shape="rect" coords="266,32,356,83" />
-	    
+
 	  </map>
 	  <br>
 	  <div class="row">

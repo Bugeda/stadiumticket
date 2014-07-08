@@ -47,37 +47,41 @@
 	 </div>
     <div class="row">
 	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/submit/new_event" modelAttribute="newEventForm">
-	    <div class="form-group">
-	      <label for="title">Title:</label>
-	      <input class="form-control" type="text" name="eventName" id="title" placeholder="please enter event name"/>
-	    </div>
-	    <div class="form-group">
-	      <label for="eventDate">Start at:</label>
-	      <input class="form-control" type="text" name="eventDate"  id="start" placeholder="Select event start time and date"/>
-	    </div>
-	    <div class="form-group">
-	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
-	      <input class="form-control" type="text" name="bookingCanceltime" id="booking_time" placeholder="Enter time, before which all booked tickets are cancelled">       
-	    </div>
-	    <div class="form-group">
-	      <% for (int i=1;i<28;i++) {%>
-	      <input type="hidden" id="s<%=i %>" name="sectorPrice" placeholder="0">
-	      <%} %>	
-	      <input type="hidden" id="id" name="id" value="0">
-	    </div>
-	    <div class="form-group">
-	      <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
-		  <input class="btn btn-warning" type="submit" name="submit" value="Cancel changes" id="event_cancel">
-	    </div>
-          </form:form>
+	 	<form:form class="form-horizontal"  action="${pageContext.request.contextPath}/new_event" method="post" modelAttribute="newEvent">
+            <div class="form-group">
+              <label for="title">Title:</label>
+              <form:input class="form-control"  path="eventName" id="title"/>
+              <form:errors path="eventName" cssClass="alert-danger" />
+            </div>
+            <div class="form-group">
+                <fmt:formatDate value="${newEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate"/>
+              <label for="eventDate">Start at:</label>
+              <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}"/>
+              <form:errors path="eventDate" cssClass="alert-danger" />
+            </div>
+            <div class="form-group">
+              <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
+              <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time"/>
+              <form:errors path="bookingCanceltime" cssClass="alert-danger" />
+            </div>
+            <div class="form-group">
+                <form:errors path="sectorPriceSet" cssClass="alert-danger" />
+              <c:forEach items="${newEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
+                <form:hidden  id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
+              </c:forEach>
+            </div>
+            <div class="form-group">
+              <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
+              <input class="btn btn-warning" type="submit" name="submit" value="Cancel changes" id="event_cancel">
+            </div>
+         </form:form>
 
 	</div>
 	<div class="col-md-7">
           <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
 	  <map name="stadium">
 	 	<% for (int i=1;i<28;i++) {%>
-	    <input type="text" id="price_<%=i %>" size="4" maxlength="4" placeholder="price">	  
+	    <input type="text" id="price_<%=i %>" size="4" maxlength="4" placeholder="price">
 	    <%} %>	    
 	          
 	  	<area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />

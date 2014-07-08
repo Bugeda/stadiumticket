@@ -62,15 +62,15 @@
 		</th>
 	      </tr>
 	    </thead>
-	    <c:forEach items="${events}" var="events">
+	    <c:forEach items="${events}" var="event">
 	    <tr class="event">
-		<td class="event_name"><c:out value="${events.getEventName()}"></c:out></td>
-		<td class="event_datetime"><fmt:formatDate value="${events.getEventDate()}" pattern="dd-MM-yyyy HH:mm" /></td>
+		<td class="event_name"><c:out value="${event.eventName}"></c:out></td>
+		<td class="event_datetime"><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy HH:mm" /></td>
 	      	<td class="action_list" >
 				<a href="#"><img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
 				<a href="<c:url value="/booking/book_tickets?id=${events.getId()}"/>"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/search_booked.png"></a>				
-				<a href="<c:url value="/edit_event?id=${events.getId()}"/>">
+				<a href="<c:url value="/edit_event?id=${event.id}"/>">
 					<img src="<%= request.getContextPath() %>/images/edit_event.png">
 				</a>
 	      	</td>
