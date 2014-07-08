@@ -33,8 +33,8 @@ public class EventDAOTest{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 		Date d = sdf.parse("2014-05-16 17:00:00.0");
 		Timestamp stamp = new Timestamp(d.getTime());		
-        Event template = new Event(5, "Черноморец - Карпаты", stamp, 30, new ArrayList<SectorPrice>());
-        Event expected = new Event(5, "Черноморец - Карпаты", stamp, 30, new ArrayList<SectorPrice>());
+        Event template = new Event(5, "Р§РµСЂРЅРѕРјРѕСЂРµС† - РљР°СЂРїР°С‚С‹", stamp, 30, new ArrayList<SectorPrice>());
+        Event expected = new Event(5, "Р§РµСЂРЅРѕРјРѕСЂРµС† - РљР°СЂРїР°С‚С‹", stamp, 30, new ArrayList<SectorPrice>());
         
         Event actual = eventDAO.findById(5);
         assertNotNull(actual);
@@ -84,14 +84,14 @@ public class EventDAOTest{
     @Test
     public void entityListTest() throws ParseException{
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	 	Event ev1=new Event(1, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-18 15:00:00").getTime()), 30, new ArrayList<SectorPrice>());
-    	Event ev2=new Event(2, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-20 16:00:00").getTime()), 30, new ArrayList<SectorPrice>());
-    	Event ev3=new Event(3, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-23 11:00:00").getTime()), 30, new ArrayList<SectorPrice>());
-    	Event ev4=new Event(4, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-23 19:00:00").getTime()), 30, new ArrayList<SectorPrice>());
-    	Event ev5=new Event(5, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-16 17:00:00").getTime()), 30, new ArrayList<SectorPrice>());
-    	Event ev6=new Event(6, "Шахтер - Волынь", new Timestamp(sdf.parse("2014-05-18 14:00:00").getTime()), 30, new ArrayList<SectorPrice>());
-    	Event ev7=new Event(7, "Металлист - Карпаты", new Timestamp(sdf.parse("2014-05-18 12:00:00").getTime()), 30, new ArrayList<SectorPrice>());
-    	Event ev8=new Event(8, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-20 14:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+	Event ev1=new Event(1, "Р§РµСЂРЅРѕРјРѕСЂРµС† - РљР°СЂРїР°С‚С‹", new Timestamp(sdf.parse("2014-05-18 15:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev2=new Event(2, "Р“РѕРІРµСЂР»Р° - Р§РµСЂРЅРѕРјРѕСЂРµС†", new Timestamp(sdf.parse("2014-05-20 16:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev3=new Event(3, "Р§РµСЂРЅРѕРјРѕСЂРµС† - РљР°СЂРїР°С‚С‹", new Timestamp(sdf.parse("2014-05-23 11:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev4=new Event(4, "Р“РѕРІРµСЂР»Р° - Р§РµСЂРЅРѕРјРѕСЂРµС†", new Timestamp(sdf.parse("2014-05-23 19:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev5=new Event(5, "Р§РµСЂРЅРѕРјРѕСЂРµС† - РљР°СЂРїР°С‚С‹", new Timestamp(sdf.parse("2014-05-16 17:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev6=new Event(6, "РЁР°С…С‚РµСЂ - Р’РѕР»С‹РЅСЊ", new Timestamp(sdf.parse("2014-05-18 14:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev7=new Event(7, "РњРµС‚Р°Р»Р»РёСЃС‚ - РљР°СЂРїР°С‚С‹", new Timestamp(sdf.parse("2014-05-18 12:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+    	Event ev8=new Event(8, "Р“РѕРІРµСЂР»Р° - Р§РµСЂРЅРѕРјРѕСЂРµС†", new Timestamp(sdf.parse("2014-05-20 14:00:00").getTime()), 30, new ArrayList<SectorPrice>());
     	List<Event> expecteds = Arrays.asList(ev1,ev2,ev3,ev4,ev5,ev6,ev7,ev8);
     			
         List<Event> actuals = eventDAO.findAll();
