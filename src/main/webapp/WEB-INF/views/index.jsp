@@ -21,6 +21,7 @@
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     <script src="<%= request.getContextPath() %>/js/jquery.dataTables.js"></script>
+    <script src="<%= request.getContextPath() %>/js/jquery.maphighlight.js"></script>    
     <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.datetimepicker.js"></script>
     <script src="<%= request.getContextPath() %>/js/main.js"></script>  
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

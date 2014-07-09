@@ -74,6 +74,9 @@ public class EventsController{
     public String getActiveEvents(ModelMap map,  Model model) {   	
     	model.asMap().clear();
     	List<Event> allEvents = eventService.getFutureEvents();
+    	for (Event e:allEvents){
+    		System.out.println(e.getEventName());
+    	}
     	map.put("events", allEvents);
     	//System.out.println(allEvents.size());
         return "/index";

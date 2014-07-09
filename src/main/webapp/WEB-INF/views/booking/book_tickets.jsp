@@ -52,7 +52,7 @@
         <table class="table" id="ticket_list">
             <thead>
             <tr>
-                <td>â„–</td>
+                <td>¹</td>
                 <td>Sector</td>
                 <td>Row</td>
                 <td>Seat</td>

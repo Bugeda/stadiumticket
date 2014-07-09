@@ -33,6 +33,7 @@ public class EventDAOTest{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 		Date d = sdf.parse("2014-05-16 17:00:00.0");
 		Timestamp stamp = new Timestamp(d.getTime());		
+
         Event template = new Event(5, "Черноморец - Карпаты", stamp, 30, new ArrayList<SectorPrice>());
         Event expected = new Event(5, "Черноморец - Карпаты", stamp, 30, new ArrayList<SectorPrice>());
         
