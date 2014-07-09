@@ -160,7 +160,7 @@ map input {
     height: 35px;
 }
 
-.action_list, #events_list_info, .invisible {
+.action_list, #event_list_info, .invisible {
     display: none;
 }
 
@@ -283,10 +283,4 @@ hr {
 
 .sell_tickets_header > tbody > tr > td:nth-child(6) > div {
     background: #FE2B2C;
-}
-.sectorPrice-danger{
-	position:absolute;
-	left:730px;
-	top:-30px;
-	white-space: nowrap;
 }
