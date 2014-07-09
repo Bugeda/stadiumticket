@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -24,6 +24,7 @@
     <script src="<%= request.getContextPath() %>/js/jquery.maphighlight.js"></script>    
     <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.datetimepicker.js"></script>
     <script src="<%= request.getContextPath() %>/js/main.js"></script>  
+    <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.alphanum.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -47,38 +48,42 @@
 	 </div>
     <div class="row">
 	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/submit/new_event" modelAttribute="newEventForm">
-	    <div class="form-group">
-	      <label for="title">Title:</label>
-	      <input class="form-control" type="text" name="eventName" id="title" placeholder="please enter event name"/>
-	    </div>
-	    <div class="form-group">
-	      <label for="eventDate">Start at:</label>
-	      <input class="form-control" type="text" name="eventDate"  id="start" placeholder="Select event start time and date"/>
-	    </div>
-	    <div class="form-group">
-	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
-	      <input class="form-control" type="text" name="bookingCanceltime" id="booking_time" placeholder="Enter time, before which all booked tickets are cancelled">       
-	    </div>
-	    <div class="form-group">
-	      <% for (int i=1;i<28;i++) {%>
-	      <input type="hidden" id="s<%=i %>" name="sectorPrice" placeholder="0">
-	      <%} %>	
-	      <input type="hidden" id="id" name="id" value="0">
-	    </div>
-	    <div class="form-group">
-	      <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
-		  <input class="btn btn-warning" type="submit" name="submit" value="Cancel changes" id="event_cancel">
-	    </div>
-          </form:form>
+	 	<form:form class="form-horizontal"  action="${pageContext.request.contextPath}/new_event" method="post" modelAttribute="newEvent">
+            <div class="form-group">
+              <label for="title">Title:</label>
+              <form:input class="form-control"  path="eventName" id="title" placeholder="please enter event name" title="please enter event name"/>
+              <form:errors path="eventName" cssClass="alert-danger" />
+            </div>
+            <div class="form-group">
+                <fmt:formatDate value="${newEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate" />
+              <label for="eventDate">Start at:</label>
+              <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}" placeholder="Select event start time and date" title="Select event start time and date"/>
+              <form:errors path="eventDate" cssClass="alert-danger" />
+            </div>
+            <div class="form-group">
+              <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
+              <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time" value="30" placeholder="Enter time, before which all booked tickets are cancelled" title="Enter time, before which all booked tickets are cancelled"/>
+              <form:errors path="bookingCanceltime" cssClass="alert-danger" />
+            </div>
+            <div class="form-group">
+              <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />          
+              <c:forEach items="${newEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
+                <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"  />
+              </c:forEach>
+            </div>
+            <div class="form-group">
+              <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
+              <input class="btn btn-warning" type="submit" name="submit" value="Cancel changes" id="event_cancel">
+            </div>
+         </form:form>
 
 	</div>
-	<div class="col-md-7">
-          <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
+	<div class="col-md-7">   
+	<img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
 	  <map name="stadium">
-	 	<% for (int i=1;i<28;i++) {%>
-	    <input type="text" id="price_<%=i %>" size="4" maxlength="4" placeholder="price">	  
-	    <%} %>	    
+	   <% for (int i=1;i<28;i++) {%>
+	      <input type="text" id="price_<%=i %>" size="4" maxlength="4" placeholder="price">
+	   <%} %>	    
 	          
 	  	<area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
 	    <area id="2" alt="2" title="2"  shape="poly" coords="431,119,431,53,446,53,446,20,485,20,520,29,478,117" />
@@ -110,6 +115,35 @@
 	    
 	  </map>
 	  <br>
+	<script type="text/javascript">
+	    $('#price_1, #price_2, #price_3, #price_4, #price_5, #price_6, #price_7, #price_8, ' +
+	    '#price_9, #price_10, #price_11, #price_12, #price_13, #price_14, #price_15, #price_16, ' +
+	    '#price_17, #price_18, #price_19, #price_20, #price_21, #price_22, #price_23, #price_24, ' +
+	    '#price_25, #price_26, #price_27').numeric({
+	    allowPlus: false,  // Allow the + sign
+	    allowMinus: false,  // Allow the - sign
+	    allowThouSep: false,  // Allow the thousands separator, default is the comma eg 12,000
+	    allowDecSep: true,  // Allow the decimal separator, default is the fullstop eg 3.141
+	    allowLeadingSpaces: false,
+	    maxDigits: 5,     // The max number of digits
+	    maxDecimalPlaces: 2,   // The max number of decimal places
+	    maxPreDecimalPlaces: 3,   // The max number digits before the decimal point
+	    max: NaN,   // The max numeric value allowed
+	    min: NaN    // The min numeric value allowed
+	    });
+
+	    $('#booking_time').numeric({
+	    allowPlus: false,
+	    allowMinus: false,
+	    allowThouSep: false,
+	    allowDecSep: false,
+	    allowLeadingSpaces: false,
+	    maxDigits: 5,
+	    max: NaN,
+	    min: NaN
+	    });
+	  </script>
+
 	  <div class="row">
 	    <div style="display:none;" class="alert-dismissible alert alert-danger" role="alert">
 	      Only numbers allowed here!

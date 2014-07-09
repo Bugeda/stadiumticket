@@ -19,7 +19,7 @@ public class SectorPriceDAOImpl extends GenericDAOImpl<SectorPrice> implements S
 	public List<SectorPrice> getPricesSectorsOfEvent(Event ev) {
 		Criterion criterion = Restrictions.eq("event", ev);
 		Order order=Order.asc("id");
-		List<SectorPrice> sectorPrices=findByCriteria(0,0,true,order,criterion);
+		List<SectorPrice> sectorPrices=findByCriteria(0,0,order,criterion);
 		return sectorPrices;
 	}
     
