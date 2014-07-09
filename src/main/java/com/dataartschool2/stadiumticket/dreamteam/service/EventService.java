@@ -1,14 +1,20 @@
 package com.dataartschool2.stadiumticket.dreamteam.service;
 
-import java.util.List;
-
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
+import com.dataartschool2.stadiumticket.dreamteam.domain.NewEventForm;
+
+import java.text.ParseException;
+import java.util.List;
 
 
 
 public interface EventService {
-	
-	public void updateEvent(Event event);
+
+	//void deleteEvent(Event event);
+
+	void markAsDeleted(Event event);
+
+	public Event updateEvent(Event event);
 	
 	public Event findById(Integer id);
 	
@@ -16,7 +22,11 @@ public interface EventService {
 	
 	public List<Event> getPastEvents();
 
-	
-	
+	public void createEvent(Event event) throws ParseException;
+
+	public Event createEmptyEvent();
+
+//	public void editEvent(NewEventForm editEventForm) throws ParseException;
+
 
 }

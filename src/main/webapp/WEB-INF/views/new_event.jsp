@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8"%>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -9,24 +9,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>stadiumticket - new\edit event</title>
+    <title>stadiumticket - new event</title>
    <!-- css -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/bootstrap-theme.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.dataTables.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/css/jquery.timepicker.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/css/main.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/jquery.datetimepicker.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/main.css" type="text/css" rel="stylesheet">
 
     <!-- js -->
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     <script src="<%= request.getContextPath() %>/js/jquery.dataTables.js"></script>
-    <script src="<%= request.getContextPath() %>/js/jquery.maphighlight.js"></script>
-    <script src="<%= request.getContextPath() %>/js/main.js"></script>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.timepicker.js"></script>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/js/datepair.js"></script>
-    
+    <script src="<%= request.getContextPath() %>/js/jquery.maphighlight.js"></script>    
+    <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.datetimepicker.js"></script>
+    <script src="<%= request.getContextPath() %>/js/main.js"></script>  
+    <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.alphanum.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,72 +38,54 @@
   <body>
     <div class="container">
        <div class="row">
-	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	<div class="col-xs-1 col-md-1"><a href="index"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
 	   <h3>
-		<a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;New event
+		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;New event
 	   </h3>
 	   <h2 id="event_name">Event name</h2>
 	 </div>
 	 </div>
     <div class="row">
 	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/events/submitedit_event" modelAttribute="newEventForm">
-	    <div class="form-group">
-	      <label for="title">Title:</label>
-	      <input class="form-control" type="text" name="eventName" id="title" value="${event.getEventName()}"/>
-	    </div>
-	    <div class="form-group">
-	      <label for="title">Date:</label>
-	      <input class="form-control" type="text" name="eventDate"  id="date" value="${event.getEventDate()}"/>
-	    </div>
-	    <div class="form-group">
-	      <label for="start_time">Start time:</label>
-	      <input class="form-control" type="text" id="start_time" placeholder="please enter time"/>
-	    </div>
-	    <div class="form-group">
-	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
-	      <input class="form-control" type="text" name="bookingCanceltime" id="booking_time" value="${event.getBookingCanceltime()}">
-	    </div>
-	    
-	    <div class="form-group">
-	      <c:forEach items="${sectorPrices}" var="sectorPrice">	    
-	      <input type="hidden" id="s${sectorPrice.getSector().getId()}" name="sectorPrice" value="${sectorPrice.getPrice()}">
-	      </c:forEach>
-	 	<input type="hidden" id="id" name="id" value="${event.getId()}">
-	    </div>
-	    <div class="form-group">
-	      <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
-	 	  <input class="btn btn-warning" type="submit" name="submit" value="Cancel changes" id="event_cancel">
-   	      <input class="btn btn-danger" type="button" value="Delete event" id="event_delete">
-	    </div>
-          </form:form>
-
-	  <form:form id="confirm_deletion_form"  method="post" action="${pageContext.request.contextPath}/events/submitdelete_event" modelAttribute="event">
-	    <div class="form-group">
-	      <div class="alert-warning" role="alert">
-			Are you sure you want to delete event?<br>
-			Please enter word DELETE here:<br>
-			<input type="hidden" id="id" name="id" value="${event.getId()}">
-			<input class="form-control" type="text" name="confirm_delete" id="confirm_deletion_text" maxlength="10" size="15" placeholder="enter DELETE here for confirmation"><br>
-			<input class="btn btn-danger"  type="submit" value="Ok, delete event" id="confirm_deletion">
-			<input class="btn btn-warning" type="button" value="Cancel deletion" id="cancel_deletion">
-	      </div>
-	      <div class="alert-error alert-dismissable" id="wrong_confirmation" role="alert">
-		  You must enter the word DELETE(capitals, without spaces).
-	      </div>
-	    </div>
-	  </form:form>
+	 	<form:form class="form-horizontal"  action="${pageContext.request.contextPath}/new_event" method="post" modelAttribute="newEvent">
+            <div class="form-group">
+              <label for="title">Title:</label>
+              <form:input class="form-control"  path="eventName" id="title" placeholder="please enter event name" title="please enter event name"/>
+              <form:errors path="eventName" cssClass="alert-danger" />
+            </div>
+            <div class="form-group">
+                <fmt:formatDate value="${newEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate" />
+              <label for="eventDate">Start at:</label>
+              <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}" placeholder="Select event start time and date" title="Select event start time and date"/>
+              <form:errors path="eventDate" cssClass="alert-danger" />
+            </div>
+            <div class="form-group">
+              <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
+              <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time" value="30" placeholder="Enter time, before which all booked tickets are cancelled" title="Enter time, before which all booked tickets are cancelled"/>
+              <form:errors path="bookingCanceltime" cssClass="alert-danger" />
+            </div>
+            <div class="form-group">
+              <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />          
+              <c:forEach items="${newEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
+                <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"  />
+              </c:forEach>
+            </div>
+            <div class="form-group">
+              <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
+              <input class="btn btn-warning" type="submit" name="submit" value="Cancel changes" id="event_cancel">
+            </div>
+         </form:form>
 
 	</div>
-	<div class="col-md-7">
-          <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
+	<div class="col-md-7">   
+	<img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
 	  <map name="stadium">
-	 	<c:forEach items="${sectorPrices}" var="sectorPrice">	  
-	    <input type="text" id="price_${sectorPrice.getSector().getId()}" size="4" maxlength="4" value="${sectorPrice.getPrice()}">	  
-	    </c:forEach>    
-	    
-	    <area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
+	   <% for (int i=1;i<28;i++) {%>
+	      <input type="text" id="price_<%=i %>" size="4" maxlength="4" placeholder="price">
+	   <%} %>	    
+	          
+	  	<area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
 	    <area id="2" alt="2" title="2"  shape="poly" coords="431,119,431,53,446,53,446,20,485,20,520,29,478,117" />
 	    <area id="3" alt="3" title="3"  shape="poly" coords="485,122,526,32,564,55,586,92,497,137" />
 	    <area id="4" alt="4" title="4"  shape="poly" coords="509,136,590,103,601,162,512,163" />
@@ -135,6 +115,7 @@
 	    
 	  </map>
 	  <br>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/js/allowDigitsOnly.js"></script>
 	  <div class="row">
 	    <div style="display:none;" class="alert-dismissible alert alert-danger" role="alert">
 	      Only numbers allowed here!

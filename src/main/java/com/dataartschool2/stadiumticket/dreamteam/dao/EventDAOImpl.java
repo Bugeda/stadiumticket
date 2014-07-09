@@ -1,16 +1,16 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.mysql.jdbc.Field;
+import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 
 @Repository  
 @Transactional  
@@ -21,7 +21,8 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 		Date date= new Date();		
 		Criterion criterion1 = Restrictions.ge("eventDate", date);   
 		Criterion criterion2 = Restrictions.eq("isDelete", false);
-		List<Event> events=findByCriteria(criterion1, criterion2);
+		Order order=Order.asc("eventDate");		
+		List<Event> events=findByCriteria(0,0,order,criterion1, criterion2);
 		return events;
 	}
 	

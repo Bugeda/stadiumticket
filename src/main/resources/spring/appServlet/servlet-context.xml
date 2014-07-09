@@ -25,4 +25,7 @@
 </beans:bean>
 <!--  Файл с настройками контроллеров  -->
 <beans:import resource="controllers.xml"/>
+
+    <!-- JSR 303 validation -->
+    <beans:bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 </beans:beans>

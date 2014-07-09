@@ -9,7 +9,8 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.6</java-version>
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+		<org.springframework-version>3.2.2.RELEASE</org.springframework-version>
+		<org.springframework.security-version>3.2.2.RELEASE</org.springframework.security-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
@@ -19,34 +20,36 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework-version}</version>
-	
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 		<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-test</artifactId>
 				<version>${org.springframework-version}</version>
 		</dependency>
-            
-            <dependency>
-	<groupId>javassist</groupId>
-	<artifactId>javassist</artifactId>
-	<version>3.12.1.GA</version>
-</dependency>
-            
-				
+
+		<dependency>
+		<groupId>javassist</groupId>
+		<artifactId>javassist</artifactId>
+		<version>3.12.1.GA</version>
+		</dependency>
+
 		<!-- AspectJ -->
 		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>${org.aspectj-version}</version>
-		</dependency>	
-		
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjrt</artifactId>
+		<version>${org.aspectj-version}</version>
+		</dependency>
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -87,7 +90,7 @@
 					<artifactId>jmxri</artifactId>
 				</exclusion>
 			</exclusions>
-			<scope>runtime</scope>
+		<scope>runtime</scope>
 		</dependency>
 
 		<!-- @Inject -->
@@ -96,7 +99,7 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-				
+
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -115,72 +118,104 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-	
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>     
-		
+		</dependency>
+
 		<!-- Hibernate -->
 		<dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0</version>
-    	</dependency>
-    	<dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>3.3.2.GA</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>3.3.1.GA</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.3.0.ga</version>
-        </dependency>
-        
-        <!-- Transactions -->
-         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
-        </dependency>
-        
-        <!-- Spring security -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>3.3.2.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.3.1.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>3.3.0.ga</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>
+
+
+		<!-- Transactions -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+
+		<!-- Spring security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.springframework.security-version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				 </exclusion>
+			</exclusions>						
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${org.springframework.security-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-openid</artifactId>
+			<version>${org.springframework.security-version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				 </exclusion>
+			</exclusions>			
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${org.springframework.security-version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				 </exclusion>
+			</exclusions>						
+        		</dependency>	
 	</dependencies>
-	
+
     <build>
         <plugins>
             <plugin>

@@ -89,7 +89,7 @@ $(document).ready(function () {
 				 + "<td>"+ row + "</td>"
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ 2*price + "</td>"
-				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
+				 + "<td><img class=\"delete_ticket\" src=\"/images\/delete.png\"></td>"
 				 + "<td><input name=\"sector\" type=\"hidden\" value="+sector+">"
 				 + "<input name=\"row\" type=\"hidden\" value="+row+">"
 				 + "<input name=\"seat\" type=\"hidden\" value="+seat+"></td></tr>" );
