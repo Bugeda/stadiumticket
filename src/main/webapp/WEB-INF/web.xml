@@ -22,7 +22,7 @@ org.springframework.web.context.ContextLoaderListener
   </servlet>
   <filter>
     <filter-name>charsetFilter</filter-name>
-    <filter-class> org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
@@ -32,7 +32,10 @@ org.springframework.web.context.ContextLoaderListener
       <param-value>true</param-value>
     </init-param>
   </filter>
-  
+    <filter-mapping>
+    <filter-name>charsetFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
   <servlet-mapping>
     <servlet-name>appServlet</servlet-name>
     <url-pattern>/</url-pattern>
