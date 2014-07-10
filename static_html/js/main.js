@@ -10,7 +10,6 @@ $(document).ready(function () {
 	step:15,
 	format:'d-m-Y H:i',
 	minDate : '-1969/12/31',
-	startDate : '-1969/12/31',
 	dayOfWeekStart: 1
     });
 
