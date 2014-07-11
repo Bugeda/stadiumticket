@@ -1,14 +1,14 @@
-<%@page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>stadiumticket - list of events</title>
+    <title><spring:message code="index.title" /></title>
     <!-- css -->
      <!-- css -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.css" rel="stylesheet">
@@ -38,12 +38,12 @@
        <div class="row">
 	 <div class="col-xs-1 col-md-1"><a href="index"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	 <div class="col-xs-6 col-md-9">
-	   <h1>Events
-	     <a href="<c:url value="/new_event"/>"><img src="<%= request.getContextPath() %>/images/add_event_button.png"></a>
+	   <h1><spring:message code="index.pageTitle" />
+	     <a href="<c:url value="/new_event"/>"><img src="<%= request.getContextPath() %>/images/add_event_button.png" title="<spring:message code="newevent.pageTitle" />"></a>
 	   </h1>
 	 </div>
 	 <div class="col-xs-4 col-md-2">
-	   <a id="past_events" href="<c:url value="/past_events"/>"><img src="<%= request.getContextPath() %>/images/past_events.png"> past events</a><br>
+	   <a id="past_events" href="<c:url value="/past_events"/>"><img src="<%= request.getContextPath() %>/images/past_events.png"><spring:message code="pastevents.pageTitle" /></a><br>
 	   <a id="statistics" href="<c:url value=""/>"><img src="<%= request.getContextPath() %>/images/stats.png"> statistics</a>
 	 </div>
        </div>
@@ -53,13 +53,13 @@
 	     <thead>
 	       <tr>
 		 <th>
-		   <p>Name</p>
+		   <p><spring:message code="event.hName" /></p>
 		 </th>
 		<th>
-		  <p>Date & time</p>
+		  <p><spring:message code="event.hDatetime" /></p>
 		</th>
 		<th>
-		  <p>Actions</p>
+		  <p><spring:message code="event.hActions" /></p>
 		</th>
 	      </tr>
 	    </thead>
@@ -71,7 +71,7 @@
 				<a href="#"><img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/search_booked.png"></a>				
-				<a href="<c:url value="/edit_event?id=${event.id}"/>">
+				<a href="<c:url value="/edit_event?id=${event.id}"/>" title="<spring:message code="editevent.pageTitle" />">
 					<img src="<%= request.getContextPath() %>/images/edit_event.png">
 				</a>
 	      	</td>

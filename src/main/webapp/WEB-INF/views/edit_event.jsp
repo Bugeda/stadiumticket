@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>stadiumticket - edit event</title>
+    <title><spring:message code="editevent.title" /></title>
   <!-- css -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/bootstrap-theme.css" rel="stylesheet">
@@ -41,34 +41,39 @@
 	<div class="col-xs-1 col-md-1"><a href="index"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
 	   <h3>
-		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;New event
+		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+		<spring:message code="editevent.pageTitle" />
 	   </h3>
 	   <h2 id="event_name">Event name</h2>
 	 </div>
 	 </div>
+
     <div class="row">
 	<div class="col-md-5">
 	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/edit_event" modelAttribute="editEvent">
 	    <div class="form-group">
-	      <label for="title">Title:</label>
-	      <form:input class="form-control"  path="eventName" id="title" placeholder="please enter event name" title="please enter event name"/>
+	      <label for="title"><spring:message code="event.hName" />:</label>
+	      <spring:message code="event.hName.hint" var="msg"/>
+	      <form:input class="form-control"  path="eventName" id="title" title="${msg}" placeholder="${msg}"/>
 	      <form:errors path="eventName" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
             <fmt:formatDate value="${editEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate"/>
-	      <label for="eventDate">Start at:</label>
-	      <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}" placeholder="Select event start time and date" title="Select event start time and date"/>
+	      <label for="eventDate"><spring:message code="event.hDatetime" />:</label>
+	      <spring:message code="event.hDatetime.hint" var="msg"/>
+	      <input class="form-control"  name="eventDate"  id="start" type="text" value="${formattedDate}" title="${msg}" placeholder="${msg}"/>
 	      <form:errors path="eventDate" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
-	      <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
-	      <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time" placeholder="Enter time, before which all booked tickets are cancelled" title="Enter time, before which all booked tickets are cancelled"/>
+	      <label for="booking_time" id="label_booking"><spring:message code="event.hBooking" />:</label>
+	      <spring:message code="event.hBooking.hint" var="msg"/>
+	      <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time" title="${msg}" placeholder="${msg}"/>
 	      <form:errors path="bookingCanceltime" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
-	      <form:errors path="sectorPriceSet" cssClass="alert-danger sectorPrice-danger" />
+	      <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />
 	      <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
-	        <form:hidden  id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
+	        <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
 	      </c:forEach>
 	 	<form:hidden path="id"/>
 	    </div>
@@ -82,33 +87,35 @@
 	  <form:form id="confirm_deletion_form"  method="post" action="${pageContext.request.contextPath}/delete_event" modelAttribute="editEvent">
 	    <div class="form-group">
 	      <div class="alert-warning" role="alert">
-			Are you sure you want to delete event?<br>
-			Please enter word DELETE here:<br>
+			<spring:message code="event.deleteEventMsg.ask"/><br>
+			<spring:message code="event.deleteEventMsg.directive"/><br>
 			<form:hidden id="id" path="id"/>
-			<input class="form-control" type="text" name="confirm_delete" id="confirm_deletion_text" maxlength="10" size="15" placeholder="enter DELETE here for confirmation"><br>
+			<spring:message code="event.deleteEventMsg.confirm" var="msg"/>
+			<input class="form-control" type="text" name="confirm_delete" id="confirm_deletion_text" maxlength="10" size="15" placeholder="${msg}"><br>
 			<input class="btn btn-danger"  type="submit" value="Ok, delete event" id="confirm_deletion">
 			<input class="btn btn-warning" type="button" value="Cancel deletion" id="cancel_deletion">
 	      </div>
 	      <div class="alert-error alert-dismissable" id="wrong_confirmation" role="alert">
-		  You must enter the word DELETE(capitals, without spaces).
+		  <spring:message code="event.deleteEventMsg.alarm"/>
 	      </div>
 	    </div>
 	  </form:form>
 
 	</div>
+	<spring:message code="event.sectorPrice.hint" var="msg"/>
 	<div class="col-md-7">	    
 	<img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
 	  <map name="stadium">
-	   <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice">
-	      <input id="price_${sectorPrice.sector.id}" size="4" maxlength="4" value="${sectorPrice.price}"/>
+	   <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice">	  	 
+	      <input id="price_${sectorPrice.sector.id}" size="4" maxlength="4" value="${sectorPrice.price}" placeholder="${msg}"/>
 	   </c:forEach>
 
-	    <area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
-	    <area id="2" alt="2" title="2"  shape="poly" coords="431,119,431,53,446,53,446,20,485,20,520,29,478,117" />
-	    <area id="3" alt="3" title="3"  shape="poly" coords="485,122,526,32,564,55,586,92,497,137" />
-	    <area id="4" alt="4" title="4"  shape="poly" coords="509,136,590,103,601,162,512,163" />
-	    <area id="5" alt="5" title="5"  shape="rect" coords="500,166,602,218" />
-	    <area id="6" alt="6" title="6" shape="rect" coords="499,222,603,278" />
+	    <area id="1" alt="1" title="1" href="" shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
+	    <area id="2" alt="2" title="2" href="" shape="poly" coords="431,119,431,53,446,53,446,20,485,20,520,29,478,117" />
+	    <area id="3" alt="3" title="3" href="" shape="poly" coords="485,122,526,32,564,55,586,92,497,137" />
+	    <area id="4" alt="4" title="4" href="" shape="poly" coords="509,136,590,103,601,162,512,163" />
+	    <area id="5" alt="5" title="5" href="" shape="rect" coords="500,166,602,218" />
+	    <area id="6" alt="6" title="6" href="" shape="rect" coords="499,222,603,278" />
 	    <area id="7" alt="7" title="7"  shape="rect" coords="498,284,602,332" />
 	    <area id="8" alt="8" title="8" shape="poly" coords="501,340,565,339,562,383,501,361" />
 	    <area id="9" alt="9" title="9"  shape="poly" coords="486,378,498,364,559,389,541,418,511,438" />
@@ -135,7 +142,7 @@
 	  <br>
 
 	  <script type="text/javascript">
-	    $('#price_1, #price_2, #price_3, #price_4, #price_5, #price_6, #price_7, #price_8, ' +
+    	    $('#price_1, #price_2, #price_3, #price_4, #price_5, #price_6, #price_7, #price_8, ' +
 	    '#price_9, #price_10, #price_11, #price_12, #price_13, #price_14, #price_15, #price_16, ' +
 	    '#price_17, #price_18, #price_19, #price_20, #price_21, #price_22, #price_23, #price_24, ' +
 	    '#price_25, #price_26, #price_27').numeric({
@@ -165,7 +172,7 @@
 
 	  <div class="row">
 	    <div style="display:none;" class="alert-dismissible alert alert-danger" role="alert">
-	      Only numbers allowed here!
+	     <spring:message code="alert.onlyNumberAllowed"/>
 	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
 	    </div>
 	  </div>
