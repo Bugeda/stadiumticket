@@ -9,10 +9,10 @@ public class Ticket {
     @GeneratedValue
     private int id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Seat seat;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Event event;
 
     private String ticketNumber;
