@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=utf8"	pageEncoding="utf8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
   <head>
@@ -30,11 +29,48 @@
      <style type="text/css">
      </style>
    </head>
-   <body>  
-   
-  		<form:form method="post" action="${pageContext.request.contextPath}/event/newevent" commandName="eventInfo">
-		<input type="submit" value="Submit">
-	  </form:form>
-   
+   <body>
+     <div class="container">
+       <div class="row">
+	 <div class="col-xs-1 col-md-1"><a href="index"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	 <div class="col-xs-6 col-md-9">
+	   <h3>
+		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;Past events
+	   </h3>
+	 </div>	
+       </div>
+       <div class="row">
+	 <div>
+	   <table class="hover" id="event_list">
+	     <thead>
+	       <tr>
+		 <th>
+		   <p>Name</p>
+		 </th>
+		<th>
+		  <p>Date & time</p>
+		</th>
+		<th>
+		  <p>Actions</p>
+		</th>
+	      </tr>
+	    </thead>
+	    <c:forEach items="${events}" var="events">
+	    <tr class="event">
+		<td class="event_name"><c:out value="${events.eventName}"></c:out></td>
+		<td class="event_datetime"><fmt:formatDate value="${events.eventDate}" pattern="dd-MM-yyyy HH:mm" /></td>
+	      	<td class="action_list" style="{display: none;}" >
+				<a href="#"><img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
+				<a href="#"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
+				<a href="#"><img src="<%= request.getContextPath() %>/images/search_booked.png"></a>
+				<a href="#"><img src="<%= request.getContextPath() %>/images/edit_event.png"></a>
+	      	</td>
+	    </tr>
+	    </c:forEach> 
+	   </table>
+	 </div>
+       </div>
+     </div>
+
   </body>
 </html>
