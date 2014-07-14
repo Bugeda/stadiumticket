@@ -80,7 +80,7 @@
 	 	<c:forEach items="${sectorPrices}" var="sectorPrice">	  
 	    <input type="text" id="price_${sectorPrice.getSector().getId()}" size="4" maxlength="4" value="${sectorPrice.getPrice()}">	  
 	    </c:forEach> 
-			  	
+
 	  	<area id="1" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=1"/>" alt="1" title="1"  
 	  		shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
 	    <area id="2" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=2"/>"alt="2" title="2"  
@@ -125,7 +125,7 @@
 	    	shape="rect" coords="22,167,123,218" />
 	    <area id="22" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=22"/>" alt="22" title="22" 
 	    	shape="poly" coords="31,103,123,141,123,160,23,161,24,130"/>
-	    <area id="23" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=23"/>"alt="23" title="23" 
+	    <area id="23" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=23"/>" alt="23" title="23" 
 	    	shape="poly" coords="35,95,60,59,97,33,139,122,125,134"/>
 	    <area id="24" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=24"/>" alt="24" title="24" 
 	    	shape="poly" coords="105,29,141,19,178,17,178,52,191,54,192,119,145,120"/>
