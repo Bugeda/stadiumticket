@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -58,12 +59,20 @@ public class EventsController{
 
             Event event = eventService.findById(id);
             if (event != null) {
+            	if (event.getEventDate().before(new Date())){
+            		throw new RuntimeException("Archive event was chosen");
+            		}
+            	else
                 return event;
+            }else{
+                throw new RuntimeException("No event was chosen.");
             }
         }
-        return null;
+    return null;
+        
     }
-
+    
+     
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Map<String, Object> map, Model model ) {
 		model.asMap().clear();
@@ -115,7 +124,6 @@ public class EventsController{
                 }
             }
 	}
-
 
 
     @RequestMapping(value = "/edit_event", method = RequestMethod.POST)
