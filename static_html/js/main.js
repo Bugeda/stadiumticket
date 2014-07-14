@@ -164,12 +164,12 @@ $(document).ready(function () {
 
 	// swap sector plans if necessary
 	if ($(this).attr('id') >= 26) {
-	    $('#normal_sector').hide();
-	    $('#vip_sector').show();
+	    $('#normal_sector').fadeOut();
+	    $('#vip_sector').fadeIn();
 	}
 	else {
-	    $('#normal_sector').show();
-	    $('#vip_sector').hide();
+	    $('#vip_sector').fadeOut();
+	    $('#normal_sector').fadeIn();
 	}
 	// TEST DATA! remove when ajax wil be working properly
 	// this is dry-run of function draw_sector()
