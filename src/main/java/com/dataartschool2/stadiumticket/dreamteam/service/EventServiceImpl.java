@@ -4,17 +4,13 @@ import com.dataartschool2.stadiumticket.dreamteam.dao.EventDAO;
 import com.dataartschool2.stadiumticket.dreamteam.dao.SectorDAO;
 import com.dataartschool2.stadiumticket.dreamteam.dao.SectorPriceDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.dataartschool2.stadiumticket.dreamteam.domain.NewEventForm;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
 import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 

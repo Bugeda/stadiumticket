@@ -12,10 +12,10 @@ public class SectorPrice {
     @GeneratedValue
     private int id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Sector sector;
     
-    @ManyToOne	
+    @ManyToOne(cascade = CascadeType.ALL)
     private Event event;
 
     @NotNull(message = "Enter price.")
