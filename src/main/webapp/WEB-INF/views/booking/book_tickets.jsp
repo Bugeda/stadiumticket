@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -6,10 +6,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>stadiumticket - booking</title>
+     <title><spring:message code="booktickets.title" /></title>
 	<!-- css -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/bootstrap-theme.css" rel="stylesheet">
@@ -37,7 +37,8 @@
     <div class="col-xs-1 col-md-1"><a href="index.html"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
     <div class="col-xs-6 col-md-9">
         <h3>
-            <a id="arrow_back" href="index.html"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;book tickets
+            <a id="arrow_back" href="index.html"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+            <spring:message code="booktickets.pageTitle" />
         </h3>
         <h2 id="event_name"><c:out value="${event.eventName}"></c:out>
         </h2>
@@ -52,7 +53,7 @@
         <table class="table" id="ticket_list">
             <thead>
             <tr>
-                <td>¹</td>
+                <td>â„–</td>
                 <td>Sector</td>
                 <td>Row</td>
                 <td>Seat</td>
