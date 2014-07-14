@@ -160,7 +160,7 @@ map input {
     height: 35px;
 }
 
-.action_list, #event_list_info, .invisible {
+.action_list, #events_list_info, .invisible {
     display: none;
 }
 

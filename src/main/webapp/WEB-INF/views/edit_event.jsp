@@ -4,18 +4,18 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><spring:message code="editevent.title" /></title>
-  <!-- css -->
+	<!-- css -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/bootstrap-theme.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.dataTables.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.datetimepicker.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/css/main.css" type="text/css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/main.css" rel="stylesheet">
 
     <!-- js -->
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
@@ -75,7 +75,7 @@
 	      <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
 	        <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
 	      </c:forEach>
-	 	<form:hidden path="id"/>
+	 	<form:hidden id="id" path="id"/>
 	    </div>
 	    <div class="form-group">
 	      <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
@@ -89,7 +89,7 @@
 	      <div class="alert-warning" role="alert">
 			<spring:message code="event.deleteEventMsg.ask"/><br>
 			<spring:message code="event.deleteEventMsg.directive"/><br>
-			<form:hidden id="id" path="id"/>
+	 		<form:hidden id="id" path="id"/>
 			<spring:message code="event.deleteEventMsg.confirm" var="msg"/>
 			<input class="form-control" type="text" name="confirm_delete" id="confirm_deletion_text" maxlength="10" size="15" placeholder="${msg}"><br>
 			<input class="btn btn-danger"  type="submit" value="Ok, delete event" id="confirm_deletion">

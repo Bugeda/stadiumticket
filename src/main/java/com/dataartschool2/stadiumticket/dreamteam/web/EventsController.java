@@ -59,7 +59,7 @@ public class EventsController{
 
             Event event = eventService.findById(id);
             if (event != null) {
-            	if (event.getEventDate().before(new Date())){
+           	if (event.getEventDate().before(new Date())){
             		throw new RuntimeException("Archive event was chosen");
             		}
             	else
@@ -143,9 +143,7 @@ public class EventsController{
 
 
     @RequestMapping(value = "/edit_event" ,method = RequestMethod.GET)
-	public String edit_event(@RequestParam("id") Integer id) {
-    	if (id==null)
-    	     throw new RuntimeException("No event was chosen.");
+	public String edit_event() {
         return "edit_event";
 	}
     
@@ -154,6 +152,7 @@ public class EventsController{
     public String submit_delete_event(@ModelAttribute("editEvent") Event event, Model model) {
 		model.asMap().clear();
         eventService.markAsDeleted(event);
+        eventService.updateEvent(event);
 		return "redirect:/index";
 	}
 }
