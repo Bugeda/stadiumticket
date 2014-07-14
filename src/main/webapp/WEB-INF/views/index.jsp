@@ -67,17 +67,11 @@
 	    <tr class="event">
 		<td class="event_name"><c:out value="${event.eventName}"></c:out></td>
 		<td class="event_datetime"><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy HH:mm" /></td>
-<<<<<<< HEAD
 	      	<td class="action_list" >	      			      	
 				<a href="<c:url value="/tickets/sell?id=${event.id}"/>" title="<spring:message code="booktickets.pageTitle" />">
 					<img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
 				<a href="<c:url value="/tickets/book?id=${event.id}"/>" title="<spring:message code="selltickets.pageTitle" />">
 					<img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
-=======
-	      	<td class="action_list" >
-				<a href="<c:url value="/tickets/sell?id=${event.id}"/>"><img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
-				<a href="#"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
->>>>>>> master
 				<a href="#"><img src="<%= request.getContextPath() %>/images/search_booked.png"></a>				
 				<a href="<c:url value="/edit_event?id=${event.id}"/>" title="<spring:message code="editevent.pageTitle" />">
 					<img src="<%= request.getContextPath() %>/images/edit_event.png">
