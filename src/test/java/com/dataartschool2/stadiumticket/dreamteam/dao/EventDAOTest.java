@@ -85,7 +85,7 @@ public class EventDAOTest{
     @Test
     public void entityListTest() throws ParseException{
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	Event ev1=new Event(1, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-18 15:00:00").getTime()), 30, new ArrayList<SectorPrice>());
+	Event ev1=new Event(1, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-18 15:00:00").getTime()), 30, new ArrayList<SectorPrice>());
     	Event ev2=new Event(2, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-20 16:00:00").getTime()), 30, new ArrayList<SectorPrice>());
     	Event ev3=new Event(3, "Черноморец - Карпаты", new Timestamp(sdf.parse("2014-05-23 11:00:00").getTime()), 30, new ArrayList<SectorPrice>());
     	Event ev4=new Event(4, "Говерла - Черноморец", new Timestamp(sdf.parse("2014-05-23 19:00:00").getTime()), 30, new ArrayList<SectorPrice>());

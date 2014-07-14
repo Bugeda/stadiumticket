@@ -44,7 +44,6 @@ public class TicketServiceImpl implements TicketService {
             ticket.setEvent(event);
             ticket.setSeat(seat);
             String ticketNumber = generateTicketNumber(event, seat);
-            System.out.println(ticketNumber);
             ticket.setTicketNumber(ticketNumber);
             ticketDAO.updateEntity(ticket);
         }
