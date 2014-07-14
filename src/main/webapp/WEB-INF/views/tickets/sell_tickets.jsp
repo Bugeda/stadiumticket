@@ -4,18 +4,18 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title><spring:message code="booktickets.title" /></title>
-	<!-- css -->
+    <title><spring:message code="selltickets.title" /></title>
+    <!-- css -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/bootstrap-theme.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.dataTables.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.datetimepicker.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/css/main.css" type="text/css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/main.css" rel="stylesheet">
 
     <!-- js -->
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
@@ -36,28 +36,25 @@
 <div class="row">
     <div class="col-xs-1 col-md-1"><a href="index.html"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
     <div class="col-xs-6 col-md-9">
-        <h3>
-            <a id="arrow_back" href="index.html"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
-            <spring:message code="booktickets.pageTitle" />
+ 		<h3>
+            <a id="arrow_back" href="<c:url value="index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+            <spring:message code="selltickets.pageTitle" />
         </h3>
-        <h2 id="event_name"><c:out value="${event.eventName}"></c:out>
-        </h2>
+        <h2 id="event_name"><c:out value="${event.eventName}"></c:out></h2>
     </div>
 </div>
 <div class="row">
-  <div class="col-md-5">
-   	<form:form method="post" action="${pageContext.request.contextPath}/submit/book_tickets">
-        <label for="booking_name">Book selected tickets for: <img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
-        <input class="form-control" type="text" name="booking_name" id="booking_name" title="Full name of person to book" placeholder="Full name of person to book">
+<div class="col-md-5">
+    <form action="" method="post">
         <b>Ticket(s):</b>
         <table class="table" id="ticket_list">
             <thead>
             <tr>
                 <td>№</td>
-                <td>Sector</td>
-                <td>Row</td>
-                <td>Seat</td>
-                <td>Price</td>
+                <td><spring:message code="ticketlist.sector" /></td>
+                <td><spring:message code="ticketlist.row" /></td>
+                <td><spring:message code="ticketlist.seat" /></td>
+                <td><spring:message code="ticketlist.price" /></td>
                 <td></td>
             </tr>
             </thead>
@@ -65,7 +62,7 @@
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="4"><b>Total price:</b></td>
+                <td colspan="4"><b><spring:message code="ticketlist.totalPrice" />:</b></td>
                 <td id="total_price"></td>
                 <td>UAH</td>
             </tr>
@@ -73,16 +70,17 @@
         </table>
         <br>
         <!-- <input class="btn" type="button" id="add_random_ticket" value="add random ticket"> -->
-        <input class="btn" type="submit" name="submit" value="Book tickets" id="book_tickets">
-    </form:form>
-  </div>
-  <div class="col-md-7">
+        <input class="btn" type="submit" name="submit" value="Sell tickets" id="book_tickets">
+    </form>
+
+</div>
+<div class="col-md-7">
     <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
-     <map name="stadium">
+     <map id="disable_inputs" name="stadium">
 	 	<c:forEach items="${sectorPrices}" var="sectorPrice">	  
 	    <input type="text" id="price_${sectorPrice.getSector().getId()}" size="4" maxlength="4" value="${sectorPrice.getPrice()}">	  
 	    </c:forEach> 
-
+		
 	  	<area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
 	    <area id="2" alt="2" title="2"  shape="poly" coords="431,119,431,53,446,53,446,20,485,20,520,29,478,117" />
 	    <area id="3" alt="3" title="3"  shape="poly" coords="485,122,526,32,564,55,586,92,497,137" />
@@ -121,13 +119,13 @@
 <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>
     <tr>
-        <td id="sector_name">Sector 12 seats:</td>
+        <td id="sector_name"><spring:message code="ticketlist.sector" /> VIP A <spring:message code="ticketlist.seats" />:</td>
         <td><div>42</div></td>
-        <td>Vacant</td>
+        <td><spring:message code="sectorstatus.vacant" /></td>
         <td><div>42</div></td>
-        <td>Booked</td>
+        <td><spring:message code="sectorstatus.booked" /></td>
         <td><div>42</div></td>
-        <td>Occupied</td>
+        <td><spring:message code="sectorstatus.occupied" /></td>
     </tr>
     </tbody>
 </table>
@@ -135,10 +133,10 @@
 <div class="table-responsive">
 <table class="table table-condensed table-responsive sell_tickets_table">
 <tbody>
-<% for (int i=1;i<21;i++) {%>
+<% for (int i=1;i<11;i++) {%>
 <tr>
    <td> <div><%=i %></div> </td>
-   <% for (int j=1;j<51;j++) {%>
+   <% for (int j=1;j<21;j++) {%>
    <td id="<%=i %>_<%=j %>"><div><%=j %></div></td>
    <%} %>
 </tr>
@@ -146,7 +144,7 @@
 </tbody>
 </table>
 </div>
-</div>
+
 </div>
 <br/>
 </body>
