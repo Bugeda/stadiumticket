@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
     <link href="<%= request.getContextPath() %>/css/bootstrap-theme.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.dataTables.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.datetimepicker.css" rel="stylesheet">    
-    <link href="<%= request.getContextPath() %>/css/main.css" type="text/css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/main.css" rel="stylesheet">
 
     <!-- js -->
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
@@ -36,7 +36,7 @@
    <body>
      <div class="container">
        <div class="row">
-	 <div class="col-xs-1 col-md-1"><a href="index"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	 <div class="col-xs-1 col-md-1"><a href="<c:url value="index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	 <div class="col-xs-6 col-md-9">
 	   <h1><spring:message code="index.pageTitle" />
 	     <a href="<c:url value="/new_event"/>"><img src="<%= request.getContextPath() %>/images/add_event_button.png" title="<spring:message code="newevent.pageTitle" />"></a>
@@ -67,9 +67,17 @@
 	    <tr class="event">
 		<td class="event_name"><c:out value="${event.eventName}"></c:out></td>
 		<td class="event_datetime"><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy HH:mm" /></td>
+<<<<<<< HEAD
+	      	<td class="action_list" >	      			      	
+				<a href="<c:url value="/tickets/sell?id=${event.id}"/>" title="<spring:message code="booktickets.pageTitle" />">
+					<img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
+				<a href="<c:url value="/tickets/book?id=${event.id}"/>" title="<spring:message code="selltickets.pageTitle" />">
+					<img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
+=======
 	      	<td class="action_list" >
 				<a href="<c:url value="/tickets/sell?id=${event.id}"/>"><img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
+>>>>>>> master
 				<a href="#"><img src="<%= request.getContextPath() %>/images/search_booked.png"></a>				
 				<a href="<c:url value="/edit_event?id=${event.id}"/>" title="<spring:message code="editevent.pageTitle" />">
 					<img src="<%= request.getContextPath() %>/images/edit_event.png">

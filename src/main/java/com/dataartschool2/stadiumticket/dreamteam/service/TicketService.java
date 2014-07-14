@@ -13,5 +13,7 @@ public interface TicketService {
 
     List<Ticket> getSoldTickets(Integer eventId, Integer sectorId);
 
-    void sellTickets(Event event, List<Seat> chosenSeats);
+    public void sellTickets(Event event, List<Seat> chosenSeats);
+
+    public void bookTickets(Event event, List<Seat> chosenSeats);
 }

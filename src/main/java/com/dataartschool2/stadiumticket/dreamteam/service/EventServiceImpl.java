@@ -6,6 +6,7 @@ import com.dataartschool2.stadiumticket.dreamteam.dao.SectorPriceDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
 import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +36,7 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public void markAsDeleted(Event event) {
-        event.setDelete(true);
-        updateEvent(event);
+        event.setDelete(true);            
     }
 
     @Override

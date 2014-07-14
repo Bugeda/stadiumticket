@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Denis on 12.07.2014.
- */
+
 @Controller
-public class SellTicketController {
+public class TicketsController {
 
     @Autowired
     private TicketService ticketService;
@@ -47,8 +45,12 @@ public class SellTicketController {
 
     @RequestMapping(value = "/tickets/sell", method = RequestMethod.GET)
     public String getSellTicketsPage(){
-        return "sell_tickets";
+        return "/tickets/sell_tickets";
     }
 
+    @RequestMapping(value = "/tickets/book", method = RequestMethod.GET)
+    public String getBookTicketsPage(){
+        return "/tickets/book_tickets";
+    }
 
 }

@@ -52,4 +52,16 @@ public class TicketServiceImpl implements TicketService {
     private String generateTicketNumber(Event event, Seat seat) {
         return Integer.toString(Objects.hash(event, seat));
     }
+
+	@Override
+	public void bookTickets(Event event, List<Seat> chosenSeats) {
+	     for(Seat seat : chosenSeats){
+	            Ticket ticket = new Ticket();
+	            ticket.setEvent(event);
+	            ticket.setSeat(seat);
+	            String ticketNumber = generateTicketNumber(event, seat);
+	            ticket.setTicketNumber(ticketNumber);
+	            ticketDAO.updateEntity(ticket);
+	        }		
+	}
 }
