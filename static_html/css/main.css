@@ -227,6 +227,7 @@ map input {
     background: #C6D2E3;
 }
 
+#normal_sector, #vip_sector { display: none;}
 /* hr line style */
 hr {
     display: block;
@@ -273,14 +274,14 @@ hr {
     text-align: left;
 }
 
-.sell_tickets_header > tbody > tr > td:nth-child(2) > div {
+.sell_tickets_header > tbody > tr > td:nth-child(2) > div  {
     background: #ffffff;
 }
 
-.sell_tickets_header > tbody > tr > td:nth-child(4) > div {
+.sell_tickets_header > tbody > tr > td:nth-child(4) > div, .booked {
     background: #A8C901;
 }
 
-.sell_tickets_header > tbody > tr > td:nth-child(6) > div {
+.sell_tickets_header > tbody > tr > td:nth-child(6) > div, .occupied {
     background: #FE2B2C;
 }
