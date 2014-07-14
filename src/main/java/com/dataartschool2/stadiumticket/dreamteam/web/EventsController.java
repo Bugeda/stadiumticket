@@ -71,8 +71,7 @@ public class EventsController{
     return null;
         
     }
-    
-     
+        
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Map<String, Object> map, Model model ) {
 		model.asMap().clear();
@@ -82,12 +81,8 @@ public class EventsController{
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getActiveEvents(ModelMap map,  Model model) {   	
     	model.asMap().clear();
-    	List<Event> allEvents = eventService.getFutureEvents();
-    	for (Event e:allEvents){
-    		System.out.println(e.getEventName());
-    	}
+    	List<Event> allEvents = eventService.getFutureEvents();    
     	map.put("events", allEvents);
-    	//System.out.println(allEvents.size());
         return "/index";
     }
 	
@@ -131,7 +126,7 @@ public class EventsController{
                                     @Valid @ModelAttribute("editEvent") Event event,
                                     BindingResult bindingResult,
                                     ModelMap modelMap) throws ParseException {
-
+    	
     		modelMap.remove("submit");
             if (submit.equals("Cancel changes")){
                 return "redirect:/edit_event?id="+event.getId();
@@ -147,12 +142,14 @@ public class EventsController{
     }
 
 
-
     @RequestMapping(value = "/edit_event" ,method = RequestMethod.GET)
-	public String edit_event() {
+	public String edit_event(@RequestParam("id") Integer id) {
+    	if (id==null)
+    	     throw new RuntimeException("No event was chosen.");
         return "edit_event";
 	}
-	
+    
+
 	@RequestMapping(value="/delete_event", method = RequestMethod.POST)
     public String submit_delete_event(@ModelAttribute("editEvent") Event event, Model model) {
 		model.asMap().clear();
