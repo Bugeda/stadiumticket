@@ -9,12 +9,15 @@ import com.dataartschool2.stadiumticket.dreamteam.service.SectorService;
 import com.dataartschool2.stadiumticket.dreamteam.service.TicketService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -46,7 +49,8 @@ public class TicketsController {
         if(eventId != null){
             return eventService.findById(eventId);
         }else{
-            throw new RuntimeException("No event was chosen.");
+          	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
+    		throw new RuntimeException(applicationContext.getMessage("error.noEventChosen", new Object[]{}, null));
         }
     }
     @ModelAttribute("chosenSeats")

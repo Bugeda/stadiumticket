@@ -18,7 +18,7 @@ public class SectorPrice {
     @ManyToOne(cascade = CascadeType.ALL)
     private Event event;
 
-    @NotNull(message = "Enter price.")
+    @NotNull(message = "error.notNullPrice")
     private Double price;
 
     public SectorPrice(){}
