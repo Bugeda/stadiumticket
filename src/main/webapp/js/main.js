@@ -1,8 +1,35 @@
 $(document).ready(function () {
-    // load maphiglight if <map> block present
-    if ($('.map').length != 0) {
-	$('.map').maphilight();
-    }
+    // Plugins' init
+    // 1. maphiglight
+    $('.map').maphilight();
+
+    // 2. datetimepicker
+    $('#start').datetimepicker({
+	lang:'en',
+	timepicker:true,
+	step:15,
+	format:'d-m-Y H:i',
+	minDate : '-1969/12/31',
+	dayOfWeekStart: 1
+    });
+
+    // $('#booking_time').datetimepicker({
+    // 	lang:'en',
+    // 	datepicker:false,
+    // 	value: 30,
+    // 	step:5,
+    // 	format: 'i',
+    // 	formatTime: 'i'
+    // });
+
+    // 3. dataTables
+    $('#event_list').dataTable({
+	"paging": false,
+	"stateSave": true,
+	"autoWidth": true,
+	"columnDefs": [ { "orderable": false, "targets": 2 } ]
+    });
+
 
     // copy data from sector plan to hidden form on edit/new event page
     $('map > input').change( function () {
@@ -14,45 +41,16 @@ $(document).ready(function () {
 	$('#'+ dest_name).val(source_content);
     });
 
-    //datetimepicker configuration
-    $('#start').datetimepicker({
-	lang:'en',
-	timepicker:true,
-	step:15,
-	format:'d-m-Y H:i',
-  	minDate : '-1969/12/31',
-	startDate : '-1969/12/31',
-	dayOfWeekStart: 1
+    // display action buttons for event in list
+    $('.event').mouseover( function() {
+	$(this).children('.action_list').show();
     });
-
-    $('#booking_time').datetimepicker({
-	lang:'en',
-	datepicker:false,
-	value: 30,
-	step:5,
-	format: 'i',
-	formatTime: 'i'
+    $('.event').mouseout( function() {
+	$(this).children('.action_list').hide();
     });
+    $('#event_list_filter input').addClass('form-control');
 
 
-    if ($('#events_list').length != 0) {
-
-	// dataTable configuration
-	$('#events_list').dataTable({
-	    "paging": false,
-	    "stateSave": true,
-	    "autoWidth": true,
-	    "columnDefs": [ { "orderable": false, "targets": 2 } ]
-	});
-	// display action buttons for event in list
-	$('.event').mouseover( function() {
-	    $(this).children('.action_list').show();
-	});
-	$('.event').mouseout( function() {
-	    $(this).children('.action_list').hide();
-	});
-	$('#event_list_filter input').addClass('form-control');
-    };
     // delete event process
     $('#event_delete').click( function () {
 	$('#confirm_deletion_form').show();
@@ -66,6 +64,7 @@ $(document).ready(function () {
     $('#cancel_deletion').click( function () {
 	$('#confirm_deletion_form').hide();
     });
+
 
     // Working with tickets
 
@@ -89,7 +88,7 @@ $(document).ready(function () {
 				 + "<td>"+ row + "</td>"
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ 2*price + "</td>"
-				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
+				 + "<td><img class=\"delete_ticket\" src=\"/images\/delete.png\"></td>"
 				 + "<td><input name=\"sector\" type=\"hidden\" value="+sector+">"
 				 + "<input name=\"row\" type=\"hidden\" value="+row+">"
 				 + "<input name=\"seat\" type=\"hidden\" value="+seat+"></td></tr>" );
@@ -97,13 +96,13 @@ $(document).ready(function () {
     };
 
     //for tests, generate random ticket
-    $('#add_random_ticket').click( function() {
-	var random_sector = Math.floor(Math.random()*24+1);
-	var random_row = Math.floor(Math.random()*20);
-	var random_seat = Math.floor(Math.random()*50);
-	var random_price = Math.floor(Math.random()*550);
-	add_ticket(random_sector, random_row, random_seat, random_price);
-    });
+    // $('#add_random_ticket').click( function() {
+    // 	var random_sector = Math.floor(Math.random()*24+1);
+    // 	var random_row = Math.floor(Math.random()*20);
+    // 	var random_seat = Math.floor(Math.random()*50);
+    // 	var random_price = Math.floor(Math.random()*550);
+    // 	add_ticket(random_sector, random_row, random_seat, random_price);
+    // });
 
     //add ticket by clicking seat on sector plan
     $('.sell_tickets_table td').click(function() {

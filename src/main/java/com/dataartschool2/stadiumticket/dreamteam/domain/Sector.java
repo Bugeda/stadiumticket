@@ -8,7 +8,7 @@ import javax.persistence.Id;
 public class Sector {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     private String name;
 
@@ -16,7 +16,7 @@ public class Sector {
 
     public Sector(){}
 
-    public Sector(int id, String name, int seatsQuantity) {
+    public Sector(Integer id, String name, int seatsQuantity) {
         this.id = id;
         this.name = name;
         this.seatsQuantity = seatsQuantity;
@@ -24,42 +24,34 @@ public class Sector {
     
     
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + seatsQuantity;
-		return result;
-	}
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Sector))
-			return false;
-		Sector other = (Sector) obj;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (seatsQuantity != other.seatsQuantity)
-			return false;
-		return true;
-	}
+        Sector sector = (Sector) o;
 
-	public void setId(int id) {
+        if (name != null ? !name.equals(sector.name) : sector.name != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -1,9 +1,6 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 
 @Entity
@@ -16,7 +13,7 @@ public class Seat {
 
     private int rowNumber;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Sector sector;
 
     public Seat(){}

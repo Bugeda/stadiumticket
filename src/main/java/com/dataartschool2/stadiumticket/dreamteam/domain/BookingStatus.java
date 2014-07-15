@@ -4,5 +4,6 @@ public enum BookingStatus {
     Sold,
     Booked,
     BookingCancelled,
-    BookingRedeemed
+    BookingRedeemed, 
+    BookingTimeIsOver
 }
