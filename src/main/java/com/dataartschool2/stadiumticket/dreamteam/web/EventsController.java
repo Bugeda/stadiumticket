@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -58,12 +59,19 @@ public class EventsController{
 
             Event event = eventService.findById(id);
             if (event != null) {
+           	if (event.getEventDate().before(new Date())){
+            		throw new RuntimeException("Archive event was chosen");
+            		}
+            	else
                 return event;
+            }else{
+                throw new RuntimeException("No event was chosen.");
             }
         }
-        return null;
+    return null;
+        
     }
-
+        
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Map<String, Object> map, Model model ) {
 		model.asMap().clear();
@@ -73,9 +81,8 @@ public class EventsController{
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getActiveEvents(ModelMap map,  Model model) {   	
     	model.asMap().clear();
-    	List<Event> allEvents = eventService.getFutureEvents();
+    	List<Event> allEvents = eventService.getFutureEvents();    
     	map.put("events", allEvents);
-    	//System.out.println(allEvents.size());
         return "/index";
     }
 	
@@ -114,13 +121,12 @@ public class EventsController{
 	}
 
 
-
     @RequestMapping(value = "/edit_event", method = RequestMethod.POST)
     public String submit_edit_event(@ModelAttribute("submit") String submit,
                                     @Valid @ModelAttribute("editEvent") Event event,
                                     BindingResult bindingResult,
                                     ModelMap modelMap) throws ParseException {
-
+    	
     		modelMap.remove("submit");
             if (submit.equals("Cancel changes")){
                 return "redirect:/edit_event?id="+event.getId();
@@ -136,16 +142,17 @@ public class EventsController{
     }
 
 
-
     @RequestMapping(value = "/edit_event" ,method = RequestMethod.GET)
 	public String edit_event() {
         return "edit_event";
 	}
-	
+    
+
 	@RequestMapping(value="/delete_event", method = RequestMethod.POST)
     public String submit_delete_event(@ModelAttribute("editEvent") Event event, Model model) {
 		model.asMap().clear();
         eventService.markAsDeleted(event);
+        eventService.updateEvent(event);
 		return "redirect:/index";
 	}
 }

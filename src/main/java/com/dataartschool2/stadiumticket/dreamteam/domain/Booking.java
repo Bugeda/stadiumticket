@@ -8,10 +8,10 @@ public class Booking {
     @GeneratedValue
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Ticket ticket;
 
     @Enumerated(EnumType.STRING)

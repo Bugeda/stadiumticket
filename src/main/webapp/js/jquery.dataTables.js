@@ -43,8 +43,7 @@
 		factory( jQuery );
 	}
 }
-
-(/** @lends <global> */function($) {
+(/** @lends <global> */function( $ ) {
 	"use strict";
 
 	/**
