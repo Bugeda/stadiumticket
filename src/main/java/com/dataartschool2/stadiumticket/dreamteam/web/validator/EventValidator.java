@@ -10,9 +10,7 @@ import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
 import java.util.List;
 
-/**
- * Created by Denis on 07.07.2014.
- */
+
 @Component
 public class EventValidator implements Validator{
 	
@@ -41,11 +39,11 @@ public class EventValidator implements Validator{
     private boolean validatePrice(SectorPrice sectorPrice, Errors errors) {
         Double price = sectorPrice.getPrice();
         if(price == null){
-            errors.rejectValue("sectorPriceSet", "pricesMustBeFilled", "All prices must be filled");
+            errors.rejectValue("sectorPriceSet", "error.pricesMustBeFilled");
             return false;
         }else {
             if (Double.compare(price, 0) <= 0) {
-                errors.rejectValue("sectorPriceSet", "notPositivePrices", "Prices should be positive");
+                errors.rejectValue("sectorPriceSet", "error.notPositivePrice");
                 return false;
             }
         }

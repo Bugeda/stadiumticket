@@ -31,13 +31,18 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
+  	<!-- JSR 303 validation -->
+  	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+    	<property name="messageInterpolator">
+    	  	<bean class="com.dataartschool2.stadiumticket.dreamteam.web.messageinterpolator.SpringMessageSourceMessageInterpolator" />    	  	
+    	</property>
+  	</bean>
 
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:messages" />
+	 <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages" />      
 		<property name="defaultEncoding" value="UTF-8" />
-	</bean>
-	
+	</bean> 
+
 	<!-- Настройки бина dataSource будем хранить в отдельном файле -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
@@ -69,4 +74,6 @@
 			</props>
 		</property>
 	</bean>
+	
+	
 </beans>

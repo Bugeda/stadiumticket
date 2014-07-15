@@ -29,11 +29,6 @@ public class EventServiceImpl implements EventService{
     @Autowired
     private SectorDAO sectorDAO;
 
-   /* @Override
-    public void deleteEvent(Event event) {
-        eventDAO.deleteEntity(event);
-    }*/
-
     @Override
     public void markAsDeleted(Event event) {
         event.setDelete(true);            
@@ -84,33 +79,6 @@ public class EventServiceImpl implements EventService{
         }
         return event;
     }
-
-    /*@Override
-    @Transactional
-    public void editEvent(NewEventForm editEventForm) throws ParseException {
-        Integer eventId=editEventForm.getId();
-
-        Event event = findById(eventId);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        Date d = sdf.parse(editEventForm.getEventDate());
-        Timestamp stamp = new Timestamp(d.getTime());
-        stamp.setSeconds(0);
-        event.setEventName(editEventForm.getEventName());
-        event.setEventDate(stamp);
-        event.setBookingCanceltime(Integer.parseInt(editEventForm.getBookingCanceltime()));
-        updateEvent(event);
-        int sectorId=1;
-        for (String e : editEventForm.getSectorPrice()){
-
-            SectorPrice sp=new SectorPrice();
-            sp.setEvent(event);
-            Sector sector = sectorDAO.findById(sectorId);
-            sp.setSector(sector);
-            sp.setPrice(Double.parseDouble(e));
-            sectorPriceDAO.updateEntity(sp);
-            sectorId++;
-        }
-    }*/
 
 }
 
