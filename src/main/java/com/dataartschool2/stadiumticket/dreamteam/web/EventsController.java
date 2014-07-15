@@ -54,7 +54,7 @@ public class EventsController{
     }
 
     @ModelAttribute("editEvent")
-    public Event getEditEvent(@RequestParam(value = "id", required = false) Integer id){
+    public Event getEvent(@RequestParam(value = "id", required = false) Integer id){
         if(id != null) {
 
             Event event = eventService.findById(id);
@@ -71,7 +71,8 @@ public class EventsController{
     return null;
         
     }
-        
+
+       
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Map<String, Object> map, Model model ) {
 		model.asMap().clear();
@@ -91,7 +92,6 @@ public class EventsController{
     	model.asMap().clear();
     	List<Event> allEvents = eventService.getPastEvents();
     	modelMap.put("events", allEvents);
-    	//System.out.println(allEvents.size());   	
         return "/past_events";
     }
     
