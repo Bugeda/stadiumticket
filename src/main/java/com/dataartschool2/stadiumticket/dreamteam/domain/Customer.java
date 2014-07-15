@@ -1,8 +1,14 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Customer {
@@ -11,16 +17,18 @@ public class Customer {
     @GeneratedValue
     private int id;
 
-    private String customerName;
+    @Size(min = 1, message = "error.notNull")
+    private String customerName; 
 
-    private String customerSurname;
-
+    @OneToMany(cascade= CascadeType.ALL)
+    private List<Booking> bookingSet;
+    
     public Customer(){}
 
-    public Customer(int id, String customerName, String customerSurname) {
+    public Customer(int id, String customerName, List<Booking> bookingSet) {
         this.id = id;
         this.customerName = customerName;
-        this.customerSurname = customerSurname;
+        this.bookingSet = bookingSet;
     }
 
     public int getId() {
@@ -38,12 +46,12 @@ public class Customer {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-
-    public String getCustomerSurname() {
-        return customerSurname;
+    
+    public List<Booking> getBookingSet() {
+        return bookingSet;
     }
 
-    public void setCustomerSurname(String customerSurname) {
-        this.customerSurname = customerSurname;
+    public void setBookingSet(List<Booking> bookingSet) {
+        this.bookingSet = bookingSet;
     }
 }

@@ -34,10 +34,10 @@
 <body>
 <div class="container">
 <div class="row">
-    <div class="col-xs-1 col-md-1"><a href="index.html"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
-    <div class="col-xs-6 col-md-9">
+	<div class="col-xs-1 col-md-1"><a href="<c:url value="/index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	<div class="col-xs-6 col-md-9">
         <h3>
-            <a id="arrow_back" href="<c:url value="index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+            <a id="arrow_back" href="<c:url value="/index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
             <spring:message code="booktickets.pageTitle" />
         </h3>
         <h2 id="event_name"><c:out value="${event.eventName}"></c:out>
@@ -46,10 +46,13 @@
 </div>
 <div class="row">
   <div class="col-md-5">
-   	<form:form method="post" action="${pageContext.request.contextPath}/submit/book_tickets">
-        <label for="booking_name">Book selected tickets for: <img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
-        <input class="form-control" type="text" name="booking_name" id="booking_name" title="<spring:message code="booking.person" />" placeholder="<spring:message code="booking.person" />">
-        <b><spring:message code="booking.person" />:</b>              
+   	<form:form method="post" action="">       
+        <label for="booking_name">"<spring:message code="booking.personTitle" /> <img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
+        <spring:message code="booking.person" var="msg"/> 
+        <input class="form-control" type="text" name="${booking.customer.customerName}" placeholder="${msg}" id="booking_name" title="${msg}">            
+        <form:errors path="booking.customer.customerName" cssClass="alert-danger" />
+        
+        <b><spring:message code="ticketlist.tickets" />:</b>           
         <table class="table" id="ticket_list">
             <thead>
             <tr>
@@ -71,7 +74,8 @@
             </tr>
             </tfoot>
         </table>
-        <br>
+        <br>	
+   		
         <!-- <input class="btn" type="button" id="add_random_ticket" value="add random ticket"> -->
         <input class="btn" type="submit" name="submit" value="Book tickets" id="book_tickets">
     </form:form>
@@ -133,21 +137,22 @@
 	    	shape="poly" coords="105,29,141,19,178,17,178,52,191,54,192,119,145,120"/>
 	    <area id="25" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=25"/>" alt="25" title="25" 
 	    	shape="poly" coords="186,32,263,33,266,47,259,46,261,92,303,93,304,109,241,109,238,120,202,119,201,56,201,46,185,46"/>
-	    <area id="26" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=26"/>" alt="vipD" title="vipD" 
-	    	shape="rect" coords="152,472,468,501" />
-	    <area id="27" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=27"/>" alt="vipA" title="vipA" 
+	    <area id="27" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=26"/>" alt="vipA" title="vipA" 
 	    	shape="rect" coords="266,32,356,83" />
+	    <area id="26" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=27"/>" alt="vipD" title="vipD" 
+	    	shape="rect" coords="152,472,468,501" />
+	    
 	  </map>
   </div>
 </div>
 </div>
 <br/>
 
-<div class="container seats">
+<div id="normal_sector" class="container seats">
 <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>
     <tr>        
-        <td id="sector_name"><spring:message code="ticketlist.sector" /> 12 <spring:message code="ticketlist.seats" />:</td>
+        <td><spring:message code="ticketlist.sector" /> <span id="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
         <td><div>42</div></td>
         <td><spring:message code="sectorstatus.vacant" /></td>
         <td><div>42</div></td>
@@ -173,7 +178,36 @@
 </table>
 </div>
 </div>
-</div>
 <br/>
+<div id="vip_sector" class="container seats">
+<table class="table table-condensed table-responsive sell_tickets_header">
+    <tbody>
+    <tr>        
+        <td><spring:message code="ticketlist.sector" /> <span id="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
+        <td><div>42</div></td>
+        <td><spring:message code="sectorstatus.vacant" /></td>
+        <td><div>42</div></td>
+        <td><spring:message code="sectorstatus.booked" /></td>
+        <td><div>42</div></td>
+        <td><spring:message code="sectorstatus.occupied" /></td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<div class="table-responsive">
+<table class="table table-condensed table-responsive sell_tickets_table">
+<tbody>
+<% for (int i=1;i<11;i++) {%>
+<tr>
+   <td> <div><%=i %></div> </td>
+   <% for (int j=1;j<21;j++) {%>
+   <td id="<%=i %>_<%=j %>"><div><%=j %></div></td>
+   <%} %>
+</tr>
+<%} %>
+</tbody>
+</table>
+</div>
+</div>
 </body>
 </html>

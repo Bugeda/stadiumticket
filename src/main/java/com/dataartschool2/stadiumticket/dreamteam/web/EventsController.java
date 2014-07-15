@@ -90,7 +90,7 @@ public class EventsController{
     	model.asMap().clear();
     	List<Event> allEvents = eventService.getFutureEvents();    
     	map.put("events", allEvents);
-        return "/index";
+        return "./index";
     }
 	
     @RequestMapping(value = "/past_events", method = RequestMethod.GET)
