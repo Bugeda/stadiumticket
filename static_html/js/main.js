@@ -76,6 +76,11 @@ $(document).ready(function () {
 	var ticket_index = 1;
 	$('.ticket').each( function () {
 	    $(this).children('.ticket_number').html(ticket_index+'.');
+	    $(this).find('input').each( function () {
+		$(this).attr('name', $(this).attr('name').replace('[i]', '['+ticket_index+']') );
+	    });
+	    // attr = attr.replace('[i]', '['+ticket_index+']');
+	    // $(this).find('input').attr('name', attr);
 	    total_price += parseInt($(this).children('.ticket_price').html());
 	    ticket_index += 1;
 	});
@@ -90,9 +95,9 @@ $(document).ready(function () {
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ price + "</td>"
 				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
-				 + "<td><input name=\"sector\" type=\"hidden\" value="+sector+">"
-				 + "<input name=\"row\" type=\"hidden\" value="+row+">"
-				 + "<input name=\"seat\" type=\"hidden\" value="+seat+"></td></tr>" );
+				 + "<td><input name=\"${ticket[i].seat.sector.id}\" type=\"hidden\" value="+sector+">"
+				 + "<input name=\"${ticket[i].seat.rowNumber}\" type=\"hidden\" value="+row+">"
+				 + "<input name=\"${ticket[i].seat.seatNumber}\" type=\"hidden\" value="+seat+"></td></tr>" );
 	recalculate_price_and_index();
     };
 
@@ -105,7 +110,6 @@ $(document).ready(function () {
 	    $(this).addClass('selected');
 	    var id = $(this).attr('id').split('_');
 	    var sector = $('#sector_name').html(); //.substr(6).slice(0,-6)
-	    console.log(sector);
 	    var sector_number = 0;
 	    if ((sector != 'VIP A') && (sector != 'VIP D')){
 		sector_number = parseInt(sector);
@@ -145,7 +149,6 @@ $(document).ready(function () {
 	for (var row_index = 0; row_index < sector_obj.rows.length; row_index++) {
 	    // iterate through seats in a row
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
-		// console.log(row_index,seat_index,'#'+ parseInt(parseInt(row_index)+1) +'_'+parseInt(parseInt(seat_index)+1));
 		if (sector_obj.rows[row_index][seat_index] != 'vacant') {
 		    $('#'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',sector_obj.rows[row_index][seat_index]);
 		}
