@@ -1,0 +1,575 @@
+input {
+    background-color: #C6D2E3;
+    color: #FBFCFD;
+    border: none;
+}
+
+body, A {
+    color: RGB(0, 0, 117);
+}
+
+map input {
+    position: absolute;
+    background-color: darkgreen;
+    color: white;
+    font-weight: bold;
+    outline: 1px dashed green;
+    text-align: center;
+}
+
+#price_26 {
+    top: 477px;
+    left: 375px;
+}
+
+#price_27 {
+    top: 62px;
+    left: 305px;
+}
+
+#price_1 {
+    top: 100px;
+    left: 380px;
+}
+
+#price_2 {
+    top: 83px;
+    left: 447px;
+}
+
+#price_3 {
+    top: 94px;
+    left: 513px;
+}
+
+#price_4 {
+    top: 140px;
+    left: 523px;
+}
+
+#price_5 {
+    top: 193px;
+    left: 520px;
+}
+
+#price_6 {
+    top: 250px;
+    left: 520px;
+}
+
+#price_7 {
+    top: 307px;
+    left: 520px;
+}
+
+#price_8 {
+    top: 343px;
+    left: 500px;
+}
+
+#price_9 {
+    top: 393px;
+    left: 550px;
+}
+
+#price_10 {
+    top: 440px;
+    left: 480px;
+}
+
+#price_11 {
+    top: 385px;
+    left: 418px;
+}
+
+#price_12 {
+    top: 385px;
+    left: 362px;
+}
+
+#price_13 {
+    top: 385px;
+    left: 304px;
+}
+
+#price_14 {
+    top: 385px;
+    left: 246px;
+}
+
+#price_15 {
+    top: 385px;
+    left: 189px;
+}
+
+#price_16 {
+    top: 445px;
+    left: 130px;
+}
+
+#price_17 {
+    top: 380px;
+    left: 100px;
+}
+
+#price_18 {
+    top: 340px;
+    left: 100px;
+}
+
+#price_19 {
+    top: 298px;
+    left: 90px;
+}
+
+#price_20 {
+    top: 238px;
+    left: 90px;
+}
+
+#price_21 {
+    top: 185px;
+    left: 90px;
+}
+
+#price_22 {
+    top: 135px;
+    left: 90px;
+}
+
+#price_23 {
+    top: 95px;
+    left: 100px;
+}
+
+#price_24 {
+    top: 90px;
+    left: 160px;
+}
+
+#price_25 {
+    top: 100px;
+    left: 230px;
+}
+
+.visible_cell {
+    display: table-cell;
+}
+
+.event td {
+    height: 35px;
+}
+
+.action_list, #event_list_info, .invisible {
+    display: none;
+}
+
+.action_list img {
+    margin: 0px 15px;
+    float: left;
+}
+
+.action_list {
+    width: 45%;
+}
+
+.event_name {
+    width: 40%;
+}
+
+.event_datetime {
+    width: 15%;
+}
+
+#disable_inputs {
+    cursor: not-allowed;
+}
+
+#confirm_deletion_form, #wrong_confirmation {
+    display: none;
+}
+
+/*styles for table with tickets*/
+.table-responsive {
+    font-size: 0.8em;
+}
+
+.table-responsive > tbody > tr > td {
+    width: 1.9%;
+    text-align: center;
+}
+
+.table-responsive td:first-child {
+    font-weight: bolder;
+}
+
+.table-responsive.table > tbody > tr > th, .table > tbody > tr > td {
+    border-top: none;
+}
+
+.table-responsive > tbody > tr > td {
+    padding: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -khtml-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.table-responsive > tbody > tr > td > div {
+    background: #ffffff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -khtml-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.seats {
+    background: #C6D2E3;
+}
+
+#normal_sector, #vip_sector { display: none;}
+/* hr line style */
+hr {
+    display: block;
+    height: 2px;
+    border-top: 1px solid #000075;
+    margin: 10px;
+    padding: 0;
+    background-color: #000075;
+}
+/* sell_tickets_table styles */
+.sell_tickets_table > tbody > tr > td:hover, .selected {
+    background: #000075;
+}
+
+/* sell_tickets_header styles */
+.sell_tickets_header {
+    font-size: medium;
+    padding: 0;
+    margin: 0;
+}
+
+.sell_tickets_header > tbody > tr > td > div {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -khtml-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.sell_tickets_header > tbody > tr > td:first-child {
+    width: 70%;
+    text-align: left;
+    padding-left: 10px;
+    font-size: large;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(2), .sell_tickets_header > tbody > tr > td:nth-child(4), .sell_tickets_header > tbody > tr > td:nth-child(6) {
+    width: 3%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(3), .sell_tickets_header > tbody > tr > td:nth-child(5), .sell_tickets_header > tbody > tr > td:nth-child(7) {
+    width: 7%;
+    text-align: left;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(2) > div  {
+    background: #ffffff;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(4) > div, .booked {
+    background: #A8C901;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(6) > div, .occupied {
+    background: #FE2B2C;
+}
+=======
+input {
+    background-color: #C6D2E3;
+    color: #FBFCFD;
+    border: none;
+}
+
+body, A {
+    color: RGB(0, 0, 117);
+}
+
+map input {
+    position: absolute;
+    background-color: darkgreen;
+    color: white;
+    font-weight: bold;
+    outline: 1px dashed green;
+    text-align: center;
+}
+
+#price_26 {
+    top: 477px;
+    left: 375px;
+}
+
+#price_27 {
+    top: 62px;
+    left: 305px;
+}
+
+#price_1 {
+    top: 100px;
+    left: 380px;
+}
+
+#price_2 {
+    top: 83px;
+    left: 447px;
+}
+
+#price_3 {
+    top: 94px;
+    left: 513px;
+}
+
+#price_4 {
+    top: 140px;
+    left: 523px;
+}
+
+#price_5 {
+    top: 193px;
+    left: 520px;
+}
+
+#price_6 {
+    top: 250px;
+    left: 520px;
+}
+
+#price_7 {
+    top: 307px;
+    left: 520px;
+}
+
+#price_8 {
+    top: 343px;
+    left: 500px;
+}
+
+#price_9 {
+    top: 393px;
+    left: 550px;
+}
+
+#price_10 {
+    top: 440px;
+    left: 480px;
+}
+
+#price_11 {
+    top: 385px;
+    left: 418px;
+}
+
+#price_12 {
+    top: 385px;
+    left: 362px;
+}
+
+#price_13 {
+    top: 385px;
+    left: 304px;
+}
+
+#price_14 {
+    top: 385px;
+    left: 246px;
+}
+
+#price_15 {
+    top: 385px;
+    left: 189px;
+}
+
+#price_16 {
+    top: 445px;
+    left: 130px;
+}
+
+#price_17 {
+    top: 380px;
+    left: 100px;
+}
+
+#price_18 {
+    top: 340px;
+    left: 100px;
+}
+
+#price_19 {
+    top: 298px;
+    left: 90px;
+}
+
+#price_20 {
+    top: 238px;
+    left: 90px;
+}
+
+#price_21 {
+    top: 185px;
+    left: 90px;
+}
+
+#price_22 {
+    top: 135px;
+    left: 90px;
+}
+
+#price_23 {
+    top: 95px;
+    left: 100px;
+}
+
+#price_24 {
+    top: 90px;
+    left: 160px;
+}
+
+#price_25 {
+    top: 100px;
+    left: 230px;
+}
+
+.visible_cell {
+    display: table-cell;
+}
+
+.event td {
+    height: 35px;
+}
+
+.action_list, #event_list_info, .invisible {
+    display: none;
+}
+
+.action_list img {
+    margin: 0px 15px;
+    float: left;
+}
+
+.action_list {
+    width: 45%;
+}
+
+.event_name {
+    width: 40%;
+}
+
+.event_datetime {
+    width: 15%;
+}
+
+#disable_inputs {
+    cursor: not-allowed;
+}
+
+#confirm_deletion_form, #wrong_confirmation {
+    display: none;
+}
+
+/*styles for table with tickets*/
+.table-responsive {
+    font-size: 0.8em;
+}
+
+.table-responsive > tbody > tr > td {
+    width: 1.9%;
+    text-align: center;
+}
+
+.table-responsive td:first-child {
+    font-weight: bolder;
+}
+
+.table-responsive.table > tbody > tr > th, .table > tbody > tr > td {
+    border-top: none;
+}
+
+.table-responsive > tbody > tr > td {
+    padding: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -khtml-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.table-responsive > tbody > tr > td > div {
+    background: #ffffff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -khtml-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.seats {
+    background: #C6D2E3;
+}
+
+/* hr line style */
+hr {
+    display: block;
+    height: 2px;
+    border-top: 1px solid #000075;
+    margin: 10px;
+    padding: 0;
+    background-color: #000075;
+}
+/* sell_tickets_table styles */
+.sell_tickets_table > tbody > tr > td:hover, .selected {
+    background: #000075;
+}
+
+/* sell_tickets_header styles */
+.sell_tickets_header {
+    font-size: medium;
+    padding: 0;
+    margin: 0;
+}
+
+.sell_tickets_header > tbody > tr > td > div {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -khtml-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.sell_tickets_header > tbody > tr > td:first-child {
+    width: 70%;
+    text-align: left;
+    padding-left: 10px;
+    font-size: large;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(2), .sell_tickets_header > tbody > tr > td:nth-child(4), .sell_tickets_header > tbody > tr > td:nth-child(6) {
+    width: 3%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(3), .sell_tickets_header > tbody > tr > td:nth-child(5), .sell_tickets_header > tbody > tr > td:nth-child(7) {
+    width: 7%;
+    text-align: left;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(2) > div {
+    background: #ffffff;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(4) > div {
+    background: #A8C901;
+}
+
+.sell_tickets_header > tbody > tr > td:nth-child(6) > div {
+    background: #FE2B2C;
+}
+>>>>>>> 14d005c41a9e998b92f41013c37da5401318867c
