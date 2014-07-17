@@ -36,7 +36,7 @@ public class BookingServiceImpl implements BookingService {
         return result;
     }
 
-    @Scheduled(fixedDelay = 3600000)
+    @Scheduled(fixedDelay = 300000) // 5 minutes
     public void cancelBooking(){
         List<Booking> bookings = bookingDAO.findAll();
         for(Booking booking : bookings){
