@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,104 +22,98 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
     <style type="text/css">
     </style>
-</head>
-<body>
-<div class="container">
-    <div class="row">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
         <div class="col-md-1"><a href="index.html"><img class="img-responsive" src="images/logo.png"></a></div>
-        <div class="col-md-3">
-            <h3><a id="arrow_back" href="index.html"><img src="images/arrow_back.png"></a>&nbsp;Events</h3>
-            <h4> search booked tickets for:</h4>
+        <div class="col-md-6">
+          <h3><a id="arrow_back" href="index.html"><img src="images/arrow_back.png"></a>&nbsp;Events</h3>
+          <h4> search booked tickets for:</h4>
 
-            <h2 id="event_name">Event name</h2>
+          <h2 id="event_name">Event name</h2>
         </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <form action="" method="post">
+            <label for="search_booking_name">Search booked tickets: <img src="images/arrow_down.png"></label>
+            <input class="form-control" type="text" name="search_booking_name" id="search_booking_name" placeholder="Full name of person">
+          </form>
+        </div>
+      </div>
+      <h4>Search results:</h4>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table" id="booking_search_results" class="hover">
+            <thead>
+              <tr style="font-weight: bold;">
+                <td>Sector</td>
+                <td>Row</td>
+                <td>Seat</td>
+                <td>Price</td>
+                <td>Booked for</td>
+		<td>Delete booking</td>
+		<td>Sell ticket</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="ticket">
+                <td >12</td>
+                <td >5</td>
+                <td >5</td>
+                <td >250</td>
+                <td >Andrey Ivanov</td>
+                <td><img src="images/minus.png"></td>
+		<td><img src="images/pocket.png"></td>
+              </tr>
+              <tr class="ticket">
+                <td >12</td>
+                <td >5</td>
+                <td >6</td>
+                <td >250</td>
+                <td >Andrey Petrov</td>
+                <td><img src="images/minus.png"></td>
+		<td><img src="images/pocket.png"></td>
+
+              </tr>
+              <tr class="ticket">
+                <td >12</td>
+                <td >5</td>
+                <td >7</td>
+                <td >250</td>
+                <td >Andrey Sidorov</td>
+                <td><img src="images/minus.png"></td>
+		<td><img src="images/pocket.png"></td>
+              </tr>
+              <tr class="ticket">
+                <td >12</td>
+                <td >5</td>
+                <td >8</td>
+                <td >250</td>
+                <td >Andrey</td>
+                <td><img src="images/minus.png"></td>
+		<td><img src="images/pocket.png"></td>
+              </tr>
+            </tbody>
+            <!-- <tfoot> -->
+            <!--   <tr> -->
+            <!--     <td colspan="3"><b>Total price:</b></td> -->
+            <!--     <td id="total_price" style="font-weight: bold">1000</td> -->
+            <!--     <td style="font-weight: bold">UAH</td> -->
+            <!--     <td><img src="images/minus.png"></td> -->
+            <!--     <td><img src="images/pocket.png"></td> -->
+            <!--   </tr> -->
+            <!-- </tfoot> -->
+          </table>
+          <input class="btn" type="submit" name="submit" value="Sell selection" id="book_tickets">
+        </div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-md-5">
-            <h3><b>Tickets: </b></h3>
-            <form action="" method="post">
-                <label for="booking_name">Search booked tickets: <img src="images/arrow_down.png"></label>
-                <input class="form-control" type="text" name="booking_name" id="booking_name"
-                       placeholder="Full name of person">
-            </form>
-        </div>
-        <div class="col-md-9">
-            <table class="table" id="ticket_list" class="hover">
-                <thead>
-                <tr style="font-weight: bold; text-align: center">
-                    <td></td>
-                    <td>Sector</td>
-                    <td>Row</td>
-                    <td>Seat</td>
-                    <td>Price</td>
-                    <td style="text-align: left">Booked for</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="event">
-                    <td>1.</td>
-                    <td style="text-align: center">12</td>
-                    <td style="text-align: center">5</td>
-                    <td style="text-align: center">5</td>
-                    <td style="text-align: center">250</td>
-                    <td >Andrey</td>
-                    <td style="text-align: right"><img src="images/minus.png"></td>
-                    <td><img src="images/pocket.png"></td>
-                </tr>
-                <tr class="event">
-                    <td>1.</td>
-                    <td style="text-align: center">12</td>
-                    <td style="text-align: center">5</td>
-                    <td style="text-align: center">5</td>
-                    <td style="text-align: center">250</td>
-                    <td >Andrey</td>
-                    <td style="text-align: right"><img src="images/minus.png"></td>
-                    <td><img src="images/pocket.png"></td>
-                </tr>
-                <tr class="event">
-                    <td>1.</td>
-                    <td style="text-align: center">12</td>
-                    <td style="text-align: center">5</td>
-                    <td style="text-align: center">5</td>
-                    <td style="text-align: center">250</td>
-                    <td >Andrey</td>
-                    <td style="text-align: right"><img src="images/minus.png"></td>
-                    <td><img src="images/pocket.png"></td>
-                </tr>
-                <tr class="event">
-                    <td>1.</td>
-                    <td style="text-align: center">12</td>
-                    <td style="text-align: center">5</td>
-                    <td style="text-align: center">5</td>
-                    <td style="text-align: center">250</td>
-                    <td >Andrey</td>
-                    <td style="text-align: right"><img src="images/minus.png"></td>
-                    <td><img src="images/pocket.png"></td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: right"><img src="images/pocket.png"></td>
-                    <td><b>Total price:</b></td>
-                    <td id="total_price" style="font-weight: bold">1000</td>
-                    <td style="font-weight: bold">UAH</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                </tfoot>
-            </table>
-            <input class="btn" type="submit" name="submit" value="Save changes" id="book_tickets">
-        </div>
-    </div>
-</div>
-</body>
+  </body>
 </html>

@@ -31,6 +31,13 @@ $(document).ready(function () {
 	"columnDefs": [ { "orderable": false, "targets": 2 } ]
     });
 
+    $('#booking_search_results').dataTable({
+	"paging": true,
+	"stateSave": true,
+	"autoWidth": true,
+	"ordering": false
+    });
+
     // BEGIN Edit/new event, event list section
     // copy data from sector plan to hidden form on edit/new event page
     $('map > input').change( function () {
@@ -50,6 +57,7 @@ $(document).ready(function () {
 	$(this).children('.action_list').hide();
     });
     $('#event_list_filter input').addClass('form-control');
+    $('#booking_search_results_filter input').addClass('form-control');
 
 
     // delete event process
