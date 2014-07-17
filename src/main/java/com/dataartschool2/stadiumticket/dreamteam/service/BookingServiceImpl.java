@@ -55,7 +55,7 @@ public class BookingServiceImpl implements BookingService {
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);
-        calendar.roll(Calendar.MINUTE, minutes);
+        calendar.add(Calendar.MINUTE, minutes);
         Date fromNow = calendar.getTime();
 
         if(startDate.before(fromNow)){
