@@ -72,7 +72,6 @@ public class SectorServiceImpl implements SectorService {
                 case Booked:
                     rowStatus.set(seatNumber, SeatStatus.booked);
                     break;
-
             }
         }
     }

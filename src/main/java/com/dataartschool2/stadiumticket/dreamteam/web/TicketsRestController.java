@@ -31,25 +31,41 @@ public class TicketsRestController {
     private SectorService sectorService;
 
     @ResponseBody
-    @RequestMapping(value = "/tickets/sell", method = RequestMethod.POST)
+    @RequestMapping(value = "/tickets/book", method = RequestMethod.POST)
     public String postSellTicketsPage(@Valid @ModelAttribute("chosenSeats") List<Seat> chosenSeats,
                                       BindingResult seatsBindingResult,
                                       @ModelAttribute("event") Event event,
                                       ModelMap modelMap){
         if(seatsBindingResult.hasErrors()){
             modelMap.put("result", seatsBindingResult);
-            return "sell_tickets";
+            return "/tickets/book_tickets";
         }else{
-            ticketService.sellTickets(event, chosenSeats);
+            ticketService.bookTickets(event, chosenSeats);
         }
-        return "sell_tickets";
+        return "/tickets/book_tickets";
 
     }
 
-    @RequestMapping(value = "/tickets/get_sector_seats", method = RequestMethod.GET)
-    public SectorStatus getSectorStatus(@RequestParam("eventId") Integer eventId,
-                                        @RequestParam("sectorId") Integer sectorId){
+    @ResponseBody
+    @RequestMapping(value = "/tickets/sell", method = RequestMethod.POST)
+    public String postBookTicketsPage(@Valid @ModelAttribute("chosenSeats") List<Seat> chosenSeats,
+                                      BindingResult seatsBindingResult,
+                                      @ModelAttribute("event") Event event,
+                                      ModelMap modelMap){
+        if(seatsBindingResult.hasErrors()){
+            modelMap.put("result", seatsBindingResult);
+            return "/tickets/sell_tickets";
+        }else{
+            ticketService.sellTickets(event, chosenSeats);
+        }
+        return "/tickets/sell_tickets";
 
-        return sectorService.getSectorStatus(eventId, sectorId );
+    }
+    
+    @RequestMapping(value = "/tickets/get_sector_seats", method = RequestMethod.GET)
+    public SectorStatus getSectorStatus(@RequestParam("event") Integer eventId,
+                                        @RequestParam("sector") Integer sectorId){
+
+        return sectorService.getSectorStatus(eventId, sectorId);
     }
 }

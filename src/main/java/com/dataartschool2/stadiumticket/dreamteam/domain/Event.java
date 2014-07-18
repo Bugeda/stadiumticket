@@ -17,18 +17,18 @@ public class Event {
 	@Id
     @GeneratedValue  
     private Integer id;
-
-    @NotNull(message = "Must be filled.")
-    @Size(min = 1, message = "Must be filled.")
+	
+	
+    @Size(min = 1, message = "error.notNull")
 	private String eventName;
 
-    @NotNull(message = "Date must be filled.")
-    @Future(message = "Event date must be in the future.")
+    @NotNull(message = "error.notNullDate")
+    @Future(message = "error.futureDate")
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     private Date eventDate;
 
-    @NotNull(message = "Must be filled")
-    @Min(value = 1, message = "Should be greater than zero.")
+    @NotNull(message = "error.notNull")
+    @Min(value = 1, message = "error.notPositivePrice")
     private Integer bookingCanceltime;
 
     private boolean isDelete;

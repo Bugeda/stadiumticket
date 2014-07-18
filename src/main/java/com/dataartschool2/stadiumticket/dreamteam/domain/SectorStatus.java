@@ -2,9 +2,6 @@ package com.dataartschool2.stadiumticket.dreamteam.domain;
 
 import java.util.List;
 
-/**
- * Created by Denis on 13.07.2014.
- */
 public class SectorStatus {
 
     private String name;

@@ -1,29 +1,30 @@
-<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>stadiumticket - new event</title>
+    <title><spring:message code="newevent.title" /></title>
+   
    <!-- css -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/bootstrap-theme.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.dataTables.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery.datetimepicker.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/css/main.css" type="text/css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/main.css" rel="stylesheet">
 
     <!-- js -->
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     <script src="<%= request.getContextPath() %>/js/jquery.dataTables.js"></script>
-    <script src="<%= request.getContextPath() %>/js/jquery.maphighlight.js"></script>    
+    <script src="<%= request.getContextPath() %>/js/jquery.maphighlight.js"></script>
     <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.datetimepicker.js"></script>
-    <script src="<%= request.getContextPath() %>/js/main.js"></script>  
+    <script src="<%= request.getContextPath() %>/js/main.js"></script>
     <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.alphanum.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,10 +39,11 @@
   <body>
     <div class="container">
        <div class="row">
-	<div class="col-xs-1 col-md-1"><a href="index"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	<div class="col-xs-1 col-md-1"><a href="<c:url value="index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
 	   <h3>
-		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;New event
+		<a id="arrow_back" href="<c:url value="index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+		<spring:message code="newevent.pageTitle" />
 	   </h3>
 	   <h2 id="event_name">Event name</h2>
 	 </div>
@@ -50,25 +52,28 @@
 	<div class="col-md-5">
 	 	<form:form class="form-horizontal"  action="${pageContext.request.contextPath}/new_event" method="post" modelAttribute="newEvent">
             <div class="form-group">
-              <label for="title">Title:</label>
-              <form:input class="form-control"  path="eventName" id="title" placeholder="please enter event name" title="please enter event name"/>
+              <label for="title"><spring:message code="event.hName" />:</label>
+			  <spring:message code="event.hName.hint" var="msg"/>              
+              <form:input class="form-control"  path="eventName" id="title" placeholder="${msg}" title="${msg}"/>
               <form:errors path="eventName" cssClass="alert-danger" />
             </div>
             <div class="form-group">
-                <fmt:formatDate value="${newEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate" />
-              <label for="eventDate">Start at:</label>
-              <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}" placeholder="Select event start time and date" title="Select event start time and date"/>
+              <fmt:formatDate value="${newEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate" />
+	      	  <spring:message code="event.hDatetime.hint" var="msg"/>
+              <label for="eventDate"><spring:message code="event.hDatetime" />:</label>
+              <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}" placeholder="${msg}" title="${msg}"/>
               <form:errors path="eventDate" cssClass="alert-danger" />
             </div>
             <div class="form-group">
-              <label for="booking_time" id="label_booking">Booking cancel time (min):</label>
-              <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time" value="30" placeholder="Enter time, before which all booked tickets are cancelled" title="Enter time, before which all booked tickets are cancelled"/>
+              <label for="booking_time" id="label_booking"><spring:message code="event.hBooking" />:</label>
+			  <spring:message code="event.hBooking.hint" var="msg"/>              
+              <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time" value="30" placeholder="${msg}" title="${msg}"/>
               <form:errors path="bookingCanceltime" cssClass="alert-danger" />
             </div>
             <div class="form-group">
-              <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />          
+              <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />
               <c:forEach items="${newEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
-                <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"  />
+                <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price" />
               </c:forEach>
             </div>
             <div class="form-group">
@@ -78,13 +83,14 @@
          </form:form>
 
 	</div>
-	<div class="col-md-7">   
+	<spring:message code="event.sectorPrice.hint" var="msg"/>
+	<div class="col-md-7">	
 	<img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
-	  <map name="stadium">
-	   <% for (int i=1;i<28;i++) {%>
-	      <input type="text" id="price_<%=i %>" size="4" maxlength="4" placeholder="price">
-	   <%} %>	    
-	          
+	  <map name="stadium">	
+	   <% for (int i=1;i<28;i++) {%>	   	  
+	      <input type="text" id="price_<%=i %>" size="4" maxlength="4" placeholder="${msg}">
+	   <%} %>
+
 	  	<area id="1" alt="1" title="1"  shape="poly" coords="320,93,364,92,364,54,364,33,436,34,437,47,422,47,423,119,384,120,384,108,321,110" />
 	    <area id="2" alt="2" title="2"  shape="poly" coords="431,119,431,53,446,53,446,20,485,20,520,29,478,117" />
 	    <area id="3" alt="3" title="3"  shape="poly" coords="485,122,526,32,564,55,586,92,497,137" />
@@ -112,7 +118,7 @@
 	    <area id="25" alt="25" title="25" shape="poly" coords="186,32,263,33,266,47,259,46,261,92,303,93,304,109,241,109,238,120,202,119,201,56,201,46,185,46"/>
 	    <area id="26" alt="vipD" title="vipD" shape="rect" coords="152,472,468,501" />
 	    <area id="27" alt="vipA" title="vipA" shape="rect" coords="266,32,356,83" />
-	    
+
 	  </map>
 	  <br>
 	<script type="text/javascript">
@@ -146,7 +152,7 @@
 
 	  <div class="row">
 	    <div style="display:none;" class="alert-dismissible alert alert-danger" role="alert">
-	      Only numbers allowed here!
+	     <spring:message code="alert.onlyNumberAllowed"/>
 	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
 	    </div>
 	  </div>

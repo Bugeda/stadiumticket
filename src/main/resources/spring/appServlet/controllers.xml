@@ -6,3 +6,4 @@
 <context:component-scan base-package="com.dataartschool2.stadiumticket.dreamteam.web"/>
 <context:component-scan base-package="com.dataartschool2.stadiumticket.dreamteam.domain"/>
 </beans>
+
