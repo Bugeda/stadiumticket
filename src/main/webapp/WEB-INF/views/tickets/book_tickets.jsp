@@ -34,10 +34,10 @@
 <body>
 <div class="container">
 <div class="row">
-	<div class="col-xs-1 col-md-1"><a href="<c:url value="/index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	<div class="col-xs-1 col-md-1"><a href="<c:url value="./index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
         <h3>
-            <a id="arrow_back" href="<c:url value="/index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+            <a id="arrow_back" href="<c:url value="./index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
             <spring:message code="booktickets.pageTitle" />
         </h3>
         <h2 id="event_name"><c:out value="${event.eventName}"></c:out>
@@ -46,14 +46,13 @@
 </div>
 <div class="row">
   <div class="col-md-5">
-   	<form:form method="post" action="">       
-        <label for="booking_name">"<spring:message code="booking.personTitle" /> <img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
-        <spring:message code="booking.person" var="msg"/> 
-        <input class="form-control" type="text" name="${booking.customer.customerName}" placeholder="${msg}" id="booking_name" title="${msg}">            
-        <form:errors path="booking.customer.customerName" cssClass="alert-danger" />
-        
-        <b><spring:message code="ticketlist.tickets" />:</b>           
+   	<form:form method="post" action="${pageContext.request.contextPath}/tickets/book" modelAttribute="newCustomer">
+        <label for="booking_name"><spring:message code="booking.customerNameTitle" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
+        <input class="form-control" type="text" name="customerName" id="booking_name" title="<spring:message code="booking.customerName" />" 
+        placeholder="<spring:message code="booking.customerName" />">
+        <b><spring:message code="ticketlist.tickets" />:</b>              
         <table class="table" id="ticket_list">
+       <c:set var="seat" value="${newCustomer.bookingSet}" />
             <thead>
             <tr>
                 <td>№</td>
@@ -74,8 +73,7 @@
             </tr>
             </tfoot>
         </table>
-        <br>	
-   		
+        <br>
         <!-- <input class="btn" type="button" id="add_random_ticket" value="add random ticket"> -->
         <input class="btn" type="submit" name="submit" value="Book tickets" id="book_tickets">
     </form:form>
@@ -137,9 +135,9 @@
 	    	shape="poly" coords="105,29,141,19,178,17,178,52,191,54,192,119,145,120"/>
 	    <area id="25" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=25"/>" alt="25" title="25" 
 	    	shape="poly" coords="186,32,263,33,266,47,259,46,261,92,303,93,304,109,241,109,238,120,202,119,201,56,201,46,185,46"/>
-	    <area id="27" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=26"/>" alt="vipA" title="vipA" 
+	    <area id="26" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=26"/>" alt="vipA" title="vipA" 
 	    	shape="rect" coords="266,32,356,83" />
-	    <area id="26" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=27"/>" alt="vipD" title="vipD" 
+	    <area id="27" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=27"/>" alt="vipD" title="vipD" 
 	    	shape="rect" coords="152,472,468,501" />
 	    
 	  </map>

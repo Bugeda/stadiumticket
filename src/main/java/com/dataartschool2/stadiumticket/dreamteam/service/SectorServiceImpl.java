@@ -58,7 +58,7 @@ public class SectorServiceImpl implements SectorService {
         for (Booking booking : bookedTickets) {
             BookingStatus bookingStatus = booking.getBookingStatus();
 
-            Ticket ticket = booking.getTicket();
+            Ticket ticket = booking.getSeat().getTicket();
             Seat seat = ticket.getSeat();
             int rowsNumber = seat.getRowNumber();
             int seatNumber = seat.getSeatNumber();

@@ -34,10 +34,10 @@
 <body>
 <div class="container">
 <div class="row">
-	<div class="col-xs-1 col-md-1"><a href="<c:url value="/index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	<div class="col-xs-1 col-md-1"><a href="<c:url value="./index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
  		<h3>
-            <a id="arrow_back" href="<c:url value="/index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+            <a id="arrow_back" href="<c:url value="./index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
             <spring:message code="selltickets.pageTitle" />
         </h3>
         <h2 id="event_name"><c:out value="${event.eventName}"></c:out></h2>
@@ -46,7 +46,7 @@
 <div class="row">
 <div class="col-md-5">
     <form action="" method="post">
-        <b><spring:message code="ticketlist.tickets" />:</b> 
+        <b><spring:message code="ticketlist.tickets" />:</b>  
         <table class="table" id="ticket_list">
             <thead>
             <tr>
@@ -132,9 +132,9 @@
 	    <area id="25" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=25"/>" alt="25" title="25" 
 	    	shape="poly" coords="186,32,263,33,266,47,259,46,261,92,303,93,304,109,241,109,238,120,202,119,201,56,201,46,185,46"/>
 	    <area id="26" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=26"/>" alt="vipA" title="vipA" 
-	    	shape="rect" coords="152,472,468,501" />
-	    <area id="27" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=27"/>" alt="vipD" title="vipD" 
 	    	shape="rect" coords="266,32,356,83" />
+	    <area id="27" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=27"/>" alt="vipD" title="vipD" 
+	    	shape="rect" coords="152,472,468,501" />
 	  </map>
   </div>
 </div>

@@ -55,8 +55,7 @@ public class EventsController{
 
     @ModelAttribute("newEvent")
     public Event getNewEvent(){
-        Event event = eventService.createEmptyEvent();
-        return event;
+        return eventService.createEmptyEvent();
     }
 
     @ModelAttribute("editEvent")
@@ -90,7 +89,7 @@ public class EventsController{
     	model.asMap().clear();
     	List<Event> allEvents = eventService.getFutureEvents();    
     	map.put("events", allEvents);
-        return "./index";
+        return "/index";
     }
 	
     @RequestMapping(value = "/past_events", method = RequestMethod.GET)
@@ -140,12 +139,12 @@ public class EventsController{
                 return "redirect:/edit_event?id="+event.getId();
             }else {
                 if(bindingResult.hasErrors()){            
-                    JOptionPane.showMessageDialog(null, "The changes had not inserted", "event message", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "The changes had not made", "event message", JOptionPane.ERROR_MESSAGE);
                     modelMap.put("result", bindingResult);       
                     return "edit_event";
                 }else{
                     eventService.updateEvent(event);                     
-                    JOptionPane.showMessageDialog(null, "The changes had inserted","event message", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "The changes had made","event message", JOptionPane.INFORMATION_MESSAGE);
                     return "redirect:/index";
             }
         }

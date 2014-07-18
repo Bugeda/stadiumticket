@@ -2,6 +2,8 @@ package com.dataartschool2.stadiumticket.dreamteam.service;
 
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Booking;
+import com.dataartschool2.stadiumticket.dreamteam.domain.Customer;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,4 +12,8 @@ import java.util.List;
 public interface BookingService {
 
     List<Booking> getBookingsForEventInSector(Integer eventId, Integer sectorId);
+
+	Booking createEmptyBooking();
+
+	List<Booking> createEmptyBookingSetForCustomer(Customer customer);
 }

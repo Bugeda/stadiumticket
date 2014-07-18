@@ -12,17 +12,17 @@ public class Booking {
     private Customer customer;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Ticket ticket;
+    private Seat seat;
 
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
 
     public Booking(){}
 
-    public Booking(int id, Customer customer, Ticket ticket, BookingStatus bookingStatus) {
+    public Booking(int id, Customer customer, Seat seat, BookingStatus bookingStatus) {
         this.id = id;
         this.customer = customer;
-        this.ticket = ticket;
+        this.seat = seat;
         this.bookingStatus = bookingStatus;
     }
 
@@ -42,12 +42,12 @@ public class Booking {
         this.customer = customer;
     }
 
-    public Ticket getTicket() {
-        return ticket;
+    public Seat getSeat() {
+        return seat;
     }
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    public void setSeat(Seat ticket) {
+        this.seat = ticket;
     }
 
     public BookingStatus getBookingStatus() {

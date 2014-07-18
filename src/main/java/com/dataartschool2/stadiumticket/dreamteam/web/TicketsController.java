@@ -16,7 +16,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,13 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JOptionPane;
-import javax.validation.Valid;
 
 
 @Controller
@@ -53,13 +47,13 @@ public class TicketsController {
     
 	@Autowired
 	private SectorPriceService sectorPriceService;
+
+	@Autowired
+	BookingService bookingService;
 	
 	@Autowired
 	EventsController eventsController;
 
-	@Autowired
-	private BookingService bookingService;	
-	
     @ModelAttribute("event")
     public Event getEvent(@RequestParam("id") Integer eventId){
         if(eventId != null){
@@ -71,9 +65,18 @@ public class TicketsController {
     }
     @ModelAttribute("chosenSeats")
     public List<Seat> chosenSeats(){
-        return  new ArrayList<Seat>();
+           return  new ArrayList<Seat>();
     }
 
+    @ModelAttribute("newCustomer")
+    public Customer newCustomer(){
+    	Customer customer= new Customer();
+    	/*List<Booking> bookingSet = bookingService.createEmptyBookingSetForCustomer(customer);
+    	customer.setBookingSet(bookingSet);
+    	System.out.println("newCustomer= "+ customer.getClass());*/
+        return customer;
+    }
+    
     @RequestMapping(value = "/tickets/sell", method = RequestMethod.GET)
     public String getSellTicketsPage(@RequestParam("id") Integer eventId, ModelMap modelMap){
     	List<SectorPrice> sectorPrices=sectorPriceService.getPricesSectorsOfEvent(getEvent(eventId));
@@ -90,15 +93,4 @@ public class TicketsController {
         return "/tickets/book_tickets";
     }
 
-    @ModelAttribute("booking") 
-    @RequestMapping(value = "/tickets/submitbook", method = RequestMethod.POST)
-    public String submit_Booking(@ModelAttribute("submit") String submit,
-                    
-                                    @RequestParam("id") Integer eventId,
-                                 
-                                    ModelMap modelMap){
-										return submit;
-    	
-       
-	}
 }

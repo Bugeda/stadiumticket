@@ -17,12 +17,13 @@ public class Customer {
     @GeneratedValue
     private int id;
 
-    @Size(min = 1, message = "error.notNull")
-    private String customerName; 
-
+    @NotNull(message = "error.notNull")
+    @Size(min = 1, max = 50, message = "error.wrongLength")
+    private String customerName;
+    
     @OneToMany(cascade= CascadeType.ALL)
     private List<Booking> bookingSet;
-    
+
     public Customer(){}
 
     public Customer(int id, String customerName, List<Booking> bookingSet) {
@@ -46,12 +47,13 @@ public class Customer {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-    
-    public List<Booking> getBookingSet() {
-        return bookingSet;
-    }
 
-    public void setBookingSet(List<Booking> bookingSet) {
-        this.bookingSet = bookingSet;
-    }
+	public List<Booking> getBookingSet() {
+		return bookingSet;
+	}
+
+	public void setBookingSet(List<Booking> bookingSet) {
+		this.bookingSet = bookingSet;
+	}
+
 }
