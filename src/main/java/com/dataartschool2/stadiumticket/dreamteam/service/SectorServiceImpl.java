@@ -67,10 +67,10 @@ public class SectorServiceImpl implements SectorService {
             switch (bookingStatus) {
                 case Sold:
                 case BookingRedeemed:
-                    rowStatus.set(seatNumber, SeatStatus.Sold);
+                    rowStatus.set(seatNumber, SeatStatus.occupied);
                     break;
                 case Booked:
-                    rowStatus.set(seatNumber, SeatStatus.Booked);
+                    rowStatus.set(seatNumber, SeatStatus.booked);
                     break;
             }
         }
@@ -85,7 +85,7 @@ public class SectorServiceImpl implements SectorService {
             int seatNumber = seat.getSeatNumber();
 
             List<SeatStatus> rowStatus = seatsStatuses.get(rowsNumber - 1);
-            rowStatus.set(seatNumber, SeatStatus.Sold);
+            rowStatus.set(seatNumber, SeatStatus.occupied);
         }
     }
 
@@ -122,7 +122,7 @@ public class SectorServiceImpl implements SectorService {
     private void initRow(int seatsInRowCount, List<List<SeatStatus>> seatsStatuses) {
         List<SeatStatus> rowStatus = new ArrayList<SeatStatus>(seatsInRowCount);
         for (int j = 0; j < seatsInRowCount; ++j) {
-            rowStatus.add(SeatStatus.Free);
+            rowStatus.add(SeatStatus.vacant);
         }
         seatsStatuses.add(rowStatus);
     }

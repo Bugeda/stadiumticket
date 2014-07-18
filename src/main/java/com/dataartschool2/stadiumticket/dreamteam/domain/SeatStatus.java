@@ -4,7 +4,7 @@ package com.dataartschool2.stadiumticket.dreamteam.domain;
  * Created by Denis on 13.07.2014.
  */
 public enum SeatStatus {
-    Free(0), Booked(1), Sold(2);
+    vacant(0), booked(1), occupied(2);
     private int code;
     SeatStatus(int code){
         this.code = code;
