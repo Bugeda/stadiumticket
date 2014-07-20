@@ -15,18 +15,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-@Component
-public class TicketServiceImpl implements TicketService {
 
+@Service
+public class TicketServiceImpl implements TicketService {
+    
+	@Autowired
+    private EventService eventService;
+    
     @Autowired
     private TicketDAO ticketDAO;
     
     @Autowired
     private BookingService bookingService;
+        
+    @Autowired
+    private SeatService seatService;
     
     @Override
     public List<Ticket> getSoldTicketsBySector(Integer eventId, Integer sectorId) {
@@ -49,10 +57,10 @@ public class TicketServiceImpl implements TicketService {
     
     @Override
     public List<Ticket> getAllTickets(Integer eventId) {
-        List<Ticket> tickets = ticketDAO.findAll();
-
+        List<Ticket> tickets = new ArrayList<Ticket>();
+        tickets = ticketDAO.findAll();
         List<Ticket> result = new ArrayList<Ticket>();
-
+        if (!tickets.isEmpty())
         for(Ticket ticket : tickets){
             Event event = ticket.getEvent();
             Seat seat = ticket.getSeat();
@@ -92,24 +100,30 @@ public class TicketServiceImpl implements TicketService {
     }
     
 	@Override
-    public void bookTickets(Event event, Customer customer, List<Seat> chosenSeats){       
-		List<Ticket> AllTickets = getAllTickets(event.getId());
+    public void bookTickets(Integer eventId, Customer customer, List<Seat> chosenSeats){   
+
+		List<Ticket> AllTickets = getAllTickets(eventId);
+		Event event = eventService.findById(eventId);
 		List<Ticket> tickets =  new ArrayList<Ticket>();
-		for(Seat seat : chosenSeats){	      
+		for(Seat seat : chosenSeats){	 
 	            Ticket ticket = new Ticket();
 	            ticket.setEvent(event);
 	            ticket.setSeat(seat);
 	            String ticketNumber = generateTicketNumber(event, seat);	            
 	            ticket.setTicketNumber(ticketNumber);
 	            checkTickets(AllTickets, ticket);
-	            ticket.setSeatStatus(SeatStatus.Free);
+	            ticket.setSeatStatus(SeatStatus.Booked);
 	            tickets.add(ticket);
+	            seat.setTicket(ticket);
+	            seatService.updateSeat(seat);
+	            
 		}	  
 		for(Ticket ticket : tickets){
 		   Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
 		   ticket.setSeatStatus(SeatStatus.Booked);
 		   ticketDAO.updateEntity(ticket);
 		   bookingService.updateBooking(booking);
+		   
 		}
 	      
 	}

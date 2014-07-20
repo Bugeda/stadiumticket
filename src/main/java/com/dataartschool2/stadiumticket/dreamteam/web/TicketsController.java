@@ -7,6 +7,7 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
 import com.dataartschool2.stadiumticket.dreamteam.domain.SeatStatus;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
 import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
+import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
 import com.dataartschool2.stadiumticket.dreamteam.service.BookingService;
 import com.dataartschool2.stadiumticket.dreamteam.service.EventService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SeatService;
@@ -14,6 +15,7 @@ import com.dataartschool2.stadiumticket.dreamteam.service.SectorPriceService;
 import com.dataartschool2.stadiumticket.dreamteam.service.SectorService;
 import com.dataartschool2.stadiumticket.dreamteam.service.TicketService;
 
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -130,30 +132,30 @@ public class TicketsController {
     public String getBookTicketsPage(@RequestParam("id") Integer eventId, ModelMap modelMap){
     	List<SectorPrice> sectorPrices=sectorPriceService.getPricesSectorsOfEvent(eventService.findById(eventId));
     	modelMap.put("event", eventService.findById(eventId));
-    	List<Sector> sectorSet = sectorService.findAll();    	
     	modelMap.put("sectorPrices", sectorPrices);
+    
         return "/tickets/book_tickets";
     }
 
     @RequestMapping(value = "/tickets/book", method = RequestMethod.POST)
     public String submit_bookTicketsPage(@Valid @ModelAttribute("newCustomer") SeatsForm seatsForm,
-    									 @ModelAttribute("event") Event event,                          
+    		 							// @ModelAttribute("event") Event event,      -  не существует      									 
             							 BindingResult seatsBindingResult,
-            							 ModelMap modelMap){    	  	
+            							 ModelMap modelMap){   
         if(seatsBindingResult.hasErrors()){
             modelMap.put("result", seatsBindingResult);
             return "/tickets/book_tickets";
         }else{
           	seatsForm.getChosenSeats().remove(0);
         	seatsForm.getChosenSectorsNums().remove(0);
-            	
-        	List<Sector> sectorSet=sectorService.createSectorsListFromNums(seatsForm.getChosenSectorsNums());        	
-        	List<Seat> seatSet = seatService.modifySeatSet(seatsForm.getChosenSeats().size(), seatsForm.getChosenSeats(), sectorSet, null);        	
-        	Customer customer =  new Customer();
+        	System.out.println(seatsForm.getEventId());
+        	List<Sector> sectorSet=sectorService.createSectorsListFromNums(seatsForm.getChosenSectorsNums());  
+            List<Seat> seatSet = seatService.modifySeatSet(seatsForm.getChosenSeats().size(), seatsForm.getChosenSeats(), sectorSet, new ArrayList<Ticket>());
+         	Customer customer =  new Customer();
         	customer.setCustomerName(seatsForm.getCustomerName());        	
-            ticketService.bookTickets(event, customer, seatSet);
+            ticketService.bookTickets(seatsForm.getEventId(), customer, seatSet);
         }        
-        return "/tickets/book_tickets";
-        //return "redirect:/index";
+        //return "/tickets/book_tickets";
+        return "redirect:/index";
     }
 }

@@ -63,8 +63,10 @@ public class SectorServiceImpl implements SectorService {
     public List<Sector> createSectorsListFromNums(List<Integer> listSectoriD){
     	List<Sector> sectorSet=new ArrayList<Sector>();
     	for (int id:listSectoriD){
-    	sectorSet.add(findById(id));
+    		sectorSet.add(findById(id));  
+
     	}
+
 		return sectorSet;
     }
     

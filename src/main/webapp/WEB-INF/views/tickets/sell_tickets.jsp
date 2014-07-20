@@ -46,7 +46,7 @@
 <div class="row">      
 <div class="col-md-5">
     <form:form method="post" action="${pageContext.request.contextPath}/tickets/sell" modelAttribute="chosenSeats">
-        <input type="hidden" value="${event.id}" id="id">
+    <input type="hidden" value="${event.id}" id="id"> 
         <b><spring:message code="ticketlist.tickets" />:</b>        
         <table class="table" id="ticket_list">
             <thead>

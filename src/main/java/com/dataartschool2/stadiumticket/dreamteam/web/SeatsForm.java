@@ -17,18 +17,25 @@ public class SeatsForm {
     private List<Seat> chosenSeats;
     
     private List<Integer> chosenSectorsNums;
+        
+    private Integer eventId;
     
     public SeatsForm() {}
 	
-	public SeatsForm(boolean isBooking, String customerName, List<Seat> chosenSeats, List<Integer> chosenSectorsNums) {
-		//if (isBooking) this.customer = null;
+
+
+    public SeatsForm(boolean isBooking, String customerName,List<Seat> chosenSeats, List<Integer> chosenSectorsNums,Integer eventId) {
+		super();
 		this.isBooking = isBooking;
 		this.customerName = customerName;
 		this.chosenSeats = chosenSeats;
 		this.chosenSectorsNums = chosenSectorsNums;
+		this.eventId = eventId;
 	}
 
-    public boolean isBooking() {
+
+
+	public boolean isBooking() {
 		return isBooking;
 	}
 
@@ -60,5 +67,11 @@ public class SeatsForm {
 		this.chosenSectorsNums = chosenSectorsNums;
 	}
 
+	public Integer getEventId() {
+		return eventId;
+	}
 
+	public void setEventId(Integer eventId) {
+		this.eventId = eventId;
+	}
 }

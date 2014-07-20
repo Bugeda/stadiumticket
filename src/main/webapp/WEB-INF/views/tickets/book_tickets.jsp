@@ -47,7 +47,7 @@
 <div class="row">
   <div class="col-md-5">
    	<form:form method="post" action="${pageContext.request.contextPath}/tickets/book" modelAttribute="newCustomer">
-   	    <input type="hidden" value="${event.id}" id="id"> 
+   	    <form:hidden value="${event.id}" path="eventId"/> 
   	    <label for="booking_name"><spring:message code="booking.customerNameTitle" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
         <input class="form-control" type="text" name="customerName" id="booking_name" title="<spring:message code="booking.customerName" />" 
         placeholder="<spring:message code="booking.customerName" />">     

@@ -17,7 +17,9 @@ public interface TicketService {
 
     public void sellTickets(Event event, List<Seat> chosenSeats);
 
-    public void bookTickets(Event event, Customer customer, List<Seat> chosenSeats);
+    public void bookTickets(Integer eventId, Customer customer, List<Seat> chosenSeats);
 
     public List<Ticket> getAllTickets(Integer eventId);
+
+
 }

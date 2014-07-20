@@ -21,15 +21,12 @@ public class Customer {
     @Size(min = 1, max = 50, message = "error.wrongLength")
     private String customerName;
     
-    @OneToMany(cascade= CascadeType.ALL)
-    private List<Booking> bookingSet;
-
     public Customer(){}
 
-    public Customer(int id, String customerName, List<Booking> bookingSet) {
+    public Customer(int id, String customerName) {
         this.id = id;
         this.customerName = customerName;
-        this.bookingSet = bookingSet;
+   
     }
 
     public int getId() {
@@ -48,12 +45,6 @@ public class Customer {
         this.customerName = customerName;
     }
 
-	public List<Booking> getBookingSet() {
-		return bookingSet;
-	}
 
-	public void setBookingSet(List<Booking> bookingSet) {
-		this.bookingSet = bookingSet;
-	}
 
 }
