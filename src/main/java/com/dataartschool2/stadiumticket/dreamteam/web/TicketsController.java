@@ -60,7 +60,9 @@ public class TicketsController {
     
     @ModelAttribute("chosenSeats")
     public SeatsForm chosenSeats(){
-    	return  new SeatsForm();
+        SeatsForm seatsForm = new SeatsForm();
+        seatsForm.setCustomerName("not used");
+    	return  seatsForm;
     }
     
     @RequestMapping(value = "/tickets/sell", method = RequestMethod.GET)
