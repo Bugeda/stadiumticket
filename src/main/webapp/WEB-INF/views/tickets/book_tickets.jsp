@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -34,10 +34,10 @@
 <body>
 <div class="container">
 <div class="row">
-	<div class="col-xs-1 col-md-1"><a href="<c:url value="./index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
         <h3>
-            <a id="arrow_back" href="<c:url value="./index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+            <a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
             <spring:message code="booktickets.pageTitle" />
         </h3>
         <h2 id="event_name"><c:out value="${event.eventName}"></c:out>
@@ -47,12 +47,14 @@
 <div class="row">
   <div class="col-md-5">
    	<form:form method="post" action="${pageContext.request.contextPath}/tickets/book" modelAttribute="newCustomer">
-        <label for="booking_name"><spring:message code="booking.customerNameTitle" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
+   	    <input type="hidden" value="${event.id}" id="id"> 
+  	    <label for="booking_name"><spring:message code="booking.customerNameTitle" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
         <input class="form-control" type="text" name="customerName" id="booking_name" title="<spring:message code="booking.customerName" />" 
-        placeholder="<spring:message code="booking.customerName" />">
+        placeholder="<spring:message code="booking.customerName" />">     
         <b><spring:message code="ticketlist.tickets" />:</b>              
         <table class="table" id="ticket_list">
-       <c:set var="seat" value="${newCustomer.bookingSet}" />
+        
+
             <thead>
             <tr>
                 <td>№</td>

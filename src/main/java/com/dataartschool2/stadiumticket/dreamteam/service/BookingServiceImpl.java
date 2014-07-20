@@ -5,6 +5,8 @@ import com.dataartschool2.stadiumticket.dreamteam.dao.BookingDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +27,7 @@ public class BookingServiceImpl implements BookingService {
         List<Booking> result = new ArrayList<Booking>();
 
         for(Booking booking : bookings){
-        	Seat seat = booking.getSeat();            
+        	Seat seat = booking.getSeat().getTicket().getSeat();            
             Event event = seat.getTicket().getEvent();           
             Sector sector = seat.getSector();
 
@@ -46,7 +48,13 @@ public class BookingServiceImpl implements BookingService {
             }
         }
     }
-
+    
+	@Override
+	public boolean BookingSeat(Seat seat) {
+		
+		return bookingDAO.findBySeat(seat);
+	}
+	
     private void cancelBookingIfNeeded(Booking booking) {
         Event event = booking.getSeat().getTicket().getEvent();
         Date startDate = event.getEventDate();
@@ -63,25 +71,14 @@ public class BookingServiceImpl implements BookingService {
             bookingDAO.updateEntity(booking);
         }
     }
-    
-    @Override
-    public Booking createEmptyBooking() {
-        Booking booking= new Booking();
-        booking.setBookingStatus(BookingStatus.Free);
-        booking.setCustomer(new Customer());
-        booking.setSeat(null);        
-        return booking;
+
+    public List<Booking> getBookingsForEvent(Integer id){    	
+    	List<Booking> bookings = bookingDAO.findAll();
+    	List<Booking> result = new ArrayList<Booking>();
+		return bookings;
     }
+
+
+
     
-    @Override
-    public List<Booking> createEmptyBookingSetForCustomer(Customer customer) {
-        Booking booking= new Booking();
-        booking.setBookingStatus(BookingStatus.Free);
-        booking.setCustomer(customer);
-        booking.setSeat(null);
-        
-        List<Booking> bookingSet= new ArrayList<Booking>();
-        bookingSet.add(booking);
-        return bookingSet;
-    }
 }

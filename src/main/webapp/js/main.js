@@ -103,9 +103,9 @@ $(document).ready(function () {
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ price + "</td>"
 				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
-				 + "<td><input name=\"${seat.sector.id}\" type=\"hidden\" value="+sector+">"
-				 + "<input name=\"${seat.rowNumber}\" type=\"hidden\" value="+row+">"
-				 + "<input name=\"${seat.seatNumber}\" type=\"hidden\" value="+seat+"></td></tr>" );
+				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector+">"				 
+				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
+				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+seat+"></td></tr>" );
 	recalculate_price_and_index();
     };
 

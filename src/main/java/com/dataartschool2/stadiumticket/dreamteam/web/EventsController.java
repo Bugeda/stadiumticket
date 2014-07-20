@@ -17,7 +17,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 import javax.validation.Valid;
 
 import java.text.ParseException;
@@ -60,7 +60,7 @@ public class EventsController{
 
     @ModelAttribute("editEvent")
     public Event getEvent(@RequestParam(value = "id", required = false) Integer id){
-        if(id != null) {
+         if(id != null) {
 
             Event event = eventService.findById(id);
             if (event != null) {
@@ -84,12 +84,12 @@ public class EventsController{
 		return "redirect:/index";
 	}
 	
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = "index", method = RequestMethod.GET)
     public String getActiveEvents(ModelMap map,  Model model) {   	
     	model.asMap().clear();
     	List<Event> allEvents = eventService.getFutureEvents();    
     	map.put("events", allEvents);
-        return "/index";
+        return "./index";
     }
 	
     @RequestMapping(value = "/past_events", method = RequestMethod.GET)

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -34,19 +34,20 @@
 <body>
 <div class="container">
 <div class="row">
-	<div class="col-xs-1 col-md-1"><a href="<c:url value="./index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
  		<h3>
-            <a id="arrow_back" href="<c:url value="./index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+            <a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
             <spring:message code="selltickets.pageTitle" />
         </h3>
         <h2 id="event_name"><c:out value="${event.eventName}"></c:out></h2>
     </div>
 </div>
-<div class="row">
+<div class="row">      
 <div class="col-md-5">
-    <form action="" method="post">
-        <b><spring:message code="ticketlist.tickets" />:</b>  
+    <form:form method="post" action="${pageContext.request.contextPath}/tickets/sell" modelAttribute="chosenSeats">
+        <input type="hidden" value="${event.id}" id="id">
+        <b><spring:message code="ticketlist.tickets" />:</b>        
         <table class="table" id="ticket_list">
             <thead>
             <tr>
@@ -71,7 +72,7 @@
         <br>
         <!-- <input class="btn" type="button" id="add_random_ticket" value="add random ticket"> -->
         <input class="btn" type="submit" name="submit" value="Sell tickets" id="book_tickets">
-    </form>
+    </form:form>
 
 </div>
 <div class="col-md-7">

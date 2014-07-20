@@ -2,6 +2,7 @@ package com.dataartschool2.stadiumticket.dreamteam.service;
 
 import com.dataartschool2.stadiumticket.dreamteam.dao.SectorDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ public class SectorServiceImpl implements SectorService {
     public static final int SEATS_IN_NON_VIP = 50;
     public static final int ROWS_IN_NON_VIP = 20;
     public static final int ROWS_IN_VIP = 10;
+    
     @Autowired
     private SectorDAO sectorDAO;
 
@@ -32,6 +34,12 @@ public class SectorServiceImpl implements SectorService {
         return sectorDAO.findById(id);
     }
 
+    @Override
+    @Transactional
+    public List<Sector> findAll() {
+        return sectorDAO.findAll();
+    }
+    
     @Override
     public SectorStatus getSectorStatus(Integer eventId, Integer sectorId) {
 
@@ -51,6 +59,15 @@ public class SectorServiceImpl implements SectorService {
         sectorDAO.updateEntity(sector);
     }
 
+    @Override
+    public List<Sector> createSectorsListFromNums(List<Integer> listSectoriD){
+    	List<Sector> sectorSet=new ArrayList<Sector>();
+    	for (int id:listSectoriD){
+    	sectorSet.add(findById(id));
+    	}
+		return sectorSet;
+    }
+    
     private void addBookedTickets(Integer eventId, Integer sectorId, List<List<SeatStatus>> seatsStatuses) {
 
         List<Booking> bookedTickets = bookingService.getBookingsForEventInSector(eventId, sectorId);
@@ -136,6 +153,6 @@ public class SectorServiceImpl implements SectorService {
         }
         return seatsStatuses;
     }
-
+    
 
 }

@@ -46,8 +46,8 @@ public class Booking {
         return seat;
     }
 
-    public void setSeat(Seat ticket) {
-        this.seat = ticket;
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 
     public BookingStatus getBookingStatus() {
