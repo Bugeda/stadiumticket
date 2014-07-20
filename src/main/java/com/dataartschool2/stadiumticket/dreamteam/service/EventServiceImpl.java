@@ -20,6 +20,7 @@ import java.util.List;
 public class EventServiceImpl implements EventService{
 
     public static final int SECTORS_COUNT = 27;
+    
     @Autowired
 	private EventDAO eventDAO;
 	

@@ -16,14 +16,17 @@ public class Ticket {
     private Event event;
 
     private String ticketNumber;
-
+    
+    private SeatStatus seatStatus;
+    
     public Ticket(){}
 
-    public Ticket(int id, Seat seat, Event event, String ticketNumber) {
+    public Ticket(int id, Seat seat, Event event, String ticketNumber, SeatStatus seatStatus) {
         this.id = id;
         this.seat = seat;
         this.event = event;
         this.ticketNumber = ticketNumber;
+    	this.seatStatus = seatStatus;
     }
 
     public int getId() {
@@ -57,4 +60,12 @@ public class Ticket {
     public void setEvent(Event event) {
         this.event = event;
     }
+
+	public SeatStatus getSeatStatus() {
+		return seatStatus;
+	}
+
+	public void setSeatStatus(SeatStatus seatStatus) {
+		this.seatStatus = seatStatus;
+	}
 }

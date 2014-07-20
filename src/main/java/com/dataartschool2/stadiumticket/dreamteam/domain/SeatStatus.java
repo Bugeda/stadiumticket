@@ -1,8 +1,6 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
-/**
- * Created by Denis on 13.07.2014.
- */
+
 public enum SeatStatus {
     vacant(0), booked(1), occupied(2);
     private int code;

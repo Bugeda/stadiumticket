@@ -9,7 +9,8 @@ $(document).ready(function () {
 	timepicker:true,
 	step:15,
 	format:'d-m-Y H:i',
-	minDate : '-1969/12/31',	
+	minDate : '-1969/12/31',
+	startDate : '-1969/12/31',
 	dayOfWeekStart: 1
     });
 
@@ -28,6 +29,13 @@ $(document).ready(function () {
 	"stateSave": true,
 	"autoWidth": true,
 	"columnDefs": [ { "orderable": false, "targets": 2 } ]
+    });
+
+    $('#booking_search_results').dataTable({
+	"paging": true,
+	"stateSave": true,
+	"autoWidth": true,
+	"ordering": false
     });
 
     // BEGIN Edit/new event, event list section
@@ -49,6 +57,7 @@ $(document).ready(function () {
 	$(this).children('.action_list').hide();
     });
     $('#event_list_filter input').addClass('form-control');
+    $('#booking_search_results_filter input').addClass('form-control');
 
 
     // delete event process
@@ -75,6 +84,11 @@ $(document).ready(function () {
 	var ticket_index = 1;
 	$('.ticket').each( function () {
 	    $(this).children('.ticket_number').html(ticket_index+'.');
+	    $(this).find('input').each( function () {
+		$(this).attr('name', $(this).attr('name').replace('[i]', '['+ticket_index+']') );
+	    });
+	    // attr = attr.replace('[i]', '['+ticket_index+']');
+	    // $(this).find('input').attr('name', attr);
 	    total_price += parseInt($(this).children('.ticket_price').html());
 	    ticket_index += 1;
 	});
@@ -88,10 +102,10 @@ $(document).ready(function () {
 				 + "<td>"+ row + "</td>"
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ price + "</td>"
-				 + "<td><img class=\"delete_ticket\" src=\"\/stadiumticket\/images\/delete.png\"></td>"
-				 + "<td><input name=\"sector\" type=\"hidden\" value="+sector+">"
-				 + "<input name=\"row\" type=\"hidden\" value="+row+">"
-				 + "<input name=\"seat\" type=\"hidden\" value="+seat+"></td></tr>" );
+				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
+				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector+">"				 
+				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
+				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+seat+"></td></tr>" );
 	recalculate_price_and_index();
     };
 
@@ -104,13 +118,12 @@ $(document).ready(function () {
 	    $(this).addClass('selected');
 	    var id = $(this).attr('id').split('_');
 	    var sector = $('#sector_name').html(); //.substr(6).slice(0,-6)
-	    console.log(sector);
 	    var sector_number = 0;
 	    if ((sector != 'VIP A') && (sector != 'VIP D')){
 		sector_number = parseInt(sector);
 	    };
-	    if (sector == 'VIP A') {sector_number= 27;}
-	    if (sector == 'VIP D') {sector_number= 26;}
+	    if (sector == 'VIP A') {sector_number= 26;}
+	    if (sector == 'VIP D') {sector_number= 27;}
 	    var price = $("#price_" + sector_number).val();
 	    var row = id[0];
 	    var seat = id[1];
@@ -144,10 +157,7 @@ $(document).ready(function () {
 	for (var row_index = 0; row_index < sector_obj.rows.length; row_index++) {
 	    // iterate through seats in a row
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
-		// console.log(row_index,seat_index,'#'+ parseInt(parseInt(row_index)+1) +'_'+parseInt(parseInt(seat_index)+1));
-		if (sector_obj.rows[row_index][seat_index] != 'vacant') {
 		    $('#'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',sector_obj.rows[row_index][seat_index]);
-		}
 	    }
 	}
     }
@@ -163,12 +173,12 @@ $(document).ready(function () {
 
 	// swap sector plans if necessary
 	if ($(this).attr('id') >= 26) {
-	    $('#normal_sector').fadeOut();
-	    $('#vip_sector').fadeIn();
+	    $('#normal_sector').hide();
+	    $('#vip_sector').show();
 	}
 	else {
-	    $('#vip_sector').fadeOut();
-	    $('#normal_sector').fadeIn();
+	    $('#vip_sector').hide();
+	    $('#normal_sector').show();
 	}
 	// TEST DATA! remove when ajax wil be working properly
 	// this is dry-run of function draw_sector()
