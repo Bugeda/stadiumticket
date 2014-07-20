@@ -157,9 +157,7 @@ $(document).ready(function () {
 	for (var row_index = 0; row_index < sector_obj.rows.length; row_index++) {
 	    // iterate through seats in a row
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
-		if (sector_obj.rows[row_index][seat_index] != 'vacant') {
 		    $('#'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',sector_obj.rows[row_index][seat_index]);
-		}
 	    }
 	}
     }
