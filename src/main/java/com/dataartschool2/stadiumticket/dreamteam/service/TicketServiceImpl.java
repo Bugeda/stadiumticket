@@ -114,9 +114,12 @@ public class TicketServiceImpl implements TicketService {
 	            ticket.setSeatStatus(SeatStatus.booked);
 	            tickets.add(ticket);
 	            seat.setTicket(ticket);
+	 		    Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
+			    ticketDAO.updateEntity(ticket);
+			    bookingService.updateBooking(booking);
 	            seatService.updateSeat(seat);
 	            
-		}	  
+		}
 		for(Ticket ticket : tickets){
 		   Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
 		   ticket.setSeatStatus(SeatStatus.booked);
