@@ -27,7 +27,7 @@ public class BookingServiceImpl implements BookingService {
         List<Booking> result = new ArrayList<Booking>();
 
         for(Booking booking : bookings){
-        	Seat seat = booking.getSeat().getTicket().getSeat();            
+        	Seat seat = booking.getTicket().getSeat();            
             Event event = seat.getTicket().getEvent();           
             Sector sector = seat.getSector();
 
@@ -56,7 +56,7 @@ public class BookingServiceImpl implements BookingService {
 	}
 	
     private void cancelBookingIfNeeded(Booking booking) {
-        Event event = booking.getSeat().getTicket().getEvent();
+        Event event = booking.getTicket().getEvent();
         Date startDate = event.getEventDate();
 
         int minutes = event.getBookingCanceltime();
@@ -72,11 +72,11 @@ public class BookingServiceImpl implements BookingService {
         }
     }
 
-    public List<Booking> getBookingsForEvent(Integer id){    	
-    	List<Booking> bookings = bookingDAO.findAll();
-    	List<Booking> result = new ArrayList<Booking>();
-		return bookings;
-    }
+	@Override
+	public void updateBooking(Booking booking) {
+		bookingDAO.updateEntity(booking);
+		
+	}
 
 
 

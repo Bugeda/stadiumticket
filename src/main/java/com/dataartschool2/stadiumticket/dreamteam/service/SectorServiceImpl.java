@@ -75,7 +75,7 @@ public class SectorServiceImpl implements SectorService {
         for (Booking booking : bookedTickets) {
             BookingStatus bookingStatus = booking.getBookingStatus();
 
-            Ticket ticket = booking.getSeat().getTicket();
+            Ticket ticket = booking.getTicket();
             Seat seat = ticket.getSeat();
             int rowsNumber = seat.getRowNumber();
             int seatNumber = seat.getSeatNumber();
@@ -95,7 +95,7 @@ public class SectorServiceImpl implements SectorService {
 
     private void addSoldTickets(Integer eventId, Integer sectorId, List<List<SeatStatus>> seatsStatuses) {
 
-        List<Ticket> soldTickets = ticketService.getSoldTickets(eventId, sectorId);
+        List<Ticket> soldTickets = ticketService.getSoldTicketsBySector(eventId, sectorId);
         for (Ticket ticket : soldTickets) {
             Seat seat = ticket.getSeat();
             int rowsNumber = seat.getRowNumber();

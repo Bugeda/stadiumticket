@@ -18,7 +18,7 @@ public class Seat {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Ticket ticket;
-    
+
     public Seat(){}
 
     public Seat(int id, int seatNumber, int rowNumber, Sector sector) {
@@ -67,4 +67,5 @@ public class Seat {
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
 	}
+
 }

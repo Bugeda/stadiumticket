@@ -4,6 +4,7 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.Booking;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Customer;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
+import com.dataartschool2.stadiumticket.dreamteam.domain.SeatStatus;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
 import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 import com.dataartschool2.stadiumticket.dreamteam.service.BookingService;
@@ -147,7 +148,7 @@ public class TicketsController {
         	seatsForm.getChosenSectorsNums().remove(0);
             	
         	List<Sector> sectorSet=sectorService.createSectorsListFromNums(seatsForm.getChosenSectorsNums());        	
-        	List<Seat> seatSet = seatService.modifySeatSet(seatsForm.getChosenSeats().size(), seatsForm.getChosenSeats(), sectorSet, null);
+        	List<Seat> seatSet = seatService.modifySeatSet(seatsForm.getChosenSeats().size(), seatsForm.getChosenSeats(), sectorSet, null);        	
         	Customer customer =  new Customer();
         	customer.setCustomerName(seatsForm.getCustomerName());        	
             ticketService.bookTickets(event, customer, seatSet);

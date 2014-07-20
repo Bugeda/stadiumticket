@@ -3,9 +3,11 @@ package com.dataartschool2.stadiumticket.dreamteam.service;
 
 import com.dataartschool2.stadiumticket.dreamteam.dao.TicketDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Booking;
+import com.dataartschool2.stadiumticket.dreamteam.domain.BookingStatus;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Customer;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
+import com.dataartschool2.stadiumticket.dreamteam.domain.SeatStatus;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
 
@@ -27,7 +29,7 @@ public class TicketServiceImpl implements TicketService {
     private BookingService bookingService;
     
     @Override
-    public List<Ticket> getSoldTickets(Integer eventId, Integer sectorId) {
+    public List<Ticket> getSoldTicketsBySector(Integer eventId, Integer sectorId) {
         List<Ticket> tickets = ticketDAO.findAll();
 
         List<Ticket> result = new ArrayList<Ticket>();
@@ -44,7 +46,26 @@ public class TicketServiceImpl implements TicketService {
 
         return result;
     }
+    
+    @Override
+    public List<Ticket> getAllTickets(Integer eventId) {
+        List<Ticket> tickets = ticketDAO.findAll();
 
+        List<Ticket> result = new ArrayList<Ticket>();
+
+        for(Ticket ticket : tickets){
+            Event event = ticket.getEvent();
+            Seat seat = ticket.getSeat();
+            Sector sector = seat.getSector();
+
+            if(event.getId().equals(eventId)){
+                result.add(ticket);
+            }
+        }
+
+        return result;
+    }
+    
     @Override
     public void sellTickets(Event event, List<Seat> chosenSeats) {
         for(Seat seat : chosenSeats){
@@ -56,33 +77,40 @@ public class TicketServiceImpl implements TicketService {
             ticketDAO.updateEntity(ticket);
         }
     }
+    
+    
 
     private String generateTicketNumber(Event event, Seat seat) {
         return Integer.toString(Objects.hash(event, seat));
     }
 
+    public void checkTickets(List<Ticket> ticketSet, Ticket ticket){
+    	if (ticketSet.contains(ticket)&&(!ticket.getSeatStatus().equals(SeatStatus.Free))){
+      	    ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
+        	throw new RuntimeException(applicationContext.getMessage("error.ticketExist", new Object[]{}, null));
+    	}
+    }
+    
 	@Override
     public void bookTickets(Event event, Customer customer, List<Seat> chosenSeats){       
-	
-		/*
-		for(Seat seat : chosenSeats){
-	        if (seatService.BookingSeat(seat)){
-		           		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
-		            		throw new RuntimeException(applicationContext.getMessage("error.seatExist", new Object[]{}, null));
-		    	}
-            if (booking.getSeat().equals(seat))
-		}
+		List<Ticket> AllTickets = getAllTickets(event.getId());
+		List<Ticket> tickets =  new ArrayList<Ticket>();
+		for(Seat seat : chosenSeats){	      
 	            Ticket ticket = new Ticket();
 	            ticket.setEvent(event);
 	            ticket.setSeat(seat);
-	            String ticketNumber = generateTicketNumber(event, seat);
+	            String ticketNumber = generateTicketNumber(event, seat);	            
 	            ticket.setTicketNumber(ticketNumber);
-	    
-	        }		
-			
-		    
-	        List<Booking> result = new ArrayList<Booking>();
-	        
-	        ticketDAO.updateEntity(ticket);*/
+	            checkTickets(AllTickets, ticket);
+	            ticket.setSeatStatus(SeatStatus.Free);
+	            tickets.add(ticket);
+		}	  
+		for(Ticket ticket : tickets){
+		   Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
+		   ticket.setSeatStatus(SeatStatus.Booked);
+		   ticketDAO.updateEntity(ticket);
+		   bookingService.updateBooking(booking);
+		}
+	      
 	}
 }

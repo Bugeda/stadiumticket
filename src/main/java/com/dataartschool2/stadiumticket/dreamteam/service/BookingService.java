@@ -16,8 +16,8 @@ public interface BookingService {
 
 	public List<Booking> getBookingsForEventInSector(Integer eventId, Integer sectorId);
 
-	public List<Booking> getBookingsForEvent(Integer id);
-
 	public boolean BookingSeat(Seat seat);
+
+	public void updateBooking(Booking booking);
 
 }

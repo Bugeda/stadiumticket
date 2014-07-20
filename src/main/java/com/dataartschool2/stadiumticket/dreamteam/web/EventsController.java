@@ -65,14 +65,18 @@ public class EventsController{
             Event event = eventService.findById(id);
             if (event != null) {
            	if (event.getEventDate().before(new Date())){
-           		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
-            		throw new RuntimeException(applicationContext.getMessage("error.archiveEvent", new Object[]{}, null));
+           			ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");            		
+           			JOptionPane.showMessageDialog(null, applicationContext.getMessage("error.archiveEvent", new Object[]{}, null),
+            				 "event message", JOptionPane.INFORMATION_MESSAGE);
+            		return null;
             		}
             	else
                 return event;
             }else{
             	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
-        		throw new RuntimeException(applicationContext.getMessage("error.noEventChosen", new Object[]{}, null));
+       			JOptionPane.showMessageDialog(null, applicationContext.getMessage("error.noEventChosen", new Object[]{}, null),
+       				 "event message", JOptionPane.INFORMATION_MESSAGE);
+       			return null;
             }
         }
     return null;        
@@ -116,12 +120,16 @@ public class EventsController{
                 return "redirect:/new_event";
             }else{
                 if(bindingResult.hasErrors()){
-                    JOptionPane.showMessageDialog(null, "The event had not inserted", "event message", JOptionPane.ERROR_MESSAGE);
+                	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
+                    JOptionPane.showMessageDialog(null,  applicationContext.getMessage("error.eventHadNotInserted", new Object[]{}, null),
+                    		"event message", JOptionPane.ERROR_MESSAGE);
                     modelMap.put("result", bindingResult);
                     return "new_event";
                 }else{
-                    eventService.createEvent(event);                    
-                    JOptionPane.showMessageDialog(null, "The event had inserted", "event message", JOptionPane.INFORMATION_MESSAGE);
+                    eventService.createEvent(event);
+                	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
+                    JOptionPane.showMessageDialog(null,  applicationContext.getMessage("message.eventHadInserted", new Object[]{}, null),
+                    		"event message", JOptionPane.INFORMATION_MESSAGE);
                     return "redirect:/index";
                 }
             }
@@ -139,12 +147,16 @@ public class EventsController{
                 return "redirect:/edit_event?id="+event.getId();
             }else {
                 if(bindingResult.hasErrors()){            
-                    JOptionPane.showMessageDialog(null, "The changes had not made", "event message", JOptionPane.ERROR_MESSAGE);
+                	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
+                    JOptionPane.showMessageDialog(null, applicationContext.getMessage("error.changesHadNotMade", new Object[]{}, null), 
+                    		"event message", JOptionPane.ERROR_MESSAGE);
                     modelMap.put("result", bindingResult);       
                     return "edit_event";
                 }else{
-                    eventService.updateEvent(event);                     
-                    JOptionPane.showMessageDialog(null, "The changes had made","event message", JOptionPane.INFORMATION_MESSAGE);
+                    eventService.updateEvent(event);            
+                	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
+                    JOptionPane.showMessageDialog(null, applicationContext.getMessage("message.changesHadMade", new Object[]{}, null),
+                    		"event message", JOptionPane.INFORMATION_MESSAGE);
                     return "redirect:/index";
             }
         }

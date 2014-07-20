@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Хост: localhost
--- Время создания: Июл 06 2014 г., 11:16
--- Версия сервера: 5.5.24-log
--- Версия PHP: 5.3.13
+-- Хост: 127.0.0.1
+-- Время создания: Июл 20 2014 г., 13:43
+-- Версия сервера: 5.6.17
+-- Версия PHP: 5.5.12
 
--- Version db.sql: 1.2.1
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -30,13 +28,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `booking` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bookingStatus` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `bookingStatus` varchar(255) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   `ticket_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_BOOKING_TICKET` (`ticket_id`),
-  KEY `FK_BOOKING_CUSTOMER` (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
+  KEY `FK6713A0395C0E6255` (`ticket_id`),
+  KEY `FK6713A039C37EBE55` (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -46,10 +44,23 @@ CREATE TABLE IF NOT EXISTS `booking` (
 
 CREATE TABLE IF NOT EXISTS `customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customerName` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `customerSurname` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `customerName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `customer_booking`
+--
+
+CREATE TABLE IF NOT EXISTS `customer_booking` (
+  `Customer_id` int(11) NOT NULL,
+  `bookingSet_id` int(11) NOT NULL,
+  UNIQUE KEY `bookingSet_id` (`bookingSet_id`),
+  KEY `FKBAF24CF8C37EBE55` (`Customer_id`),
+  KEY `FKBAF24CF8CF65934F` (`bookingSet_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -59,26 +70,12 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 CREATE TABLE IF NOT EXISTS `event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bookingCanceltime` int(11) NOT NULL DEFAULT '30',
+  `bookingCanceltime` int(11) DEFAULT NULL,
   `eventDate` datetime DEFAULT NULL,
-  `eventName` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `eventName` varchar(255) DEFAULT NULL,
   `isDelete` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=9 ;
-
---
--- Дамп данных таблицы `event`
---
-
-INSERT INTO `event` (`id`, `bookingCanceltime`, `eventDate`, `eventName`, `isDelete`) VALUES
-(1, 30, '2014-05-18 15:00:00', 'Черноморец - Карпаты', b'0'),
-(2, 30, '2014-05-20 16:00:00', 'Говерла - Черноморец', b'0'),
-(3, 30, '2014-05-23 11:00:00', 'Черноморец - Карпаты', b'0'),
-(4, 30, '2014-05-23 19:00:00', 'Говерла - Черноморец', b'0'),
-(5, 30, '2014-05-16 17:00:00', 'Черноморец - Карпаты', b'0'),
-(6, 30, '2014-05-18 14:00:00', 'Шахтер - Волынь', b'0'),
-(7, 30, '2014-05-18 12:00:00', 'Металлист - Карпаты', b'0'),
-(8, 30, '2014-05-20 14:00:00', 'Говерла - Черноморец', b'0');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -90,9 +87,9 @@ CREATE TABLE IF NOT EXISTS `event_sectorprice` (
   `Event_id` int(11) NOT NULL,
   `sectorPriceSet_id` int(11) NOT NULL,
   UNIQUE KEY `sectorPriceSet_id` (`sectorPriceSet_id`),
-  KEY `FK_EVENTSECTORPRICE_EVENT` (`Event_id`),
-  KEY `FK_EVENTSECTORPRICE_SECTORPRICE` (`sectorPriceSet_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  KEY `FKECC5BB1E25D67FF` (`Event_id`),
+  KEY `FKECC5BB1EFD77DBC3` (`sectorPriceSet_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -105,9 +102,11 @@ CREATE TABLE IF NOT EXISTS `seat` (
   `rowNumber` int(11) NOT NULL,
   `seatNumber` int(11) NOT NULL,
   `sector_id` int(11) DEFAULT NULL,
+  `ticket_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_SEAT_SECTOR` (`sector_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
+  KEY `FK274225363FCC15` (`sector_id`),
+  KEY `FK2742255C0E6255` (`ticket_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -117,10 +116,10 @@ CREATE TABLE IF NOT EXISTS `seat` (
 
 CREATE TABLE IF NOT EXISTS `sector` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `seatsQuantity` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `seatsQuantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
 
 --
 -- Дамп данных таблицы `sector`
@@ -163,13 +162,13 @@ INSERT INTO `sector` (`id`, `name`, `seatsQuantity`) VALUES
 
 CREATE TABLE IF NOT EXISTS `sectorprice` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `price` double NOT NULL,
+  `price` double DEFAULT NULL,
   `event_id` int(11) DEFAULT NULL,
   `sector_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FFK_SECTORPRICE_SECTOR` (`sector_id`),
-  KEY `FK_SECTORPRICE_EVENT` (`event_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
+  KEY `FKC697C163363FCC15` (`sector_id`),
+  KEY `FKC697C16325D67FF` (`event_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -179,13 +178,14 @@ CREATE TABLE IF NOT EXISTS `sectorprice` (
 
 CREATE TABLE IF NOT EXISTS `ticket` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ticketNumber` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `seatStatus` int(11) DEFAULT NULL,
+  `ticketNumber` varchar(255) DEFAULT NULL,
   `event_id` int(11) DEFAULT NULL,
   `seat_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_TICKET_SEAT` (`seat_id`),
-  KEY `FK_TICKET_EVENT` (`event_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
+  KEY `FK954D572C25D67FF` (`event_id`),
+  KEY `FK954D572CCFBA9E75` (`seat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -195,33 +195,43 @@ CREATE TABLE IF NOT EXISTS `ticket` (
 -- Ограничения внешнего ключа таблицы `booking`
 --
 ALTER TABLE `booking`
-  ADD CONSTRAINT `FK_BOOKING_CUSTOMER` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
-  ADD CONSTRAINT `FK_BOOKING_TICKET` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`id`);
+  ADD CONSTRAINT `FK6713A039C37EBE55` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
+  ADD CONSTRAINT `FK6713A0395C0E6255` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `customer_booking`
+--
+ALTER TABLE `customer_booking`
+  ADD CONSTRAINT `FKBAF24CF8CF65934F` FOREIGN KEY (`bookingSet_id`) REFERENCES `booking` (`id`),
+  ADD CONSTRAINT `FKBAF24CF8C37EBE55` FOREIGN KEY (`Customer_id`) REFERENCES `customer` (`id`);
+
 --
 -- Ограничения внешнего ключа таблицы `event_sectorprice`
 --
 ALTER TABLE `event_sectorprice`
-  ADD CONSTRAINT `FK_EVENTSECTORPRICE_SECTORPRICE` FOREIGN KEY (`sectorPriceSet_id`) REFERENCES `sectorprice` (`id`),
-  ADD CONSTRAINT `FK_EVENTSECTORPRICE_EVENT` FOREIGN KEY (`Event_id`) REFERENCES `event` (`id`);
+  ADD CONSTRAINT `FKECC5BB1EFD77DBC3` FOREIGN KEY (`sectorPriceSet_id`) REFERENCES `sectorprice` (`id`),
+  ADD CONSTRAINT `FKECC5BB1E25D67FF` FOREIGN KEY (`Event_id`) REFERENCES `event` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `seat`
 --
 ALTER TABLE `seat`
-  ADD CONSTRAINT `FK_SEAT_SECTOR` FOREIGN KEY (`sector_id`) REFERENCES `sector` (`id`);
+  ADD CONSTRAINT `FK2742255C0E6255` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`id`),
+  ADD CONSTRAINT `FK274225363FCC15` FOREIGN KEY (`sector_id`) REFERENCES `sector` (`id`);
+
 --
 -- Ограничения внешнего ключа таблицы `sectorprice`
 --
 ALTER TABLE `sectorprice`
-  ADD CONSTRAINT `FK_SECTORPRICE_EVENT` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
-  ADD CONSTRAINT `FK_SECTORPRICE_SECTOR` FOREIGN KEY (`sector_id`) REFERENCES `sector` (`id`);
+  ADD CONSTRAINT `FKC697C16325D67FF` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
+  ADD CONSTRAINT `FKC697C163363FCC15` FOREIGN KEY (`sector_id`) REFERENCES `sector` (`id`);
+
 --
 -- Ограничения внешнего ключа таблицы `ticket`
 --
 ALTER TABLE `ticket`
-  ADD CONSTRAINT `FK_TICKET_SEAT` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`id`),
-  ADD CONSTRAINT `FK_TICKET_EVENT` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`);
-
+  ADD CONSTRAINT `FK954D572CCFBA9E75` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`id`),
+  ADD CONSTRAINT `FK954D572C25D67FF` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
