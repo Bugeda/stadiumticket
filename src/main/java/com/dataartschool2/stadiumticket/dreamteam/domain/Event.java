@@ -18,8 +18,8 @@ public class Event {
     @GeneratedValue  
     private Integer id;
 	
-	
-    @Size(min = 1, message = "error.notNull")
+	@NotNull(message = "error.notNull")
+	@Size(min = 1, max = 50, message = "error.wrongLength")
 	private String eventName;
 
     @NotNull(message = "error.notNullDate")

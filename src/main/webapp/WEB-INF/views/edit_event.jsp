@@ -38,10 +38,10 @@
   <body>
     <div class="container">
        <div class="row">
-	<div class="col-xs-1 col-md-1"><a href="<c:url value="/index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	<div class="col-xs-1 col-md-1"><a href="<c:url value="index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
 	   <h3>
-		<a id="arrow_back" href="/index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
 		<spring:message code="editevent.pageTitle" />
 	   </h3>
 	   <h2 id="event_name">Event name</h2>

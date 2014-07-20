@@ -9,6 +9,7 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -73,7 +74,8 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	@SuppressWarnings("unchecked")
 	protected List<EntityClass> findByCriteria(final int firstResult,
 		final int maxResults, final Order order, final Criterion... criterion ) {
-		List<EntityClass> result = null;
+	
+		List<EntityClass> result =  new ArrayList<EntityClass>();
 	    try {
 	    	Criteria crit = getSession().createCriteria(getEntityClass());
 
@@ -96,9 +98,11 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    	result = crit.list();
 	    }
 	    catch (Exception e) {
-	    	e.printStackTrace();    	
+
+	    	return new ArrayList<EntityClass>();    
+	    	
 	    }		    
-	   
+	    if (result.isEmpty()) result = new ArrayList<EntityClass>();
 		return result;
 	}
 	  

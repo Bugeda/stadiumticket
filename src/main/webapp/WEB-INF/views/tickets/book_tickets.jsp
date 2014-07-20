@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -34,10 +34,10 @@
 <body>
 <div class="container">
 <div class="row">
-	<div class="col-xs-1 col-md-1"><a href="<c:url value="/index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
         <h3>
-            <a id="arrow_back" href="<c:url value="/index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+            <a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
             <spring:message code="booktickets.pageTitle" />
         </h3>
         <h2 id="event_name"><c:out value="${event.eventName}"></c:out>
@@ -46,11 +46,15 @@
 </div>
 <div class="row">
   <div class="col-md-5">
-   	<form:form method="post" action="${pageContext.request.contextPath}/submit/book_tickets">
-        <label for="booking_name">Book selected tickets for: <img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
-        <input class="form-control" type="text" name="booking_name" id="booking_name" title="<spring:message code="booking.person" />" placeholder="<spring:message code="booking.person" />">
-        <b><spring:message code="booking.person" />:</b>              
+   	<form:form method="post" action="${pageContext.request.contextPath}/tickets/book" modelAttribute="newCustomer">
+   	    <form:hidden value="${event.id}" path="eventId"/> 
+  	    <label for="booking_name"><spring:message code="booking.customerNameTitle" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
+        <input class="form-control" type="text" name="customerName" id="booking_name" title="<spring:message code="booking.customerName" />" 
+        placeholder="<spring:message code="booking.customerName" />">     
+        <b><spring:message code="ticketlist.tickets" />:</b>              
         <table class="table" id="ticket_list">
+        
+
             <thead>
             <tr>
                 <td>№</td>
@@ -133,9 +137,9 @@
 	    	shape="poly" coords="105,29,141,19,178,17,178,52,191,54,192,119,145,120"/>
 	    <area id="25" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=25"/>" alt="25" title="25" 
 	    	shape="poly" coords="186,32,263,33,266,47,259,46,261,92,303,93,304,109,241,109,238,120,202,119,201,56,201,46,185,46"/>
-	    <area id="27" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=26"/>" alt="vipA" title="vipA" 
+	    <area id="26" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=26"/>" alt="vipA" title="vipA" 
 	    	shape="rect" coords="266,32,356,83" />
-	    <area id="26" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=27"/>" alt="vipD" title="vipD" 
+	    <area id="27" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=27"/>" alt="vipD" title="vipD" 
 	    	shape="rect" coords="152,472,468,501" />
 	    
 	  </map>

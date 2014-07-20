@@ -2,6 +2,7 @@ package com.dataartschool2.stadiumticket.dreamteam.service;
 
 import com.dataartschool2.stadiumticket.dreamteam.dao.SectorDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ public class SectorServiceImpl implements SectorService {
     public static final int SEATS_IN_NON_VIP = 50;
     public static final int ROWS_IN_NON_VIP = 20;
     public static final int ROWS_IN_VIP = 10;
+    
     @Autowired
     private SectorDAO sectorDAO;
 
@@ -32,6 +34,12 @@ public class SectorServiceImpl implements SectorService {
         return sectorDAO.findById(id);
     }
 
+    @Override
+    @Transactional
+    public List<Sector> findAll() {
+        return sectorDAO.findAll();
+    }
+    
     @Override
     public SectorStatus getSectorStatus(Integer eventId, Integer sectorId) {
 
@@ -51,6 +59,17 @@ public class SectorServiceImpl implements SectorService {
         sectorDAO.updateEntity(sector);
     }
 
+    @Override
+    public List<Sector> createSectorsListFromNums(List<Integer> listSectoriD){
+    	List<Sector> sectorSet=new ArrayList<Sector>();
+    	for (int id:listSectoriD){
+    		sectorSet.add(findById(id));  
+
+    	}
+
+		return sectorSet;
+    }
+    
     private void addBookedTickets(Integer eventId, Integer sectorId, List<List<SeatStatus>> seatsStatuses) {
 
         List<Booking> bookedTickets = bookingService.getBookingsForEventInSector(eventId, sectorId);
@@ -67,10 +86,10 @@ public class SectorServiceImpl implements SectorService {
             switch (bookingStatus) {
                 case Sold:
                 case BookingRedeemed:
-                    rowStatus.set(seatNumber, SeatStatus.Sold);
+                    rowStatus.set(seatNumber - 1, SeatStatus.occupied);
                     break;
                 case Booked:
-                    rowStatus.set(seatNumber, SeatStatus.Booked);
+                    rowStatus.set(seatNumber - 1, SeatStatus.booked);
                     break;
             }
         }
@@ -78,14 +97,14 @@ public class SectorServiceImpl implements SectorService {
 
     private void addSoldTickets(Integer eventId, Integer sectorId, List<List<SeatStatus>> seatsStatuses) {
 
-        List<Ticket> soldTickets = ticketService.getSoldTickets(eventId, sectorId);
+        List<Ticket> soldTickets = ticketService.getSoldTicketsBySector(eventId, sectorId);
         for (Ticket ticket : soldTickets) {
             Seat seat = ticket.getSeat();
             int rowsNumber = seat.getRowNumber();
             int seatNumber = seat.getSeatNumber();
 
             List<SeatStatus> rowStatus = seatsStatuses.get(rowsNumber - 1);
-            rowStatus.set(seatNumber, SeatStatus.Sold);
+            rowStatus.set(seatNumber - 1, SeatStatus.occupied);
         }
     }
 
@@ -122,7 +141,7 @@ public class SectorServiceImpl implements SectorService {
     private void initRow(int seatsInRowCount, List<List<SeatStatus>> seatsStatuses) {
         List<SeatStatus> rowStatus = new ArrayList<SeatStatus>(seatsInRowCount);
         for (int j = 0; j < seatsInRowCount; ++j) {
-            rowStatus.add(SeatStatus.Free);
+            rowStatus.add(SeatStatus.vacant);
         }
         seatsStatuses.add(rowStatus);
     }
@@ -136,6 +155,6 @@ public class SectorServiceImpl implements SectorService {
         }
         return seatsStatuses;
     }
-
+    
 
 }

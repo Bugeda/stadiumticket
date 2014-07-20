@@ -12,11 +12,11 @@ public class Sector {
 
     private String name;
 
-    private int seatsQuantity;
+    private Integer seatsQuantity;
 
     public Sector(){}
 
-    public Sector(Integer id, String name, int seatsQuantity) {
+    public Sector(Integer id, String name, Integer seatsQuantity) {
         this.id = id;
         this.name = name;
         this.seatsQuantity = seatsQuantity;
@@ -63,11 +63,11 @@ public class Sector {
         this.name = name;
     }
 
-    public int getSeatsQuantity() {
+    public Integer getSeatsQuantity() {
         return seatsQuantity;
     }
 
-    public void setSeatsQuantity(int seatsQuantity) {
+    public void setSeatsQuantity(Integer seatsQuantity) {
         this.seatsQuantity = seatsQuantity;
     }
 }
