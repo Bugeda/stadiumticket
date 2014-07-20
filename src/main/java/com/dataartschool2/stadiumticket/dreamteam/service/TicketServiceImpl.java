@@ -14,7 +14,6 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -93,7 +92,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     public void checkTickets(List<Ticket> ticketSet, Ticket ticket){
-    	if (ticketSet.contains(ticket)&&(!ticket.getSeatStatus().equals(SeatStatus.Free))){
+    	if (ticketSet.contains(ticket)&&(!ticket.getSeatStatus().equals(SeatStatus.vacant))){
       	    ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
         	throw new RuntimeException(applicationContext.getMessage("error.ticketExist", new Object[]{}, null));
     	}
@@ -112,7 +111,7 @@ public class TicketServiceImpl implements TicketService {
 	            String ticketNumber = generateTicketNumber(event, seat);	            
 	            ticket.setTicketNumber(ticketNumber);
 	            checkTickets(AllTickets, ticket);
-	            ticket.setSeatStatus(SeatStatus.Booked);
+	            ticket.setSeatStatus(SeatStatus.booked);
 	            tickets.add(ticket);
 	            seat.setTicket(ticket);
 	            seatService.updateSeat(seat);
@@ -120,7 +119,7 @@ public class TicketServiceImpl implements TicketService {
 		}	  
 		for(Ticket ticket : tickets){
 		   Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
-		   ticket.setSeatStatus(SeatStatus.Booked);
+		   ticket.setSeatStatus(SeatStatus.booked);
 		   ticketDAO.updateEntity(ticket);
 		   bookingService.updateBooking(booking);
 		   

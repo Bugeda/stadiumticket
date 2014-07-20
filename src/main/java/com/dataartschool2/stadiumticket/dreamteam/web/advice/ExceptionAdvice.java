@@ -17,6 +17,8 @@ public class ExceptionAdvice {
     public ModelAndView runtimeExceptionHandler(Exception exception){
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("errorMessage", exception.getMessage());
+        exception.printStackTrace();
+
         return new ModelAndView("error", model);
     }
 }

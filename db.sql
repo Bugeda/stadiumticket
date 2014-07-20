@@ -1,13 +1,11 @@
-п»ї-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- РҐРѕСЃС‚: 127.0.0.1
--- Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ: Р�СЋР» 20 2014 Рі., 18:00
--- Р’РµСЂСЃРёСЏ СЃРµСЂРІРµСЂР°: 5.6.17
--- Р’РµСЂСЃРёСЏ PHP: 5.5.12
-
--- Version db.sql: 1.3.2
+-- Хост: 127.0.0.1
+-- Время создания: Июл 20 2014 г., 20:32
+-- Версия сервера: 5.6.17
+-- Версия PHP: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Р‘Р°Р·Р° РґР°РЅРЅС‹С…: `stadiumticketdb`
+-- База данных: `stadiumticketdb`
 --
 
 -- --------------------------------------------------------
 
 --
--- РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `booking`
+-- Структура таблицы `booking`
 --
 
 CREATE TABLE IF NOT EXISTS `booking` (
@@ -36,10 +34,10 @@ CREATE TABLE IF NOT EXISTS `booking` (
   PRIMARY KEY (`id`),
   KEY `FK6713A0395C0E6255` (`ticket_id`),
   KEY `FK6713A039C37EBE55` (`customer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 COLLATE=utf8_general_ci;
 
 --
--- Р”Р°РјРї РґР°РЅРЅС‹С… С‚Р°Р±Р»РёС†С‹ `booking`
+-- Дамп данных таблицы `booking`
 --
 
 INSERT INTO `booking` (`id`, `bookingStatus`, `customer_id`, `ticket_id`) VALUES
@@ -51,26 +49,26 @@ INSERT INTO `booking` (`id`, `bookingStatus`, `customer_id`, `ticket_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `customer`
+-- Структура таблицы `customer`
 --
 
 CREATE TABLE IF NOT EXISTS `customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customerName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 COLLATE=utf8_general_ci;
 
 --
--- Р”Р°РјРї РґР°РЅРЅС‹С… С‚Р°Р±Р»РёС†С‹ `customer`
+-- Дамп данных таблицы `customer`
 --
 
 INSERT INTO `customer` (`id`, `customerName`) VALUES
-(1, 'РІРїС‹Р°Рї');
+(1, 'впыап');
 
 -- --------------------------------------------------------
 
 --
--- РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `event`
+-- Структура таблицы `event`
 --
 
 CREATE TABLE IF NOT EXISTS `event` (
@@ -80,20 +78,20 @@ CREATE TABLE IF NOT EXISTS `event` (
   `eventName` varchar(255) DEFAULT NULL,
   `isDelete` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 COLLATE=utf8_general_ci;
 
 --
--- Р”Р°РјРї РґР°РЅРЅС‹С… С‚Р°Р±Р»РёС†С‹ `event`
+-- Дамп данных таблицы `event`
 --
 
 INSERT INTO `event` (`id`, `bookingCanceltime`, `eventDate`, `eventName`, `isDelete`) VALUES
-(1, 30, '2015-02-21 01:15:00', 'СЃРѕР±С‹С‚РёРµ', b'0'),
-(2, 30, '2014-12-21 01:00:00', 'СЃРѕР±С‹С‚РёРµ2', b'0');
+(1, 30, '2015-02-21 01:15:00', 'событие', b'0'),
+(2, 30, '2014-12-21 01:00:00', 'событие2', b'0');
 
 -- --------------------------------------------------------
 
 --
--- РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `event_sectorprice`
+-- Структура таблицы `event_sectorprice`
 --
 
 CREATE TABLE IF NOT EXISTS `event_sectorprice` (
@@ -102,10 +100,10 @@ CREATE TABLE IF NOT EXISTS `event_sectorprice` (
   UNIQUE KEY `sectorPriceSet_id` (`sectorPriceSet_id`),
   KEY `FKECC5BB1E25D67FF` (`Event_id`),
   KEY `FKECC5BB1EFD77DBC3` (`sectorPriceSet_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Р”Р°РјРї РґР°РЅРЅС‹С… С‚Р°Р±Р»РёС†С‹ `event_sectorprice`
+-- Дамп данных таблицы `event_sectorprice`
 --
 
 INSERT INTO `event_sectorprice` (`Event_id`, `sectorPriceSet_id`) VALUES
@@ -167,7 +165,7 @@ INSERT INTO `event_sectorprice` (`Event_id`, `sectorPriceSet_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `seat`
+-- Структура таблицы `seat`
 --
 
 CREATE TABLE IF NOT EXISTS `seat` (
@@ -179,10 +177,10 @@ CREATE TABLE IF NOT EXISTS `seat` (
   PRIMARY KEY (`id`),
   KEY `FK274225363FCC15` (`sector_id`),
   KEY `FK2742255C0E6255` (`ticket_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 COLLATE=utf8_general_ci;
 
 --
--- Р”Р°РјРї РґР°РЅРЅС‹С… С‚Р°Р±Р»РёС†С‹ `seat`
+-- Дамп данных таблицы `seat`
 --
 
 INSERT INTO `seat` (`id`, `rowNumber`, `seatNumber`, `sector_id`, `ticket_id`) VALUES
@@ -194,7 +192,7 @@ INSERT INTO `seat` (`id`, `rowNumber`, `seatNumber`, `sector_id`, `ticket_id`) V
 -- --------------------------------------------------------
 
 --
--- РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `sector`
+-- Структура таблицы `sector`
 --
 
 CREATE TABLE IF NOT EXISTS `sector` (
@@ -202,10 +200,10 @@ CREATE TABLE IF NOT EXISTS `sector` (
   `name` varchar(255) DEFAULT NULL,
   `seatsQuantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=28 ;
 
 --
--- Р”Р°РјРї РґР°РЅРЅС‹С… С‚Р°Р±Р»РёС†С‹ `sector`
+-- Дамп данных таблицы `sector`
 --
 
 INSERT INTO `sector` (`id`, `name`, `seatsQuantity`) VALUES
@@ -240,7 +238,7 @@ INSERT INTO `sector` (`id`, `name`, `seatsQuantity`) VALUES
 -- --------------------------------------------------------
 
 --
--- РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `sectorprice`
+-- Структура таблицы `sectorprice`
 --
 
 CREATE TABLE IF NOT EXISTS `sectorprice` (
@@ -251,10 +249,10 @@ CREATE TABLE IF NOT EXISTS `sectorprice` (
   PRIMARY KEY (`id`),
   KEY `FKC697C163363FCC15` (`sector_id`),
   KEY `FKC697C16325D67FF` (`event_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 COLLATE=utf8_general_ci;
 
 --
--- Р”Р°РјРї РґР°РЅРЅС‹С… С‚Р°Р±Р»РёС†С‹ `sectorprice`
+-- Дамп данных таблицы `sectorprice`
 --
 
 INSERT INTO `sectorprice` (`id`, `price`, `event_id`, `sector_id`) VALUES
@@ -316,7 +314,7 @@ INSERT INTO `sectorprice` (`id`, `price`, `event_id`, `sector_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `ticket`
+-- Структура таблицы `ticket`
 --
 
 CREATE TABLE IF NOT EXISTS `ticket` (
@@ -328,52 +326,52 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   PRIMARY KEY (`id`),
   KEY `FK954D572C25D67FF` (`event_id`),
   KEY `FK954D572CCFBA9E75` (`seat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=5 ;
 
 --
--- Р”Р°РјРї РґР°РЅРЅС‹С… С‚Р°Р±Р»РёС†С‹ `ticket`
+-- Дамп данных таблицы `ticket`
 --
 
 INSERT INTO `ticket` (`id`, `seatStatus`, `ticketNumber`, `event_id`, `seat_id`) VALUES
-(1, 1, '1015524410', 1, NULL),
-(2, 1, '1448577697', 1, NULL),
-(3, 1, '-1866006301', 1, NULL),
-(4, 1, '-1944934280', 1, NULL);
+(1, 1, '1015524410', 1, 1),
+(2, 1, '1448577697', 1, 2),
+(3, 1, '-1866006301', 1, 3),
+(4, 1, '-1944934280', 1, 4);
 
 --
--- РћРіСЂР°РЅРёС‡РµРЅРёСЏ РІРЅРµС€РЅРµРіРѕ РєР»СЋС‡Р° СЃРѕС…СЂР°РЅРµРЅРЅС‹С… С‚Р°Р±Р»РёС†
+-- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
--- РћРіСЂР°РЅРёС‡РµРЅРёСЏ РІРЅРµС€РЅРµРіРѕ РєР»СЋС‡Р° С‚Р°Р±Р»РёС†С‹ `booking`
+-- Ограничения внешнего ключа таблицы `booking`
 --
 ALTER TABLE `booking`
   ADD CONSTRAINT `FK6713A039C37EBE55` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
   ADD CONSTRAINT `FK6713A0395C0E6255` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`id`);
 
 --
--- РћРіСЂР°РЅРёС‡РµРЅРёСЏ РІРЅРµС€РЅРµРіРѕ РєР»СЋС‡Р° С‚Р°Р±Р»РёС†С‹ `event_sectorprice`
+-- Ограничения внешнего ключа таблицы `event_sectorprice`
 --
 ALTER TABLE `event_sectorprice`
   ADD CONSTRAINT `FKECC5BB1EFD77DBC3` FOREIGN KEY (`sectorPriceSet_id`) REFERENCES `sectorprice` (`id`),
   ADD CONSTRAINT `FKECC5BB1E25D67FF` FOREIGN KEY (`Event_id`) REFERENCES `event` (`id`);
 
 --
--- РћРіСЂР°РЅРёС‡РµРЅРёСЏ РІРЅРµС€РЅРµРіРѕ РєР»СЋС‡Р° С‚Р°Р±Р»РёС†С‹ `seat`
+-- Ограничения внешнего ключа таблицы `seat`
 --
 ALTER TABLE `seat`
   ADD CONSTRAINT `FK2742255C0E6255` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`id`),
   ADD CONSTRAINT `FK274225363FCC15` FOREIGN KEY (`sector_id`) REFERENCES `sector` (`id`);
 
 --
--- РћРіСЂР°РЅРёС‡РµРЅРёСЏ РІРЅРµС€РЅРµРіРѕ РєР»СЋС‡Р° С‚Р°Р±Р»РёС†С‹ `sectorprice`
+-- Ограничения внешнего ключа таблицы `sectorprice`
 --
 ALTER TABLE `sectorprice`
   ADD CONSTRAINT `FKC697C16325D67FF` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
   ADD CONSTRAINT `FKC697C163363FCC15` FOREIGN KEY (`sector_id`) REFERENCES `sector` (`id`);
 
 --
--- РћРіСЂР°РЅРёС‡РµРЅРёСЏ РІРЅРµС€РЅРµРіРѕ РєР»СЋС‡Р° С‚Р°Р±Р»РёС†С‹ `ticket`
+-- Ограничения внешнего ключа таблицы `ticket`
 --
 ALTER TABLE `ticket`
   ADD CONSTRAINT `FK954D572CCFBA9E75` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`id`),
