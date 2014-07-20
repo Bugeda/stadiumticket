@@ -3,12 +3,8 @@ package com.dataartschool2.stadiumticket.dreamteam.service;
 
 import com.dataartschool2.stadiumticket.dreamteam.dao.BookingDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,8 +24,9 @@ public class BookingServiceImpl implements BookingService {
         List<Booking> result = new ArrayList<Booking>();
 
         for(Booking booking : bookings){
-        	Seat seat = booking.getTicket().getSeat();            
-            Event event = seat.getTicket().getEvent();           
+            Ticket ticket = booking.getTicket();
+            Event event = ticket.getEvent();
+            Seat seat = ticket.getSeat();
             Sector sector = seat.getSector();
 
             if(event.getId().equals(eventId) && sector.getId().equals(sectorId)){

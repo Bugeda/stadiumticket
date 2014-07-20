@@ -1,47 +1,19 @@
 package com.dataartschool2.stadiumticket.dreamteam.web;
 
-import com.dataartschool2.stadiumticket.dreamteam.domain.Booking;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Customer;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
-import com.dataartschool2.stadiumticket.dreamteam.domain.SeatStatus;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
-import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
-import com.dataartschool2.stadiumticket.dreamteam.service.BookingService;
-import com.dataartschool2.stadiumticket.dreamteam.service.EventService;
-import com.dataartschool2.stadiumticket.dreamteam.service.SeatService;
-import com.dataartschool2.stadiumticket.dreamteam.service.SectorPriceService;
-import com.dataartschool2.stadiumticket.dreamteam.service.SectorService;
-import com.dataartschool2.stadiumticket.dreamteam.service.TicketService;
-
-import org.hibernate.mapping.Collection;
+import com.dataartschool2.stadiumticket.dreamteam.domain.*;
+import com.dataartschool2.stadiumticket.dreamteam.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-
-
-
-
-
-
-
-
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.validation.Valid;
 
 
 @Controller
@@ -87,8 +59,8 @@ public class TicketsController {
     }
     
     @ModelAttribute("chosenSeats")
-    public List<Seat> chosenSeats(){
-    	return  new ArrayList<Seat>();
+    public SeatsForm chosenSeats(){
+    	return  new SeatsForm();
     }
     
     @RequestMapping(value = "/tickets/sell", method = RequestMethod.GET)
@@ -99,24 +71,18 @@ public class TicketsController {
         return "/tickets/sell_tickets";
     }
 
-    @RequestMapping(value = "/tickets/sell", method = RequestMethod.POST)
-    public String submit_SellTicketsPage(@Valid @ModelAttribute("chosenSeats") List<Seat> chosenSeats,
-    									 @ModelAttribute("event") Event event,                          
-            							 BindingResult seatsBindingResult,
+    @RequestMapping(value = "/tickets/sell/{id}", method = RequestMethod.POST)
+    public String submit_SellTicketsPage(@PathVariable("id") Integer eventId,
+                                         @Valid @ModelAttribute("chosenSeats") SeatsForm seatsForm,
+             							 BindingResult seatsBindingResult,
             							 ModelMap modelMap){
-    	for (Seat st:chosenSeats){
-    	System.out.println(st.getRowNumber());
-    	System.out.println(st.getSeatNumber());
-      	System.out.println(st.getSector().getId()); 
-    	}
         if(seatsBindingResult.hasErrors()){
             modelMap.put("result", seatsBindingResult);
-            return "/tickets/error";
+            return "error";
         }else{
-            ticketService.sellTickets(event, chosenSeats);
-        }        
-        return "/tickets/sell_tickets";
-      //  return "redirect:/index";
+            ticketService.sellTickets(eventId, seatsForm);
+            return "redirect:/";
+        }
     }
     
     
@@ -139,7 +105,7 @@ public class TicketsController {
 
     @RequestMapping(value = "/tickets/book", method = RequestMethod.POST)
     public String submit_bookTicketsPage(@Valid @ModelAttribute("newCustomer") SeatsForm seatsForm,
-    		 							// @ModelAttribute("event") Event event,      -  не существует      									 
+    		 							// @ModelAttribute("event") Event event,      -  пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ      									 
             							 BindingResult seatsBindingResult,
             							 ModelMap modelMap){   
         if(seatsBindingResult.hasErrors()){

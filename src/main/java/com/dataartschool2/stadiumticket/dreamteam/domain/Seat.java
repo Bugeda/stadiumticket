@@ -16,9 +16,6 @@ public class Seat {
     @ManyToOne(cascade = CascadeType.ALL)
     private Sector sector;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Ticket ticket;
-
     public Seat(){}
 
     public Seat(int id, int seatNumber, int rowNumber, Sector sector) {
@@ -59,13 +56,5 @@ public class Seat {
     public void setSector(Sector sector) {
         this.sector = sector;
     }
-
-	public Ticket getTicket() {
-		return ticket;
-	}
-
-	public void setTicket(Ticket ticket) {
-		this.ticket = ticket;
-	}
 
 }
