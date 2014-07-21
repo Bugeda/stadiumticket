@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -45,8 +45,8 @@
 </div>
 <div class="row">      
 <div class="col-md-5">
-    <form:form method="post" action="${pageContext.request.contextPath}/tickets/sell" modelAttribute="chosenSeats">
-    <input type="hidden" value="${event.id}" id="id"> 
+    <form:form method="post" action="${pageContext.request.contextPath}/tickets/sell/${event.id}" modelAttribute="chosenSeats">
+    <input type="hidden" value="${event.id}" id="id">
         <b><spring:message code="ticketlist.tickets" />:</b>        
         <table class="table" id="ticket_list">
             <thead>
@@ -142,11 +142,42 @@
 </div>
 <br/>
 
-<div class="container seats">
+<div id="normal_sector" class="container seats">
 <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>
-    <tr>
-     	<td><spring:message code="ticketlist.sector" /> <span id="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
+    <tr>        
+        <td><spring:message code="ticketlist.sector" /> <span id="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
+        <td><div>42</div></td>
+        <td><spring:message code="sectorstatus.vacant" /></td>
+        <td><div>42</div></td>
+        <td><spring:message code="sectorstatus.booked" /></td>
+        <td><div>42</div></td>
+        <td><spring:message code="sectorstatus.occupied" /></td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<div class="table-responsive">
+<table class="table table-condensed table-responsive sell_tickets_table">
+<tbody>
+<% for (int i=1;i<21;i++) {%>
+<tr>
+   <td> <div><%=i %></div> </td>
+   <% for (int j=1;j<51;j++) {%>
+   <td id="<%=i %>_<%=j %>"><div><%=j %></div></td>
+   <%} %>
+</tr>
+<%} %>
+</tbody>
+</table>
+</div>
+</div>
+<br/>
+<div id="vip_sector" class="container seats">
+<table class="table table-condensed table-responsive sell_tickets_header">
+    <tbody>
+    <tr>        
+        <td><spring:message code="ticketlist.sector" /> <span id="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
         <td><div>42</div></td>
         <td><spring:message code="sectorstatus.vacant" /></td>
         <td><div>42</div></td>
@@ -171,8 +202,6 @@
 </tbody>
 </table>
 </div>
-
 </div>
-<br/>
 </body>
 </html>

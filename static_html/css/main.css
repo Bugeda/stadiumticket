@@ -8,6 +8,15 @@ body, A {
     color: RGB(0, 0, 117);
 }
 
+h3 {
+    margin: 0;
+    padding: 0;
+}
+h4 {
+    margin: 0;
+    padding: 0;
+}
+
 map input {
     position: absolute;
     background-color: darkgreen;
@@ -177,6 +186,11 @@ map input {
     width: 40%;
 }
 
+#event_name {
+    margin-top: 10px;
+    padding: 0;
+}
+
 .event_datetime {
     width: 15%;
 }
@@ -285,7 +299,7 @@ hr {
 .sell_tickets_header > tbody > tr > td:nth-child(6) > div, .occupied {
     background: #FE2B2C;
 }
-=======
+
 input {
     background-color: #C6D2E3;
     color: #FBFCFD;
@@ -461,18 +475,6 @@ map input {
     width: 45%;
 }
 
-.event_name {
-    width: 40%;
-}
-
-.event_datetime {
-    width: 15%;
-}
-
-#disable_inputs {
-    cursor: not-allowed;
-}
-
 #confirm_deletion_form, #wrong_confirmation {
     display: none;
 }
@@ -572,4 +574,7 @@ hr {
 .sell_tickets_header > tbody > tr > td:nth-child(6) > div {
     background: #FE2B2C;
 }
->>>>>>> 14d005c41a9e998b92f41013c37da5401318867c
+
+label {
+    margin-top: 20px;
+}
