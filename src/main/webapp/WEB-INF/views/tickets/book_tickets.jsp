@@ -46,15 +46,12 @@
 </div>
 <div class="row">
   <div class="col-md-5">
-   	<form:form method="post" action="${pageContext.request.contextPath}/tickets/book" modelAttribute="newCustomer">
-   	    <form:hidden value="${event.id}" path="eventId"/> 
+   	<form:form method="post" action="${pageContext.request.contextPath}/tickets/book/${event.id}" modelAttribute="newCustomer">
   	    <label for="booking_name"><spring:message code="booking.customerNameTitle" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
         <input class="form-control" type="text" name="customerName" id="booking_name" title="<spring:message code="booking.customerName" />" 
         placeholder="<spring:message code="booking.customerName" />">     
         <b><spring:message code="ticketlist.tickets" />:</b>              
         <table class="table" id="ticket_list">
-        
-
             <thead>
             <tr>
                 <td>№</td>

@@ -75,7 +75,7 @@ public class TicketServiceImpl implements TicketService {
 
         seatsForm.getChosenSeats().remove(0);
         seatsForm.getChosenSectorsNums().remove(0);
-        seatsForm.setEventId(eventId);
+      //  seatsForm.setEventId(eventId);
 
         Event event  = eventService.findById(eventId);
         List<Seat> chosenSeats = seatsForm.getChosenSeats();

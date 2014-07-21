@@ -96,8 +96,7 @@ public class TicketsController {
     
     @ModelAttribute("newCustomer")
     public SeatsForm getNewSeatsForm(){
-    	SeatsForm sf=new SeatsForm();
-    	sf.setBooking(true);    
+    	SeatsForm sf=new SeatsForm(); 
         return sf;
     }
     
@@ -111,8 +110,9 @@ public class TicketsController {
         return "/tickets/book_tickets";
     }
 
-    @RequestMapping(value = "/tickets/book", method = RequestMethod.POST)
-    public String submit_bookTicketsPage(@Valid @ModelAttribute("newCustomer") SeatsForm seatsForm,
+    @RequestMapping(value = "/tickets/book/{id}", method = RequestMethod.POST)
+    public String submit_bookTicketsPage(@PathVariable("id") Integer eventId,
+    									@Valid @ModelAttribute("newCustomer") SeatsForm seatsForm,
             							 BindingResult seatsBindingResult,
             							 ModelMap modelMap){   
         if(seatsBindingResult.hasErrors()){
@@ -121,13 +121,12 @@ public class TicketsController {
         }else{
           	seatsForm.getChosenSeats().remove(0);
         	seatsForm.getChosenSectorsNums().remove(0);
-        	System.out.println(seatsForm.getEventId());
-        	List<Sector> sectorSet=sectorService.createSectorsListFromNums(seatsForm.getChosenSectorsNums());  
+         	List<Sector> sectorSet=sectorService.createSectorsListFromNums(seatsForm.getChosenSectorsNums());  
             	List<Seat> seatSet = seatService.modifySeatSet(seatsForm.getChosenSeats().size(), seatsForm.getChosenSeats(), sectorSet);
 
          	Customer customer =  new Customer();
         	customer.setCustomerName(seatsForm.getCustomerName());        	
-            ticketService.bookTickets(seatsForm.getEventId(), customer, seatSet);
+            ticketService.bookTickets(eventId, customer, seatSet);
         }        
         //return "/tickets/book_tickets";
         return "redirect:/index";

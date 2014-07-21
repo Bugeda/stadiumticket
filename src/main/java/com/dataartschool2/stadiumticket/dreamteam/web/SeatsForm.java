@@ -9,8 +9,6 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
 
 public class SeatsForm {
 
-	private boolean isBooking;
-	
 	@Size(min = 1, max = 50, message = "error.wrongLength")
 	private String customerName;
 	
@@ -18,30 +16,17 @@ public class SeatsForm {
     
     private List<Integer> chosenSectorsNums;
         
-    private Integer eventId;
     
     public SeatsForm() {}
 	
 
 
     public SeatsForm(boolean isBooking, String customerName,List<Seat> chosenSeats, List<Integer> chosenSectorsNums,Integer eventId) {
-		super();
-		this.isBooking = isBooking;
 		this.customerName = customerName;
 		this.chosenSeats = chosenSeats;
 		this.chosenSectorsNums = chosenSectorsNums;
-		this.eventId = eventId;
 	}
 
-
-
-	public boolean isBooking() {
-		return isBooking;
-	}
-
-	public void setBooking(boolean isBooking) {
-		this.isBooking = isBooking;
-	}
 
 	public String getCustomerName() {
 		return customerName;
@@ -67,11 +52,4 @@ public class SeatsForm {
 		this.chosenSectorsNums = chosenSectorsNums;
 	}
 
-	public Integer getEventId() {
-		return eventId;
-	}
-
-	public void setEventId(Integer eventId) {
-		this.eventId = eventId;
-	}
 }
