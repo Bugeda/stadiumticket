@@ -40,6 +40,11 @@ $(document).ready(function () {
 
     // BEGIN Edit/new event, event list section
     // copy data from sector plan to hidden form on edit/new event page
+    $('#title').keyup( function () {
+	var title = ($(this).val());
+	$('#event_name').html(title);
+    });
+
     $('map > input').change( function () {
 	var source_id = $(this).attr('id');
 	var source_content = $(this).val();
