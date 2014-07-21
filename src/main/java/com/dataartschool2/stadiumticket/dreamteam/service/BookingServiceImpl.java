@@ -5,10 +5,7 @@ import com.dataartschool2.stadiumticket.dreamteam.dao.BookingDAO;
 import com.dataartschool2.stadiumticket.dreamteam.domain.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,9 +37,6 @@ public class BookingServiceImpl implements BookingService {
         return result;
     }
 
-
-    
-    
     @Scheduled(fixedDelay = 300000) // 5 minutes
     public void cancelBooking(){
         List<Booking> bookings = bookingDAO.findAll();

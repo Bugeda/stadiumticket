@@ -2,15 +2,9 @@ package com.dataartschool2.stadiumticket.dreamteam.service;
 
 
 import com.dataartschool2.stadiumticket.dreamteam.dao.TicketDAO;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Booking;
-import com.dataartschool2.stadiumticket.dreamteam.domain.BookingStatus;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Customer;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
-import com.dataartschool2.stadiumticket.dreamteam.domain.SeatStatus;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
 
+import com.dataartschool2.stadiumticket.dreamteam.domain.*;
+import com.dataartschool2.stadiumticket.dreamteam.web.SeatsForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -34,6 +28,10 @@ public class TicketServiceImpl implements TicketService {
         
     @Autowired
     private SeatService seatService;
+
+    @Autowired
+    private SectorService sectorService;
+
     
     @Override
     public List<Ticket> getSoldTicketsBySector(Integer eventId, Integer sectorId) {
@@ -45,7 +43,6 @@ public class TicketServiceImpl implements TicketService {
             Event event = ticket.getEvent();
             Seat seat = ticket.getSeat();
             Sector sector = seat.getSector();
-
             if(event.getId().equals(eventId) && sector.getId().equals(sectorId)){
                 result.add(ticket);
             }
@@ -74,8 +71,25 @@ public class TicketServiceImpl implements TicketService {
     }
     
     @Override
-    public void sellTickets(Event event, List<Seat> chosenSeats) {
+    public void sellTickets(Integer eventId, SeatsForm seatsForm) {
+
+        seatsForm.getChosenSeats().remove(0);
+        seatsForm.getChosenSectorsNums().remove(0);
+        seatsForm.setEventId(eventId);
+
+        Event event  = eventService.findById(eventId);
+        List<Seat> chosenSeats = seatsForm.getChosenSeats();
+        List<Integer> chosenSectors = seatsForm.getChosenSectorsNums();
+        int i = 0;
         for(Seat seat : chosenSeats){
+
+            Integer sectorNo = chosenSectors.get(i);
+            ++i;
+
+            Sector sector = sectorService.findById(sectorNo);
+            seat.setSector(sector);
+            seatService.updateSeat(seat);
+
             Ticket ticket = new Ticket();
             ticket.setEvent(event);
             ticket.setSeat(seat);
@@ -117,5 +131,6 @@ public class TicketServiceImpl implements TicketService {
 	     	    Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
 			    bookingService.updateBooking(booking);
 			    }      
+
 	}
 }
