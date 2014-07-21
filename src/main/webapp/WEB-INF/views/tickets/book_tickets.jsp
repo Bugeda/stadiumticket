@@ -149,7 +149,7 @@
 <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>
     <tr>        
-        <td><spring:message code="ticketlist.sector" /> <span id="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
+        <td><spring:message code="ticketlist.sector" /> <span class="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
         <td><div>42</div></td>
         <td><spring:message code="sectorstatus.vacant" /></td>
         <td><div>42</div></td>
@@ -180,7 +180,7 @@
 <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>
     <tr>        
-        <td><spring:message code="ticketlist.sector" /> <span id="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
+        <td><spring:message code="ticketlist.sector" /> <span class="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
         <td><div>42</div></td>
         <td><spring:message code="sectorstatus.vacant" /></td>
         <td><div>42</div></td>

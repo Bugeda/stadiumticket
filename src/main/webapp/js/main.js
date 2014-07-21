@@ -40,6 +40,11 @@ $(document).ready(function () {
 
     // BEGIN Edit/new event, event list section
     // copy data from sector plan to hidden form on edit/new event page
+    $('#title').keyup( function () {
+	var title = ($(this).val());
+	$('#event_name').html(title);
+    });
+
     $('map > input').change( function () {
 	var source_id = $(this).attr('id');
 	var source_content = $(this).val();
@@ -103,9 +108,9 @@ $(document).ready(function () {
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ price + "</td>"
 				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
-				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector+">"				 
-				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
-				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+seat+"></td></tr>" );
+				 + "<td><input name=\"${ticket[i].seat.sector.id}\" type=\"hidden\" value="+sector+">"
+				 + "<input name=\"${ticket[i].seat.rowNumber}\" type=\"hidden\" value="+row+">"
+				 + "<input name=\"${ticket[i].seat.seatNumber}\" type=\"hidden\" value="+seat+"></td></tr>" );
 	recalculate_price_and_index();
     };
 
@@ -152,12 +157,12 @@ $(document).ready(function () {
 
     // Draw sector from json object
     function draw_sector(sector_obj){
-	$('#sector_name').html(sector_obj.name);
+	$('.sector_name').html(sector_obj.name);
 	// iterate through rows
 	for (var row_index = 0; row_index < sector_obj.rows.length; row_index++) {
 	    // iterate through seats in a row
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
-		    $('#'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',sector_obj.rows[row_index][seat_index]);
+		$('#'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',sector_obj.rows[row_index][seat_index]);
 	    }
 	}
     }
