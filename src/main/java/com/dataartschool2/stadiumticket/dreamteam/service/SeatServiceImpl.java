@@ -1,13 +1,14 @@
 package com.dataartschool2.stadiumticket.dreamteam.service;
 
-import com.dataartschool2.stadiumticket.dreamteam.dao.SeatDAO;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
+
+import com.dataartschool2.stadiumticket.dreamteam.dao.*;
+import com.dataartschool2.stadiumticket.dreamteam.domain.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class SeatServiceImpl implements SeatService {
@@ -16,7 +17,8 @@ public class SeatServiceImpl implements SeatService {
     private SeatDAO seatDAO;
     
 	@Override
-	public List<Seat> modifySeatSet(int size, List<Seat> seatSet, List<Sector> sectorSet, List<Ticket> ticketSet){	
+	public List<Seat> modifySeatSet(int size, List<Seat> seatSet, List<Sector> sectorSet){	
+
 		if (seatSet.isEmpty()){
 			for (int i=0;i<size;i++){
 				seatSet.add(new Seat());

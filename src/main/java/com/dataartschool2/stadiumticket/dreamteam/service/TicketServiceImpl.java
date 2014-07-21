@@ -2,6 +2,7 @@ package com.dataartschool2.stadiumticket.dreamteam.service;
 
 
 import com.dataartschool2.stadiumticket.dreamteam.dao.TicketDAO;
+
 import com.dataartschool2.stadiumticket.dreamteam.domain.*;
 import com.dataartschool2.stadiumticket.dreamteam.web.SeatsForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     private SectorService sectorService;
+
     
     @Override
     public List<Ticket> getSoldTicketsBySector(Integer eventId, Integer sectorId) {
@@ -120,24 +122,15 @@ public class TicketServiceImpl implements TicketService {
 	            Ticket ticket = new Ticket();
 	            ticket.setEvent(event);
 	            ticket.setSeat(seat);
-	            String ticketNumber = generateTicketNumber(event, seat);	            
+	            String ticketNumber = generateTicketNumber(event, seat);	
 	            ticket.setTicketNumber(ticketNumber);
 	            checkTickets(AllTickets, ticket);
 	            ticket.setSeatStatus(SeatStatus.booked);
-	            tickets.add(ticket);
-	 		    Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
-			    ticketDAO.updateEntity(ticket);
-			    bookingService.updateBooking(booking);
+	            ticketDAO.updateEntity(ticket);
 	            seatService.updateSeat(seat);
-	            
-		}
-		for(Ticket ticket : tickets){
-		   Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
-		   ticket.setSeatStatus(SeatStatus.booked);
-		   ticketDAO.updateEntity(ticket);
-		   bookingService.updateBooking(booking);
-		   
-		}
-	      
+	     	    Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
+			    bookingService.updateBooking(booking);
+			    }      
+
 	}
 }

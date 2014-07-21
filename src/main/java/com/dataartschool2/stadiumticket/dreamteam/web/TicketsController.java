@@ -2,6 +2,9 @@ package com.dataartschool2.stadiumticket.dreamteam.web;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.*;
 import com.dataartschool2.stadiumticket.dreamteam.service.*;
+
+import org.hibernate.mapping.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -11,9 +14,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -62,7 +68,7 @@ public class TicketsController {
     public SeatsForm chosenSeats(){
         SeatsForm seatsForm = new SeatsForm();
         seatsForm.setCustomerName("not used");
-    	return  seatsForm;
+    	return seatsForm;
     }
     
     @RequestMapping(value = "/tickets/sell", method = RequestMethod.GET)
@@ -107,7 +113,6 @@ public class TicketsController {
 
     @RequestMapping(value = "/tickets/book", method = RequestMethod.POST)
     public String submit_bookTicketsPage(@Valid @ModelAttribute("newCustomer") SeatsForm seatsForm,
-    		 							// @ModelAttribute("event") Event event,      -  �� ����������      									 
             							 BindingResult seatsBindingResult,
             							 ModelMap modelMap){   
         if(seatsBindingResult.hasErrors()){
@@ -118,7 +123,8 @@ public class TicketsController {
         	seatsForm.getChosenSectorsNums().remove(0);
         	System.out.println(seatsForm.getEventId());
         	List<Sector> sectorSet=sectorService.createSectorsListFromNums(seatsForm.getChosenSectorsNums());  
-            List<Seat> seatSet = seatService.modifySeatSet(seatsForm.getChosenSeats().size(), seatsForm.getChosenSeats(), sectorSet, new ArrayList<Ticket>());
+            	List<Seat> seatSet = seatService.modifySeatSet(seatsForm.getChosenSeats().size(), seatsForm.getChosenSeats(), sectorSet);
+
          	Customer customer =  new Customer();
         	customer.setCustomerName(seatsForm.getCustomerName());        	
             ticketService.bookTickets(seatsForm.getEventId(), customer, seatSet);

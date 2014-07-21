@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -141,10 +141,11 @@
 </div>
 </div>
 <br/>
+
 <div id="normal_sector" class="container seats">
 <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>
-    <tr>
+    <tr>        
         <td><spring:message code="ticketlist.sector" /> <span id="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
         <td><div>42</div></td>
         <td><spring:message code="sectorstatus.vacant" /></td>
@@ -175,7 +176,7 @@
 <div id="vip_sector" class="container seats">
 <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>
-    <tr>
+    <tr>        
         <td><spring:message code="ticketlist.sector" /> <span id="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
         <td><div>42</div></td>
         <td><spring:message code="sectorstatus.vacant" /></td>
