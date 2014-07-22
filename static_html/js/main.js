@@ -106,12 +106,11 @@ $(document).ready(function () {
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ price + "</td>"
 				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
-				 + "<td><input name=\"${ticket[i].seat.sector.id}\" type=\"hidden\" value="+sector+">"
-				 + "<input name=\"${ticket[i].seat.rowNumber}\" type=\"hidden\" value="+row+">"
-				 + "<input name=\"${ticket[i].seat.seatNumber}\" type=\"hidden\" value="+seat+"></td></tr>" );
+				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector+">"
+				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
+ 				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+seat+"></td></tr>" );
 	recalculate_price_and_index();
-    };
-
+    	};
     //add ticket by clicking seat on sector plan
     $('.sell_tickets_table td').click(function() {
 	if ($(this).is('[class]')
@@ -125,8 +124,8 @@ $(document).ready(function () {
 	    if ((sector != 'VIP A') && (sector != 'VIP D')){
 		sector_number = parseInt(sector);
 	    };
-	    if (sector == 'VIP A') {sector_number= 27;}
-	    if (sector == 'VIP D') {sector_number= 26;}
+	    if (sector == 'VIP A') {sector_number= 26;}
+	    if (sector == 'VIP D') {sector_number= 27;}
 	    var price = $("#price_" + sector_number).val();
 	    var row = id[0];
 	    var seat = parseInt(id[1]);
