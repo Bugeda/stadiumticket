@@ -108,7 +108,7 @@ $(document).ready(function () {
 				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
 				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector+">"
 				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
-				 + "<input name=\"chosenSeats[i].seatNumber
+				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+row+"><td>";
     };
 
     //add ticket by clicking seat on sector plan
