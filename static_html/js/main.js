@@ -108,9 +108,9 @@ $(document).ready(function () {
 				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
 				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector+">"
 				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
-				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+row+"><td>";
-    };
-
+ 				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+seat+"></td></tr>" );
+	recalculate_price_and_index();
+    	};
     //add ticket by clicking seat on sector plan
     $('.sell_tickets_table td').click(function() {
 	if ($(this).is('[class]')
