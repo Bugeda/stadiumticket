@@ -32,7 +32,7 @@ $(document).ready(function () {
     });
 
     $('#booking_search_results').dataTable({
-	"paging": true,
+	"paging": false,
 	"stateSave": true,
 	"autoWidth": true,
 	"ordering": false
@@ -62,8 +62,6 @@ $(document).ready(function () {
 	$(this).children('.action_list').hide();
     });
     $('#event_list_filter input').addClass('form-control');
-    $('#booking_search_results_filter input').addClass('form-control');
-
 
     // delete event process
     $('#event_delete').click( function () {
@@ -143,6 +141,62 @@ $(document).ready(function () {
 	$('#'+id).toggleClass('selected');
 	$(this).closest('.ticket').remove();
 	recalculate_price_and_index();
+    });
+
+    // enable form-control class for booking search results table
+    $('#booking_search_results_filter input').addClass('form-control');
+
+    // handle ticket selection for booking and selling at booking search results
+    $('.ticket input').click( function() {
+	var total_price = 0;
+	$('input[type=checkbox]:checked').each(function (){
+	    total_price += parseInt($(this).parents().siblings('.ticket_price').html() );
+	});
+	$('#total_price').html(total_price);
+    });
+
+    //get list of currently selected ticket
+    function get_selected_ids() {
+	var selected_ids = [];
+	$('input[type=checkbox]:checked').each(function (){
+	    selected_ids.push($(this).parents().siblings('.booking_id').html());
+	});
+	return selected_ids;
+    }
+
+
+    // send requests for cancel or sell tickets by booking id
+    function manipulate_with_booked_tickets (action) {
+	if (action == 'sell') {
+	    var base_url = 'url_base_for_selling_tickets_by_id?'; //paste here the correct one
+	}
+	if (action == 'cancel_booking'){
+	    var base_url = 'url_base_for_cancel_booking_by_id?'; //paste here the correct one
+	};
+	var ticket_ids = get_selected_ids();
+	for (id in ticket_ids) {
+	    if (id == ticket_ids.length-1) {
+		base_url = base_url + 'id=' + ticket_ids[id];
+	    }
+	    else {
+		base_url = base_url + 'id=' + ticket_ids[id]+ '&';
+	    };
+	};
+	// fetch for data
+	$.get( base_url, function(response) {
+	    $('.response').html(response); // output response to block
+	    $('.response').slideDown(); // show block with response
+	});
+    };
+
+    //send ticket ids when 'sell' button clicked
+    $('#sell_selected_tickets').click( function() {
+	manipulate_with_booked_tickets('sell');
+    });
+
+    //send ticket ids when 'cancel booking' button clicked
+    $('#cancel_booking_selected_tickets').click( function() {
+	manipulate_with_booked_tickets('cancel_booking');
     });
 
     // initial run to set numbers for all tickets
