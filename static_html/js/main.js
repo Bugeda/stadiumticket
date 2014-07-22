@@ -114,13 +114,13 @@ $(document).ready(function () {
 
     //add ticket by clicking seat on sector plan
     $('.sell_tickets_table td').click(function() {
-	if ($(this).is('[id]')
+	if ($(this).is('[class]')
 	    && !($(this).hasClass('booked'))
 	    && !($(this).hasClass('occupied'))
 	    && !($(this).hasClass('selected')) ){
 	    $(this).addClass('selected');
-	    var id = $(this).attr('id').split('_');
-	    var sector = $('#sector_name').html(); //.substr(6).slice(0,-6)
+	    var id = $(this).attr('class').split('_');
+	    var sector = $(this).closest('.container').find('.sector_name').html();
 	    var sector_number = 0;
 	    if ((sector != 'VIP A') && (sector != 'VIP D')){
 		sector_number = parseInt(sector);
@@ -129,7 +129,7 @@ $(document).ready(function () {
 	    if (sector == 'VIP D') {sector_number= 26;}
 	    var price = $("#price_" + sector_number).val();
 	    var row = id[0];
-	    var seat = id[1];
+	    var seat = parseInt(id[1]);
 	    add_ticket(sector,row,seat,price);
 	};
     });
@@ -216,7 +216,7 @@ $(document).ready(function () {
 	for (var row_index = 0; row_index < sector_obj.rows.length; row_index++) {
 	    // iterate through seats in a row
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
-		$('#'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',sector_obj.rows[row_index][seat_index]);
+		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',sector_obj.rows[row_index][seat_index]);
 	    }
 	}
     }
