@@ -208,6 +208,13 @@ $(document).ready(function () {
     // restrict changing price when selling or booking
     $('#disable_inputs > input').attr('disabled','disabled');
 
+    // cycle switching between sector price inputs
+    $('#price_25').keypress( function(event) {
+	if (event.keyCode == 9) {
+	    $('#price_26').focus();
+	}
+    });
+
     // Draw sector from json object
     function draw_sector(sector_obj){
 	$('.sector_name').html(sector_obj.name);
