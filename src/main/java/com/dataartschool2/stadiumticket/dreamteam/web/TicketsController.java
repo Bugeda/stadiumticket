@@ -25,6 +25,9 @@ import javax.validation.Valid;
 @Controller
 public class TicketsController {
 
+	@Autowired
+	private ApplicationContext appContext;
+	
     @Autowired
     private TicketService ticketService;
 
@@ -38,9 +41,6 @@ public class TicketsController {
 	private SectorPriceService sectorPriceService;
 
 	@Autowired
-	BookingService bookingService;
-	
-	@Autowired
 	SeatService seatService;
 	
 	@Autowired
@@ -52,13 +52,11 @@ public class TicketsController {
             Event event = eventService.findById(eventId);
             if (event != null) {
            	if (event.getEventDate().before(new Date())){
-           		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
-            		throw new RuntimeException(applicationContext.getMessage("error.archiveEvent", new Object[]{}, null));
+            		throw new RuntimeException(appContext.getMessage("error.archiveEvent", new Object[]{}, null));
             		}
               
             }else{
-            	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
-        		throw new RuntimeException(applicationContext.getMessage("error.noEventChosen", new Object[]{}, null));
+        		throw new RuntimeException(appContext.getMessage("error.noEvent", new Object[]{}, null));
             }
         }
         return null;
@@ -72,7 +70,7 @@ public class TicketsController {
     }
     
     @RequestMapping(value = "/tickets/sell", method = RequestMethod.GET)
-    public String getSellTicketsPage(@RequestParam("id") Integer eventId, ModelMap modelMap){
+    public String getSellTickets(@RequestParam("id") Integer eventId, ModelMap modelMap){
     	List<SectorPrice> sectorPrices=sectorPriceService.getPricesSectorsOfEvent(eventService.findById(eventId));
     	modelMap.put("event", eventService.findById(eventId));
     	modelMap.put("sectorPrices", sectorPrices);
@@ -80,13 +78,13 @@ public class TicketsController {
     }
 
     @RequestMapping(value = "/tickets/sell/{id}", method = RequestMethod.POST)
-    public String submit_SellTicketsPage(@PathVariable("id") Integer eventId,
+    public String submit_SellTickets(@PathVariable("id") Integer eventId,
                                          @Valid @ModelAttribute("chosenSeats") SeatsForm seatsForm,
              							 BindingResult seatsBindingResult,
             							 ModelMap modelMap){
         if(seatsBindingResult.hasErrors()){
             modelMap.put("result", seatsBindingResult);
-            return "error";
+            return "redirect:/tickets/sell?id="+eventId;
         }else{
             ticketService.sellTickets(eventId, seatsForm);
             return "redirect:/";
@@ -102,7 +100,7 @@ public class TicketsController {
     
       
     @RequestMapping(value = "/tickets/book", method = RequestMethod.GET)
-    public String getBookTicketsPage(@RequestParam("id") Integer eventId, ModelMap modelMap){
+    public String getBookTickets(@RequestParam("id") Integer eventId, ModelMap modelMap){
     	List<SectorPrice> sectorPrices=sectorPriceService.getPricesSectorsOfEvent(eventService.findById(eventId));
     	modelMap.put("event", eventService.findById(eventId));
     	modelMap.put("sectorPrices", sectorPrices);
@@ -111,8 +109,8 @@ public class TicketsController {
     }
 
     @RequestMapping(value = "/tickets/book/{id}", method = RequestMethod.POST)
-    public String submit_bookTicketsPage(@PathVariable("id") Integer eventId,
-    									@Valid @ModelAttribute("newCustomer") SeatsForm seatsForm,
+    public String submit_bookTickets(@PathVariable("id") Integer eventId,
+    									 @Valid @ModelAttribute("newCustomer") SeatsForm seatsForm,
             							 BindingResult seatsBindingResult,
             							 ModelMap modelMap){   
         if(seatsBindingResult.hasErrors()){
@@ -122,7 +120,7 @@ public class TicketsController {
           	seatsForm.getChosenSeats().remove(0);
         	seatsForm.getChosenSectorsNums().remove(0);
          	List<Sector> sectorSet=sectorService.createSectorsListFromNums(seatsForm.getChosenSectorsNums());  
-            	List<Seat> seatSet = seatService.modifySeatSet(seatsForm.getChosenSeats().size(), seatsForm.getChosenSeats(), sectorSet);
+            List<Seat> seatSet = seatService.modifySeatSet(seatsForm.getChosenSeats().size(), seatsForm.getChosenSeats(), sectorSet);
 
          	Customer customer =  new Customer();
         	customer.setCustomerName(seatsForm.getCustomerName());        	

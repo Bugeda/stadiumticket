@@ -25,4 +25,13 @@ public class BookingDAOImpl extends GenericDAOImpl<Booking> implements BookingDA
 		return (bookingSet.equals(null));
 	}
 
+	@Override
+	public List<Booking> findByTicket(Ticket ticket) {
+		//System.out.println(ticketId);
+		Criterion criterion = Restrictions.eq("ticket", ticket);  
+		return findByCriteria(criterion);
+	}
+
+	
+
 }

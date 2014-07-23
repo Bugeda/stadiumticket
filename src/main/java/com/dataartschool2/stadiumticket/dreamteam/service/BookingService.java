@@ -20,4 +20,6 @@ public interface BookingService {
 
 	public void updateBooking(Booking booking);
 
+	public List<Booking> getBookingsForEvent(Integer eventId);
+
 }

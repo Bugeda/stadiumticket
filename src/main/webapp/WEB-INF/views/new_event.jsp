@@ -37,17 +37,66 @@
     </style>
   </head>
   <body>
-    <div class="container">
-       <div class="row">
+  <script type="text/javascript">
+
+    var errorsHere = false;
+    <c:if test="${not empty requestScope['org.springframework.validation.BindingResult.newEvent'].allErrors}">
+        errorsHere = true;
+    </c:if>
+    $(document).ready(function() {
+        console.log('here');
+        if(errorsHere){
+            $('#newEventError').modal('show');
+            console.log('errors');
+        }        	
+    });
+  </script>
+  
+  <div id="newEventError" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
+          <h4 class="modal-title"><c:out value="Event message"></c:out></h4>
+        </div>
+        <div class="modal-body">
+          <p><spring:message code="error.eventIsNotAdded" /></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="modal.close" /></button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+  <div id="newEventnoError" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
+          <h4 class="modal-title"><c:out value="Event message"></c:out></h4>
+        </div>
+        <div class="modal-body">
+          <p><spring:message code="message.eventIsAdded" /></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="modal.close" /></button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+  <div class="container">
+    <div class="row">
 	<div class="col-xs-1 col-md-1"><a href="<c:url value="index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
-	<div class="col-xs-6 col-md-9">
+	 <div class="col-xs-6 col-md-9">
 	   <h3>
 		<a id="arrow_back" href="<c:url value="index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
 		<spring:message code="newevent.pageTitle" />
 	   </h3>
-	   <h2 id="event_name">Event name</h2>
+	   <h2 id="event_name"></h2>
 	 </div>
-	 </div>
+	</div>
     <div class="row">
 	<div class="col-md-5">
 	 	<form:form class="form-horizontal"  action="${pageContext.request.contextPath}/new_event" method="post" modelAttribute="newEvent">
@@ -118,10 +167,10 @@
 	    <area id="25" alt="25" title="25" shape="poly" coords="186,32,263,33,266,47,259,46,261,92,303,93,304,109,241,109,238,120,202,119,201,56,201,46,185,46"/>
 	    <area id="26" alt="vipA" title="vipA" shape="rect" coords="266,32,356,83" />
 	    <area id="27" alt="vipD" title="vipD" shape="rect" coords="152,472,468,501" />
-
 	  </map>
 	  <br>
-	<script type="text/javascript">
+	
+<script type="text/javascript">
 	    $('#price_1, #price_2, #price_3, #price_4, #price_5, #price_6, #price_7, #price_8, ' +
 	    '#price_9, #price_10, #price_11, #price_12, #price_13, #price_14, #price_15, #price_16, ' +
 	    '#price_17, #price_18, #price_19, #price_20, #price_21, #price_22, #price_23, #price_24, ' +
@@ -150,12 +199,6 @@
 	    });
 	  </script>
 
-	  <div class="row">
-	    <div style="display:none;" class="alert-dismissible alert alert-danger" role="alert">
-	     <spring:message code="alert.onlyNumberAllowed"/>
-	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-	    </div>
-	  </div>
 	</div>
       </div>
     </div>

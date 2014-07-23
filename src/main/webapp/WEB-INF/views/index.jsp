@@ -72,7 +72,8 @@
 					<img src="<%= request.getContextPath() %>/images/sell_ticket.png"></a>
 				<a href="<c:url value="/tickets/book?id=${event.id}"/>" title="<spring:message code="booktickets.pageTitle" />">
 					<img src="<%= request.getContextPath() %>/images/book_ticket.png"></a>
-				<a href="#"><img src="<%= request.getContextPath() %>/images/search_booked.png"></a>				
+				<a href="<c:url value="booking/search?id=${event.id}"/>" title="<spring:message code="searchbooked.pageTitle" />">
+					<img src="<%= request.getContextPath() %>/images/search_booked.png"></a>				
 				<a href="<c:url value="/edit_event?id=${event.id}"/>" title="<spring:message code="editevent.pageTitle" />">
 					<img src="<%= request.getContextPath() %>/images/edit_event.png">
 				</a>

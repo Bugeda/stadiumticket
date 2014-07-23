@@ -33,7 +33,7 @@ public class Event {
 
     private boolean isDelete;
 
-    @OneToMany(cascade= CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<SectorPrice> sectorPriceSet;
 
     public Event(){}

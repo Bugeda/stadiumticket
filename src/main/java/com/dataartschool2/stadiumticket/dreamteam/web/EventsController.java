@@ -15,11 +15,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
-
 import javax.validation.Valid;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +31,10 @@ import java.util.Map;
 
 @Controller
 public class EventsController{
-
+	
+	@Autowired
+	private ApplicationContext appContext;
+	  
     @Autowired
 	private EventService eventService;
 	
@@ -40,8 +46,6 @@ public class EventsController{
 
     @Autowired
     private EventValidator eventValidator;
-
-    private SpringMessageSourceMessageInterpolator interpolator;
     
     @InitBinder("newEvent")
     public void bindNewEventFormValidator(WebDataBinder webDataBinder){
@@ -59,24 +63,19 @@ public class EventsController{
     }
 
     @ModelAttribute("editEvent")
-    public Event getEvent(@RequestParam(value = "id", required = false) Integer id){
+    public Event getEvent(@RequestParam(value = "id", required = false) Integer id, HttpServletRequest request, HttpServletResponse response) throws IOException{
+    
          if(id != null) {
 
             Event event = eventService.findById(id);
             if (event != null) {
-           	if (event.getEventDate().before(new Date())){
-           			ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");            		
-           			JOptionPane.showMessageDialog(null, applicationContext.getMessage("error.archiveEvent", new Object[]{}, null),
-            				 "event message", JOptionPane.INFORMATION_MESSAGE);
-            		return null;
+           	if (event.getEventDate().before(new Date())){           			            	
+          			throw new RuntimeException(appContext.getMessage("error.archiveEvent", new Object[]{}, null));
             		}
             	else
                 return event;
             }else{
-            	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
-       			JOptionPane.showMessageDialog(null, applicationContext.getMessage("error.noEventChosen", new Object[]{}, null),
-       				 "event message", JOptionPane.INFORMATION_MESSAGE);
-       			return null;
+            	throw new RuntimeException(appContext.getMessage("error.noEvent", new Object[]{}, null));
             }
         }
     return null;        
@@ -120,15 +119,13 @@ public class EventsController{
                 return "redirect:/new_event";
             }else{
                 if(bindingResult.hasErrors()){
-                	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
-                    JOptionPane.showMessageDialog(null,  applicationContext.getMessage("error.eventHadNotInserted", new Object[]{}, null),
+                 	JOptionPane.showMessageDialog(null,  appContext.getMessage("error.eventIsNotAdded", new Object[]{}, null),
                     		"event message", JOptionPane.ERROR_MESSAGE);
                     modelMap.put("result", bindingResult);
                     return "new_event";
                 }else{
                     eventService.createEvent(event);
-                	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
-                    JOptionPane.showMessageDialog(null,  applicationContext.getMessage("message.eventHadInserted", new Object[]{}, null),
+                    JOptionPane.showMessageDialog(null,  appContext.getMessage("message.eventIsAdded", new Object[]{}, null),
                     		"event message", JOptionPane.INFORMATION_MESSAGE);
                     return "redirect:/index";
                 }
@@ -141,23 +138,21 @@ public class EventsController{
                                     @Valid @ModelAttribute("editEvent") Event event,
                                     BindingResult bindingResult,
                                     ModelMap modelMap) throws ParseException {
-    	
     		modelMap.remove("submit");
             if (submit.equals("Cancel changes")){
                 return "redirect:/edit_event?id="+event.getId();
             }else {
                 if(bindingResult.hasErrors()){            
-                	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
-                    JOptionPane.showMessageDialog(null, applicationContext.getMessage("error.changesHadNotMade", new Object[]{}, null), 
+                    JOptionPane.showMessageDialog(null, appContext.getMessage("error.changesAreNotApplied", new Object[]{}, null), 
                     		"event message", JOptionPane.ERROR_MESSAGE);
                     modelMap.put("result", bindingResult);       
                     return "edit_event";
+                    //return "redirect:/edit_event?id="+event.getId();
                 }else{
                     eventService.updateEvent(event);            
-                	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
-                    JOptionPane.showMessageDialog(null, applicationContext.getMessage("message.changesHadMade", new Object[]{}, null),
+                    JOptionPane.showMessageDialog(null, appContext.getMessage("message.changesAreApplied", new Object[]{}, null),
                     		"event message", JOptionPane.INFORMATION_MESSAGE);
-                    return "redirect:/index";
+                    return "redirect:/";
             }
         }
     }

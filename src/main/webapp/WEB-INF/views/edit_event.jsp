@@ -44,10 +44,10 @@
 		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
 		<spring:message code="editevent.pageTitle" />
 	   </h3>
-	   <h2 id="event_name">Event name</h2>
+	   <h2 id="event_name"><c:out value="${event.eventName}"></c:out>
 	 </div>
 	 </div>
-
+    
     <div class="row">
 	<div class="col-md-5">
 	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/edit_event" modelAttribute="editEvent">
@@ -170,12 +170,7 @@
 	    });
 	  </script>
 
-	  <div class="row">
-	    <div style="display:none;" class="alert-dismissible alert alert-danger" role="alert">
-	     <spring:message code="alert.onlyNumberAllowed"/>
-	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-	    </div>
-	  </div>
+
 	</div>
       </div>
     </div>

@@ -8,6 +8,9 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
 
 public interface BookingDAO extends GenericDAO<Booking>{
 
-	Boolean findBySeat(Seat seat);
+	public Boolean findBySeat(Seat seat);
+
+	public List<Booking> findByTicket(Ticket ticket);
+
 
 }

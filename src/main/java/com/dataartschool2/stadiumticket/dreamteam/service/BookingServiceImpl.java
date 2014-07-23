@@ -18,7 +18,13 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private BookingDAO bookingDAO;
-
+   
+    @Autowired
+    private EventService eventService;
+    
+    @Autowired
+    private TicketService ticketService;
+    
     @Override
     public List<Booking> getBookingsForEventInSector(Integer eventId, Integer sectorId) {
         List<Booking> bookings = bookingDAO.findAll();
@@ -37,7 +43,8 @@ public class BookingServiceImpl implements BookingService {
         return result;
     }
 
-    @Scheduled(fixedDelay = 300000) // 5 minutes
+
+	@Scheduled(fixedDelay = 300000) // 5 minutes
     public void cancelBooking(){
         List<Booking> bookings = bookingDAO.findAll();
         for(Booking booking : bookings){
@@ -49,8 +56,7 @@ public class BookingServiceImpl implements BookingService {
     }
     
 	@Override
-	public boolean BookingSeat(Seat seat) {
-		
+	public boolean BookingSeat(Seat seat) {		
 		return bookingDAO.findBySeat(seat);
 	}
 	
@@ -76,8 +82,19 @@ public class BookingServiceImpl implements BookingService {
 		bookingDAO.updateEntity(booking);
 		
 	}
+	
+	@Override
+	public List<Booking> getBookingsForEvent(Integer eventId){
+		List<Booking> bookingSet = new ArrayList<Booking>();	
+		List<Booking> bookingsAllSet = bookingDAO.findAll();
 
-
+		for(Booking booking : bookingsAllSet){
+			if(booking.getTicket().getEvent().getId().equals(eventId)){
+				bookingSet.add(booking);
+				}
+			}
+		return bookingSet;
+	}
 
     
 }

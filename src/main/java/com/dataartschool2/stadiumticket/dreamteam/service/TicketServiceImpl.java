@@ -2,9 +2,9 @@ package com.dataartschool2.stadiumticket.dreamteam.service;
 
 
 import com.dataartschool2.stadiumticket.dreamteam.dao.TicketDAO;
-
 import com.dataartschool2.stadiumticket.dreamteam.domain.*;
 import com.dataartschool2.stadiumticket.dreamteam.web.SeatsForm;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -17,7 +17,7 @@ import java.util.Objects;
 @Service
 public class TicketServiceImpl implements TicketService {
     
-	@Autowired
+    @Autowired
     private EventService eventService;
     
     @Autowired
@@ -133,4 +133,11 @@ public class TicketServiceImpl implements TicketService {
 			    }      
 
 	}
+
+	@Override
+	public List<Ticket> findByEvent(Event event) {
+		//System.out.println(eventId);
+		return ticketDAO.findByEvent(event);
+	}
+
 }

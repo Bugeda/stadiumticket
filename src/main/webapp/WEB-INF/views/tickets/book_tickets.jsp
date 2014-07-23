@@ -134,11 +134,10 @@
 	    	shape="poly" coords="105,29,141,19,178,17,178,52,191,54,192,119,145,120"/>
 	    <area id="25" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=25"/>" alt="25" title="25" 
 	    	shape="poly" coords="186,32,263,33,266,47,259,46,261,92,303,93,304,109,241,109,238,120,202,119,201,56,201,46,185,46"/>
-	    <area id="26" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=26"/>" alt="vipA" title="vipA" 
+	    <area id="26" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=26"/>" alt="VIP A" title="VIP A" 
 	    	shape="rect" coords="266,32,356,83" />
-	    <area id="27" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=27"/>" alt="vipD" title="vipD" 
-	    	shape="rect" coords="152,472,468,501" />
-	    
+	    <area id="27" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=27"/>" alt="VIP D" title="VIP D" 
+	    	shape="rect" coords="152,472,468,501" />	    
 	  </map>
   </div>
 </div>
