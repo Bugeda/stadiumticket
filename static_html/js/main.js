@@ -209,9 +209,16 @@ $(document).ready(function () {
     $('#disable_inputs > input').attr('disabled','disabled');
 
     // cycle switching between sector price inputs
-    $('#price_25').keypress( function(event) {
-	if (event.keyCode == 9) {
-	    $('#price_26').focus();
+    $('#price_27').keydown( function(event) {
+	if ( (event.keyCode == 9) && (event.shiftKey != true ) ) {
+	    event.preventDefault();
+	    $('#price_1').focus();
+	}
+    });
+    $('#price_1').keydown( function(event) {
+	if ( (event.keyCode == 9) && (event.shiftKey == true ) ) {
+	    event.preventDefault();
+	    $('#price_27').focus();
 	}
     });
 
