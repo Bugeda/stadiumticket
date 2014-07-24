@@ -240,9 +240,17 @@ $(document).ready(function () {
 	for (var row_index = 0; row_index < sector_obj.rows.length; row_index++) {
 	    // iterate through seats in a row
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
-		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',sector_obj.rows[row_index][seat_index]);
+		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',parseInt(row_index+1) +'_'+parseInt(seat_index+1)+" "+ sector_obj.rows[row_index][seat_index]);
 	    }
 	}
+	$('.ticket').each( function() {
+	    if ( $(this).children('td').eq(1).html() == sector_obj.name ) {
+		var row = $(this).children('td').eq(2);
+		var seat = $(this).children('td').eq(3);
+		console.log(sector_name,row,seat);
+		$('.'+ row + '_' + seat).addClass('selected');
+	    }
+	});
     }
 
     // Fetch to server for state of tickets in sector
