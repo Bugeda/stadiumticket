@@ -7,6 +7,7 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,7 +27,8 @@ public class BookingServiceImpl implements BookingService {
     private TicketService ticketService;
     
     @Override
-    public List<Booking> getBookingsForEventInSector(Integer eventId, Integer sectorId) {
+	@Transactional
+    public List<Booking> getAllBookingsForEventInSector(Integer eventId, Integer sectorId) {
         List<Booking> bookings = bookingDAO.findAll();
         List<Booking> result = new ArrayList<Booking>();
 
@@ -43,23 +45,14 @@ public class BookingServiceImpl implements BookingService {
         return result;
     }
 
-
-	@Scheduled(fixedDelay = 300000) // 5 minutes
+	@Scheduled(fixedDelay = 60000) // 1 minute
     public void cancelBooking(){
-        List<Booking> bookings = bookingDAO.findAll();
+        List<Booking> bookings = bookingDAO.findAllBooked();
         for(Booking booking : bookings){
-            if(booking.getBookingStatus().equals(BookingStatus.Booked)){
                 cancelBookingIfNeeded(booking);
-
-            }
         }
     }
-    
-	@Override
-	public boolean BookingSeat(Seat seat) {		
-		return bookingDAO.findBySeat(seat);
-	}
-	
+
     private void cancelBookingIfNeeded(Booking booking) {
         Event event = booking.getTicket().getEvent();
         Date startDate = event.getEventDate();
@@ -72,21 +65,23 @@ public class BookingServiceImpl implements BookingService {
         Date fromNow = calendar.getTime();
 
         if(startDate.before(fromNow)){
-            booking.setBookingStatus(BookingStatus.BookingCancelled);
+        	bookingDAO.cancelBookingInTime(booking);
             bookingDAO.updateEntity(booking);
         }
     }
 
-	@Override
+    @Override
+	@Transactional
 	public void updateBooking(Booking booking) {
 		bookingDAO.updateEntity(booking);
 		
 	}
 	
-	@Override
+    @Override
+	@Transactional
 	public List<Booking> getBookingsForEvent(Integer eventId){
 		List<Booking> bookingSet = new ArrayList<Booking>();	
-		List<Booking> bookingsAllSet = bookingDAO.findAll();
+		List<Booking> bookingsAllSet = bookingDAO.findAllBooked();
 
 		for(Booking booking : bookingsAllSet){
 			if(booking.getTicket().getEvent().getId().equals(eventId)){
@@ -97,14 +92,24 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 
-	@Override
-	public boolean deleteBookingList(Integer[] ids) {
-		boolean result = false;
-	/*	for (Integer id:ids){
-			if (!bookingDAO.deleteEntity(bookingDAO.findById(id))){
-				result
-			}
-		}*/
+    @Override
+	@Transactional
+	public Boolean[] cancelBookingSet(Integer[] ids) {
+		Boolean[] result = new Boolean[ids.length];
+		for (int i=0; i<ids.length; i++){
+			result[i]=bookingDAO.cancelBooking(bookingDAO.findById(ids[i]));
+		}
+		return result;
+	}
+
+
+    @Override
+	@Transactional
+	public Boolean[] sellBookingSet(Integer[] ids) {
+		Boolean[] result = new Boolean[ids.length];
+		for (int i=0; i<ids.length; i++){
+			result[i]=bookingDAO.sellBooking(bookingDAO.findById(ids[i]));
+		}
 		return result;
 	}
 

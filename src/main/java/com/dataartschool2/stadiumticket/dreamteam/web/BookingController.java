@@ -1,30 +1,15 @@
 package com.dataartschool2.stadiumticket.dreamteam.web;
 
-import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
 
-import javax.swing.JOptionPane;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import com.dataartschool2.stadiumticket.dreamteam.domain.Customer;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
-import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 import com.dataartschool2.stadiumticket.dreamteam.service.BookingService;
 import com.dataartschool2.stadiumticket.dreamteam.service.EventService;
 

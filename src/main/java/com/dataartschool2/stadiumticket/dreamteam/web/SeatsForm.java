@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.constraints.Size;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Sector;
 
 public class SeatsForm {
 

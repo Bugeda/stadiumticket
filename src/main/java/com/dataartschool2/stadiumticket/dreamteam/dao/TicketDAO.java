@@ -10,4 +10,8 @@ public interface TicketDAO extends GenericDAO<Ticket>{
 
 	public List<Ticket> findByEvent(Event event);
 
+	public Boolean findByNumber(String ticketNumber);
+
+	public List<Ticket> findSoldTicket();
+
 }

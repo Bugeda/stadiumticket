@@ -3,19 +3,16 @@ package com.dataartschool2.stadiumticket.dreamteam.web;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import com.dataartschool2.stadiumticket.dreamteam.service.*;
-import com.dataartschool2.stadiumticket.dreamteam.web.messageinterpolator.SpringMessageSourceMessageInterpolator;
 import com.dataartschool2.stadiumticket.dreamteam.web.validator.EventValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

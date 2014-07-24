@@ -80,7 +80,6 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    	Criteria crit = getSession().createCriteria(getEntityClass());
        
 	    	for (final Criterion c : criterion) {
-	    		System.out.println(c.toString());
 	    		crit.add(c);
 	    	}
 
@@ -99,12 +98,10 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    	result = crit.list();
 	    }
 	    catch (Exception e) {
-	        System.out.println("null");
 	    	return new ArrayList<EntityClass>();    
 	    	
 	    }		    
 	    if (result.isEmpty()) result = new ArrayList<EntityClass>();
-	    System.out.println("result=");
 		return result;
 	}
 	  

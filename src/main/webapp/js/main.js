@@ -167,10 +167,10 @@ $(document).ready(function () {
     // send requests for cancel or sell tickets by booking id
     function manipulate_with_booked_tickets (action) {
 	if (action == 'sell') {
-	    var base_url = 'url_base_for_selling_tickets_by_id?'; //paste here the correct one
+	    var base_url = '/stadiumticket/booking/sell?'; //paste here the correct one
 	}
 	if (action == 'cancel_booking'){
-	    var base_url = 'url_base_for_cancel_booking_by_id?'; //paste here the correct one
+	    var base_url = '/stadiumticket/booking/cancel?'; //paste here the correct one
 	};
 	var ticket_ids = get_selected_ids();
 	for (id in ticket_ids) {
@@ -183,7 +183,9 @@ $(document).ready(function () {
 	};
 	// fetch for data
 	$.get( base_url, function(response) {
+		  console.log(response);
 	    $('.response').html(response); // output response to block
+	   // debug:print response to console
 	    $('.response').slideDown(); // show block with response
 	});
     };

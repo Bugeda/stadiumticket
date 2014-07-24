@@ -10,14 +10,26 @@ public class BookingRestController {
 
     @Autowired
     private BookingService bookingService;
-   
-    @RequestMapping(value = "/booking/delete", method = RequestMethod.GET)
-    public boolean deleteBooking(@RequestParam("id") Integer[] ids){
-        return bookingService.deleteBookingList(ids);
+    
+    @RequestMapping(value = "/booking/cancel", method = RequestMethod.GET)
+    public  Boolean[] cancelBooking(@RequestParam("id") Integer[] ids){
+     	Boolean[] results=bookingService.cancelBookingSet(ids);
+     	Boolean all=true;
+     	for (Boolean res:results){
+     		all=all&&res;
+     	}
+     	//for message
+        return results;
     }
 
     @RequestMapping(value = "/booking/sell", method = RequestMethod.GET)
-    public boolean sellBooking(@RequestParam("id") Integer[] ids){
-        return bookingService.deleteBookingList(ids);
+    public  Boolean[] sellBooking(@RequestParam("id") Integer[] ids){
+     	Boolean[] results=bookingService.sellBookingSet(ids);
+     	Boolean all=true;
+     	for (Boolean res:results){
+     		all=all&&res;
+     	}
+     	//for message
+        return results;
     }
 }

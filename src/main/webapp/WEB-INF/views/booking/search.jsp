@@ -89,8 +89,8 @@
               </tr>
             </tfoot>
           </table>
-          <input class="btn btn-primary" type="submit" name="submit" value="Sell selection" id="sell_selected_tickets">
-	  	  <input class="btn btn-danger" type="submit" name="submit" value="Cancel booking for selection" id="cancel_booking_selected_tickets">
+			<input class="btn btn-primary" type="submit" name="submit" value="Sell selection" id="sell_selected_tickets">
+			<input class="btn btn-danger" type="submit" name="submit" value="Cancel booking for selection" id="cancel_booking_selected_tickets">
 	  <br><br>
         </div>
       </div>

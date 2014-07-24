@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 
 @Repository  
 @Transactional  

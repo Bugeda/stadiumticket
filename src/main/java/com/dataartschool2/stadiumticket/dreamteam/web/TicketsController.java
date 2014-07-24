@@ -3,11 +3,8 @@ package com.dataartschool2.stadiumticket.dreamteam.web;
 import com.dataartschool2.stadiumticket.dreamteam.domain.*;
 import com.dataartschool2.stadiumticket.dreamteam.service.*;
 
-import org.hibernate.mapping.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -15,11 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.validation.Valid;
 
 
 @Controller
@@ -103,8 +97,7 @@ public class TicketsController {
     public String getBookTickets(@RequestParam("id") Integer eventId, ModelMap modelMap){
     	List<SectorPrice> sectorPrices=sectorPriceService.getPricesSectorsOfEvent(eventService.findById(eventId));
     	modelMap.put("event", eventService.findById(eventId));
-    	modelMap.put("sectorPrices", sectorPrices);
-    
+    	modelMap.put("sectorPrices", sectorPrices);    
         return "/tickets/book_tickets";
     }
 
@@ -113,7 +106,8 @@ public class TicketsController {
     									 @Valid @ModelAttribute("newCustomer") SeatsForm seatsForm,
             							 BindingResult seatsBindingResult,
             							 ModelMap modelMap){   
-        if(seatsBindingResult.hasErrors()){
+         if(seatsBindingResult.hasErrors()){
+
             modelMap.put("result", seatsBindingResult);
             return "/tickets/book_tickets";
         }else{
@@ -126,7 +120,6 @@ public class TicketsController {
         	customer.setCustomerName(seatsForm.getCustomerName());        	
             ticketService.bookTickets(eventId, customer, seatSet);
         }        
-        //return "/tickets/book_tickets";
         return "redirect:/index";
     }
 }

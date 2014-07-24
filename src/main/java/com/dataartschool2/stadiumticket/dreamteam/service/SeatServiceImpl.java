@@ -6,6 +6,7 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class SeatServiceImpl implements SeatService {
 	}
 
 	@Override
+	@Transactional
 	public void updateSeat(Seat seat) {
 		seatDAO.updateEntity(seat);
 		

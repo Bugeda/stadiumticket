@@ -66,6 +66,7 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
+    @Transactional
     public Event createEmptyEvent() {
         Event event = new Event();
 
