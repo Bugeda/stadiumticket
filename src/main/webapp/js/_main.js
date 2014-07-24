@@ -127,7 +127,7 @@ $(document).ready(function () {
 	    if (sector == 'VIP A') {sector_number= 26;}
 	    if (sector == 'VIP D') {sector_number= 27;}
 	    var price = $("#price_" + sector_number).val();
-	    var row = id[0];
+	    var row = parseInt(id[0]);
 	    var seat = parseInt(id[1]);
 	    add_ticket(sector,row,seat,price);
 	};

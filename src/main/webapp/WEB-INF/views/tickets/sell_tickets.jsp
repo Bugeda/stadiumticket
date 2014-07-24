@@ -163,7 +163,7 @@
 <tr>
    <td> <div><%=i %></div> </td>
    <% for (int j=1;j<51;j++) {%>
-   <td id="<%=i %>_<%=j %>"><div><%=j %></div></td>
+   <td class="<%=i %>_<%=j %>"><div><%=j %></div></td>
    <%} %>
 </tr>
 <%} %>
@@ -194,7 +194,7 @@
 <tr>
    <td> <div><%=i %></div> </td>
    <% for (int j=1;j<21;j++) {%>
-   <td id="<%=i %>_<%=j %>"><div><%=j %></div></td>
+   <td class="<%=i %>_<%=j %>"><div><%=j %></div></td>
    <%} %>
 </tr>
 <%} %>
