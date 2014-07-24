@@ -154,15 +154,26 @@ $(document).ready(function () {
 	$('#total_price').html(total_price);
     });
 
-    //get list of currently selected ticket
+    // select all checkbox handling
+    $('#select_all').change( function() {
+	var total_price = 0;
+	var state = $(this)[0].checked;
+	$('.ticket input').each(function (){
+	    $(this)[0].checked = state;
+	    if (state) {   total_price += parseInt($(this).parents().siblings('.ticket_price').html() ); }
+	    else { total_price = 0; }
+	});
+	$('#total_price').html(total_price);
+    });
+
+    //get list of currently selected tickets
     function get_selected_ids() {
 	var selected_ids = [];
-	$('input[type=checkbox]:checked').each(function (){
+	$('.ticket input[type=checkbox]:checked').each(function (){
 	    selected_ids.push($(this).parents().siblings('.booking_id').html());
 	});
 	return selected_ids;
     }
-
 
     // send requests for cancel or sell tickets by booking id
     function manipulate_with_booked_tickets (action) {
