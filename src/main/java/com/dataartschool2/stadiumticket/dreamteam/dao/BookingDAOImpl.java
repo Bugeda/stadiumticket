@@ -1,17 +1,15 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Booking;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
+import com.dataartschool2.stadiumticket.dreamteam.domain.BookingStatus;
+import com.dataartschool2.stadiumticket.dreamteam.domain.SeatStatus;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
 
 @Repository  
@@ -19,10 +17,44 @@ import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
 public class BookingDAOImpl extends GenericDAOImpl<Booking> implements BookingDAO {
 
 	@Override
-	public Boolean findBySeat(Seat seat) {
-		Criterion criterion = Restrictions.eq("seat", seat);   
-		List<Booking> bookingSet=findByCriteria(criterion);
-		return (bookingSet.equals(null));
+	public List<Booking> findByTicket(Ticket ticket) {
+		Criterion criterion = Restrictions.eq("ticket", ticket);  
+		return findByCriteria(criterion);
+	}	
+	
+	@Override
+	public List<Booking> findAllBooked() {
+		Criterion criterion = Restrictions.eq("bookingStatus", BookingStatus.Booked);  
+		return findByCriteria(criterion);
+	}
+
+	@Override
+	public Boolean cancelBooking(Booking booking) {
+	    return changeBookingState(booking,BookingStatus.BookingCancelled,SeatStatus.vacant);
+	}
+
+	@Override
+	public Boolean cancelBookingInTime(Booking booking) {
+	    return changeBookingState(booking,BookingStatus.BookingTimeIsOver,SeatStatus.vacant);
+	}
+	
+	@Override
+	public Boolean sellBooking(Booking booking) {
+	    return changeBookingState(booking,BookingStatus.BookingRedeemed,SeatStatus.occupied);
+	}
+
+	private Boolean changeBookingState(Booking booking, BookingStatus bookingStatus,SeatStatus seatStatus){		
+		Boolean result=false;
+		BookingStatus backBookingStatus = booking.getBookingStatus();
+		SeatStatus backSeatStatus = booking.getTicket().getSeatStatus();
+		booking.setBookingStatus(bookingStatus);
+		booking.getTicket().setSeatStatus(seatStatus);
+		result = (booking.getBookingStatus().equals(bookingStatus) &&(booking.getTicket().getSeatStatus().equals(seatStatus)));
+		 if (!result){
+		    	booking.setBookingStatus(backBookingStatus);
+		 	    booking.getTicket().setSeatStatus(backSeatStatus);	
+		    }
+		 return result;			
 	}
 
 }

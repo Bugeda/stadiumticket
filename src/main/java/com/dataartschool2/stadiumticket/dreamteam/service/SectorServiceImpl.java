@@ -41,8 +41,8 @@ public class SectorServiceImpl implements SectorService {
     }
     
     @Override
+    @Transactional
     public SectorStatus getSectorStatus(Integer eventId, Integer sectorId) {
-
         SectorStatus sectorStatus = new SectorStatus();
 
         String sectorName = getSectorName(sectorId);
@@ -71,8 +71,7 @@ public class SectorServiceImpl implements SectorService {
     }
     
     private void addBookedTickets(Integer eventId, Integer sectorId, List<List<SeatStatus>> seatsStatuses) {
-
-        List<Booking> bookedTickets = bookingService.getBookingsForEventInSector(eventId, sectorId);
+        List<Booking> bookedTickets = bookingService.getAllBookingsForEventInSector(eventId, sectorId);
 
         for (Booking booking : bookedTickets) {
             BookingStatus bookingStatus = booking.getBookingStatus();
@@ -82,9 +81,8 @@ public class SectorServiceImpl implements SectorService {
             int rowsNumber = seat.getRowNumber();
             int seatNumber = seat.getSeatNumber();
             List<SeatStatus> rowStatus = seatsStatuses.get(rowsNumber - 1);
-
+            
             switch (bookingStatus) {
-                case Sold:
                 case BookingRedeemed:
                     rowStatus.set(seatNumber - 1, SeatStatus.occupied);
                     break;
@@ -96,7 +94,6 @@ public class SectorServiceImpl implements SectorService {
     }
 
     private void addSoldTickets(Integer eventId, Integer sectorId, List<List<SeatStatus>> seatsStatuses) {
-
         List<Ticket> soldTickets = ticketService.getSoldTicketsBySector(eventId, sectorId);
         for (Ticket ticket : soldTickets) {
             Seat seat = ticket.getSeat();
@@ -125,7 +122,6 @@ public class SectorServiceImpl implements SectorService {
     }
 
     private List<List<SeatStatus>> getSeatsStatus(Integer eventId, Integer sectorId) {
-
         List<List<SeatStatus>> seatsStatuses = initWithAllFreeSeats(sectorId);
         addSoldTickets(eventId, sectorId, seatsStatuses);
         addBookedTickets(eventId, sectorId, seatsStatuses);
@@ -133,7 +129,6 @@ public class SectorServiceImpl implements SectorService {
     }
 
     private String getSectorName(Integer sectorId) {
-
         Sector sector = sectorDAO.findById(sectorId);
         return sector.getName();
     }

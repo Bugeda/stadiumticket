@@ -14,15 +14,11 @@ import java.util.List;
 @Service
 public interface TicketService {
 
-	public List<Ticket> getSoldTicketsBySector(Integer eventId, Integer sectorId);
+    public List<Ticket> getSoldTicketsBySector(Integer eventId, Integer sectorId);
 
     public void sellTickets(Integer eventId, SeatsForm seatsForm);
 
     public void bookTickets(Integer eventId, Customer customer, List<Seat> chosenSeats);
 
     public List<Ticket> getAllTickets(Integer eventId);
-
-
-
-
 }

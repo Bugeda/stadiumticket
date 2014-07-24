@@ -16,7 +16,6 @@ public class TicketsRestController {
     @RequestMapping(value = "/tickets/get_sector_seats", method = RequestMethod.GET)
     public SectorStatus getSectorStatus(@RequestParam("event") Integer eventId,
                                         @RequestParam("sector") Integer sectorId){
-
         return sectorService.getSectorStatus(eventId, sectorId);
     }
 }

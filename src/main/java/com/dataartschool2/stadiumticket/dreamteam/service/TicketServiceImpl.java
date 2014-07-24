@@ -2,13 +2,13 @@ package com.dataartschool2.stadiumticket.dreamteam.service;
 
 
 import com.dataartschool2.stadiumticket.dreamteam.dao.TicketDAO;
-
 import com.dataartschool2.stadiumticket.dreamteam.domain.*;
 import com.dataartschool2.stadiumticket.dreamteam.web.SeatsForm;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,9 @@ import java.util.Objects;
 public class TicketServiceImpl implements TicketService {
     
 	@Autowired
+	private ApplicationContext appContext;
+	
+    @Autowired
     private EventService eventService;
     
     @Autowired
@@ -34,8 +37,9 @@ public class TicketServiceImpl implements TicketService {
 
     
     @Override
+    @Transactional
     public List<Ticket> getSoldTicketsBySector(Integer eventId, Integer sectorId) {
-        List<Ticket> tickets = ticketDAO.findAll();
+        List<Ticket> tickets = ticketDAO.findSoldTicket();
 
         List<Ticket> result = new ArrayList<Ticket>();
 
@@ -52,6 +56,7 @@ public class TicketServiceImpl implements TicketService {
     }
     
     @Override
+    @Transactional
     public List<Ticket> getAllTickets(Integer eventId) {
         List<Ticket> tickets = new ArrayList<Ticket>();
         tickets = ticketDAO.findAll();
@@ -71,11 +76,11 @@ public class TicketServiceImpl implements TicketService {
     }
     
     @Override
+    @Transactional
     public void sellTickets(Integer eventId, SeatsForm seatsForm) {
 
         seatsForm.getChosenSeats().remove(0);
         seatsForm.getChosenSectorsNums().remove(0);
-        seatsForm.setEventId(eventId);
 
         Event event  = eventService.findById(eventId);
         List<Seat> chosenSeats = seatsForm.getChosenSeats();
@@ -94,25 +99,30 @@ public class TicketServiceImpl implements TicketService {
             ticket.setEvent(event);
             ticket.setSeat(seat);
             String ticketNumber = generateTicketNumber(event, seat);
-            ticket.setTicketNumber(ticketNumber);
+            
+            if (!ticketDAO.findByNumber(ticketNumber)){
+            	
+            ticket.setSeatStatus(SeatStatus.occupied);
+            ticket.setTicketNumber(ticketNumber);            
             ticketDAO.updateEntity(ticket);
+            } else {
+              	throw new RuntimeException(appContext.getMessage("error.ticketExist", new Object[]{}, null));
+            }
         }
     }
-    
-    
 
     private String generateTicketNumber(Event event, Seat seat) {
         return Integer.toString(Objects.hash(event, seat));
     }
-
+    
     public void checkTickets(List<Ticket> ticketSet, Ticket ticket){
     	if (ticketSet.contains(ticket)&&(!ticket.getSeatStatus().equals(SeatStatus.vacant))){
-      	    ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/root-context.xml");
-        	throw new RuntimeException(applicationContext.getMessage("error.ticketExist", new Object[]{}, null));
+         	throw new RuntimeException(appContext.getMessage("error.ticketExist", new Object[]{}, null));
     	}
     }
     
-	@Override
+    @Override
+    @Transactional
     public void bookTickets(Integer eventId, Customer customer, List<Seat> chosenSeats){   
 
 		List<Ticket> AllTickets = getAllTickets(eventId);
@@ -126,11 +136,15 @@ public class TicketServiceImpl implements TicketService {
 	            ticket.setTicketNumber(ticketNumber);
 	            checkTickets(AllTickets, ticket);
 	            ticket.setSeatStatus(SeatStatus.booked);
-	            ticketDAO.updateEntity(ticket);
-	            seatService.updateSeat(seat);
-	     	    Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
-			    bookingService.updateBooking(booking);
-			    }      
 
+	     	    Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
+	     		Boolean booked = (booking.getBookingStatus().equals(BookingStatus.Booked) &&(booking.getTicket().getSeatStatus().equals(SeatStatus.booked)));
+	     		if (booked){
+	            ticketDAO.updateEntity(ticket);
+	            seatService.updateSeat(seat);  	    
+			    bookingService.updateBooking(booking);
+	     		}
+			    }      
 	}
+
 }

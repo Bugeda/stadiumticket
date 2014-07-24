@@ -13,7 +13,7 @@ import java.util.Map;
 @ControllerAdvice()
 public class ExceptionAdvice {
 
-    @ExceptionHandler( RuntimeException.class)
+    @ExceptionHandler(RuntimeException.class)
     public ModelAndView runtimeExceptionHandler(Exception exception){
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("errorMessage", exception.getMessage());
