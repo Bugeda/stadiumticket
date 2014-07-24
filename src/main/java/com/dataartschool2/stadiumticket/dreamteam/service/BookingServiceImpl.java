@@ -96,5 +96,17 @@ public class BookingServiceImpl implements BookingService {
 		return bookingSet;
 	}
 
+
+	@Override
+	public boolean deleteBookingList(Integer[] ids) {
+		boolean result = false;
+	/*	for (Integer id:ids){
+			if (!bookingDAO.deleteEntity(bookingDAO.findById(id))){
+				result
+			}
+		}*/
+		return result;
+	}
+
     
 }

@@ -60,16 +60,9 @@ public class BookingController{
     
 	@RequestMapping(value = "/booking/search", method = RequestMethod.GET)
 	public String getBookiedTickets(@RequestParam("id") Integer eventId, ModelMap modelMap){
-
 	   	modelMap.put("bookingSet", bookingService.getBookingsForEvent(eventId));
 	   	modelMap.put("event", eventService.findById(eventId));
-	       return "/booking/search";
-	}
-
-	 @RequestMapping(value = "/booking/search/}", method = RequestMethod.POST)
-	    public String submit_sellCancellBooking(@ModelAttribute("id") Integer[] ids){   
-
-	        return "/booking/search";
-	    }
+	   	return "/booking/search";
+	}	
 	 
 }
