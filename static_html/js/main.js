@@ -192,10 +192,25 @@ $(document).ready(function () {
 		base_url = base_url + 'id=' + ticket_ids[id]+ '&';
 	    };
 	};
-	// fetch for data
+
+	// fetch for data to server
 	$.get( base_url, function(response) {
-	    $('.response').html(response); // output response to block
-	    $('.response').slideDown(); // show block with response
+	    $('.alert').html('');
+	    for (index in response) {
+		if (response[index]) {
+		    //remove ticket from list if we get true
+		    $('.ticket')[index].remove();
+		}
+		else {
+		    //leave ticket if we get false, fire up error message
+		    $('.alert').append('Detected problem with booking id(s):<br> ');
+		    $('.alert').append('<b>',ticket_ids[index], response[index],'</b><br>'); // output response to block
+		    $('.modal').modal(); // show block with response
+		    setTimeout(function(){
+			$('.modal').modal('hide')
+		    }, 2000);
+		}
+	    }
 	});
     };
 
@@ -247,7 +262,6 @@ $(document).ready(function () {
 	    if ( $(this).children('td').eq(1).html() == sector_obj.name ) {
 		var row = $(this).children('td').eq(2);
 		var seat = $(this).children('td').eq(3);
-		console.log(sector_name,row,seat);
 		$('.'+ row + '_' + seat).addClass('selected');
 	    }
 	});
