@@ -80,6 +80,8 @@ public class TicketsController {
             modelMap.put("result", seatsBindingResult);
             return "redirect:/tickets/sell?id="+eventId;
         }else{
+          	seatsForm.getChosenSeats().remove(0);
+        	seatsForm.getChosenSectorsNums().remove(0);
             ticketService.sellTickets(eventId, seatsForm);
             return "redirect:/";
         }
@@ -112,13 +114,10 @@ public class TicketsController {
             return "/tickets/book_tickets";
         }else{
           	seatsForm.getChosenSeats().remove(0);
-        	seatsForm.getChosenSectorsNums().remove(0);
-         	List<Sector> sectorSet=sectorService.createSectorsListFromNums(seatsForm.getChosenSectorsNums());  
-            List<Seat> seatSet = seatService.modifySeatSet(seatsForm.getChosenSeats().size(), seatsForm.getChosenSeats(), sectorSet);
-
-         	Customer customer =  new Customer();
-        	customer.setCustomerName(seatsForm.getCustomerName());        	
-            ticketService.bookTickets(eventId, customer, seatSet);
+        	seatsForm.getChosenSectorsNums().remove(0);         
+         	//Customer customer =  new Customer();
+        	//customer.setCustomerName(seatsForm.getCustomerName());        	
+            ticketService.bookTickets(eventId, seatsForm);
         }        
         return "redirect:/index";
     }

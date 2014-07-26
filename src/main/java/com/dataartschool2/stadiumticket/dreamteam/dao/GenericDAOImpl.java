@@ -43,7 +43,7 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	}
 	//CRUD
 	public EntityClass updateEntity(EntityClass entity) {
-	    getSession().saveOrUpdate(entity);
+		getSession().saveOrUpdate(entity);
 		return entity;
 	}  
 	//
@@ -53,8 +53,7 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 			 getSession().delete(entity);
 		 }
 		 catch (Exception e) { 	    	
-		    //	System.out.println(e.getMessage());
-		    }
+		 }
 	}  
 	
 	@SuppressWarnings("unchecked")
@@ -68,7 +67,6 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    return findByCriteria();  
 	}  
 	protected List<EntityClass> findByCriteria(final Criterion... criterion) {
-		System.out.println(criterion.toString());	
 		return findByCriteria(-1, -1, null, criterion);
 	}
 	@SuppressWarnings("unchecked")
@@ -98,10 +96,9 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    	result = crit.list();
 	    }
 	    catch (Exception e) {
-	    	return new ArrayList<EntityClass>();    
+ 
 	    	
 	    }		    
-	    if (result.isEmpty()) result = new ArrayList<EntityClass>();
 		return result;
 	}
 	  
@@ -121,7 +118,6 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	  	  	result = (Integer) crit.list().get(0);
 	    }
 	    catch (Exception e) {
-	    //	System.out.println(e.getMessage());
 	    }		   
 		return result;
 	}

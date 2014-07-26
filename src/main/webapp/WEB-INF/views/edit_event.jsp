@@ -44,8 +44,8 @@
 		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
 		<spring:message code="editevent.pageTitle" />
 	   </h3>
-	   <h2 id="event_name"><c:out value="${event.eventName}"></c:out>
-	 </div>
+	   <h2 id="event_name"><c:out value="${editEvent.eventName}"></c:out></h2>
+	 </div>   
 	 </div>
     
     <div class="row">
@@ -54,7 +54,7 @@
 	    <div class="form-group">
 	      <label for="title"><spring:message code="event.hName" />:</label>
 	      <spring:message code="event.hName.hint" var="msg"/>
-	      <form:input class="form-control"  path="eventName" id="title" title="${msg}" placeholder="${msg}"/>
+	      <form:input class="form-control"  path="eventName" id="title" title="${msg}" placeholder="${msg}" maxlength="50"/>
 	      <form:errors path="eventName" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">

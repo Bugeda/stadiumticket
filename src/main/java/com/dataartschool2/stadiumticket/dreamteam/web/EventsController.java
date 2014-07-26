@@ -28,7 +28,7 @@ import java.util.Map;
 
 @Controller
 public class EventsController{
-	
+
 	@Autowired
 	private ApplicationContext appContext;
 	  
@@ -85,7 +85,7 @@ public class EventsController{
 	}
 	
     @RequestMapping(value = "index", method = RequestMethod.GET)
-    public String getActiveEvents(ModelMap map,  Model model) {   	
+    public String getActiveEvents(ModelMap map,  Model model) {  
     	model.asMap().clear();
     	List<Event> allEvents = eventService.getFutureEvents();    
     	map.put("events", allEvents);
@@ -144,7 +144,6 @@ public class EventsController{
                     		"event message", JOptionPane.ERROR_MESSAGE);
                     modelMap.put("result", bindingResult);       
                     return "edit_event";
-                    //return "redirect:/edit_event?id="+event.getId();
                 }else{
                     eventService.updateEvent(event);            
                     JOptionPane.showMessageDialog(null, appContext.getMessage("message.changesAreApplied", new Object[]{}, null),
