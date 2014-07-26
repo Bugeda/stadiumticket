@@ -41,7 +41,7 @@
 	<div class="col-xs-1 col-md-1"><a href="<c:url value="index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
 	   <h3>
-		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png" title="<spring:message code="index.pageTitle" />"></a>&nbsp;
 		<spring:message code="editevent.pageTitle" />
 	   </h3>
 	   <h2 id="event_name"><c:out value="${editEvent.eventName}"></c:out></h2>
@@ -61,7 +61,7 @@
             <fmt:formatDate value="${editEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate"/>
 	      <label for="eventDate"><spring:message code="event.hDatetime" />:</label>
 	      <spring:message code="event.hDatetime.hint" var="msg"/>
-	      <input class="form-control"  name="eventDate"  id="start" type="text" value="${formattedDate}" title="${msg}" placeholder="${msg}"  maxlength="16"/>
+	      <input class="form-control"  name="eventDate"  id="start" type="text" value="${formattedDate}" title="${msg}" placeholder="${msg}"  maxlength="0"/>
 	      <form:errors path="eventDate" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
@@ -84,9 +84,12 @@
 	 	<form:hidden id="id" path="id"/>
 	    </div>
 	    <div class="form-group">
-	      <input class="btn btn-primary" type="submit" name="submit" value="Save event" id="event_save">
-	 	  <input class="btn btn-warning" type="submit" name="submit" value="Cancel changes" id="event_cancel">
-   	      <input class="btn btn-danger" type="button" value="Delete event" id="event_delete">
+	      <spring:message code="event.submit" var="msg"/>
+	      <input class="btn btn-primary" type="submit" name="submit" value="${msg}" id="event_save">
+	 	  <spring:message code="event.cancel" var="msg"/>
+	 	  <input class="btn btn-warning" type="submit" name="submit" value="${msg}" id="event_cancel">
+	 	  <spring:message code="event.delete" var="msg"/>
+   	      <input class="btn btn-danger" type="button" value="${msg}" id="event_delete">
 	    </div>
       </form:form>
 
@@ -98,8 +101,10 @@
 	 		<form:hidden id="id" path="id"/>
 			<spring:message code="event.deleteEventMsg.confirm" var="msg"/>
 			<input class="form-control" type="text" name="confirm_delete" id="confirm_deletion_text" maxlength="10" size="15" placeholder="${msg}"><br>
-			<input class="btn btn-danger"  type="submit" value="Ok, delete event" id="confirm_deletion">
-			<input class="btn btn-warning" type="button" value="Cancel deletion" id="cancel_deletion">
+			<spring:message code="event.confirmDelete" var="msg"/>
+			<input class="btn btn-danger"  type="submit" value="${msg}" id="confirm_deletion">
+			<spring:message code="event.cancelDelete" var="msg"/>
+			<input class="btn btn-warning" type="button" value="${msg}" id="cancel_deletion">
 	      </div>
 	      <div class="alert-error alert-dismissable" id="wrong_confirmation" role="alert">
 		  <spring:message code="event.deleteEventMsg.alarm"/>
@@ -140,8 +145,8 @@
 		<area id="23" alt="23" title="23" href="" shape="poly" coords="126,134,129,130,132,126,136,124,139,123,98,33,88,37,82,42,75,46,66,54,58,62,49,73,42,84,38,90,35,95"/>
 		<area id="24" alt="24" title="24" href="" shape="poly" coords="192,121,146,121,103,29,111,26,122,23,132,21,143,19,156,19,166,19,175,18,180,18,179,54,192,54"/>
 		<area id="25" alt="25" title="25" href="" shape="poly" coords="185,47,200,47,201,120,240,119,240,110,304,110,304,93,261,93,260,55,266,55,266,47,266,33,185,33"/>       
-		<area id="26" alt="vipA" title="vipA" href="" shape="rect" coords="266,33,357,83"/>
-		<area id="27" alt="vipD" title="vipD" href="" shape="rect" coords="154,473,469,501"/>
+		<area id="26" alt="VIP A" title="VIP A" href="" shape="rect" coords="266,33,357,83"/>
+		<area id="27" alt="VIP D" title="VIP D" href="" shape="rect" coords="154,473,469,501"/>
 	  </map>
 	  <br>
 
@@ -172,18 +177,7 @@
 	    max: NaN,
 	    min: NaN
 	    });
-	    
-	    $('#start').numeric({
-		allowPlus: false,
-		allowMinus: true,
-		allowThouSep: false,
-		allowDecSep: false,
-		allowLeadingSpaces: false,
-		maxDigits: 5,
-		max: NaN,
-		min: NaN
-		});
-	    
+	        
 	    $('#duration_time').numeric({
 		allowPlus: false,
 		allowMinus: true,

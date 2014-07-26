@@ -109,14 +109,11 @@ public class TicketsController {
             							 BindingResult seatsBindingResult,
             							 ModelMap modelMap){   
          if(seatsBindingResult.hasErrors()){
-
             modelMap.put("result", seatsBindingResult);
             return "/tickets/book_tickets";
         }else{
           	seatsForm.getChosenSeats().remove(0);
-        	seatsForm.getChosenSectorsNums().remove(0);         
-         	//Customer customer =  new Customer();
-        	//customer.setCustomerName(seatsForm.getCustomerName());        	
+        	seatsForm.getChosenSectorsNums().remove(0);              	
             ticketService.bookTickets(eventId, seatsForm);
         }        
         return "redirect:/index";

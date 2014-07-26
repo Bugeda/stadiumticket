@@ -14,17 +14,21 @@ $(document).ready(function () {
 	dayOfWeekStart: 1
     });
 
-    // $('#booking_time').datetimepicker({
-    // 	lang:'en',
-    // 	datepicker:false,
-    // 	value: 30,
-    // 	step:5,
-    // 	format: 'i',
-    // 	formatTime: 'i'
-    // });
-
     // 3. dataTables
     $('#event_list').dataTable({
+	language: {
+	    "search": "Фильтровать список:",
+	    "paginate": {
+		"first":      "Первая",
+		"previous":   "Предыдущая",
+		"next":       "Следующая",
+		"last":       "Последняя"
+            },
+	    "info": "Страница _PAGE_ из _PAGES_",
+	    "lengthMenu": "Показать _MENU_ строк",
+	    "zeroRecords":    "Ничего не найдено",
+	    "infoFiltered":   "(отсеяно из _MAX_ событий)"
+	},
 	"paging": true,
 	"stateSave": true,
 	"autoWidth": true,
@@ -32,6 +36,20 @@ $(document).ready(function () {
     });
 
     $('#booking_search_results').dataTable({
+	language: {
+	    "search": "Фильтровать список:",
+	    "paginate": {
+		"first":      "Первая",
+		"previous":   "Предыдущая",
+		"next":       "Следующая",
+		"last":       "Последняя"
+            },
+	    "info": "Страница _PAGE_ из _PAGES_",
+	    "zeroRecords":    "Ничего не найдено",
+	    "lengthMenu": "Показать _MENU_ строк",
+	    "info":           "Показано _TOTAL_шт.  ",
+	    "infoFiltered":   "(из _MAX_ билетов)"
+	},
 	"paging": false,
 	"stateSave": true,
 	"autoWidth": true,
@@ -99,14 +117,14 @@ $(document).ready(function () {
     };
 
     //add ticket to list
-    function add_ticket(sector, sector_number, row, seat,price) {
+    function add_ticket(sector, row, seat,price) {
 	$('#ticket_list').append("<tr class=\"ticket\"><td class=\"ticket_number\"></td>"+"<td>"
 				 + sector +"</td>"
 				 + "<td>"+ row + "</td>"
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ price + "</td>"
 				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
-				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector_number+">"
+				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector+">"
 				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
  				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+seat+"></td></tr>" );
 	recalculate_price_and_index();
@@ -128,17 +146,20 @@ $(document).ready(function () {
 	    if (sector == 'VIP D') {sector_number= 27;}
 	    var price = $("#price_" + sector_number).val();
 	    var row = id[0];
-	    var seat = parseInt(id[1]);	  
-	    add_ticket(sector,sector_number,row,seat,price);
+	    var seat = parseInt(id[1]);
+	    add_ticket(sector,row,seat,price);
 	};
     });
 
     // delete ticket by clicking '-' button
     $('#ticket_list').on('click', '.delete_ticket', function () {
         var ticket = $(this).closest('td').siblings().map(function () { return $(this).text()});
-	var id = (ticket[2]+'_'+ticket[3]);
-	$('#'+id).toggleClass('selected');
-	$(this).closest('.ticket').remove();
+	var seat = (ticket[2]+'_'+ticket[3]);
+	// remove selection from seats plan if it is currently displayed
+	if ( ticket[1] == $('.sector_name').html() ) {
+	    $('.'+seat).toggleClass('selected');
+	    $(this).closest('.ticket').remove();
+	}
 	recalculate_price_and_index();
     });
 
@@ -175,7 +196,6 @@ $(document).ready(function () {
 	return selected_ids;
     }
 
-
     // send requests for cancel or sell tickets by booking id
     function manipulate_with_booked_tickets (action) {
 	if (action == 'sell') {
@@ -211,7 +231,6 @@ $(document).ready(function () {
 			$('.modal').modal('hide')
 		    }, 2000);
 		}
-
 	    }
 	});
     };
@@ -257,9 +276,10 @@ $(document).ready(function () {
 	for (var row_index = 0; row_index < sector_obj.rows.length; row_index++) {
 	    // iterate through seats in a row
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
-		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',parseInt(row_index+1) +'_'+parseInt(seat_index+1) +" " + sector_obj.rows[row_index][seat_index]);
+		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',parseInt(row_index+1) +'_'+parseInt(seat_index+1)+" "+ sector_obj.rows[row_index][seat_index]);
 	    }
 	}
+	// add currently selected tickets to sector plan when redraw it
 	$('.ticket').each( function() {
 	    if ( $(this).children('td').eq(1).html() == sector_obj.name ) {
 		var row = $(this).children('td').eq(2);
@@ -268,7 +288,6 @@ $(document).ready(function () {
 	    }
 	});
     }
-
 
     // Fetch to server for state of tickets in sector
     $('area').click( function(e) {
@@ -295,5 +314,4 @@ $(document).ready(function () {
     });
     // END Working with staduim plan section
 
-  
 });
