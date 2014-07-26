@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class EventServiceImpl implements EventService{
 
     public static final int SECTORS_COUNT = 27;
+    public static final long ONE_MINUTE_IN_MILLIS=60000;
     
     @Autowired
 	private EventDAO eventDAO;
@@ -37,8 +39,25 @@ public class EventServiceImpl implements EventService{
 
     @Override
 	@Transactional
-	public Event updateEvent(Event event){
-		return eventDAO.updateEntity(event);
+	public Event updateEvent(Event newEvent){
+    	Event result = null;   	
+    	Date newEventStart = newEvent.getEventDate();
+    	Date newEventEnd = newEvent.getEventDate();
+    	newEventEnd = new Date(newEvent.getEventDate().getTime()+newEvent.getDurationTime()*ONE_MINUTE_IN_MILLIS);
+    	Date exEventStart = null;
+    	Date exEventEnd = null;
+    	List<Event> existsEvent = eventDAO.findAll();
+    	Boolean isEx = true;
+    	for (Event ex:existsEvent){
+    		exEventStart = ex.getEventDate();    	
+    		exEventEnd = new Date(ex.getEventDate().getTime()+ex.getDurationTime()*ONE_MINUTE_IN_MILLIS);    		
+    		if (!(newEventEnd.before(exEventStart)||newEventStart.after(exEventEnd))){
+    			isEx=false;
+    			break;
+    		}    		
+    	}
+    	if (isEx) result = eventDAO.updateEntity(newEvent);
+		return result;
 	}
 	
 	@Override

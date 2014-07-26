@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.*;
-import com.dataartschool2.stadiumticket.dreamteam.service.*;
 import com.dataartschool2.stadiumticket.dreamteam.web.SeatsForm;
 
 import static org.junit.Assert.*;

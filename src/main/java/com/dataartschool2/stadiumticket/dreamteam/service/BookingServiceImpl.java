@@ -57,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
         Event event = booking.getTicket().getEvent();
         Date startDate = event.getEventDate();
 
-        int minutes = event.getBookingCanceltime();
+        int minutes = event.getBookingCancelTime();
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);

@@ -46,7 +46,6 @@ public class TicketServiceImpl implements TicketService {
     @Transactional
     public List<Ticket> getSoldTicketsBySector(Integer eventId, Integer sectorId) {
         List<Ticket> tickets = ticketDAO.findSoldTickets();
-        
         List<Ticket> result = new ArrayList<Ticket>();
 
         for(Ticket ticket : tickets){

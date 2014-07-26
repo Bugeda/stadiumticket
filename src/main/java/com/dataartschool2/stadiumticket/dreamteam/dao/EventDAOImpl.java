@@ -33,6 +33,12 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 		List<Event> events=findByCriteria(criterion1, criterion2);
 		return events;
 	}
+
+	@Override
+	public Event findByName(String eventName) {
+		Criterion criterion= Restrictions.ge("eventName", eventName); 
+		return (Event) findByCriteria(criterion);
+	}
 	  
 
 }

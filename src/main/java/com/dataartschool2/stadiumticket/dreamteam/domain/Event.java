@@ -29,11 +29,15 @@ public class Event {
     @Future(message = "error.futureDate")
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     private Date eventDate;
+    
+    @NotNull(message = "error.notNull")
+    @Min(value = 1, message = "error.greaterZero")
+    private Integer bookingCancelTime;
 
     @NotNull(message = "error.notNull")
-    @Min(value = 1, message = "error.notPositivePrice")
-    private Integer bookingCanceltime;
-
+    @Min(value = 1, message = "error.greaterZero")
+    private Integer durationTime;
+    
     private boolean isDelete;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -41,11 +45,12 @@ public class Event {
 
     public Event(){}
    
-    public Event(int id, String eventName, Timestamp eventDate, int bookingCanceltime, List<SectorPrice> sectorPriceSet) {
+    public Event(int id, String eventName, Timestamp eventDate, Integer bookingCancelTime, Integer durationTime, List<SectorPrice> sectorPriceSet) {
         this.id = id;
         this.eventName = eventName;
         this.eventDate = eventDate; 
-        this.bookingCanceltime = bookingCanceltime;
+        this.bookingCancelTime = bookingCancelTime;
+        this.durationTime = durationTime;
         this.sectorPriceSet = sectorPriceSet;
     }
 
@@ -66,7 +71,6 @@ public class Event {
         if (eventName != null ? !eventName.equals(event.eventName) : event.eventName != null) {
             return false;
         }
-
         return true;
     }
 
@@ -101,12 +105,20 @@ public class Event {
         this.eventDate = eventDate;
     }
 
-	public Integer getBookingCanceltime() {
-		return bookingCanceltime;
+	public Integer getBookingCancelTime() {
+		return bookingCancelTime;
 	}
 
-	public void setBookingCanceltime(Integer bookingCanceltime) {
-		this.bookingCanceltime = bookingCanceltime;
+	public void setBookingCancelTime(Integer bookingCancelTime) {
+		this.bookingCancelTime = bookingCancelTime;
+	}
+
+	public Integer getDurationTime() {
+		return durationTime;
+	}
+
+	public void setDurationTime(Integer durationTime) {
+		this.durationTime = durationTime;
 	}
 
 	public boolean isDelete() {

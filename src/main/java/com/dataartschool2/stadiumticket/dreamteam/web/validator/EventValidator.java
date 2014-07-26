@@ -39,7 +39,7 @@ public class EventValidator implements Validator{
     private boolean validatePrice(SectorPrice sectorPrice, Errors errors) {
         Double price = sectorPrice.getPrice();
         if(price == null){
-            errors.rejectValue("sectorPriceSet", "error.pricesMustBeFilled");
+            errors.rejectValue("sectorPriceSet", "error.pricesMustBeSpecified");
             return false;
            
         }else {

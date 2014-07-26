@@ -61,14 +61,20 @@
             <fmt:formatDate value="${editEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate"/>
 	      <label for="eventDate"><spring:message code="event.hDatetime" />:</label>
 	      <spring:message code="event.hDatetime.hint" var="msg"/>
-	      <input class="form-control"  name="eventDate"  id="start" type="text" value="${formattedDate}" title="${msg}" placeholder="${msg}"/>
+	      <input class="form-control"  name="eventDate"  id="start" type="text" value="${formattedDate}" title="${msg}" placeholder="${msg}"  maxlength="16"/>
 	      <form:errors path="eventDate" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
 	      <label for="booking_time" id="label_booking"><spring:message code="event.hBooking" />:</label>
 	      <spring:message code="event.hBooking.hint" var="msg"/>
-	      <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time" title="${msg}" placeholder="${msg}"/>
-	      <form:errors path="bookingCanceltime" cssClass="alert-danger" />
+	      <form:input class="form-control" type="text" path="bookingCancelTime" id="booking_time" title="${msg}" placeholder="${msg}"/>
+	      <form:errors path="bookingCancelTime" cssClass="alert-danger" />
+	    </div>
+	   <div class="form-group">
+	      <label for="booking_time" id="label_duration"><spring:message code="event.hDuration" />:</label>
+	      <spring:message code="event.hDuration.hint" var="msg"/>
+	      <form:input class="form-control" type="text" path="durationTime" id="duration_time" title="${msg}" placeholder="${msg}"/>
+	      <form:errors path="durationTime" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
 	      <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />
@@ -140,7 +146,7 @@
 	  <br>
 
 	  <script type="text/javascript">
-    	    $('#price_1, #price_2, #price_3, #price_4, #price_5, #price_6, #price_7, #price_8, ' +
+    	$('#price_1, #price_2, #price_3, #price_4, #price_5, #price_6, #price_7, #price_8, ' +
 	    '#price_9, #price_10, #price_11, #price_12, #price_13, #price_14, #price_15, #price_16, ' +
 	    '#price_17, #price_18, #price_19, #price_20, #price_21, #price_22, #price_23, #price_24, ' +
 	    '#price_25, #price_26, #price_27').numeric({
@@ -166,9 +172,29 @@
 	    max: NaN,
 	    min: NaN
 	    });
+	    
+	    $('#start').numeric({
+		allowPlus: false,
+		allowMinus: true,
+		allowThouSep: false,
+		allowDecSep: false,
+		allowLeadingSpaces: false,
+		maxDigits: 5,
+		max: NaN,
+		min: NaN
+		});
+	    
+	    $('#duration_time').numeric({
+		allowPlus: false,
+		allowMinus: true,
+		allowThouSep: false,
+		allowDecSep: false,
+		allowLeadingSpaces: false,
+		maxDigits: 5,
+		max: NaN,
+		min: NaN
+		});
 	  </script>
-
-
 	</div>
       </div>
     </div>

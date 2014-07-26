@@ -26,7 +26,6 @@ public class EventDAOTest{
 
 	@Autowired
     private EventDAO eventDAO;
-
 	
 	@Test
     public void findByIdTest() throws ParseException{
@@ -34,9 +33,10 @@ public class EventDAOTest{
 		Date d = sdf.parse("2014-05-16 17:00:00");
 		Timestamp stamp = new Timestamp(d.getTime());		
 
-        Event expected = new Event(100, "new test event", stamp, 30, new ArrayList<SectorPrice>());
-        eventDAO.updateEntity(new Event(100, "new test event", stamp, 30, new ArrayList<SectorPrice>()));
-        Event actual = eventDAO.findById(100);
+        Event expected = new Event(100, "new test event", stamp, 30, 60, new ArrayList<SectorPrice>());
+        Event actual = eventDAO.updateEntity(new Event(100, "new test event", stamp, 30, 60, new ArrayList<SectorPrice>()));
+    	Event actual2 = eventDAO.findById(100);  
+    	assertSame(actual,actual2);
         assertNotNull(actual);
         assertEquals(expected, actual);             
 	}
@@ -46,10 +46,11 @@ public class EventDAOTest{
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
         //create    	
-    	Event expected = new Event(15, "1", stamp, 30, new ArrayList<SectorPrice>());
-    	eventDAO.updateEntity(new Event(15, "1", stamp, 30, new ArrayList<SectorPrice>()));
+    	Event expected = new Event(15, "1", stamp, 30, 60, new ArrayList<SectorPrice>());
+    	Event actual = eventDAO.updateEntity(new Event(15, "1", stamp, 30, 60, new ArrayList<SectorPrice>()));
         //read
-    	Event actual = eventDAO.findById(15);     	
+    	Event actual2 = eventDAO.findById(15);  
+    	assertSame(actual,actual2);
     	assertEquals(actual,expected);
     	assertNotNull(actual);
     }
@@ -62,9 +63,8 @@ public class EventDAOTest{
         stamp.setYear(10);
         stamp.setMonth(8);
         stamp.setDate(25);
-        Event ev = new Event(15, "newname", stamp,30, new ArrayList<SectorPrice>());
-    	eventDAO.updateEntity(ev);    	
-        Event actual = eventDAO.findById(15);	
+        Event ev = new Event(15, "newname", stamp, 30, 60, new ArrayList<SectorPrice>());
+        Event actual = eventDAO.updateEntity(ev);    	
   
         assertEquals(actual,ev);
         assertNotNull(actual);     
@@ -74,7 +74,7 @@ public class EventDAOTest{
     public void entityDeleteTest(){
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
-    	Event ev = new Event(15, "newname", stamp,30, new ArrayList<SectorPrice>());
+    	Event ev = new Event(15, "newname", stamp, 30, 60, new ArrayList<SectorPrice>());
     	eventDAO.updateEntity(ev);    	
     	eventDAO.deleteEntity(ev);
         Event actual = eventDAO.findById(15);	
