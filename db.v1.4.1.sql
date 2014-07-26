@@ -7,7 +7,7 @@
 -- Версия сервера: 5.6.17
 -- Версия PHP: 5.5.12
 --
--- version db.sql: 1.3.2
+-- version db.sql: 1.4.1
 --
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `sectorprice` (
 
 CREATE TABLE IF NOT EXISTS `ticket` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `seatStatus` int(11) DEFAULT NULL,
+  `seatStatus` varchar(255) DEFAULT NULL,
   `ticketNumber` varchar(255) DEFAULT NULL,
   `event_id` int(11) DEFAULT NULL,
   `seat_id` int(11) DEFAULT NULL,
