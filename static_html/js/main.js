@@ -136,9 +136,12 @@ $(document).ready(function () {
     // delete ticket by clicking '-' button
     $('#ticket_list').on('click', '.delete_ticket', function () {
         var ticket = $(this).closest('td').siblings().map(function () { return $(this).text()});
-	var id = (ticket[2]+'_'+ticket[3]);
-	$('#'+id).toggleClass('selected');
-	$(this).closest('.ticket').remove();
+	var seat = (ticket[2]+'_'+ticket[3]);
+	// remove selection from seats plan if it is currently displayed
+	if ( ticket[1] == $('.sector_name').html() ) {
+	    $('.'+seat).toggleClass('selected');
+	    $(this).closest('.ticket').remove();
+	}
 	recalculate_price_and_index();
     });
 
@@ -258,6 +261,7 @@ $(document).ready(function () {
 		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',parseInt(row_index+1) +'_'+parseInt(seat_index+1)+" "+ sector_obj.rows[row_index][seat_index]);
 	    }
 	}
+	// add currently selected tickets to sector plan when redraw it
 	$('.ticket').each( function() {
 	    if ( $(this).children('td').eq(1).html() == sector_obj.name ) {
 		var row = $(this).children('td').eq(2);
