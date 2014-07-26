@@ -58,9 +58,10 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 CREATE TABLE IF NOT EXISTS `event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bookingCanceltime` int(11) DEFAULT NULL,
   `eventDate` datetime DEFAULT NULL,
   `eventName` varchar(255) DEFAULT NULL,
+  `bookingCancelTime` int(11) DEFAULT NULL,
+  `durationTime` int(11) DEFAULT NULL,
   `isDelete` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;

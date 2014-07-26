@@ -3,7 +3,6 @@ package com.dataartschool2.stadiumticket.dreamteam.service;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring/root-context.xml"})
@@ -28,46 +29,44 @@ public class EventServiceTest{
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
     	
-        Event expected = new Event(15, "1", stamp, 30, new ArrayList<SectorPrice>());
-    	eventService.updateEvent(expected);
-    	
-        Event actual = eventService.findById((Integer) 15);        
-        Assert.assertEquals(expected, actual);
-        Assert.assertNotNull(actual);
+        Event expected = new Event(15, "1", stamp, 30, 60, new ArrayList<SectorPrice>());
+        Event actual = eventService.updateEvent(expected);
+    	    
+        assertEquals(expected, actual);
+        assertNotNull(actual);
     }
     
     @Test
-    public void deleteEventTest(){        
+    public void deleteEventTest(){     
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
-    	Event template = new Event(15, "1", stamp, 30, new ArrayList<SectorPrice>());   	
-        Event event = new Event(15, "1", stamp, 30, new ArrayList<SectorPrice>());
-    	eventService.updateEvent(event);
+    	Event template = new Event(15, "1", stamp, 30, 60, new ArrayList<SectorPrice>());   	
+        Event event = new Event(15, "1", stamp, 30, 60, new ArrayList<SectorPrice>());
+        Event actual = eventService.updateEvent(event);
     	
-    	Event actual = eventService.findById((Integer) 15);
-    	Assert.assertNotNull(actual);
-    	Assert.assertEquals(event, actual);
+    	assertNotNull(actual);
+    	assertEquals(event, actual);
   
     	eventService.markAsDeleted(event);;
-        actual = eventService.findById((Integer) 15);        
-        Assert.assertNotNull(actual);
-        Assert.assertNotSame(actual,template);
+        actual = eventService.findById(15);        
+        assertNotNull(actual);
+        assertNotSame(actual,template);
     }
     
     @Test
-    public void editEventTest(){       
+    public void editEventTest(){    
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
     	
         //new event
-    	Event begEvent = new Event(15, "1", stamp, 30, new ArrayList<SectorPrice>());
-        Event dbEvent = new Event(15, "1", stamp, 30, new ArrayList<SectorPrice>());
+    	Event begEvent = new Event(15, "1", stamp, 30, 60, new ArrayList<SectorPrice>());
+        Event dbEvent = new Event(15, "1", stamp, 30, 60, new ArrayList<SectorPrice>());
         
         //insert in db
-        eventService.updateEvent(dbEvent);
-        Event currentEvent = eventService.findById((Integer) 15);    	        
-    	Assert.assertNotNull(currentEvent);
-    	Assert.assertEquals(dbEvent, currentEvent);  
+        Event currentEvent = eventService.updateEvent(dbEvent);
+ 	        
+    	assertNotNull(currentEvent);
+    	assertEquals(dbEvent, currentEvent);  
 
     	//change event    	
     	stamp.setYear(10);
@@ -77,35 +76,41 @@ public class EventServiceTest{
     	dbEvent.setEventDate(stamp);
     	dbEvent.setEventName("testname");
     	eventService.updateEvent(dbEvent);
-    	Assert.assertNotSame(dbEvent, begEvent);
+    	assertNotSame(dbEvent, begEvent);
 
-    	Event actual = eventService.findById((Integer) 15);
-    	Assert.assertEquals(dbEvent, actual);    	
-        Assert.assertNotSame(begEvent, actual);
-        Assert.assertNotNull(actual);       
+    	Event actual = eventService.findById(15);
+    	assertEquals(dbEvent, actual);    	
+        assertNotSame(begEvent, actual);
+        assertNotNull(actual);       
     }
     
     @Test
-    public void createEventTest(){       
+    public void createEventTest(){
     	Date date = new Date();
     	Timestamp stamp = new Timestamp(date.getTime());
     	
         //new event
-    	Event newEvent = new Event(15, "1", stamp, 30, new ArrayList<SectorPrice>());
-        eventService.updateEvent(newEvent);                       
+    	Event newEvent = new Event(15, "1", stamp, 30, 60, new ArrayList<SectorPrice>());
+    	Event currentEvent = eventService.updateEvent(newEvent);                       
 
-        Event currentEvent = eventService.findById((Integer) 15);    	        
-    	Assert.assertNotNull(currentEvent);
-    	Assert.assertEquals(newEvent, currentEvent);  
-    	/*
-     	date = new Date();
-    	stamp.setTime(date.getTime());
-        //recreate event
-    	Event editEvent = new Event(15, "2", stamp);
-    	eventService.updateEvent(editEvent);
-    	Event actual = eventService.findById((Integer) 15); 
-    	Assert.assertNotSame(newEvent, actual);
-        Assert.assertNotNull(actual);
-        */
+    	assertNotNull(currentEvent);
+    	assertEquals(newEvent, currentEvent);  
+    }
+    
+    @Test
+    public void createIdenticalEventTest(){
+    	Event existEvent = eventService.findById(2); 
+    	assertNotNull(existEvent);  
+    	Event newEvent = new Event();
+      	newEvent.setEventName(existEvent.getEventName());
+    	newEvent.setEventDate(existEvent.getEventDate());
+    	newEvent.setDurationTime(existEvent.getDurationTime());
+    	newEvent.setBookingCancelTime(existEvent.getBookingCancelTime());
+    	newEvent.setDelete(existEvent.isDelete());
+       	newEvent.setSectorPriceSet(existEvent.getSectorPriceSet());
+       	Event isFoundEvent = eventService.updateEvent(newEvent); 
+    	assertFalse(existEvent.equals(isFoundEvent));    
+        assertNull(isFoundEvent); 
+    
     }
 }

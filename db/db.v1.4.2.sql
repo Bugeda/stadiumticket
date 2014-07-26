@@ -98,9 +98,10 @@ INSERT INTO `customer` (`id`, `customerName`) VALUES
 
 CREATE TABLE IF NOT EXISTS `event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bookingCanceltime` int(11) DEFAULT NULL,
   `eventDate` datetime DEFAULT NULL,
   `eventName` varchar(255) DEFAULT NULL,
+  `bookingCancelTime` int(11) DEFAULT NULL,
+  `durationTime` int(11) DEFAULT NULL,
   `isDelete` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
@@ -109,9 +110,9 @@ CREATE TABLE IF NOT EXISTS `event` (
 -- Дамп данных таблицы `event`
 --
 
-INSERT INTO `event` (`id`, `bookingCanceltime`, `eventDate`, `eventName`, `isDelete`) VALUES
-(1, 30, '2014-12-21 23:30:00', 'событие', b'0'),
-(2, 30, '2014-12-13 21:30:00', 'событие3', b'0');
+INSERT INTO `event` (`id`, `eventDate`, `eventName`, `bookingCanceltime`, `durationTime`, `isDelete`) VALUES
+(1,  '2014-12-21 23:30:00', 'событие', 30, 60, b'0'),
+(2,  '2014-12-13 21:30:00', 'событие3', 30, 60, b'0');
 
 -- --------------------------------------------------------
 

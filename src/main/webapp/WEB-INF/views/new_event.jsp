@@ -93,15 +93,21 @@
               <fmt:formatDate value="${newEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate" />
 	      	  <spring:message code="event.hDatetime.hint" var="msg"/>
               <label for="eventDate"><spring:message code="event.hDatetime" />:</label>
-              <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}" placeholder="${msg}" title="${msg}"/>
+              <input class="form-control"  name="eventDate"  id="start" value="${formattedDate}" placeholder="${msg}" title="${msg}"  maxlength="16"/>
               <form:errors path="eventDate" cssClass="alert-danger" />
             </div>
             <div class="form-group">
               <label for="booking_time" id="label_booking"><spring:message code="event.hBooking" />:</label>
 			  <spring:message code="event.hBooking.hint" var="msg"/>              
-              <form:input class="form-control" type="text" path="bookingCanceltime" id="booking_time" value="30" placeholder="${msg}" title="${msg}"/>
-              <form:errors path="bookingCanceltime" cssClass="alert-danger" />
+              <form:input class="form-control" type="text" path="bookingCancelTime" id="booking_time" value="30" placeholder="${msg}" title="${msg}"/>
+              <form:errors path="bookingCancelTime" cssClass="alert-danger" />
             </div>
+			<div class="form-group">
+              <label for="booking_time" id="label_duration"><spring:message code="event.hDuration" />:</label>
+              <spring:message code="event.hDuration.hint" var="msg"/>
+              <form:input class="form-control" type="text" path="durationTime" id="duration_time" title="${msg}" placeholder="${msg}"/>
+              <form:errors path="durationTime" cssClass="alert-danger" />
+			</div>
             <div class="form-group">
               <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />
               <c:forEach items="${newEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
@@ -179,8 +185,29 @@
 	    max: NaN,
 	    min: NaN
 	    });
+	    
+	    $('#start').numeric({
+		allowPlus: false,
+		allowMinus: true,
+		allowThouSep: false,
+		allowDecSep: false,
+		allowLeadingSpaces: false,
+		maxDigits: 5,
+		max: NaN,
+		min: NaN
+		});	    
+	    
+	    $('#duration_time').numeric({
+		allowPlus: false,
+		allowMinus: false,
+		allowThouSep: false,
+		allowDecSep: false,
+		allowLeadingSpaces: false,
+		maxDigits: 5,
+		max: NaN,
+		min: NaN
+		});
 	</script>
-
 	</div>
       </div>
     </div>
