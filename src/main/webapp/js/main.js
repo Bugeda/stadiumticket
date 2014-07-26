@@ -154,10 +154,22 @@ $(document).ready(function () {
 	$('#total_price').html(total_price);
     });
 
-    //get list of currently selected ticket
+    // select all checkbox handling
+    $('#select_all').change( function() {
+	var total_price = 0;
+	var state = $(this)[0].checked;
+	$('.ticket input').each(function (){
+	    $(this)[0].checked = state;
+	    if (state) {   total_price += parseInt($(this).parents().siblings('.ticket_price').html() ); }
+	    else { total_price = 0; }
+	});
+	$('#total_price').html(total_price);
+    });
+
+    //get list of currently selected tickets
     function get_selected_ids() {
 	var selected_ids = [];
-	$('input[type=checkbox]:checked').each(function (){
+	$('.ticket input[type=checkbox]:checked').each(function (){
 	    selected_ids.push($(this).parents().siblings('.booking_id').html());
 	});
 	return selected_ids;
@@ -181,12 +193,26 @@ $(document).ready(function () {
 		base_url = base_url + 'id=' + ticket_ids[id]+ '&';
 	    };
 	};
-	// fetch for data
+
+	// fetch for data to server
 	$.get( base_url, function(response) {
-		  console.log(response);
-	    $('.response').html(response); // output response to block
-	   // debug:print response to console
-	    $('.response').slideDown(); // show block with response
+	    $('.alert').html('');
+	    for (index in response) {
+		if (response[index]) {
+		    //remove ticket from list if we get true
+		    $('.ticket')[index].remove();
+		}
+		else {
+		    //leave ticket if we get false, fire up error message
+		    $('.alert').append('Detected problem with booking id(s):<br> ');
+		    $('.alert').append('<b>',ticket_ids[index], response[index],'</b><br>'); // output response to block
+		    $('.modal').modal(); // show block with response
+		    setTimeout(function(){
+			$('.modal').modal('hide')
+		    }, 2000);
+		}
+
+	    }
 	});
     };
 
@@ -234,7 +260,15 @@ $(document).ready(function () {
 		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',parseInt(row_index+1) +'_'+parseInt(seat_index+1) +" " + sector_obj.rows[row_index][seat_index]);
 	    }
 	}
+	$('.ticket').each( function() {
+	    if ( $(this).children('td').eq(1).html() == sector_obj.name ) {
+		var row = $(this).children('td').eq(2);
+		var seat = $(this).children('td').eq(3);
+		$('.'+ row + '_' + seat).addClass('selected');
+	    }
+	});
     }
+
 
     // Fetch to server for state of tickets in sector
     $('area').click( function(e) {

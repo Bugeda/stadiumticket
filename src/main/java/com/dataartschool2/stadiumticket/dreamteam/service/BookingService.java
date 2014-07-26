@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface BookingService {
 
-	public List<Booking> getAllBookingsForEventInSector(Integer eventId, Integer sectorId);
+//	public List<Booking> getAllBookingsForEventInSector(Integer eventId, Integer sectorId);
 
 	public void updateBooking(Booking booking);
 

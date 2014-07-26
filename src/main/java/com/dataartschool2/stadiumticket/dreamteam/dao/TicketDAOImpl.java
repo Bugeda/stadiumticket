@@ -7,7 +7,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dataartschool2.stadiumticket.dreamteam.domain.Booking;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import com.dataartschool2.stadiumticket.dreamteam.domain.SeatStatus;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
@@ -23,15 +22,20 @@ public class TicketDAOImpl extends GenericDAOImpl<Ticket> implements TicketDAO {
 	}
 
 	@Override
-	public Boolean findByNumber(String ticketNumber) {
+	public List<Ticket> findByNumber(String ticketNumber) {
 		Criterion criterion = Restrictions.eq("ticketNumber", ticketNumber);
-		List<Ticket>  ticketSet=findByCriteria(criterion);
-		return  (!ticketSet.isEmpty());
+		return  findByCriteria(criterion);
 	}
 
 	@Override
-	public List<Ticket> findSoldTicket() {
+	public List<Ticket> findSoldTickets() {
 		Criterion criterion = Restrictions.eq("seatStatus", SeatStatus.occupied);
+		return findByCriteria(criterion);
+	}
+
+	@Override
+	public List<Ticket> findBookedTickets() {
+		Criterion criterion = Restrictions.eq("seatStatus", SeatStatus.booked);
 		return findByCriteria(criterion);
 	}
 }	

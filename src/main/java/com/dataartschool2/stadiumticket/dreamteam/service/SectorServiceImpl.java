@@ -64,12 +64,23 @@ public class SectorServiceImpl implements SectorService {
     	List<Sector> sectorSet=new ArrayList<Sector>();
     	for (int id:listSectoriD){
     		sectorSet.add(findById(id));  
-
     	}
-
 		return sectorSet;
     }
     
+    private void addBookedTickets(Integer eventId, Integer sectorId, List<List<SeatStatus>> seatsStatuses) {
+        List<Ticket> soldTickets = ticketService.getBookedTicketsBySector(eventId, sectorId);
+        for (Ticket ticket : soldTickets) {
+            Seat seat = ticket.getSeat();
+            int rowsNumber = seat.getRowNumber();
+            int seatNumber = seat.getSeatNumber();
+
+            List<SeatStatus> rowStatus = seatsStatuses.get(rowsNumber - 1);
+            rowStatus.set(seatNumber - 1, SeatStatus.booked);
+        }
+    }
+    
+    /*
     private void addBookedTickets(Integer eventId, Integer sectorId, List<List<SeatStatus>> seatsStatuses) {
         List<Booking> bookedTickets = bookingService.getAllBookingsForEventInSector(eventId, sectorId);
 
@@ -91,7 +102,7 @@ public class SectorServiceImpl implements SectorService {
                     break;
             }
         }
-    }
+    }*/
 
     private void addSoldTickets(Integer eventId, Integer sectorId, List<List<SeatStatus>> seatsStatuses) {
         List<Ticket> soldTickets = ticketService.getSoldTicketsBySector(eventId, sectorId);

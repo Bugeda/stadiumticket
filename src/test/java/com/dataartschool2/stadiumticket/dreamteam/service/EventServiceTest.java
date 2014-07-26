@@ -1,8 +1,8 @@
 package com.dataartschool2.stadiumticket.dreamteam.service;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-
 import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

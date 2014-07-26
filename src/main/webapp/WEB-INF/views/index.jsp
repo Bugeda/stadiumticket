@@ -49,7 +49,7 @@
        </div>
        <div class="row">
 	 <div>
-	   <table class="hover" id="events_list">
+	   <table class="hover" id="event_list">
 	     <thead>
 	       <tr>
 		 <th>

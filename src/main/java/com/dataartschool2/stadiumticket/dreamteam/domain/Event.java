@@ -1,5 +1,6 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +20,7 @@ public class Event {
     @GeneratedValue  
     private Integer id;
 	
+	@NotBlank(message = "error.notNull")
 	@NotNull(message = "error.notNull")
 	@Size(min = 1, max = 50, message = "error.wrongLength")
 	private String eventName;

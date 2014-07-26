@@ -17,6 +17,7 @@ public class Ticket {
 
     private String ticketNumber;
     
+    @Enumerated(EnumType.STRING)
     private SeatStatus seatStatus;
     
     public Ticket(){}
@@ -69,3 +70,4 @@ public class Ticket {
 		this.seatStatus = seatStatus;
 	}
 }
+

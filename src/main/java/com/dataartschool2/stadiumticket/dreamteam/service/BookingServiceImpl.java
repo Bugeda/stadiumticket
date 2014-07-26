@@ -26,7 +26,7 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     private TicketService ticketService;
     
-    @Override
+    /*@Override
 	@Transactional
     public List<Booking> getAllBookingsForEventInSector(Integer eventId, Integer sectorId) {
         List<Booking> bookings = bookingDAO.findAll();
@@ -43,7 +43,7 @@ public class BookingServiceImpl implements BookingService {
             }
         }
         return result;
-    }
+    }*/
 
 	@Scheduled(fixedDelay = 60000) // 1 minute
     public void cancelBooking(){

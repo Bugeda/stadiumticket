@@ -32,6 +32,14 @@
     <![endif]-->
  </head>
 <body>
+<div class="modal fade bs-example-modal-sm" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+	<div class="modal-content">
+	  <div class="alert alert-warning" role="alert">OK</div>
+	</div>
+      </div>
+    </div>
+
 <div class="container">
 <div class="row">
 	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
@@ -85,13 +93,14 @@
               <tr>
                 <td colspan="4"><b>Total price:</b></td>
                 <td style="font-weight:bold"><span id="total_price">0</span> UAH</td>
-		<td colspan="2">
+				<td></td>
+				<td><input id="select_all" type="checkbox"> All tickets</td>
               </tr>
             </tfoot>
           </table>
 			<input class="btn btn-primary" type="submit" name="submit" value="Sell selection" id="sell_selected_tickets">
 			<input class="btn btn-danger" type="submit" name="submit" value="Cancel booking for selection" id="cancel_booking_selected_tickets">
-	  <br><br>
+	  	<br><br>
         </div>
       </div>
     </div>
