@@ -26,6 +26,8 @@ map input {
     text-align: center;
 }
 
+#arrow_back { text-decoration: none }
+
 #price_26 {
     top: 477px;
     left: 375px;
