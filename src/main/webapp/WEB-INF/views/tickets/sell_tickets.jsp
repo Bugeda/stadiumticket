@@ -37,7 +37,7 @@
 	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
  		<h3>
-            <a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+            <a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"  title="<spring:message code="index.pageTitle" />"></a>&nbsp;
             <spring:message code="selltickets.pageTitle" />
         </h3>
         <h2 id="event_name"><c:out value="${event.eventName}"></c:out></h2>
@@ -64,13 +64,13 @@
             <tr>
                 <td colspan="4"><b><spring:message code="ticketlist.totalPrice" />:</b></td>
                 <td id="total_price"></td>
-                <td>UAH</td>
+                <td><spring:message code="money" /></td>
             </tr>
             </tfoot>
         </table>
         <br>
-        <!-- <input class="btn" type="button" id="add_random_ticket" value="add random ticket"> -->
-        <input class="btn" type="submit" name="submit" value="Sell tickets" id="book_tickets">
+        <spring:message code="sell.submit" var="msg"/>
+        <input class="btn" type="submit" name="submit" value="${msg}" id="sell_tickets">
     </form:form>
 
 </div>

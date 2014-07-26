@@ -112,17 +112,18 @@ public class EventsController{
                                    BindingResult bindingResult,
                                    ModelMap modelMap) throws ParseException {
 			modelMap.remove("submit");
-            if (submit.equals("Cancel changes")){
+            if (submit.equals(appContext.getMessage("event.cancel", new Object[]{}, null))){
                 return "redirect:/new_event";
             }else{
                 if(bindingResult.hasErrors()){
-                 	JOptionPane.showMessageDialog(null,  appContext.getMessage("error.eventIsNotAdded", new Object[]{}, null),
+                 	JOptionPane.showMessageDialog(null, appContext.getMessage("error.eventIsNotAdded", new Object[]{}, null),
                     		"event message", JOptionPane.ERROR_MESSAGE);
+                 	
                     modelMap.put("result", bindingResult);
                     return "new_event";
                 }else{
                     eventService.createEvent(event);
-                    JOptionPane.showMessageDialog(null,  appContext.getMessage("message.eventIsAdded", new Object[]{}, null),
+                    JOptionPane.showMessageDialog(null, appContext.getMessage("message.eventIsAdded", new Object[]{}, null),
                     		"event message", JOptionPane.INFORMATION_MESSAGE);
                     return "redirect:/index";
                 }
@@ -136,7 +137,7 @@ public class EventsController{
                                     BindingResult bindingResult,
                                     ModelMap modelMap) throws ParseException {
     		modelMap.remove("submit");
-            if (submit.equals("Cancel changes")){
+            if (submit.equals(appContext.getMessage("event.cancel", new Object[]{}, null))){
                 return "redirect:/edit_event?id="+event.getId();
             }else {
                 if(bindingResult.hasErrors()){            

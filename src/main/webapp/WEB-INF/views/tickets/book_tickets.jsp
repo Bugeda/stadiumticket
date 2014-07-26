@@ -37,7 +37,7 @@
 	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
         <h3>
-            <a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+            <a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"  title="<spring:message code="index.pageTitle" />"></a>&nbsp;
             <spring:message code="booktickets.pageTitle" />
         </h3>
         <h2 id="event_name"><c:out value="${event.eventName}"></c:out>
@@ -47,9 +47,10 @@
 <div class="row">
   <div class="col-md-5">
    	<form:form method="post" action="${pageContext.request.contextPath}/tickets/book/${event.id}" modelAttribute="newCustomer">
-  	    <label for="booking_name"><spring:message code="booking.customerNameTitle" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
-        <input class="form-control" type="text" name="customerName" id="booking_name" title="<spring:message code="booking.customerName" />" 
-        placeholder="<spring:message code="booking.customerName" />">     
+  	    <label for="booking_name"><spring:message code="booking.customerName" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
+  	    <spring:message code="booking.customerName.hint" var="msg"/>
+        <input class="form-control" type="text" name="customerName" id="booking_name" title="${msg}" 
+        placeholder="${msg}">     
         <b><spring:message code="ticketlist.tickets" />:</b>              
         <table class="table" id="ticket_list">
             <thead>
@@ -68,13 +69,13 @@
             <tr>
                 <td colspan="4"><b><spring:message code="ticketlist.totalPrice" />:</b></td>
                 <td id="total_price"></td>
-                <td>UAH</td>
+                <td><spring:message code="money" /></td>
             </tr>
             </tfoot>
         </table>
         <br>
-        <!-- <input class="btn" type="button" id="add_random_ticket" value="add random ticket"> -->
-        <input class="btn" type="submit" name="submit" value="Book tickets" id="book_tickets">
+        <spring:message code="book.submit" var="msg"/>
+        <input class="btn" type="submit" name="submit" value="${msg}" id="book_tickets">
     </form:form>
   </div>
   <div class="col-md-7">

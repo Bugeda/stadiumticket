@@ -43,9 +43,9 @@
 <div class="container">
 <div class="row">
 	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
-	<div class="col-xs-6 col-md-9">
+	<div class="col-xs-6 col-md-6">
         <h3>
-            <a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png"></a>&nbsp;
+            <a id="arrow_back" href="<c:url value="../index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png" title="<spring:message code="index.pageTitle" />"></a>&nbsp;
             <spring:message code="searchbooked.pageTitle" />
         </h3>
         <h2 id="event_name"><c:out value="${event.eventName}"></c:out>
@@ -55,25 +55,26 @@
 <div class="row">
   <div class="col-md-5">
   	<form:form class="form-horizontal"  method="post" action="" modelAttribute="">
-            <label for="search_booking_name">Search booked tickets: <img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
-            <input class="form-control" type="text" name="search_booking_name" id="search_booking_name" placeholder="Full name of person">
+            <label for="search_booking_name"><spring:message code="search.Name" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
+            <spring:message code="search.Name.hint" var="msg"/>
+	        <input class="form-control" type="text" name="search_booking_name" id="search_booking_name" placeholder="${msg}">
           </form:form>
         </div>
       </div>
       <br>
-      <h4>Search results:</h4>
+      <h4><spring:message code="search.results" /></h4>
       <div class="row">
         <div class="col-md-12">
           <table class="table hover" id="booking_search_results">
             <thead>
               <tr style="font-weight: bold;">
-                <td>Booking id</td>
-                <td>Sector</td>
-                <td>Row</td>
-                <td>Seat</td>
-                <td>Price</td>
-                <td>Booked for</td>
-				<td>Mark ticket</td>
+                <td>№</td>
+                <td><spring:message code="ticketlist.sector" /></td>
+                <td><spring:message code="ticketlist.row" /></td>
+                <td><spring:message code="ticketlist.seat" /></td>
+                <td><spring:message code="ticketlist.price" /></td>
+                <td><spring:message code="search.client" /></td>
+				<td><spring:message code="search.markTicket" /></td>
               </tr>
             </thead>
             <tbody>
@@ -91,15 +92,17 @@
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="4"><b>Total price:</b></td>
-                <td style="font-weight:bold"><span id="total_price">0</span> UAH</td>
+                <td colspan="4"><b><spring:message code="ticketlist.totalPrice" />:</b></td>
+                <td style="font-weight:bold"><span id="total_price">0</span><spring:message code="money" /></td>
 				<td></td>
-				<td><input id="select_all" type="checkbox"> All tickets</td>
+				<td><input id="select_all" type="checkbox"><spring:message code="search.markAll" /></td>
               </tr>
             </tfoot>
           </table>
-			<input class="btn btn-primary" type="submit" name="submit" value="Sell selection" id="sell_selected_tickets">
-			<input class="btn btn-danger" type="submit" name="submit" value="Cancel booking for selection" id="cancel_booking_selected_tickets">
+            <spring:message code="search.sell" var="msg"/>
+			<input class="btn btn-primary" type="submit" name="submit" value="${msg}" id="sell_selected_tickets">
+			<spring:message code="search.cancel" var="msg"/>
+			<input class="btn btn-danger" type="submit" name="submit" value="${msg}" id="cancel_booking_selected_tickets">
 	  	<br><br>
         </div>
       </div>
