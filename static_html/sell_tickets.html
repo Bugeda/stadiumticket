@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>stadiumticket - sell tickets for event</title>
+    <title>stadiumticket - продажа билетов</title>
     <!-- css -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
@@ -32,24 +32,23 @@
         <div class="col-xs-1 col-md-1"><a href="index.html"><img class="img-responsive" src="images/logo.png"></a></div>
         <div class="col-xs-6 col-md-9">
             <h3>
-                <a id="arrow_back" href="index.html"><img src="images/arrow_back.png"></a>&nbsp;Events
+                <a id="arrow_back" href="index.html"><img src="images/arrow_back.png">&nbsp;События</a>
             </h3>
-
-            <h2 id="event_name">Event name</h2>
+            <h2 id="event_name">Название события</h2>
         </div>
     </div>
     <div class="row">
         <div class="col-md-5">
             <form action="" method="post">
-                <b>Ticket(s):</b>
+                <b>Билет(ы):</b>
                 <table class="table" id="ticket_list">
                     <thead>
                     <tr>
                         <td>№</td>
-                        <td>Sector</td>
-                        <td>Row</td>
-                        <td>Seat</td>
-                        <td>Price</td>
+                        <td>Сектор</td>
+                        <td>Ряд</td>
+                        <td>Место</td>
+                        <td>Цена</td>
                         <td></td>
                     </tr>
                     </thead>
@@ -57,15 +56,15 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="4"><b>Total price:</b></td>
+                        <td colspan="4"><b>Общая сумма:</b></td>
                         <td id="total_price"></td>
-                        <td>UAH</td>
+                        <td>грн</td>
                     </tr>
                     </tfoot>
                 </table>
                 <br>
                 <!-- <input class="btn" type="button" id="add_random_ticket" value="add random ticket"> -->
-                <input class="btn" type="submit" name="submit" value="Book tickets" id="book_tickets">
+                <input class="btn" type="submit" name="submit" value="Продать билеты" id="book_tickets">
             </form>
 
         </div>
@@ -136,13 +135,13 @@
   <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>
       <tr>
-        <td>Sector <span class="sector_name">12</span> seats:</td>
-        <td><div>42</div></td>
-        <td>Vacant</td>
-        <td><div>42</div></td>
-        <td>Booked</td>
-        <td><div>42</div></td>
-        <td>Occupied</td>
+	<td>Места в секторе <span class="sector_name">12</span>:</td>
+	<td><div>42</div></td>
+	<td>Свободно</td>
+	<td><div>42</div></td>
+	<td>Бронь</td>
+	<td><div>42</div></td>
+	<td>Занято</td>
       </tr>
     </tbody>
   </table>
@@ -1218,19 +1217,13 @@
 <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>
     <tr>
-        <td>Sector <span class="sector_name">VIP A</span> seats:</td>
-        <td>
-            <div>42</div>
-        </td>
-        <td>Vacant</td>
-        <td>
-            <div>42</div>
-        </td>
-        <td>Booked</td>
-        <td>
-            <div>42</div>
-        </td>
-        <td>Occupied</td>
+      <td>Места в секторе <span class="sector_name">VIP A</span>:</td>
+      <td><div>42</div></td>
+      <td>Свободно</td>
+      <td><div>42</div></td>
+      <td>Бронь</td>
+      <td><div>42</div></td>
+      <td>Занято</td>
     </tr>
     </tbody>
 </table>

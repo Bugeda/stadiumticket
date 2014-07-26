@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>stadiumticket - event list</title>
+    <title>stadiumticket - поиск брони</title>
     <!-- css -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
@@ -40,34 +40,33 @@
       <div class="row">
         <div class="col-md-1"><a href="index.html"><img class="img-responsive" src="images/logo.png"></a></div>
         <div class="col-md-6">
-          <h3><a id="arrow_back" href="index.html"><img src="images/arrow_back.png"></a>&nbsp;Events</h3>
-          <h4> search booked tickets for:</h4>
-
-          <h2 id="event_name">Event name</h2>
+          <h3><a id="arrow_back" href="index.html"><img src="images/arrow_back.png">&nbsp;События</a></h3>
+          <h4>Поиск забронированных билетов для:</h4>
+          <h2 id="event_name">Название события</h2>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <form action="" method="post">
-            <label for="search_booking_name">Search booked tickets: <img src="images/arrow_down.png"></label>
-            <input class="form-control" type="text" name="search_booking_name" id="search_booking_name" placeholder="Full name of person">
+            <label for="search_booking_name">Поиск забронированных билетов: <img src="images/arrow_down.png"></label>
+            <input class="form-control" type="text" name="search_booking_name" id="search_booking_name" placeholder="введите ФИО">
           </form>
         </div>
       </div>
       <br>
-      <h4>Search results:</h4>
+      <h3>Результаты поиска:</h3>
       <div class="row">
         <div class="col-md-12">
           <table class="table hover" id="booking_search_results">
             <thead>
               <tr style="font-weight: bold;">
-                <td> Booking id</td>
-                <td>Sector</td>
-                <td>Row</td>
-                <td>Seat</td>
-                <td>Price</td>
-                <td>Booked for</td>
-		<td>Mark ticket</td>
+                <td>ID брони</td>
+                <td>Сектор</td>
+                <td>Ряд</td>
+                <td>Место</td>
+                <td>Цена</td>
+                <td>Забронировано для</td>
+		<td>Выбрать билет</td>
               </tr>
             </thead>
             <tbody>
@@ -194,12 +193,12 @@
                 <td colspan="4"><b>Total price:</b></td>
                 <td style="font-weight:bold"><span id="total_price">0</span> UAH</td>
 		<td></td>
-		<td><input id="select_all" type="checkbox"> All tickets</td>
+		<td><input id="select_all" type="checkbox"> Выбрать все</td>
               </tr>
             </tfoot>
           </table>
-          <input class="btn btn-primary" type="submit" name="submit" value="Sell selection" id="sell_selected_tickets">
-	  <input class="btn btn-danger" type="submit" name="submit" value="Cancel booking for selection" id="cancel_booking_selected_tickets">
+          <input class="btn btn-primary" type="submit" name="submit" value="Продать выбранные" id="sell_selected_tickets">
+	  <input class="btn btn-danger" type="submit" name="submit" value="Отменить бронь для выбранных" id="cancel_booking_selected_tickets">
         </div>
       </div>
     </div>
