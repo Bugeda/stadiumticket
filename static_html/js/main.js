@@ -128,7 +128,7 @@ $(document).ready(function () {
 	    });
 	    // attr = attr.replace('[i]', '['+ticket_index+']');
 	    // $(this).find('input').attr('name', attr);
-	    total_price += parseInt($(this).children('.ticket_price').html());
+	    total_price += parseFloat($(this).children('.ticket_price').html());
 	    ticket_index += 1;
 	});
 	$('#total_price').html(total_price);
@@ -188,7 +188,7 @@ $(document).ready(function () {
     $('.ticket input').click( function() {
 	var total_price = 0;
 	$('input[type=checkbox]:checked').each(function (){
-	    total_price += parseInt($(this).parents().siblings('.ticket_price').html() );
+	    total_price += parseFloat($(this).parents().siblings('.ticket_price').html() );
 	});
 	$('#total_price').html(total_price);
     });
@@ -199,7 +199,7 @@ $(document).ready(function () {
 	var state = $(this)[0].checked;
 	$('.ticket input').each(function (){
 	    $(this)[0].checked = state;
-	    if (state) {   total_price += parseInt($(this).parents().siblings('.ticket_price').html() ); }
+	    if (state) {   total_price += parseFloat($(this).parents().siblings('.ticket_price').html() ); }
 	    else { total_price = 0; }
 	});
 	$('#total_price').html(total_price);
