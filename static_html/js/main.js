@@ -72,6 +72,15 @@ $(document).ready(function () {
 	$('#event_name').html(title);
     });
 
+    // fill sector prices from hiddens if form validation didn't pass
+    $('input[type="hidden"]').each( function () {
+	var sector_number = $(this).attr('id').split('s')[1];
+	var hidden_price = $(this).val()
+	if ( hidden_price ) {
+	    $('#price_'+sector_number).val(hidden_price);
+	}
+    });
+
     $('map > input').change( function () {
 	var source_id = $(this).attr('id');
 	var source_content = $(this).val();
