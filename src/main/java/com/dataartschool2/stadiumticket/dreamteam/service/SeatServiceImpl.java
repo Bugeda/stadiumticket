@@ -18,23 +18,6 @@ public class SeatServiceImpl implements SeatService {
     private SeatDAO seatDAO;
     
 	@Override
-	public List<Seat> modifySeatSet(int size, List<Seat> seatSet, List<Sector> sectorSet){	
-
-		if (seatSet.isEmpty()){
-			for (int i=0;i<size;i++){
-				seatSet.add(new Seat());
-			}
-		}		
-		if (!sectorSet.isEmpty()){
-			for (int index=0; index<size; index++){
-			seatSet.get(index).setSector(sectorSet.get(index));
-			}
-		}
-		return seatSet;
-		
-	}
-
-	@Override
 	@Transactional
 	public void updateSeat(Seat seat) {
 		seatDAO.updateEntity(seat);

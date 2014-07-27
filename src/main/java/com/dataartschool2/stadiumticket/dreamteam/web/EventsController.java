@@ -116,9 +116,8 @@ public class EventsController{
                 return "redirect:/new_event";
             }else{
                 if(bindingResult.hasErrors()){
-                 	JOptionPane.showMessageDialog(null, appContext.getMessage("error.eventIsNotAdded", new Object[]{}, null),
-                    		"event message", JOptionPane.ERROR_MESSAGE);
-                 	
+                /* 	JOptionPane.showMessageDialog(null, appContext.getMessage("error.eventIsNotAdded", new Object[]{}, null),
+                    		"event message", JOptionPane.ERROR_MESSAGE);*/
                     modelMap.put("result", bindingResult);
                     return "new_event";
                 }else{
@@ -137,6 +136,8 @@ public class EventsController{
                                     BindingResult bindingResult,
                                     ModelMap modelMap) throws ParseException {
     		modelMap.remove("submit");
+      		
+        	
             if (submit.equals(appContext.getMessage("event.cancel", new Object[]{}, null))){
                 return "redirect:/edit_event?id="+event.getId();
             }else {
