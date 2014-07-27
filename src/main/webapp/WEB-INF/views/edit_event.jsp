@@ -36,6 +36,37 @@
     </style>
   </head>
   <body>
+  <script type="text/javascript">
+
+    var errorsHere = false;
+    <c:if test="${not empty requestScope['org.springframework.validation.BindingResult.editEvent'].allErrors}">
+        errorsHere = true;
+    </c:if>
+    $(document).ready(function() {
+        console.log('here');
+        if(errorsHere){
+            $('#editEventError').modal('show');
+            console.log('errors');
+        }        	
+    });
+  </script>
+  
+  <div id="editEventError" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
+          <h4 class="modal-title"><c:out value="Event message"></c:out></h4>
+        </div>
+        <div class="modal-body">
+          <p><spring:message code="error.changesAreNotApplied" /></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="modal.close" /></button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
     <div class="container">
        <div class="row">
 	<div class="col-xs-1 col-md-1"><a href="<c:url value="index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
@@ -50,7 +81,7 @@
     
     <div class="row">
 	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/edit_event" modelAttribute="editEvent">
+	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/edit_event?id=${editEvent.id}" modelAttribute="editEvent">
 	    <div class="form-group">
 	      <label for="title"><spring:message code="event.hName" />:</label>
 	      <spring:message code="event.hName.hint" var="msg"/>

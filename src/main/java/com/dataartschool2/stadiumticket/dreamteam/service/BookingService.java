@@ -20,6 +20,8 @@ public interface BookingService {
 
 	public Boolean[] sellBookingSet(Integer[] ids);
 
+	public List<Booking> findLikeCustomerNameInEvent(Integer eventId, String customerName);
+
 	
 
 }

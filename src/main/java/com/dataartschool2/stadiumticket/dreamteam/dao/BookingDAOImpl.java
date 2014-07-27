@@ -51,4 +51,7 @@ public class BookingDAOImpl extends GenericDAOImpl<Booking> implements BookingDA
 		return true;
 	}
 
+
+	
+
 }

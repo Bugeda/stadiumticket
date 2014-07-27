@@ -54,11 +54,12 @@
 </div>
 <div class="row">
   <div class="col-md-5">
-  	<form:form class="form-horizontal"  method="post" action="" modelAttribute="">
+  		<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/booking/search?id=${event.id}" modelAttribute="customer">
             <label for="search_booking_name"><spring:message code="search.Name" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
             <spring:message code="search.Name.hint" var="msg"/>
-	        <input class="form-control" type="text" name="search_booking_name" id="search_booking_name" placeholder="${msg}">
-          </form:form>
+	        <input class="form-control" type="text" name="customerName" id="search_booking_name" placeholder="${msg}" maxlength="50" value="${customerName}">
+	        <input type="hidden" name="id" value="${event.id}">
+        </form:form>
         </div>
       </div>
       <br>

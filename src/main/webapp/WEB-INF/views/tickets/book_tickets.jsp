@@ -46,7 +46,8 @@
 </div>
 <div class="row">
   <div class="col-md-5">
-   	<form:form method="post" action="${pageContext.request.contextPath}/tickets/book/${event.id}" modelAttribute="newCustomer">
+   	<form:form method="post" action="${pageContext.request.contextPath}/tickets/book?id=${event.id}" modelAttribute="newCustomer">
+  	    <input type="hidden" name="id" value="${event.id}">
   	    <label for="booking_name"><spring:message code="booking.customerName" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
   	    <spring:message code="booking.customerName.hint" var="msg"/>
         <input class="form-control" type="text" name="customerName" id="booking_name" title="${msg}" 
@@ -69,7 +70,7 @@
             <tr>
                 <td colspan="4"><b><spring:message code="ticketlist.totalPrice" />:</b></td>
                 <td id="total_price"></td>
-                <td><spring:message code="money" /></td>
+                <td><spring:message code="money"/></td>
             </tr>
             </tfoot>
         </table>
@@ -179,7 +180,7 @@
 <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>
     <tr>        
-        <td><spring:message code="ticketlist.sector" /> <span class="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
+        <td><spring:message code="ticketlist.seats" /> <span class="sector_name"></span>:</td>
         <td><div>42</div></td>
         <td><spring:message code="sectorstatus.vacant" /></td>
         <td><div>42</div></td>

@@ -108,8 +108,6 @@ $(document).ready(function () {
 	    $(this).find('input').each( function () {
 		$(this).attr('name', $(this).attr('name').replace('[i]', '['+ticket_index+']') );
 	    });
-	    // attr = attr.replace('[i]', '['+ticket_index+']');
-	    // $(this).find('input').attr('name', attr);
 	    total_price += parseInt($(this).children('.ticket_price').html());
 	    ticket_index += 1;
 	});
@@ -123,7 +121,7 @@ $(document).ready(function () {
 				 + "<td>"+ row + "</td>"
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ price + "</td>"
-				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
+				 + "<td><img class=\"delete_ticket\" src=\"\/stadiumticket\/images\/delete.png\"></td>"
 				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector+">"
 				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
  				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+seat+"></td></tr>" );
@@ -213,11 +211,17 @@ $(document).ready(function () {
 		base_url = base_url + 'id=' + ticket_ids[id]+ '&';
 	    };
 	};
+	
+	function compareReversed(a, b) {
+	  return b - a;
+	}
 
 	// fetch for data to server
 	$.get( base_url, function(response) {
 	    $('.alert').html('');
-	    for (index in response) {
+	    console.log(response); 
+	    response.sort(compareReversed);
+	    for (index in  response) {
 		if (response[index]) {
 		    //remove ticket from list if we get true
 		    $('.ticket')[index].remove();
