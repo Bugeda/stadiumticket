@@ -71,12 +71,15 @@ public class TicketsController {
         return "/tickets/sell_tickets";
     }
 
-    @RequestMapping(value = "/tickets/sell/{id}", method = RequestMethod.POST)
-    public String submit_SellTickets(@PathVariable("id") Integer eventId,
+    @RequestMapping(value = "/tickets/sell", method = RequestMethod.POST)
+    public String submit_SellTickets(@ModelAttribute("id") Integer eventId,
                                          @Valid @ModelAttribute("chosenSeats") SeatsForm seatsForm,
              							 BindingResult seatsBindingResult,
             							 ModelMap modelMap){
         if(seatsBindingResult.hasErrors()){
+        	modelMap.put("event", eventService.findById(eventId));
+        	List<SectorPrice> sectorPrices=sectorPriceService.getPricesSectorsOfEvent(eventService.findById(eventId));
+        	modelMap.put("sectorPrices", sectorPrices);   
             modelMap.put("result", seatsBindingResult);
             return "redirect:/tickets/sell?id="+eventId;
         }else{
@@ -103,19 +106,23 @@ public class TicketsController {
         return "/tickets/book_tickets";
     }
 
-    @RequestMapping(value = "/tickets/book/{id}", method = RequestMethod.POST)
-    public String submit_bookTickets(@PathVariable("id") Integer eventId,
+    @RequestMapping(value = "/tickets/book", method = RequestMethod.POST)
+    public String submit_bookTickets(@ModelAttribute("id") Integer eventId,
     									 @Valid @ModelAttribute("newCustomer") SeatsForm seatsForm,
             							 BindingResult seatsBindingResult,
             							 ModelMap modelMap){   
          if(seatsBindingResult.hasErrors()){
+        	modelMap.put("event", eventService.findById(eventId));
+        	List<SectorPrice> sectorPrices=sectorPriceService.getPricesSectorsOfEvent(eventService.findById(eventId));
+        	modelMap.put("sectorPrices", sectorPrices);   
             modelMap.put("result", seatsBindingResult);
             return "/tickets/book_tickets";
         }else{
           	seatsForm.getChosenSeats().remove(0);
         	seatsForm.getChosenSectorsNums().remove(0);              	
             ticketService.bookTickets(eventId, seatsForm);
+            return "redirect:/index";
         }        
-        return "redirect:/index";
+
     }
 }

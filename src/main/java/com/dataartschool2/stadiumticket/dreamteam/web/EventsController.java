@@ -2,6 +2,7 @@ package com.dataartschool2.stadiumticket.dreamteam.web;
 
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
+import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 import com.dataartschool2.stadiumticket.dreamteam.service.*;
 import com.dataartschool2.stadiumticket.dreamteam.web.validator.EventValidator;
 
@@ -13,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +62,7 @@ public class EventsController{
     }
 
     @ModelAttribute("editEvent")
-    public Event getEvent(@RequestParam(value = "id", required = false) Integer id, HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public Event getEvent(@RequestParam(value = "id", required = false) Integer id) throws IOException{
     
          if(id != null) {
 
@@ -110,20 +112,20 @@ public class EventsController{
     public String submit_new_event(@ModelAttribute("submit") String submit,
                                    @Valid @ModelAttribute("newEvent") Event event,
                                    BindingResult bindingResult,
-                                   ModelMap modelMap) throws ParseException {
+                                   ModelMap modelMap,
+                                   RedirectAttributes attr) throws ParseException {
 			modelMap.remove("submit");
             if (submit.equals(appContext.getMessage("event.cancel", new Object[]{}, null))){
                 return "redirect:/new_event";
             }else{
+            
                 if(bindingResult.hasErrors()){
-                /* 	JOptionPane.showMessageDialog(null, appContext.getMessage("error.eventIsNotAdded", new Object[]{}, null),
-                    		"event message", JOptionPane.ERROR_MESSAGE);*/
-                    modelMap.put("result", bindingResult);
+                	modelMap.put("results", bindingResult);
                     return "new_event";
                 }else{
                     eventService.createEvent(event);
-                    JOptionPane.showMessageDialog(null, appContext.getMessage("message.eventIsAdded", new Object[]{}, null),
-                    		"event message", JOptionPane.INFORMATION_MESSAGE);
+                  /*  JOptionPane.showMessageDialog(null, appContext.getMessage("message.eventIsAdded", new Object[]{}, null),
+                    		"event message", JOptionPane.INFORMATION_MESSAGE);*/
                     return "redirect:/index";
                 }
             }
@@ -135,21 +137,17 @@ public class EventsController{
                                     @Valid @ModelAttribute("editEvent") Event event,
                                     BindingResult bindingResult,
                                     ModelMap modelMap) throws ParseException {
-    		modelMap.remove("submit");
-      		
-        	
+    		modelMap.remove("submit");      		        	
             if (submit.equals(appContext.getMessage("event.cancel", new Object[]{}, null))){
                 return "redirect:/edit_event?id="+event.getId();
             }else {
-                if(bindingResult.hasErrors()){            
-                    JOptionPane.showMessageDialog(null, appContext.getMessage("error.changesAreNotApplied", new Object[]{}, null), 
-                    		"event message", JOptionPane.ERROR_MESSAGE);
-                    modelMap.put("result", bindingResult);       
-                    return "edit_event";
+                if(bindingResult.hasErrors()){        
+                	modelMap.put("results", bindingResult);
+                	return "edit_event";
                 }else{
                     eventService.updateEvent(event);            
-                    JOptionPane.showMessageDialog(null, appContext.getMessage("message.changesAreApplied", new Object[]{}, null),
-                    		"event message", JOptionPane.INFORMATION_MESSAGE);
+                  /*  JOptionPane.showMessageDialog(null, appContext.getMessage("message.changesAreApplied", new Object[]{}, null),
+                    		"event message", JOptionPane.INFORMATION_MESSAGE);*/
                     return "redirect:/";
             }
         }

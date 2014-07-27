@@ -42,7 +42,7 @@ public class BookingDAOImpl extends GenericDAOImpl<Booking> implements BookingDA
 	public Boolean sellBooking(Booking booking) {
 	    return changeBookingState(booking,BookingStatus.BookingRedeemed,SeatStatus.occupied);
 	}
-
+	
 	private Boolean changeBookingState(Booking booking, BookingStatus bookingStatus,SeatStatus seatStatus){		
 		Boolean result=false;
 		BookingStatus backBookingStatus = booking.getBookingStatus();
@@ -56,5 +56,8 @@ public class BookingDAOImpl extends GenericDAOImpl<Booking> implements BookingDA
 		    }
 		 return result;			
 	}
+
+
+	
 
 }

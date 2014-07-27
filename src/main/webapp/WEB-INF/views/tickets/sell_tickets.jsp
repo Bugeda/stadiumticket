@@ -45,7 +45,8 @@
 </div>
 <div class="row">      
 <div class="col-md-5">
-    <form:form method="post" action="${pageContext.request.contextPath}/tickets/sell/${event.id}" modelAttribute="chosenSeats">
+    <form:form method="post" action="${pageContext.request.contextPath}/tickets/sell?id=${event.id}" modelAttribute="chosenSeats">
+        <input type="hidden" name="id" value="${event.id}">
         <b><spring:message code="ticketlist.tickets" />:</b>        
         <table class="table" id="ticket_list">
             <thead>
@@ -176,7 +177,7 @@
 <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>
     <tr>        
-        <td><spring:message code="ticketlist.sector" /> <span class="sector_name"></span> <spring:message code="ticketlist.seats" />:</td>
+        <td><spring:message code="ticketlist.seats" /> <span class="sector_name"></span>:</td>
         <td><div>42</div></td>
         <td><spring:message code="sectorstatus.vacant" /></td>
         <td><div>42</div></td>

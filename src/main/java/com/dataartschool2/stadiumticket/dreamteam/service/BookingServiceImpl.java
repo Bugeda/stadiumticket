@@ -26,6 +26,9 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     private TicketService ticketService;
     
+    @Autowired
+    private CustomerService customerService;
+    
     /*@Override
 	@Transactional
     public List<Booking> getAllBookingsForEventInSector(Integer eventId, Integer sectorId) {
@@ -81,12 +84,14 @@ public class BookingServiceImpl implements BookingService {
     @Override
 	@Transactional
 	public List<Booking> getBookingsForEvent(Integer eventId){
+    
 		List<Booking> bookingSet = new ArrayList<Booking>();	
 		List<Booking> bookingsAllSet = bookingDAO.findAllBooked();
 
 		for(Booking booking : bookingsAllSet){
 			if(booking.getTicket().getEvent().getId().equals(eventId)){
 				bookingSet.add(booking);
+			
 				}
 			}
 		return bookingSet;
@@ -114,5 +119,19 @@ public class BookingServiceImpl implements BookingService {
 		return result;
 	}
 
-    
+	@Override
+	@Transactional
+	public List<Booking> findLikeCustomerNameInEvent(Integer eventId, String customerName) {	
+		List<Customer> customerSet =  customerService.findLikeCustomerName(customerName);
+		List<Booking> result = new ArrayList<Booking>();
+		List<Booking> bookingInEvent = getBookingsForEvent(eventId);
+	
+		for (Booking booking : bookingInEvent){
+			if (customerSet.contains(booking.getCustomer())){
+				result.add(booking);				
+			}
+		}
+		return result;
+
+	}
 }
