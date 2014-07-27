@@ -291,8 +291,8 @@ $(document).ready(function () {
 	// add currently selected tickets to sector plan when redraw it
 	$('.ticket').each( function() {
 	    if ( $(this).children('td').eq(1).html() == sector_obj.name ) {
-		var row = $(this).children('td').eq(2);
-		var seat = $(this).children('td').eq(3);
+		var row = $(this).children('td').eq(2).html();
+		var seat = $(this).children('td').eq(3).html();
 		$('.'+ row + '_' + seat).addClass('selected');
 	    }
 	});
