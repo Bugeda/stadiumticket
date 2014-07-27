@@ -65,6 +65,7 @@ public class BookingServiceImpl implements BookingService {
         Date fromNow = calendar.getTime();
 
         if(startDate.before(fromNow)){
+        	System.out.println("ooops");
         	bookingDAO.cancelBookingInTime(booking);
             bookingDAO.updateEntity(booking);
         }
