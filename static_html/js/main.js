@@ -276,13 +276,33 @@ $(document).ready(function () {
     // Draw sector from json object
     function draw_sector(sector_obj){
 	$('.sector_name').html(sector_obj.name);
+	//initialise sector stats
+	var total_free = 0;
+	var total_booked = 0;
+	var total_occupied = 0;
+
 	// iterate through rows
 	for (var row_index = 0; row_index < sector_obj.rows.length; row_index++) {
 	    // iterate through seats in a row
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
 		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',parseInt(row_index+1) +'_'+parseInt(seat_index+1)+" "+ sector_obj.rows[row_index][seat_index]);
+		switch (sector_obj.rows[row_index][seat_index]) {
+		    case 'vacant':
+		    total_free += 1;
+		    break;
+		    case 'booked':
+		    total_booked += 1;
+		    break;
+		    case 'occupied':
+		    total_occupied += 1;
+		    break;
+		}
 	    }
 	}
+	// fill total free/booked/occupied numbers
+	$('.total_free').html(total_free);
+	$('.total_booked').html(total_booked);
+	$('.total_occupied').html(total_occupied);
 	// add currently selected tickets to sector plan when redraw it
 	$('.ticket').each( function() {
 	    if ( $(this).children('td').eq(1).html() == sector_obj.name ) {

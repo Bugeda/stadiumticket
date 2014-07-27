@@ -2,8 +2,8 @@ package com.dataartschool2.stadiumticket.dreamteam.service;
 
 
 import com.dataartschool2.stadiumticket.dreamteam.dao.BookingDAO;
-import com.dataartschool2.stadiumticket.dreamteam.domain.*;
-
+import com.dataartschool2.stadiumticket.dreamteam.domain.Booking;
+import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -25,28 +25,11 @@ public class BookingServiceImpl implements BookingService {
     
     @Autowired
     private TicketService ticketService;
-    
-    /*@Override
-	@Transactional
-    public List<Booking> getAllBookingsForEventInSector(Integer eventId, Integer sectorId) {
-        List<Booking> bookings = bookingDAO.findAll();
-        List<Booking> result = new ArrayList<Booking>();
 
-        for(Booking booking : bookings){
-            Ticket ticket = booking.getTicket();
-            Event event = ticket.getEvent();
-            Seat seat = ticket.getSeat();
-            Sector sector = seat.getSector();
-
-            if(event.getId().equals(eventId) && sector.getId().equals(sectorId)){
-                result.add(booking);
-            }
-        }
-        return result;
-    }*/
-
-	@Scheduled(fixedDelay = 60000) // 1 minute
+	@Scheduled(cron = "0 * * * * *") // every minute
+    @Transactional
     public void cancelBooking(){
+        System.out.println("Auto cancelling. Time: " + new Date());
         List<Booking> bookings = bookingDAO.findAllBooked();
         for(Booking booking : bookings){
                 cancelBookingIfNeeded(booking);
@@ -54,6 +37,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private void cancelBookingIfNeeded(Booking booking) {
+        System.out.println("checking booking with id" + booking.getId());
         Event event = booking.getTicket().getEvent();
         Date startDate = event.getEventDate();
 
@@ -63,10 +47,11 @@ public class BookingServiceImpl implements BookingService {
         calendar.setTime(now);
         calendar.add(Calendar.MINUTE, minutes);
         Date fromNow = calendar.getTime();
-
+        System.out.println("Start date " + startDate);
+        System.out.println("From now " + fromNow);
         if(startDate.before(fromNow)){
+        	System.out.println("Canceling");
         	bookingDAO.cancelBookingInTime(booking);
-            bookingDAO.updateEntity(booking);
         }
     }
 
