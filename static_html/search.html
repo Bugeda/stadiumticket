@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>stadiumticket - event list</title>
+    <title>stadiumticket - поиск брони</title>
     <!-- css -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
@@ -29,38 +29,44 @@
     </style>
   </head>
   <body>
+    <div class="modal fade bs-example-modal-sm" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+	<div class="modal-content">
+	  <div class="alert alert-warning" role="alert">OK</div>
+	</div>
+      </div>
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-md-1"><a href="index.html"><img class="img-responsive" src="images/logo.png"></a></div>
         <div class="col-md-6">
-          <h3><a id="arrow_back" href="index.html"><img src="images/arrow_back.png"></a>&nbsp;Events</h3>
-          <h4> search booked tickets for:</h4>
-
-          <h2 id="event_name">Event name</h2>
+          <h3><a id="arrow_back" href="index.html"><img src="images/arrow_back.png">&nbsp;События</a></h3>
+          <h4>Поиск забронированных билетов для:</h4>
+          <h2 id="event_name">Название события</h2>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <form action="" method="post">
-            <label for="search_booking_name">Search booked tickets: <img src="images/arrow_down.png"></label>
-            <input class="form-control" type="text" name="search_booking_name" id="search_booking_name" placeholder="Full name of person">
+            <label for="search_booking_name">Поиск забронированных билетов: <img src="images/arrow_down.png"></label>
+            <input class="form-control" type="text" name="search_booking_name" maxlength="50" id="search_booking_name" placeholder="введите ФИО">
           </form>
         </div>
       </div>
       <br>
-      <h4>Search results:</h4>
+      <h3>Результаты поиска:</h3>
       <div class="row">
         <div class="col-md-12">
           <table class="table hover" id="booking_search_results">
             <thead>
               <tr style="font-weight: bold;">
-                <td> Booking id</td>
-                <td>Sector</td>
-                <td>Row</td>
-                <td>Seat</td>
-                <td>Price</td>
-                <td>Booked for</td>
-		<td>Mark ticket</td>
+                <td>ID брони</td>
+                <td>Сектор</td>
+                <td>Ряд</td>
+                <td>Место</td>
+                <td>Цена</td>
+                <td>Забронировано для</td>
+		<td>Выбрать билет</td>
               </tr>
             </thead>
             <tbody>
@@ -77,103 +83,103 @@
                 <td class="booking_id">10004</td>
                 <td >12</td>
                 <td >5</td>
-                <td >6</td>
-                <td class="ticket_price" >200</td>
-                <td >Andrey Petrov</td>
+                <td >5</td>
+                <td class="ticket_price" >50</td>
+                <td >Andrey 111</td>
                 <td><input type="checkbox"></td>
               </tr>
               <tr class="ticket">
-                <td class="booking_id">10003</td>
+                <td class="booking_id">10005</td>
                 <td >12</td>
                 <td >5</td>
                 <td >5</td>
                 <td class="ticket_price" >250</td>
                 <td >Andrey Ivanov</td>
-                <td><input type="checkbox"></td>
-              </tr>
-              <tr class="ticket">
-                <td class="booking_id">10003</td>
-                <td >12</td>
-                <td >5</td>
-                <td >5</td>
-                <td class="ticket_price" >250</td>
-                <td >Andrey Ivanov</td>
-                <td><input type="checkbox"></td>
-              </tr>
-              <tr class="ticket">
-                <td class="booking_id">10003</td>
-                <td >12</td>
-                <td >5</td>
-                <td >5</td>
-                <td class="ticket_price" >250</td>
-                <td >Andrey Ivanov</td>
-                <td><input type="checkbox"></td>
-              </tr>
-              <tr class="ticket">
-                <td class="booking_id">10003</td>
-                <td >12</td>
-                <td >5</td>
-                <td >5</td>
-                <td class="ticket_price" >250</td>
-                <td >Andrey Ivanov</td>
-                <td><input type="checkbox"></td>
-              </tr>
-              <tr class="ticket">
-                <td class="booking_id">10005</td>
-                <td >12</td>
-                <td >5</td>
-                <td >7</td>
-                <td class="ticket_price" >50</td>
-                <td >Andrey Sidorov</td>
-                <td><input type="checkbox"></td>
-              </tr>
-              <tr class="ticket">
-                <td class="booking_id">10005</td>
-                <td >12</td>
-                <td >5</td>
-                <td >7</td>
-                <td class="ticket_price" >50</td>
-                <td >Andrey Sidorov</td>
-                <td><input type="checkbox"></td>
-              </tr>
-              <tr class="ticket">
-                <td class="booking_id">10005</td>
-                <td >12</td>
-                <td >5</td>
-                <td >7</td>
-                <td class="ticket_price" >50</td>
-                <td >Andrey Sidorov</td>
-                <td><input type="checkbox"></td>
-              </tr>
-              <tr class="ticket">
-                <td class="booking_id">10005</td>
-                <td >12</td>
-                <td >5</td>
-                <td >7</td>
-                <td class="ticket_price" >50</td>
-                <td >Andrey Sidorov</td>
-                <td><input type="checkbox"></td>
-              </tr>
-              <tr class="ticket">
-                <td class="booking_id">10005</td>
-                <td >12</td>
-                <td >5</td>
-                <td >7</td>
-                <td class="ticket_price" >50</td>
-                <td >Andrey Sidorov</td>
-                <td><input type="checkbox"></td>
-              </tr>
-              <tr class="ticket">
-                <td class="booking_id">10005</td>
-                <td >12</td>
-                <td >5</td>
-                <td >7</td>
-                <td class="ticket_price" >50</td>
-                <td >Andrey Sidorov</td>
                 <td><input type="checkbox"></td>
               </tr>
               <tr class="ticket">
                 <td class="booking_id">10006</td>
+                <td >12</td>
+                <td >5</td>
+                <td >5</td>
+                <td class="ticket_price" >250</td>
+                <td >Andrey Ivanov</td>
+                <td><input type="checkbox"></td>
+              </tr>
+              <tr class="ticket">
+                <td class="booking_id">10007</td>
+                <td >12</td>
+                <td >5</td>
+                <td >5</td>
+                <td class="ticket_price" >250</td>
+                <td >Andrey Ivanov</td>
+                <td><input type="checkbox"></td>
+              </tr>
+              <tr class="ticket">
+                <td class="booking_id">10008</td>
+                <td >12</td>
+                <td >5</td>
+                <td >5</td>
+                <td class="ticket_price" >250</td>
+                <td >Andrey Ivanov</td>
+                <td><input type="checkbox"></td>
+              </tr>
+              <tr class="ticket">
+                <td class="booking_id">10009</td>
+                <td >12</td>
+                <td >5</td>
+                <td >7</td>
+                <td class="ticket_price" >50</td>
+                <td >Andrey Sidorov</td>
+                <td><input type="checkbox"></td>
+              </tr>
+              <tr class="ticket">
+                <td class="booking_id">10010</td>
+                <td >12</td>
+                <td >5</td>
+                <td >7</td>
+                <td class="ticket_price" >50</td>
+                <td >Andrey Sidorov</td>
+                <td><input type="checkbox"></td>
+              </tr>
+              <tr class="ticket">
+                <td class="booking_id">10011</td>
+                <td >12</td>
+                <td >5</td>
+                <td >7</td>
+                <td class="ticket_price" >50</td>
+                <td >Andrey Sidorov</td>
+                <td><input type="checkbox"></td>
+              </tr>
+              <tr class="ticket">
+                <td class="booking_id">10012</td>
+                <td >12</td>
+                <td >5</td>
+                <td >7</td>
+                <td class="ticket_price" >50</td>
+                <td >Andrey Sidorov</td>
+                <td><input type="checkbox"></td>
+              </tr>
+              <tr class="ticket">
+                <td class="booking_id">10013</td>
+                <td >12</td>
+                <td >5</td>
+                <td >7</td>
+                <td class="ticket_price" >50</td>
+                <td >Andrey Sidorov</td>
+                <td><input type="checkbox"></td>
+              </tr>
+              <tr class="ticket">
+                <td class="booking_id">10014</td>
+                <td >12</td>
+                <td >5</td>
+                <td >7</td>
+                <td class="ticket_price" >50</td>
+                <td >Andrey Sidorov</td>
+                <td><input type="checkbox"></td>
+              </tr>
+              <tr class="ticket">
+                <td class="booking_id">10015</td>
                 <td >12</td>
                 <td >5</td>
                 <td >8</td>
@@ -186,18 +192,13 @@
               <tr>
                 <td colspan="4"><b>Total price:</b></td>
                 <td style="font-weight:bold"><span id="total_price">0</span> UAH</td>
-		<td colspan="2">
+		<td></td>
+		<td><input id="select_all" type="checkbox"> Выбрать все</td>
               </tr>
             </tfoot>
           </table>
-          <input class="btn btn-primary" type="submit" name="submit" value="Sell selection" id="sell_selected_tickets">
-	  <input class="btn btn-danger" type="submit" name="submit" value="Cancel booking for selection" id="cancel_booking_selected_tickets">
-	  <br><br>
-	  <div class="row">
-	    <div class="col-md-12">
-	      <div class="response alert alert-warning" role="alert"></div>
-	    </div>
-	  </div>
+          <input class="btn btn-primary" type="submit" name="submit" value="Продать выбранные" id="sell_selected_tickets">
+	  <input class="btn btn-danger" type="submit" name="submit" value="Отменить бронь для выбранных" id="cancel_booking_selected_tickets">
         </div>
       </div>
     </div>

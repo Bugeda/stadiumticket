@@ -1,16 +1,15 @@
 package com.dataartschool2.stadiumticket.dreamteam.dao;
 
-import java.util.List;
-
+import com.dataartschool2.stadiumticket.dreamteam.domain.Booking;
+import com.dataartschool2.stadiumticket.dreamteam.domain.BookingStatus;
+import com.dataartschool2.stadiumticket.dreamteam.domain.SeatStatus;
+import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dataartschool2.stadiumticket.dreamteam.domain.Booking;
-import com.dataartschool2.stadiumticket.dreamteam.domain.BookingStatus;
-import com.dataartschool2.stadiumticket.dreamteam.domain.SeatStatus;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
+import java.util.List;
 
 @Repository  
 @Transactional  
@@ -42,19 +41,14 @@ public class BookingDAOImpl extends GenericDAOImpl<Booking> implements BookingDA
 	public Boolean sellBooking(Booking booking) {
 	    return changeBookingState(booking,BookingStatus.BookingRedeemed,SeatStatus.occupied);
 	}
-	
-	private Boolean changeBookingState(Booking booking, BookingStatus bookingStatus,SeatStatus seatStatus){		
-		Boolean result=false;
+
+	private Boolean changeBookingState(Booking booking, BookingStatus bookingStatus,SeatStatus seatStatus){
 		BookingStatus backBookingStatus = booking.getBookingStatus();
 		SeatStatus backSeatStatus = booking.getTicket().getSeatStatus();
 		booking.setBookingStatus(bookingStatus);
 		booking.getTicket().setSeatStatus(seatStatus);
-		result = (booking.getBookingStatus().equals(bookingStatus) &&(booking.getTicket().getSeatStatus().equals(seatStatus)));
-		 if (!result){
-		    	booking.setBookingStatus(backBookingStatus);
-		 	    booking.getTicket().setSeatStatus(backSeatStatus);	
-		    }
-		 return result;			
+		updateEntity(booking);
+		return true;
 	}
 
 
