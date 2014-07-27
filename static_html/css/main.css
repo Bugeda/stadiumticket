@@ -312,3 +312,10 @@ label {
     margin-top: 20px;
 }
 .response { display: none; }
+
+.sectorPrice-danger{
+position:absolute;
+left:730px;
+top:-30px;
+white-space: nowrap;
+}
