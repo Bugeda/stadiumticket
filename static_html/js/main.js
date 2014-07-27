@@ -14,15 +14,6 @@ $(document).ready(function () {
 	dayOfWeekStart: 1
     });
 
-    // $('#booking_time').datetimepicker({
-    // 	lang:'en',
-    // 	datepicker:false,
-    // 	value: 30,
-    // 	step:5,
-    // 	format: 'i',
-    // 	formatTime: 'i'
-    // });
-
     // 3. dataTables
     $('#event_list').dataTable({
 	language: {
@@ -117,8 +108,6 @@ $(document).ready(function () {
 	    $(this).find('input').each( function () {
 		$(this).attr('name', $(this).attr('name').replace('[i]', '['+ticket_index+']') );
 	    });
-	    // attr = attr.replace('[i]', '['+ticket_index+']');
-	    // $(this).find('input').attr('name', attr);
 	    total_price += parseInt($(this).children('.ticket_price').html());
 	    ticket_index += 1;
 	});
@@ -132,7 +121,7 @@ $(document).ready(function () {
 				 + "<td>"+ row + "</td>"
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ price + "</td>"
-				 + "<td><img class=\"delete_ticket\" src=\"images\/delete.png\"></td>"
+				 + "<td><img class=\"delete_ticket\" src=\"\/stadiumticket\/images\/delete.png\"></td>"
 				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector+">"
 				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
  				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+seat+"></td></tr>" );
@@ -208,10 +197,10 @@ $(document).ready(function () {
     // send requests for cancel or sell tickets by booking id
     function manipulate_with_booked_tickets (action) {
 	if (action == 'sell') {
-	    var base_url = 'url_base_for_selling_tickets_by_id?'; //paste here the correct one
+	    var base_url = '/stadiumticket/booking/sell?'; //paste here the correct one
 	}
 	if (action == 'cancel_booking'){
-	    var base_url = 'url_base_for_cancel_booking_by_id?'; //paste here the correct one
+	    var base_url = '/stadiumticket/booking/cancel?'; //paste here the correct one
 	};
 	var ticket_ids = get_selected_ids();
 	for (id in ticket_ids) {
@@ -222,11 +211,17 @@ $(document).ready(function () {
 		base_url = base_url + 'id=' + ticket_ids[id]+ '&';
 	    };
 	};
+	
+	function compareReversed(a, b) {
+	  return b - a;
+	}
 
 	// fetch for data to server
 	$.get( base_url, function(response) {
 	    $('.alert').html('');
-	    for (index in response) {
+	    console.log(response); 
+	    response.sort(compareReversed);
+	    for (index in  response) {
 		if (response[index]) {
 		    //remove ticket from list if we get true
 		    $('.ticket')[index].remove();
@@ -291,8 +286,8 @@ $(document).ready(function () {
 	// add currently selected tickets to sector plan when redraw it
 	$('.ticket').each( function() {
 	    if ( $(this).children('td').eq(1).html() == sector_obj.name ) {
-		var row = $(this).children('td').eq(2);
-		var seat = $(this).children('td').eq(3);
+		var row = $(this).children('td').eq(2).html();
+		var seat = $(this).children('td').eq(3).html();
 		$('.'+ row + '_' + seat).addClass('selected');
 	    }
 	});
@@ -322,49 +317,5 @@ $(document).ready(function () {
 	// draw_sector(normal_sector);
     });
     // END Working with staduim plan section
-
-    // TEST DATA! remove when ajax wil be working properly
-    var vip_sector = {
-	name: 'VIP D',
-	rows: [
-	    ['occupied', 'booked','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'occupied'],
-	    ['vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant'],
-	    ['vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant'],
-	    ['vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant'],
-	    ['vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant'],
-	    ['vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant'],
-	    ['vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant'],
-	    ['vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant'],
-	    ['vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant'],
-	    ['occupied', 'booked','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'occupied']
-	]
-    };
-
-    var normal_sector = {
-	name: '15',
-	rows: [
-	    ['occupied', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'occupied'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['occupied', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['occupied', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['occupied', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['occupied', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['occupied', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['vacant', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['booked', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant'],
-	    ['occupied', 'occupied','occupied', 'booked', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'vacant', 'vacant', 'booked', 'occupied','vacant','booked','occupied','vacant', 'vacant', 'vacant', 'vacant','vacant', 'booked','occupied', 'vacant', 'booked', 'occupied','vacant','vacant','vacant', 'occupied'],
-	]
-    };
-    // TEST DATA! remove when ajax wil be working properly
 
 });
