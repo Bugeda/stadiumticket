@@ -79,7 +79,7 @@
     <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
      <map id="disable_inputs" name="stadium">
 	 	<c:forEach items="${sectorPrices}" var="sectorPrice">	  
-	    <input type="text" id="price_${sectorPrice.getSector().getId()}" size="4" maxlength="4" value="${sectorPrice.getPrice()}">	  
+	    <input type="text" id="price_${sectorPrice.getSector().getId()}" size="7" maxlength="7" value="${sectorPrice.getPrice()}">	  
 	    </c:forEach> 
 
 		<area id="1" alt="1" title="1" href="<c:url value="/tickets/get_sector_seats?event=${event.id}&sector=1"/>" shape="poly" 
@@ -147,11 +147,11 @@
     <tbody>
     <tr>        
         <td><spring:message code="ticketlist.seats" /> <span class="sector_name"></span>:</td>
-        <td><div>42</div></td>
+        <td><div class="total_free"></div></td>
         <td><spring:message code="sectorstatus.vacant" /></td>
-        <td><div>42</div></td>
+		<td><div class="total_booked"></div></td>
         <td><spring:message code="sectorstatus.booked" /></td>
-        <td><div>42</div></td>
+		<td><div class="total_occupied"></div></td>
         <td><spring:message code="sectorstatus.occupied" /></td>
     </tr>
     </tbody>
@@ -178,11 +178,11 @@
     <tbody>
     <tr>        
         <td><spring:message code="ticketlist.seats" /> <span class="sector_name"></span>:</td>
-        <td><div>42</div></td>
+        <td><div class="total_free"></div></td>
         <td><spring:message code="sectorstatus.vacant" /></td>
-        <td><div>42</div></td>
+		<td><div class="total_booked"></div></td>
         <td><spring:message code="sectorstatus.booked" /></td>
-        <td><div>42</div></td>
+		<td><div class="total_occupied"></div></td>
         <td><spring:message code="sectorstatus.occupied" /></td>
     </tr>
     </tbody>

@@ -136,7 +136,7 @@ public class EventsController{
     public String submit_edit_event(@ModelAttribute("submit") String submit,
                                     @Valid @ModelAttribute("editEvent") Event event,
                                     BindingResult bindingResult,
-                                    ModelMap modelMap) throws ParseException {
+                                    ModelMap modelMap) throws ParseException {    	
     		modelMap.remove("submit");      		        	
             if (submit.equals(appContext.getMessage("event.cancel", new Object[]{}, null))){
                 return "redirect:/edit_event?id="+event.getId();

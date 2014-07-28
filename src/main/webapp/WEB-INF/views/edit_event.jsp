@@ -149,7 +149,7 @@
 	<img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
 	  <map name="stadium">
 	   <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice">	  	 
-	      <input id="price_${sectorPrice.sector.id}" size="4" maxlength="4" value="${sectorPrice.price}" placeholder="${msg}"/>
+	      <input id="price_${sectorPrice.sector.id}" size="7" maxlength="7" value="${sectorPrice.price}" placeholder="${msg}"/>
 	   </c:forEach>
 		<area id="1" alt="1" title="1" href="" shape="poly" coords="320,92,363,93,363,54,356,54,356,33,437,33,437,48,423,48,423,120,384,120,384,111,320,111" />
 		<area id="2" alt="2" title="2" href="" shape="poly" coords="484,107,468,108,467,118,431,118,431,54,446,54,446,19,454,19,463,19,472,19,480,19,489,21,498,22,508,25,519,29"/>

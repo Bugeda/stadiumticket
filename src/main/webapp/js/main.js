@@ -63,6 +63,15 @@ $(document).ready(function () {
 	$('#event_name').html(title);
     });
 
+    // fill sector prices from hiddens if form validation didn't pass
+    $('input[type="hidden"]').each( function () {
+	var sector_number = $(this).attr('id').split('s')[1];
+	var hidden_price = $(this).val()
+	if ( hidden_price ) {
+	    $('#price_'+sector_number).val(hidden_price);
+	}
+    });
+
     $('map > input').change( function () {
 	var source_id = $(this).attr('id');
 	var source_content = $(this).val();
@@ -108,25 +117,27 @@ $(document).ready(function () {
 	    $(this).find('input').each( function () {
 		$(this).attr('name', $(this).attr('name').replace('[i]', '['+ticket_index+']') );
 	    });
-	    total_price += parseInt($(this).children('.ticket_price').html());
+	    // attr = attr.replace('[i]', '['+ticket_index+']');
+	    // $(this).find('input').attr('name', attr);
+	    total_price += parseFloat($(this).children('.ticket_price').html());
 	    ticket_index += 1;
 	});
 	$('#total_price').html(total_price);
     };
 
     //add ticket to list
-    function add_ticket(sector, row, seat,price) {
+    function add_ticket(sector, sector_number, row, seat,price){
 	$('#ticket_list').append("<tr class=\"ticket\"><td class=\"ticket_number\"></td>"+"<td>"
 				 + sector +"</td>"
 				 + "<td>"+ row + "</td>"
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ price + "</td>"
 				 + "<td><img class=\"delete_ticket\" src=\"\/stadiumticket\/images\/delete.png\"></td>"
-				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector+">"
+				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector_number+">"
 				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
  				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+seat+"></td></tr>" );
 	recalculate_price_and_index();
-    	};
+    };
     //add ticket by clicking seat on sector plan
     $('.sell_tickets_table td').click(function() {
 	if ($(this).is('[class]')
@@ -145,7 +156,7 @@ $(document).ready(function () {
 	    var price = $("#price_" + sector_number).val();
 	    var row = id[0];
 	    var seat = parseInt(id[1]);
-	    add_ticket(sector,row,seat,price);
+	    add_ticket(sector,sector_number,row,seat,price);
 	};
     });
 
@@ -276,13 +287,33 @@ $(document).ready(function () {
     // Draw sector from json object
     function draw_sector(sector_obj){
 	$('.sector_name').html(sector_obj.name);
+	//initialise sector stats
+	var total_free = 0;
+	var total_booked = 0;
+	var total_occupied = 0;
+
 	// iterate through rows
 	for (var row_index = 0; row_index < sector_obj.rows.length; row_index++) {
 	    // iterate through seats in a row
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
 		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',parseInt(row_index+1) +'_'+parseInt(seat_index+1)+" "+ sector_obj.rows[row_index][seat_index]);
-	    }
+		switch (sector_obj.rows[row_index][seat_index]) {
+	    case 'vacant':
+	    total_free += 1;
+	    break;
+	    case 'booked':
+	    total_booked += 1;
+	    break;
+	    case 'occupied':
+	    total_occupied += 1;
+	    break;
 	}
+    }
+}
+// fill total free/booked/occupied numbers
+$('.total_free').html(total_free);
+$('.total_booked').html(total_booked);
+$('.total_occupied').html(total_occupied);
 	// add currently selected tickets to sector plan when redraw it
 	$('.ticket').each( function() {
 	    if ( $(this).children('td').eq(1).html() == sector_obj.name ) {
