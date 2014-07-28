@@ -1,6 +1,7 @@
 package com.dataartschool2.stadiumticket.dreamteam.service;
 
 
+import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
 import com.dataartschool2.stadiumticket.dreamteam.web.SeatsForm;
 
@@ -13,6 +14,16 @@ public interface TicketService {
 	
 	public void updateTicket(Ticket ticket);
 	
+	public List<Ticket> getAllTickets();
+	
+	public List<Ticket> findSoldTickets();
+	
+	public List<Ticket> findBookedTickets();
+	
+	public Ticket findById(int id);
+
+	public List<Ticket> findBySeat(Seat seat);
+	
     public List<Ticket> getSoldTicketsBySector(Integer eventId, Integer sectorId);
     
     public List<Ticket> getBookedTicketsBySector(Integer eventId, Integer sectorId);
@@ -23,15 +34,7 @@ public interface TicketService {
 
     public List<Ticket> getAllTicketsByEvent(Integer eventId);
 
-	public List<Ticket> getAllTickets();
-	
-	public List<Ticket> findSoldTickets();
-	
-	public List<Ticket> findBookedTickets();
-	
-	public Ticket findById(int id);
 
-	public List<Ticket> findByNumber(String ticketNumber);
 
 
 

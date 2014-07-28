@@ -60,7 +60,6 @@ public class BookingController{
     public String getBookedTicketsForCustomer(@RequestParam("id") Integer eventId,
     										  @RequestParam("customerName") String customerName,
        										  ModelMap modelMap) throws ParseException {
-		System.out.println(eventId);
 		modelMap.put("customerName", customerName);
 		modelMap.put("event", eventService.findById(eventId));
 		modelMap.put("bookingSet", bookingService.findLikeCustomerNameInEvent(eventId, customerName));

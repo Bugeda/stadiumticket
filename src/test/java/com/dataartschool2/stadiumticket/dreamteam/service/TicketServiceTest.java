@@ -120,7 +120,7 @@ public class TicketServiceTest {
         }   
 		boolean different = true;
         for (Ticket tk:allTickets){
-        	List<Ticket> identicalTickets = ticketService.findByNumber(tk.getTicketNumber());
+        	List<Ticket> identicalTickets = ticketService.findBySeat(tk.getSeat());
         	if (identicalTickets.size()>1){
         		for (int i=0;i<identicalTickets.size()-1;i++)
         			for (int j=i;j<identicalTickets.size();j++){
@@ -179,7 +179,7 @@ public class TicketServiceTest {
         }   
 		boolean different = true;
         for (Ticket tk:allTickets){
-        	List<Ticket> identicalTickets = ticketService.findByNumber(tk.getTicketNumber());
+        	List<Ticket> identicalTickets = ticketService.findBySeat(tk.getSeat());
         	if (identicalTickets.size()>1){
         		for (int i=0;i<identicalTickets.size()-1;i++)
         			for (int j=i;j<identicalTickets.size();j++){
@@ -189,6 +189,5 @@ public class TicketServiceTest {
         }
     assertTrue(different);	
     }
-    
     
 }

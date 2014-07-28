@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
+import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
 import com.dataartschool2.stadiumticket.dreamteam.domain.SeatStatus;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
 
@@ -36,6 +37,12 @@ public class TicketDAOImpl extends GenericDAOImpl<Ticket> implements TicketDAO {
 	@Override
 	public List<Ticket> findBookedTickets() {
 		Criterion criterion = Restrictions.eq("seatStatus", SeatStatus.booked);
+		return findByCriteria(criterion);
+	}
+
+	@Override
+	public List<Ticket> findBySeat(Seat seat) {
+		Criterion criterion = Restrictions.eq("seat", seat);
 		return findByCriteria(criterion);
 	}
 }	

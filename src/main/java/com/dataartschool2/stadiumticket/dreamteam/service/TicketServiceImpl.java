@@ -39,8 +39,38 @@ public class TicketServiceImpl implements TicketService {
     @Transactional
 	public void updateTicket(Ticket ticket) {
     	ticketDAO.updateEntity(ticket);
-		
+    }
+
+    @Override
+    @Transactional
+	public List<Ticket> getAllTickets() {
+		return ticketDAO.findAll();
 	}
+
+	@Override
+	@Transactional
+	public List<Ticket> findSoldTickets() {
+		return ticketDAO.findSoldTickets();
+	}
+	
+	@Override
+	@Transactional
+	public List<Ticket> findBookedTickets() {
+		return ticketDAO.findBookedTickets();
+	}
+	
+	@Override
+	@Transactional
+	public Ticket findById(int id) {
+		return ticketDAO.findById(id);
+	}
+	
+	@Override
+	@Transactional
+    public List<Ticket> findBySeat(Seat seat) {
+		return ticketDAO.findBySeat(seat);
+	}
+
     
     @Override
     @Transactional
@@ -115,38 +145,19 @@ public class TicketServiceImpl implements TicketService {
             Sector sector = sectorService.findById(sectorNo);
             seat.setSector(sector);
             seatService.updateSeat(seat);
-            String ticketNumber = generateTicketNumber(event, seat);
-            if (findByNumber(ticketNumber).isEmpty()){
-            	Ticket ticket = new Ticket();  
+
+            Ticket ticket = getTicket(eventId, seat);
+            if (ticket!=null){
+            	String ticketNumber = generateTicketNumber(event, seat);
             	updateTicket(ticket);
             	ticket.setEvent(event);
             	ticket.setSeat(seat);
             	ticket.setSeatStatus(SeatStatus.occupied);
-            	ticket.setTicketNumber(ticketNumber);
-            }else {   
-            	    System.out.println(appContext.getMessage("error.ticketExist", new Object[]{}, null));      	
-              //	throw new RuntimeException(appContext.getMessage("error.ticketExist", new Object[]{}, null));
+            	ticket.setTicketNumber(ticketNumber);    
             }
         }
     }
-    
-    @Override
-    @Transactional
-    public List<Ticket> findByNumber(String ticketNumber) {
-		return ticketDAO.findByNumber(ticketNumber);
-	}
-
-	private  String generateTicketNumber(Event event, Seat seat) {
-        return Integer.toString(Objects.hash(event, seat));
-    }
-    
-    public void checkTickets(List<Ticket> ticketSet, Ticket ticket){
-    	if (ticketSet.contains(ticket)&&(!ticket.getSeatStatus().equals(SeatStatus.vacant))){
-    	    System.out.println(appContext.getMessage("error.ticketExist", new Object[]{}, null));   
-         	//throw new RuntimeException(appContext.getMessage("error.ticketExist", new Object[]{}, null));
-    	}
-    }
-    
+     
     @Override
     @Transactional
     public void bookTickets(Integer eventId, SeatsForm seatsForm){   
@@ -166,9 +177,9 @@ public class TicketServiceImpl implements TicketService {
             Sector sector = sectorService.findById(sectorNo);
             seat.setSector(sector);
             seatService.updateSeat(seat);  
-            String ticketNumber = generateTicketNumber(event, seat);
-            if (findByNumber(ticketNumber).isEmpty()){
-            	Ticket ticket = new Ticket();  
+            Ticket ticket = getTicket(eventId, seat);
+            if (ticket != null){
+            	String ticketNumber = generateTicketNumber(event, seat);
             	updateTicket(ticket);
             	ticket.setEvent(event);
             	ticket.setSeat(seat);
@@ -177,58 +188,33 @@ public class TicketServiceImpl implements TicketService {
             	Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
             	Boolean booked = (booking.getBookingStatus().equals(BookingStatus.Booked)&&(booking.getTicket().getSeatStatus().equals(SeatStatus.booked)));
             	if (booked){              	
-                	ticketDAO.updateEntity(ticket);     	           	    
-     			    bookingService.updateBooking(booking);
+            		ticketDAO.updateEntity(ticket);     	           	    
+            		bookingService.updateBooking(booking);
             	}
-            }else {   
-            	    System.out.println(appContext.getMessage("error.ticketExist", new Object[]{}, null));      	
-              //	throw new RuntimeException(appContext.getMessage("error.ticketExist", new Object[]{}, null));
             }
         }  
-           
-		/*List<Ticket> AllTickets = getAllTicketsByEvent(eventId);
-		Event event = eventService.findById(eventId);
-		List<Ticket> tickets =  new ArrayList<Ticket>();
-		for(Seat seat : chosenSeats){	 
-	            Ticket ticket = new Ticket();
-	            ticket.setEvent(event);
-	            ticket.setSeat(seat);
-	            String ticketNumber = generateTicketNumber(event, seat);	
-	            ticket.setTicketNumber(ticketNumber);
-	            checkTickets(AllTickets, ticket);
-	            ticket.setSeatStatus(SeatStatus.booked);
-
-	     	
-	            ticketDAO.updateEntity(ticket);
-	            seatService.updateSeat(seat);  	    
-			    bookingService.updateBooking(booking);
-	     		}
-		}      */
 	}
 
-    @Override
-    @Transactional
-	public List<Ticket> getAllTickets() {
-		return ticketDAO.findAll();
-	}
+	private  String generateTicketNumber(Event event, Seat seat) {
+        return Integer.toString(Objects.hash(event, seat));
+    }
+    
+    private Ticket getTicket(Integer eventId, Seat seat){
+    	if (findBySeat(seat).equals(null)) 
+    		return new Ticket();
 
-	@Override
-	@Transactional
-	public List<Ticket> findSoldTickets() {
-		return ticketDAO.findSoldTickets();
-	}
-	
-	@Override
-	@Transactional
-	public List<Ticket> findBookedTickets() {
-		return ticketDAO.findBookedTickets();
-	}
-	
-	@Override
-	@Transactional
-	public Ticket findById(int id) {
-		return ticketDAO.findById(id);
-	}
-
-
+    	List<Ticket> allTickets = getAllTicketsByEvent(eventId);
+    	for (Ticket tk:allTickets){
+    		if (tk.getSeat().equals(seat)){
+    			if (tk.getSeatStatus().equals(SeatStatus.vacant)){
+					return tk;
+    			}else {   
+					System.out.println(appContext.getMessage("error.ticketExist", new Object[]{}, null));      	
+					//throw new RuntimeException(appContext.getMessage("error.ticketExist", new Object[]{}, null));
+					return null;
+				}   
+    		}
+    	}    	
+		return new Ticket();
+    }
 }

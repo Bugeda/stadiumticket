@@ -42,7 +42,6 @@ public class EventServiceImpl implements EventService{
     public Boolean checkEventDate(Event newEvent){
     	Boolean result = false;   	
         Integer duration=newEvent.getDurationTime();
-        System.out.println(newEvent.getDurationTime());
     	if ((duration==null)||((Integer.compare(duration, 0) <= 0))){
     		duration=0;
         }
@@ -52,21 +51,14 @@ public class EventServiceImpl implements EventService{
     	newEventEnd = new Date(newEvent.getEventDate().getTime()+duration*ONE_MINUTE_IN_MILLIS);
     	Date exEventStart = null;
     	Date exEventEnd = null;      	
-		System.out.println("newEventStart="+newEventStart);
-		System.out.println("newEventEnd="+newEventEnd);
-    	List<Event> existsEvent = eventDAO.findAll();
+   	List<Event> existsEvent = eventDAO.findAll();
     	for (Event ex:existsEvent){        	
     		if ((ex.isDelete())||(ex.equals(newEvent)))
     			continue;
     		exEventStart = ex.getEventDate(); 
-    		System.out.println(ex.getEventName());
-    		System.out.println(ex.getDurationTime());
-    		exEventEnd = new Date(ex.getEventDate().getTime()+ex.getDurationTime()*ONE_MINUTE_IN_MILLIS);
-
-			System.out.println("exEventStart="+exEventStart);
-			System.out.println("exEventEnd="+exEventEnd);      
+   		exEventEnd = new Date(ex.getEventDate().getTime()+ex.getDurationTime()*ONE_MINUTE_IN_MILLIS);
+    
     		if (!(newEventEnd.before(exEventStart)||newEventStart.after(exEventEnd))){
-            	System.out.println("stopp");
     			return false;
     		}    		
     	}
