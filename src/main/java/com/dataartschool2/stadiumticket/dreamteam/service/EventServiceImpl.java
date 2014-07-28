@@ -39,25 +39,38 @@ public class EventServiceImpl implements EventService{
 
     @Override
 	@Transactional
-	public Event updateEvent(Event newEvent){
-    	Event result = null;   	
+    public Boolean checkEventDate(Event newEvent){
+    	Boolean result = false;   	
+        Integer duration=newEvent.getDurationTime();
+    	if ((duration==null)||((Integer.compare(duration, 0) <= 0))){
+    		duration=0;
+        }
+    	
     	Date newEventStart = newEvent.getEventDate();
     	Date newEventEnd = newEvent.getEventDate();
-    	newEventEnd = new Date(newEvent.getEventDate().getTime()+newEvent.getDurationTime()*ONE_MINUTE_IN_MILLIS);
+    	newEventEnd = new Date(newEvent.getEventDate().getTime()+duration*ONE_MINUTE_IN_MILLIS);
     	Date exEventStart = null;
-    	Date exEventEnd = null;
-    	List<Event> existsEvent = eventDAO.findAll();
-    	Boolean isEx = true;
-    	for (Event ex:existsEvent){
-    		exEventStart = ex.getEventDate();    	
-    		exEventEnd = new Date(ex.getEventDate().getTime()+ex.getDurationTime()*ONE_MINUTE_IN_MILLIS);    		
+    	Date exEventEnd = null;      	
+   	List<Event> existsEvent = eventDAO.findAll();
+    	for (Event ex:existsEvent){        	
+    		if ((ex.isDelete())||(ex.equals(newEvent)))
+    			continue;
+    		exEventStart = ex.getEventDate(); 
+   		exEventEnd = new Date(ex.getEventDate().getTime()+ex.getDurationTime()*ONE_MINUTE_IN_MILLIS);
+    
     		if (!(newEventEnd.before(exEventStart)||newEventStart.after(exEventEnd))){
-    			isEx=false;
-    			break;
+    			return false;
     		}    		
     	}
-    	if (isEx) result = eventDAO.updateEntity(newEvent);
-		return result;
+    	return true;
+    }
+    
+    @Override
+	@Transactional
+	public Event updateEvent(Event newEvent){
+        if (checkEventDate(newEvent))    	
+		return eventDAO.updateEntity(newEvent);
+        else return null;
 	}
 	
 	@Override

@@ -145,7 +145,7 @@ public class EventsController{
                 	modelMap.put("results", bindingResult);
                 	return "edit_event";
                 }else{
-                    eventService.updateEvent(event);            
+                eventService.updateEvent(event);
                   /*  JOptionPane.showMessageDialog(null, appContext.getMessage("message.changesAreApplied", new Object[]{}, null),
                     		"event message", JOptionPane.INFORMATION_MESSAGE);*/
                     return "redirect:/";

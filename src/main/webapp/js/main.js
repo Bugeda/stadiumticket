@@ -9,14 +9,14 @@ $(document).ready(function () {
 	timepicker:true,
 	step:15,
 	format:'d-m-Y H:i',
-	minDate : '-1969/12/31',
-	startDate : '-1969/12/31',
+	minDate:'-1970/01/02',
+	//minDate : '-1969/12/31',
 	dayOfWeekStart: 1
     });
 
     // 3. dataTables
-    $('#event_list').dataTable({
-	language: {
+    if (navigator.language == 'ru-RU' ) {
+	var lang = {
 	    "search": "Фильтровать список:",
 	    "paginate": {
 		"first":      "Первая",
@@ -27,8 +27,13 @@ $(document).ready(function () {
 	    "info": "Страница _PAGE_ из _PAGES_",
 	    "lengthMenu": "Показать _MENU_ строк",
 	    "zeroRecords":    "Ничего не найдено",
-	    "infoFiltered":   "(отсеяно из _MAX_ событий)"
-	},
+	    "infoFiltered":   "(отсеяно из _MAX_ строк)"
+	};
+    }
+    else lang = {};
+
+    $('#event_list').dataTable({
+	"language": lang,
 	"paging": true,
 	"stateSave": true,
 	"autoWidth": true,
@@ -36,20 +41,7 @@ $(document).ready(function () {
     });
 
     $('#booking_search_results').dataTable({
-	language: {
-	    "search": "Фильтровать список:",
-	    "paginate": {
-		"first":      "Первая",
-		"previous":   "Предыдущая",
-		"next":       "Следующая",
-		"last":       "Последняя"
-            },
-	    "info": "Страница _PAGE_ из _PAGES_",
-	    "zeroRecords":    "Ничего не найдено",
-	    "lengthMenu": "Показать _MENU_ строк",
-	    "info":           "Показано _TOTAL_шт.  ",
-	    "infoFiltered":   "(из _MAX_ билетов)"
-	},
+	"language": lang,
 	"paging": false,
 	"stateSave": true,
 	"autoWidth": true,
@@ -63,12 +55,13 @@ $(document).ready(function () {
 	$('#event_name').html(title);
     });
 
+    // fill sector prices from hiddens if form validation didn't pass
     $('.hidden_sector_price').each( function () {
-    	 var sector_number = $(this).attr('id').split('s')[1];
-    	 var hidden_price = $(this).val()
-    	 if ( hidden_price ) {
-    	     $('#price_'+sector_number).val(hidden_price);
-    	 }
+	var sector_number = $(this).attr('id').split('s')[1];
+	var hidden_price = $(this).val()
+	if ( hidden_price ) {
+	    $('#price_'+sector_number).val(hidden_price);
+	}
     });
 
     $('map > input').change( function () {
@@ -221,20 +214,15 @@ $(document).ready(function () {
 		base_url = base_url + 'id=' + ticket_ids[id]+ '&';
 	    };
 	};
-	
-	function compareReversed(a, b) {
-	  return b - a;
-	}
-
 	// fetch for data to server
 	$.get( base_url, function(response) {
 	    $('.alert').html('');
 	    console.log(response); 
-	    response.sort(compareReversed);
-	    for (index in  response) {
+	    for (index in response) {
 		if (response[index]) {
 		    //remove ticket from list if we get true
-		    $('.ticket')[index].remove();
+		    var id_to_remove =  ticket_ids[index];
+		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').remove();
 		}
 		else {
 		    //leave ticket if we get false, fire up error message
@@ -297,22 +285,22 @@ $(document).ready(function () {
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
 		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',parseInt(row_index+1) +'_'+parseInt(seat_index+1)+" "+ sector_obj.rows[row_index][seat_index]);
 		switch (sector_obj.rows[row_index][seat_index]) {
-	    case 'vacant':
-	    total_free += 1;
-	    break;
-	    case 'booked':
-	    total_booked += 1;
-	    break;
-	    case 'occupied':
-	    total_occupied += 1;
-	    break;
+		case 'vacant':
+		    total_free += 1;
+		    break;
+		case 'booked':
+		    total_booked += 1;
+		    break;
+		case 'occupied':
+		    total_occupied += 1;
+		    break;
+		}
+	    }
 	}
-    }
-}
-// fill total free/booked/occupied numbers
-$('.total_free').html(total_free);
-$('.total_booked').html(total_booked);
-$('.total_occupied').html(total_occupied);
+	// fill total free/booked/occupied numbers
+	$('.total_free').html(total_free);
+	$('.total_booked').html(total_booked);
+	$('.total_occupied').html(total_occupied);
 	// add currently selected tickets to sector plan when redraw it
 	$('.ticket').each( function() {
 	    if ( $(this).children('td').eq(1).html() == sector_obj.name ) {

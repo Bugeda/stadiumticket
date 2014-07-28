@@ -211,7 +211,7 @@
 	        
 	    $('#duration_time').numeric({
 		allowPlus: false,
-		allowMinus: true,
+		allowMinus: false,
 		allowThouSep: false,
 		allowDecSep: false,
 		allowLeadingSpaces: false,

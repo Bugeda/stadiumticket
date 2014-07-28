@@ -23,5 +23,4 @@ public class SeatServiceImpl implements SeatService {
 		seatDAO.updateEntity(seat);
 		
 	}
-
 }
