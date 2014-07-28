@@ -160,13 +160,13 @@ map input {
 }
 
 #price_26 {
-    top: 480px;
-    left: 375px;
+    top: 62px;
+    left: 302px;
 }
 
 #price_27 {
-    top: 62px;
-    left: 302px;
+    top: 480px;
+    left: 375px;
 }
 
 .visible_cell {
