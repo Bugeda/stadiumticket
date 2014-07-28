@@ -179,7 +179,7 @@ $(document).ready(function () {
     $('.ticket input').click( function() {
 	var total_price = 0;
 	$('input[type=checkbox]:checked').each(function (){
-	    total_price += parseInt($(this).parents().siblings('.ticket_price').html() );
+	    total_price += parseFloat($(this).parents().siblings('.ticket_price').html() );
 	});
 	$('#total_price').html(total_price);
     });
@@ -190,7 +190,7 @@ $(document).ready(function () {
 	var state = $(this)[0].checked;
 	$('.ticket input').each(function (){
 	    $(this)[0].checked = state;
-	    if (state) {   total_price += parseInt($(this).parents().siblings('.ticket_price').html() ); }
+	    if (state) {   total_price += parseFloat($(this).parents().siblings('.ticket_price').html() ); }
 	    else { total_price = 0; }
 	});
 	$('#total_price').html(total_price);
@@ -222,20 +222,15 @@ $(document).ready(function () {
 		base_url = base_url + 'id=' + ticket_ids[id]+ '&';
 	    };
 	};
-	
-	function compareReversed(a, b) {
-	  return b - a;
-	}
-
 	// fetch for data to server
 	$.get( base_url, function(response) {
 	    $('.alert').html('');
 	    console.log(response); 
-	    response.sort(compareReversed);
-	    for (index in  response) {
+	    for (index in response) {
 		if (response[index]) {
 		    //remove ticket from list if we get true
-		    $('.ticket')[index].remove();
+		    var id_to_remove =  ticket_ids[index];
+		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').remove();
 		}
 		else {
 		    //leave ticket if we get false, fire up error message
@@ -298,22 +293,22 @@ $(document).ready(function () {
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
 		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',parseInt(row_index+1) +'_'+parseInt(seat_index+1)+" "+ sector_obj.rows[row_index][seat_index]);
 		switch (sector_obj.rows[row_index][seat_index]) {
-	    case 'vacant':
-	    total_free += 1;
-	    break;
-	    case 'booked':
-	    total_booked += 1;
-	    break;
-	    case 'occupied':
-	    total_occupied += 1;
-	    break;
+		case 'vacant':
+		    total_free += 1;
+		    break;
+		case 'booked':
+		    total_booked += 1;
+		    break;
+		case 'occupied':
+		    total_occupied += 1;
+		    break;
+		}
+	    }
 	}
-    }
-}
-// fill total free/booked/occupied numbers
-$('.total_free').html(total_free);
-$('.total_booked').html(total_booked);
-$('.total_occupied').html(total_occupied);
+	// fill total free/booked/occupied numbers
+	$('.total_free').html(total_free);
+	$('.total_booked').html(total_booked);
+	$('.total_occupied').html(total_occupied);
 	// add currently selected tickets to sector plan when redraw it
 	$('.ticket').each( function() {
 	    if ( $(this).children('td').eq(1).html() == sector_obj.name ) {
