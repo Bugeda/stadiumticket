@@ -63,13 +63,12 @@ $(document).ready(function () {
 	$('#event_name').html(title);
     });
 
-    // fill sector prices from hiddens if form validation didn't pass
-    $('input[type="hidden"]').each( function () {
-	var sector_number = $(this).attr('id').split('s')[1];
-	var hidden_price = $(this).val()
-	if ( hidden_price ) {
-	    $('#price_'+sector_number).val(hidden_price);
-	}
+    $('.hidden_sector_price').each( function () {
+    	 var sector_number = $(this).attr('id').split('s')[1];
+    	 var hidden_price = $(this).val()
+    	 if ( hidden_price ) {
+    	     $('#price_'+sector_number).val(hidden_price);
+    	 }
     });
 
     $('map > input').change( function () {
@@ -179,7 +178,7 @@ $(document).ready(function () {
     $('.ticket input').click( function() {
 	var total_price = 0;
 	$('input[type=checkbox]:checked').each(function (){
-	    total_price += parseInt($(this).parents().siblings('.ticket_price').html() );
+	    total_price += parseFloat($(this).parents().siblings('.ticket_price').html() );
 	});
 	$('#total_price').html(total_price);
     });
@@ -190,7 +189,7 @@ $(document).ready(function () {
 	var state = $(this)[0].checked;
 	$('.ticket input').each(function (){
 	    $(this)[0].checked = state;
-	    if (state) {   total_price += parseInt($(this).parents().siblings('.ticket_price').html() ); }
+	    if (state) {   total_price += parseFloat($(this).parents().siblings('.ticket_price').html() ); }
 	    else { total_price = 0; }
 	});
 	$('#total_price').html(total_price);

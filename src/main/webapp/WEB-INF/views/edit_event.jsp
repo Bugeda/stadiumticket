@@ -110,7 +110,7 @@
 	    <div class="form-group">
 	      <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />
 	      <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
-	        <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
+	        <form:hidden  id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
 	      </c:forEach>
 	 	<form:hidden id="id" path="id"/>
 	    </div>
