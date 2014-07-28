@@ -77,7 +77,7 @@
 		<a id="arrow_back" href="<c:url value="index"/>"><img src="<%= request.getContextPath() %>/images/arrow_back.png" title="<spring:message code="index.pageTitle" />"></a>&nbsp;
 		<spring:message code="newevent.pageTitle" />
 	   </h3>
-	   <h2 id="event_name"></h2>
+	  <h2 id="event_name"><c:out value="${newEvent.eventName}"></c:out></h2>
 	 </div>
 	</div>
     <div class="row">
@@ -111,7 +111,7 @@
             <div class="form-group">
               <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />
               <c:forEach items="${newEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
-                <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price" />
+                <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price" cssClass="hidden_sector_price" />
               </c:forEach>
             </div>
 	    	<div class="form-group">
