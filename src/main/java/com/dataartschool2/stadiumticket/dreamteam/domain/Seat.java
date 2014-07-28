@@ -25,7 +25,43 @@ public class Seat {
         this.sector = sector;
     }
 
-    public int getId() {
+    
+    
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + rowNumber;
+		result = prime * result + seatNumber;
+		result = prime * result + ((sector == null) ? 0 : sector.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Seat))
+			return false;
+		Seat other = (Seat) obj;
+		if (id != other.id)
+			return false;
+		if (rowNumber != other.rowNumber)
+			return false;
+		if (seatNumber != other.seatNumber)
+			return false;
+		if (sector == null) {
+			if (other.sector != null)
+				return false;
+		} else if (!sector.equals(other.sector))
+			return false;
+		return true;
+	}
+
+	public int getId() {
         return id;
     }
 
@@ -56,4 +92,5 @@ public class Seat {
     public void setSector(Sector sector) {
         this.sector = sector;
     }
+
 }

@@ -9,6 +9,7 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,7 +43,7 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	}
 	//CRUD
 	public EntityClass updateEntity(EntityClass entity) {
-	    getSession().saveOrUpdate(entity);
+		getSession().saveOrUpdate(entity);
 		return entity;
 	}  
 	//
@@ -52,8 +53,7 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 			 getSession().delete(entity);
 		 }
 		 catch (Exception e) { 	    	
-		    //	System.out.println(e.getMessage());
-		    }
+		 }
 	}  
 	
 	@SuppressWarnings("unchecked")
@@ -67,16 +67,16 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    return findByCriteria();  
 	}  
 	protected List<EntityClass> findByCriteria(final Criterion... criterion) {
-		System.out.println(criterion.toString());	
 		return findByCriteria(-1, -1, null, criterion);
 	}
 	@SuppressWarnings("unchecked")
 	protected List<EntityClass> findByCriteria(final int firstResult,
 		final int maxResults, final Order order, final Criterion... criterion ) {
-		List<EntityClass> result = null;
+	
+		List<EntityClass> result =  new ArrayList<EntityClass>();
 	    try {
 	    	Criteria crit = getSession().createCriteria(getEntityClass());
-
+       
 	    	for (final Criterion c : criterion) {
 	    		crit.add(c);
 	    	}
@@ -96,9 +96,9 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	    	result = crit.list();
 	    }
 	    catch (Exception e) {
-	    	e.printStackTrace();    	
+ 
+	    	
 	    }		    
-	   
 		return result;
 	}
 	  
@@ -118,7 +118,6 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 	  	  	result = (Integer) crit.list().get(0);
 	    }
 	    catch (Exception e) {
-	    //	System.out.println(e.getMessage());
 	    }		   
 		return result;
 	}

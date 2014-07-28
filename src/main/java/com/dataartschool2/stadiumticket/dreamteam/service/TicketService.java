@@ -1,19 +1,38 @@
 package com.dataartschool2.stadiumticket.dreamteam.service;
 
 
-import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.dataartschool2.stadiumticket.dreamteam.domain.Seat;
 import com.dataartschool2.stadiumticket.dreamteam.domain.Ticket;
+import com.dataartschool2.stadiumticket.dreamteam.web.SeatsForm;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface TicketService {
+	
+	public void updateTicket(Ticket ticket);
+	
+    public List<Ticket> getSoldTicketsBySector(Integer eventId, Integer sectorId);
+    
+    public List<Ticket> getBookedTicketsBySector(Integer eventId, Integer sectorId);
+    
+    public void sellTickets(Integer eventId, SeatsForm seatsForm);
 
-    List<Ticket> getSoldTickets(Integer eventId, Integer sectorId);
+    public void bookTickets(Integer eventId, SeatsForm seatsForm);
 
-    public void sellTickets(Event event, List<Seat> chosenSeats);
+    public List<Ticket> getAllTicketsByEvent(Integer eventId);
 
-    public void bookTickets(Event event, List<Seat> chosenSeats);
+	public List<Ticket> getAllTickets();
+	
+	public List<Ticket> findSoldTickets();
+	
+	public List<Ticket> findBookedTickets();
+	
+	public Ticket findById(int id);
+
+	public List<Ticket> findByNumber(String ticketNumber);
+
+
+
 }

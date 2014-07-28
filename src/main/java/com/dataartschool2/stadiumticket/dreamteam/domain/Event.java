@@ -1,5 +1,6 @@
 package com.dataartschool2.stadiumticket.dreamteam.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -17,32 +19,38 @@ public class Event {
 	@Id
     @GeneratedValue  
     private Integer id;
-
-    @NotNull(message = "Must be filled.")
-    @Size(min = 1, message = "Must be filled.")
+	
+	@NotBlank(message = "error.notNull")
+	@NotNull(message = "error.notNull")
+	@Size(min = 1, max = 50, message = "error.wrongLength")
 	private String eventName;
 
-    @NotNull(message = "Date must be filled.")
-    @Future(message = "Event date must be in the future.")
+    @NotNull(message = "error.notNullDate")
+    @Future(message = "error.futureDate")
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     private Date eventDate;
+    
+    @NotNull(message = "error.notNull")
+    @Min(value = 1, message = "error.greaterZero")
+    private Integer bookingCancelTime;
 
-    @NotNull(message = "Must be filled")
-    @Min(value = 1, message = "Should be greater than zero.")
-    private Integer bookingCanceltime;
-
+    @NotNull(message = "error.notNull")
+    @Min(value = 1, message = "error.greaterZero")
+    private Integer durationTime;
+    
     private boolean isDelete;
 
-    @OneToMany(cascade= CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<SectorPrice> sectorPriceSet;
 
     public Event(){}
    
-    public Event(int id, String eventName, Timestamp eventDate, int bookingCanceltime, List<SectorPrice> sectorPriceSet) {
+    public Event(int id, String eventName, Timestamp eventDate, Integer bookingCancelTime, Integer durationTime, List<SectorPrice> sectorPriceSet) {
         this.id = id;
         this.eventName = eventName;
         this.eventDate = eventDate; 
-        this.bookingCanceltime = bookingCanceltime;
+        this.bookingCancelTime = bookingCancelTime;
+        this.durationTime = durationTime;
         this.sectorPriceSet = sectorPriceSet;
     }
 
@@ -63,7 +71,6 @@ public class Event {
         if (eventName != null ? !eventName.equals(event.eventName) : event.eventName != null) {
             return false;
         }
-
         return true;
     }
 
@@ -98,12 +105,20 @@ public class Event {
         this.eventDate = eventDate;
     }
 
-	public Integer getBookingCanceltime() {
-		return bookingCanceltime;
+	public Integer getBookingCancelTime() {
+		return bookingCancelTime;
 	}
 
-	public void setBookingCanceltime(Integer bookingCanceltime) {
-		this.bookingCanceltime = bookingCanceltime;
+	public void setBookingCancelTime(Integer bookingCancelTime) {
+		this.bookingCancelTime = bookingCancelTime;
+	}
+
+	public Integer getDurationTime() {
+		return durationTime;
+	}
+
+	public void setDurationTime(Integer durationTime) {
+		this.durationTime = durationTime;
 	}
 
 	public boolean isDelete() {

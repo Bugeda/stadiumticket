@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dataartschool2.stadiumticket.dreamteam.domain.Event;
-import com.dataartschool2.stadiumticket.dreamteam.domain.SectorPrice;
 
 @Repository  
 @Transactional  
@@ -33,6 +32,12 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 		Criterion criterion2 = Restrictions.eq("isDelete", false);
 		List<Event> events=findByCriteria(criterion1, criterion2);
 		return events;
+	}
+
+	@Override
+	public Event findByName(String eventName) {
+		Criterion criterion= Restrictions.ge("eventName", eventName); 
+		return (Event) findByCriteria(criterion);
 	}
 	  
 

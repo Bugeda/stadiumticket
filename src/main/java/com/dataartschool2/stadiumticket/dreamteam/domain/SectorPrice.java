@@ -3,6 +3,7 @@ package com.dataartschool2.stadiumticket.dreamteam.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -18,7 +19,8 @@ public class SectorPrice {
     @ManyToOne(cascade = CascadeType.ALL)
     private Event event;
 
-    @NotNull(message = "Enter price.")
+    @NotNull(message = "error.notNullPrice")
+    @Size(min = 1, max = 4, message = "error.wrongPriceLength")
     private Double price;
 
     public SectorPrice(){}

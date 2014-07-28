@@ -120,7 +120,7 @@ $(document).ready(function () {
 	    // attr = attr.replace('[i]', '['+ticket_index+']');
 	    // $(this).find('input').attr('name', attr);
 	    total_price += parseFloat($(this).children('.ticket_price').html());
-	    ticket_index += 1;
+
 	});
 	$('#total_price').html(total_price);
     };
