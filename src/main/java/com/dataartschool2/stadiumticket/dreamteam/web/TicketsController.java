@@ -110,7 +110,7 @@ public class TicketsController {
     public String submit_bookTickets(@ModelAttribute("id") Integer eventId,
     									 @Valid @ModelAttribute("newCustomer") SeatsForm seatsForm,
             							 BindingResult seatsBindingResult,
-            							 ModelMap modelMap){   
+            							 ModelMap modelMap){        
          if(seatsBindingResult.hasErrors()){
         	modelMap.put("event", eventService.findById(eventId));
         	List<SectorPrice> sectorPrices=sectorPriceService.getPricesSectorsOfEvent(eventService.findById(eventId));
