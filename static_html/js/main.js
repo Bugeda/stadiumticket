@@ -56,7 +56,7 @@ $(document).ready(function () {
     });
 
     // fill sector prices from hiddens if form validation didn't pass
-    $('input[type="hidden"]').each( function () {
+    $('.hidden_sector_price').each( function () {
 	var sector_number = $(this).attr('id').split('s')[1];
 	var hidden_price = $(this).val()
 	if ( hidden_price ) {
