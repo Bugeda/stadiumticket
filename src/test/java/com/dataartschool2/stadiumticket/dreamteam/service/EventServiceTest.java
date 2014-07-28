@@ -110,7 +110,6 @@ public class EventServiceTest{
        	newEvent.setSectorPriceSet(existEvent.getSectorPriceSet());
        	Event isFoundEvent = eventService.updateEvent(newEvent); 
     	assertFalse(existEvent.equals(isFoundEvent));    
-        assertNull(isFoundEvent); 
-    
-    }
+        assertNull(isFoundEvent);     
+    }      
 }

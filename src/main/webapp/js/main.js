@@ -9,8 +9,8 @@ $(document).ready(function () {
 	timepicker:true,
 	step:15,
 	format:'d-m-Y H:i',
-	minDate : '-1969/12/31',
-	startDate : '-1969/12/31',
+	minDate:'-1970/01/02',
+	//minDate : '-1969/12/31',
 	dayOfWeekStart: 1
     });
 

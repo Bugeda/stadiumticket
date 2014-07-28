@@ -11,8 +11,10 @@ public interface EventService {
 
 	//void deleteEvent(Event event);
 
-	void markAsDeleted(Event event);
+	public void markAsDeleted(Event event);
 
+	public Boolean checkEventDate(Event newEvent);
+	
 	public Event updateEvent(Event event);
 	
 	public Event findById(Integer id);
@@ -24,6 +26,8 @@ public interface EventService {
 	public void createEvent(Event event) throws ParseException;
 
 	public Event createEmptyEvent();
+
+
 
 //	public void editEvent(NewEventForm editEventForm) throws ParseException;
 
