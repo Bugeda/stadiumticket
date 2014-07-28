@@ -15,8 +15,8 @@ $(document).ready(function () {
     });
 
     // 3. dataTables
-    $('#event_list').dataTable({
-	language: {
+    if (navigator.language == 'ru-RU' ) {
+	var lang = {
 	    "search": "Фильтровать список:",
 	    "paginate": {
 		"first":      "Первая",
@@ -27,8 +27,13 @@ $(document).ready(function () {
 	    "info": "Страница _PAGE_ из _PAGES_",
 	    "lengthMenu": "Показать _MENU_ строк",
 	    "zeroRecords":    "Ничего не найдено",
-	    "infoFiltered":   "(отсеяно из _MAX_ событий)"
-	},
+	    "infoFiltered":   "(отсеяно из _MAX_ строк)"
+	};
+    }
+    else lang = {};
+
+    $('#event_list').dataTable({
+	"language": lang,
 	"paging": true,
 	"stateSave": true,
 	"autoWidth": true,
@@ -36,20 +41,7 @@ $(document).ready(function () {
     });
 
     $('#booking_search_results').dataTable({
-	language: {
-	    "search": "Фильтровать список:",
-	    "paginate": {
-		"first":      "Первая",
-		"previous":   "Предыдущая",
-		"next":       "Следующая",
-		"last":       "Последняя"
-            },
-	    "info": "Страница _PAGE_ из _PAGES_",
-	    "zeroRecords":    "Ничего не найдено",
-	    "lengthMenu": "Показать _MENU_ строк",
-	    "info":           "Показано _TOTAL_шт.  ",
-	    "infoFiltered":   "(из _MAX_ билетов)"
-	},
+	"language": lang,
 	"paging": false,
 	"stateSave": true,
 	"autoWidth": true,
