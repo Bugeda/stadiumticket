@@ -159,7 +159,7 @@ $(document).ready(function () {
 	$('.ticket').each( function () {
 	    $(this).children('.ticket_number').html(ticket_index+'.');
 	    $(this).find('input').each( function () {
-		$(this).attr('name', $(this).attr('name').replace('[i]', '['+ticket_index+']') );
+		$(this).attr('name', $(this).attr('name').replace( /\[.*?\]/g, '['+ticket_index+']') );
 	    });
 	    // attr = attr.replace('[i]', '['+ticket_index+']');
 	    // $(this).find('input').attr('name', attr);
