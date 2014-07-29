@@ -127,10 +127,10 @@ $(document).ready(function () {
     });
 
     // display action buttons for event in list
-    $('.event').mouseover( function() {
+    $('#event_list').on('mouseover', '.event' ,function() {
 	$(this).children('.action_list').show();
     });
-    $('.event').mouseout( function() {
+    $('#event_list').on('mouseout', '.event', function() {
 	$(this).children('.action_list').hide();
     });
     $('#event_list_filter input').addClass('form-control');
