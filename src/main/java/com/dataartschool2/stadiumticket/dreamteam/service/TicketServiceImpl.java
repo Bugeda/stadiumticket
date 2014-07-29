@@ -128,6 +128,38 @@ public class TicketServiceImpl implements TicketService {
         return result;
     }
     
+    public boolean checkExistsTickets(SeatsForm seatsForm){
+    	boolean result=true;
+      	seatsForm.getChosenSeats().remove(0);
+    	seatsForm.getChosenSectorsNums().remove(0);
+    	
+    	Integer eId = seatsForm.getEventId();
+
+    	List<Seat> chosenSeats = seatsForm.getChosenSeats();
+    	List<Integer> chosenSectors = seatsForm.getChosenSectorsNums();
+    	int i = 0;
+    	for(Seat seat : chosenSeats){         		
+            Integer sectorNo = chosenSectors.get(i);
+            ++i; 
+            Sector sector = sectorService.findById(sectorNo);
+            seat.setSector(sector);
+            
+            List<Seat> st=seatService.findBySeat(seat.getRowNumber(),seat.getSeatNumber(),seat.getSector());  
+            if (!st.isEmpty()) 
+            	seat = st.get(0);
+            List<Ticket> allTickets = getAllTicketsByEvent(eId);
+        	
+        	for (Ticket tk:allTickets)       	
+        		if (tk.getSeat().equals(seat)){
+        			if (!tk.getSeatStatus().equals(SeatStatus.vacant)){    				
+    					return false;
+        			}
+        		}
+        	result=true;
+    	}
+    	return result;
+    }
+    
     @Override
     @Transactional
     public Boolean[] sellTickets(Integer eventId, SeatsForm seatsForm) {
@@ -209,9 +241,9 @@ public class TicketServiceImpl implements TicketService {
     			if (tk.getSeatStatus().equals(SeatStatus.vacant)){    				
 					return tk;
     			}else {   
-					System.out.println(appContext.getMessage("error.ticketExist", new Object[]{}, null));      	
+					//System.out.println(appContext.getMessage("error.ticketExist", new Object[]{}, null));      	
 					//throw new RuntimeException(appContext.getMessage("error.ticketExist", new Object[]{}, null));
-					return null;
+					//return null;
 				}   
     		}
     	}    	

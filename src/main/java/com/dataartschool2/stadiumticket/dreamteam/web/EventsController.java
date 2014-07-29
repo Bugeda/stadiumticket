@@ -33,7 +33,7 @@ public class EventsController{
 
 	@Autowired
 	private ApplicationContext appContext;
-	  
+	   
     @Autowired
 	private EventService eventService;
 	
@@ -45,7 +45,7 @@ public class EventsController{
 
     @Autowired
     private EventValidator eventValidator;
-    
+       
     @InitBinder("newEvent")
     public void bindNewEventFormValidator(WebDataBinder webDataBinder){
         webDataBinder.setValidator(eventValidator);
@@ -81,16 +81,21 @@ public class EventsController{
     }
        
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Map<String, Object> map, Model model ) {
+	public String home(Map<String, Object> map, Model model, RedirectAttributes attr ) {
+		attr.addFlashAttribute("message",  (String) map.get("message"));
 		model.asMap().clear();
+
 		return "redirect:/index";
 	}
 	
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public String getActiveEvents(ModelMap map,  Model model) {  
+    	String message = (String) map.get("message");
+    	
     	model.asMap().clear();
     	List<Event> allEvents = eventService.getFutureEvents();    
     	map.put("events", allEvents);
+    	map.put("message", message);
         return "./index";
     }
 	
@@ -112,7 +117,7 @@ public class EventsController{
     public String submit_new_event(@ModelAttribute("submit") String submit,
                                    @Valid @ModelAttribute("newEvent") Event event,
                                    BindingResult bindingResult,
-                                   ModelMap modelMap,
+                                   ModelMap modelMap,  
                                    RedirectAttributes attr) throws ParseException {
 			modelMap.remove("submit");
             if (submit.equals(appContext.getMessage("event.cancel", new Object[]{}, null))){
@@ -123,9 +128,8 @@ public class EventsController{
                 	modelMap.put("results", bindingResult);
                     return "new_event";
                 }else{
-                    eventService.createEvent(event);
-                  /*  JOptionPane.showMessageDialog(null, appContext.getMessage("message.eventIsAdded", new Object[]{}, null),
-                    		"event message", JOptionPane.INFORMATION_MESSAGE);*/
+                    eventService.createEvent(event);  
+                    attr.addFlashAttribute("message", appContext.getMessage("message.eventIsAdded", new Object[]{}, null));
                     return "redirect:/index";
                 }
             }
@@ -136,7 +140,8 @@ public class EventsController{
     public String submit_edit_event(@ModelAttribute("submit") String submit,
                                     @Valid @ModelAttribute("editEvent") Event event,
                                     BindingResult bindingResult,
-                                    ModelMap modelMap) throws ParseException {    	
+                                    ModelMap modelMap,  
+                                    RedirectAttributes attr) throws ParseException {    	
     		modelMap.remove("submit");      		        	
             if (submit.equals(appContext.getMessage("event.cancel", new Object[]{}, null))){
                 return "redirect:/edit_event?id="+event.getId();
@@ -146,9 +151,8 @@ public class EventsController{
                 	return "edit_event";
                 }else{
                 eventService.updateEvent(event);
-                  /*  JOptionPane.showMessageDialog(null, appContext.getMessage("message.changesAreApplied", new Object[]{}, null),
-                    		"event message", JOptionPane.INFORMATION_MESSAGE);*/
-                    return "redirect:/";
+                attr.addFlashAttribute("message", appContext.getMessage("message.changesAreApplied", new Object[]{}, null));
+                return "redirect:/";
             }
         }
     }
@@ -161,10 +165,11 @@ public class EventsController{
     
 
 	@RequestMapping(value="/delete_event", method = RequestMethod.POST)
-    public String submit_delete_event(@ModelAttribute("editEvent") Event event, Model model) {
+    public String submit_delete_event(@ModelAttribute("editEvent") Event event, Model model,  RedirectAttributes attr) {
 		model.asMap().clear();
         eventService.markAsDeleted(event);
-        eventService.updateEvent(event);
+        eventService.updateEvent(event);       
+        attr.addFlashAttribute("message", appContext.getMessage("message.eventIsDelete", new Object[]{}, null) );
 		return "redirect:/index";
 	}
 }

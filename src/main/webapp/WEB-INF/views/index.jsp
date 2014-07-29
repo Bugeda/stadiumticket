@@ -33,7 +33,29 @@
      <style type="text/css">
      </style>
    </head>
-   <body>
+   <body>    
+ 
+     <c:if test="${!empty message}">
+       	<script type="text/javascript">
+     	 $(document).ready(function() {
+                 $('#success').modal('show');
+                 setTimeout(function(){
+                	 $('#success').modal('hide')
+                	    }, 2000);
+     	 })
+     	</script>
+    </c:if>
+    
+
+  <div id="success" class="modal fade">
+    <div class="modal-dialog">    
+        <div class="alert alert-success" role="alert">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
+               <c:out value="${message}"></c:out>
+        </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal --> 
+
      <div class="container">
        <div class="row">
 	 <div class="col-xs-1 col-md-1"><a href="<c:url value="index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
@@ -44,7 +66,6 @@
 	 </div>
 	 <div class="col-xs-4 col-md-2">
 	   <a id="past_events" href="<c:url value="/past_events"/>"><img src="<%= request.getContextPath() %>/images/past_events.png"><spring:message code="pastevents.pageTitle" /></a><br>
-	   <a id="statistics" href="<c:url value=""/>"><img src="<%= request.getContextPath() %>/images/stats.png"> statistics</a>
 	 </div>
        </div>
        <div class="row">
