@@ -32,6 +32,29 @@
     <![endif]-->
  </head>
 <body>
+<script type="text/javascript">
+    var errorsHere = false;
+    <c:if test="${not empty requestScope['org.springframework.validation.BindingResult.newCustomer'].allErrors}">
+        errorsHere = true;
+    </c:if>
+    $(document).ready(function() {
+        console.log('here');
+        if(errorsHere){
+            $('#newCustomer').modal('show');
+            console.log('errors');
+        }        	
+    });
+  </script>
+  
+   <div id="newCustomer" class="modal fade">
+    <div class="modal-dialog">    
+        <div class="alert alert-danger" role="alert">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
+          <p><spring:message code="error.ticketsAreNotBooked" /></p>
+        </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+
 <div class="container">
 <div class="row">
 	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
@@ -47,12 +70,15 @@
 <div class="row">
   <div class="col-md-5">
    	<form:form method="post" action="${pageContext.request.contextPath}/tickets/book?id=${event.id}" modelAttribute="newCustomer">
-  	    <input type="hidden" name="id" value="${event.id}">
+       <input type="hidden" name="id" value="${event.id}">
+		<form:hidden id="id" path="eventId"/>
   	    <label for="booking_name"><spring:message code="booking.customerName" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
   	    <spring:message code="booking.customerName.hint" var="msg"/>
-        <input class="form-control" type="text" name="customerName" id="booking_name" title="${msg}" 
-        placeholder="${msg}">     
-        <b><spring:message code="ticketlist.tickets" />:</b>              
+        <form:input class="form-control" type="text" path="customerName" id="title" title="${msg}" placeholder="${msg}" maxlength="50"/>
+	    <form:errors path="customerName" cssClass="alert-danger" /></br>
+
+        <b><spring:message code="ticketlist.tickets" />:</b> 
+        </br><form:errors path="chosenSeats" cssClass="alert-danger" />             
         <table class="table" id="ticket_list">
             <thead>
             <tr>
@@ -144,7 +170,7 @@
 </div>
 </div>
 <br/>
-
+</br>
 <div id="normal_sector" class="container seats">
 <table class="table table-condensed table-responsive sell_tickets_header">
     <tbody>

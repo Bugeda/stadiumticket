@@ -50,24 +50,19 @@
             console.log('errors');
         }        	
     });
+    
+    
   </script>
-  
+
   <div id="newEventError" class="modal fade">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
+    <div class="modal-dialog">    
+        <div class="alert alert-danger" role="alert">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
-          <h4 class="modal-title"><c:out value="Event message"></c:out></h4>
-        </div>
-        <div class="modal-body">
           <p><spring:message code="error.eventIsNotAdded" /></p>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="modal.close" /></button>
-        </div>
       </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+  
   
   <div class="container">
     <div class="row">

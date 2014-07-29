@@ -20,6 +20,7 @@ public class Event {
     @GeneratedValue  
     private Integer id;
 	
+	@NotBlank(message = "error.notNull")
 	@Size(min = 1, max = 50, message = "error.wrongLength")
 	private String eventName;
 
