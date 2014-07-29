@@ -85,7 +85,7 @@ public class TicketsController {
         }else{
           	seatsForm.getChosenSeats().remove(0);
         	seatsForm.getChosenSectorsNums().remove(0);
-            ticketService.sellTickets(eventId, seatsForm);
+            Boolean[] result=ticketService.sellTickets(eventId, seatsForm);
             return "redirect:/";
         }
     }
@@ -120,7 +120,7 @@ public class TicketsController {
         }else{
           	seatsForm.getChosenSeats().remove(0);
         	seatsForm.getChosenSectorsNums().remove(0);              	
-            ticketService.bookTickets(eventId, seatsForm);
+        	Boolean[] result=ticketService.bookTickets(eventId, seatsForm);
             return "redirect:/index";
         }        
 

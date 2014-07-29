@@ -28,9 +28,9 @@ public interface TicketService {
     
     public List<Ticket> getBookedTicketsBySector(Integer eventId, Integer sectorId);
     
-    public void sellTickets(Integer eventId, SeatsForm seatsForm);
+    public Boolean[] sellTickets(Integer eventId, SeatsForm seatsForm);
 
-    public void bookTickets(Integer eventId, SeatsForm seatsForm);
+    public Boolean[] bookTickets(Integer eventId, SeatsForm seatsForm);
 
     public List<Ticket> getAllTicketsByEvent(Integer eventId);
 

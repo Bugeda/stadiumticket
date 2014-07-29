@@ -98,13 +98,13 @@
 	    <div class="form-group">
 	      <label for="booking_time" id="label_booking"><spring:message code="event.hBooking" />:</label>
 	      <spring:message code="event.hBooking.hint" var="msg"/>
-	      <form:input class="form-control" type="text" path="bookingCancelTime" id="booking_time" title="${msg}" placeholder="${msg}"/>
+	      <form:input class="form-control" type="text" path="bookingCancelTime" id="booking_time" title="${msg}" placeholder="${msg}" maxlength="3"/>
 	      <form:errors path="bookingCancelTime" cssClass="alert-danger" />
 	    </div>
 	   <div class="form-group">
 	      <label for="booking_time" id="label_duration"><spring:message code="event.hDuration" />:</label>
 	      <spring:message code="event.hDuration.hint" var="msg"/>
-	      <form:input class="form-control" type="text" path="durationTime" id="duration_time" title="${msg}" placeholder="${msg}"/>
+	      <form:input class="form-control" type="text" path="durationTime" id="duration_time" title="${msg}" placeholder="${msg}" maxlength="3"/>
 	      <form:errors path="durationTime" cssClass="alert-danger" />
 	    </div>
 	    <div class="form-group">
@@ -191,9 +191,9 @@
 	    allowThouSep: false,  // Allow the thousands separator, default is the comma eg 12,000
 	    allowDecSep: true,  // Allow the decimal separator, default is the fullstop eg 3.141
 	    allowLeadingSpaces: false,
-	    maxDigits: 5,     // The max number of digits
+	    maxDigits: 7,     // The max number of digits
 	    maxDecimalPlaces: 2,   // The max number of decimal places
-	    maxPreDecimalPlaces: 3,   // The max number digits before the decimal point
+	    maxPreDecimalPlaces: 4,   // The max number digits before the decimal point
 	    max: NaN,   // The max numeric value allowed
 	    min: NaN    // The min numeric value allowed
 	    });
@@ -204,7 +204,7 @@
 	    allowThouSep: false,
 	    allowDecSep: false,
 	    allowLeadingSpaces: false,
-	    maxDigits: 5,
+	    maxDigits: 3,
 	    max: NaN,
 	    min: NaN
 	    });
@@ -215,7 +215,7 @@
 		allowThouSep: false,
 		allowDecSep: false,
 		allowLeadingSpaces: false,
-		maxDigits: 5,
+		maxDigits: 3,
 		max: NaN,
 		min: NaN
 		});

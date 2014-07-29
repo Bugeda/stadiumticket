@@ -113,9 +113,9 @@ public class TicketServiceImpl implements TicketService {
     public List<Ticket> getAllTicketsByEvent(Integer eventId) {
         List<Ticket> tickets = new ArrayList<Ticket>();
         tickets = getAllTickets();
-       
         List<Ticket> result = new ArrayList<Ticket>();
         if (!tickets.isEmpty())
+        
         for(Ticket ticket : tickets){
             Event event = ticket.getEvent();
             Seat seat = ticket.getSeat();
@@ -124,45 +124,41 @@ public class TicketServiceImpl implements TicketService {
             if(event.getId().equals(eventId)){
                 result.add(ticket);
             }
-        }
+        }           	 
         return result;
     }
     
     @Override
     @Transactional
-    public void sellTickets(Integer eventId, SeatsForm seatsForm) {
+    public Boolean[] sellTickets(Integer eventId, SeatsForm seatsForm) {
+    	Boolean[] results = new Boolean[seatsForm.getChosenSeats().size()];
         Event event  = eventService.findById(eventId);
         
         List<Seat> chosenSeats = seatsForm.getChosenSeats();
         List<Integer> chosenSectors = seatsForm.getChosenSectorsNums();
         
         int i = 0;
-        for(Seat seat : chosenSeats){
-         
+        for(Seat seat : chosenSeats){         
+        	results[i]=false;
             Integer sectorNo = chosenSectors.get(i);
-            ++i;
-           
+            ++i;           
             Sector sector = sectorService.findById(sectorNo);
             seat.setSector(sector);
-            seatService.updateSeat(seat);
-
-            Ticket ticket = getTicket(eventId, seat);
+            Ticket ticket = getTicket(event, seat);
             if (ticket!=null){
-            	String ticketNumber = generateTicketNumber(event, seat);
-            	updateTicket(ticket);
-            	ticket.setEvent(event);
-            	ticket.setSeat(seat);
-            	ticket.setSeatStatus(SeatStatus.occupied);
-            	ticket.setTicketNumber(ticketNumber);    
-            }
+                ticket.setSeatStatus(SeatStatus.occupied);
+            	results[i-1]=true;         
+            } 
         }
+        return results;
     }
      
     @Override
     @Transactional
-    public void bookTickets(Integer eventId, SeatsForm seatsForm){   
+    public Boolean[] bookTickets(Integer eventId, SeatsForm seatsForm){
+    	Boolean[] results = new Boolean[seatsForm.getChosenSeats().size()];  
 		Event event  = eventService.findById(eventId);
-           
+       
 		List<Seat> chosenSeats = seatsForm.getChosenSeats();
 		List<Integer> chosenSectors = seatsForm.getChosenSectorsNums();
            
@@ -170,43 +166,47 @@ public class TicketServiceImpl implements TicketService {
 		customer.setCustomerName(seatsForm.getCustomerName());
         int i = 0;
         for(Seat seat : chosenSeats){
-            
+          	results[i]=false;
             Integer sectorNo = chosenSectors.get(i);
-            ++i;
-           
+          	++i;
             Sector sector = sectorService.findById(sectorNo);
-            seat.setSector(sector);
-            seatService.updateSeat(seat);  
-            Ticket ticket = getTicket(eventId, seat);
-            if (ticket != null){
-            	String ticketNumber = generateTicketNumber(event, seat);
-            	updateTicket(ticket);
-            	ticket.setEvent(event);
-            	ticket.setSeat(seat);
-            	ticket.setSeatStatus(SeatStatus.booked);
-            	ticket.setTicketNumber(ticketNumber);
-            	Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);
-            	Boolean booked = (booking.getBookingStatus().equals(BookingStatus.Booked)&&(booking.getTicket().getSeatStatus().equals(SeatStatus.booked)));
-            	if (booked){              	
-            		ticketDAO.updateEntity(ticket);     	           	    
-            		bookingService.updateBooking(booking);
-            	}
+            seat.setSector(sector);  
+                 	
+            Ticket ticket = getTicket(event, seat);
+            if (ticket != null){             	             
+                ticket.setSeatStatus(SeatStatus.booked);                           
+            	Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);  
+            	bookingService.updateBooking(booking);           
+            	results[i-1]=true;           
             }
-        }  
+        } 
+        return results;
 	}
 
 	private  String generateTicketNumber(Event event, Seat seat) {
         return Integer.toString(Objects.hash(event, seat));
     }
     
-    private Ticket getTicket(Integer eventId, Seat seat){
-    	if (findBySeat(seat).equals(null)) 
-    		return new Ticket();
+    private Ticket getTicket(Event event, Seat seat){
+    	//ticket is not exist
+        List<Seat> st=seatService.findBySeat(seat.getRowNumber(),seat.getSeatNumber(),seat.getSector());       
+        if (st.isEmpty()) {
+        	Ticket tk=new Ticket();
+        	String ticketNumber = generateTicketNumber(event, seat);
+            updateTicket(tk);
+            tk.setEvent(event);
+            tk.setSeat(seat);
+            tk.setTicketNumber(ticketNumber); 
+           	return tk;           	
+        }
+        else seat = st.get(0);
 
-    	List<Ticket> allTickets = getAllTicketsByEvent(eventId);
+        List<Ticket> allTickets = getAllTicketsByEvent(event.getId());
+    	
     	for (Ticket tk:allTickets){
+    	
     		if (tk.getSeat().equals(seat)){
-    			if (tk.getSeatStatus().equals(SeatStatus.vacant)){
+    			if (tk.getSeatStatus().equals(SeatStatus.vacant)){    				
 					return tk;
     			}else {   
 					System.out.println(appContext.getMessage("error.ticketExist", new Object[]{}, null));      	
@@ -215,6 +215,8 @@ public class TicketServiceImpl implements TicketService {
 				}   
     		}
     	}    	
-		return new Ticket();
+    	return null;
     }
 }
+
+
