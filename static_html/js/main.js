@@ -156,14 +156,12 @@ $(document).ready(function () {
     // and set numbers for all of them
     function recalculate_price_and_index() {
 	var total_price = 0;
-	var ticket_index = 1;
+	var ticket_index = 0;
 	$('.ticket').each( function () {
-	    $(this).children('.ticket_number').html(ticket_index+'.');
+	    $(this).children('.ticket_number').html(parseInt(ticket_index + 1)+'.');
 	    $(this).find('input').each( function () {
-		$(this).attr('name', $(this).attr('name').replace('[i]', '['+ticket_index+']') );
+		$(this).attr('name', $(this).attr('name').replace( /\[.*?\]/g, '['+ticket_index+']') );
 	    });
-	    // attr = attr.replace('[i]', '['+ticket_index+']');
-	    // $(this).find('input').attr('name', attr);
 	    total_price += parseFloat($(this).children('.ticket_price').html());
 	    ticket_index += 1;
 	});
