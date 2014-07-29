@@ -15,6 +15,57 @@ $(document).ready(function () {
     });
 
     // 3. dataTables
+    // date sorting plug-in
+    jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+	"ru_datetime-asc": function ( a, b ) {
+            var x, y;
+            if ($.trim(a) !== '') {
+		var deDatea = $.trim(a).split(' ');
+		var deTimea = deDatea[1].split(':');
+		var deDatea2 = deDatea[0].split('.');
+		x = (deDatea2[2] + deDatea2[1] + deDatea2[0] + deTimea[0] + deTimea[1]) * 1;
+            } else {
+		x = Infinity; // = l'an 1000 ...
+            }
+
+	    if ($.trim(b) !== '') {
+		var deDateb = $.trim(b).split(' ');
+		var deTimeb = deDateb[1].split(':');
+		deDateb = deDateb[0].split('.');
+		y = (deDateb[2] + deDateb[1] + deDateb[0] + deTimeb[0] + deTimeb[1]) * 1;
+            } else {
+		y = Infinity;
+            }
+            var z = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            return z;
+	},
+
+	"ru_datetime-desc": function ( a, b ) {
+            var x, y;
+            if ($.trim(a) !== '') {
+		var deDatea = $.trim(a).split(' ');
+		var deTimea = deDatea[1].split(':');
+		var deDatea2 = deDatea[0].split('.');
+		x = (deDatea2[2] + deDatea2[1] + deDatea2[0] + deTimea[0] + deTimea[1]) * 1;
+            } else {
+		x = Infinity;
+            }
+
+            if ($.trim(b) !== '') {
+		var deDateb = $.trim(b).split(' ');
+		var deTimeb = deDateb[1].split(':');
+		deDateb = deDateb[0].split('.');
+		y = (deDateb[2] + deDateb[1] + deDateb[0] + deTimeb[0] + deTimeb[1]) * 1;
+            } else {
+		y = Infinity;
+            }
+            var z = ((x < y) ? 1 : ((x > y) ? -1 : 0));
+            return z;
+	}
+    } );
+    // date sorting plug-in
+
+    // load russian translation depending on browser language
     if (navigator.language == 'ru-RU' ) {
 	var lang = {
 	    "search": "Фильтровать список:",
@@ -37,7 +88,10 @@ $(document).ready(function () {
 	"paging": true,
 	"stateSave": true,
 	"autoWidth": true,
-	"columnDefs": [ { "orderable": false, "targets": 2 } ]
+	"columnDefs": [
+	    { "orderable": false, "targets": 2 },
+	    { "type": 'ru_datetime', "targets": 1 }
+	]
     });
 
     $('#booking_search_results').dataTable({
@@ -54,7 +108,6 @@ $(document).ready(function () {
 	var title = ($(this).val());
 	$('#event_name').html(title);
     });
-
     // fill sector prices from hiddens if form validation didn't pass
     $('.hidden_sector_price').each( function () {
 	var sector_number = $(this).attr('id').split('s')[1];
