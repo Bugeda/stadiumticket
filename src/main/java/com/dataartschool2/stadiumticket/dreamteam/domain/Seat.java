@@ -31,7 +31,6 @@ public class Seat {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
 		result = prime * result + rowNumber;
 		result = prime * result + seatNumber;
 		result = prime * result + ((sector == null) ? 0 : sector.hashCode());
@@ -47,8 +46,6 @@ public class Seat {
 		if (!(obj instanceof Seat))
 			return false;
 		Seat other = (Seat) obj;
-		if (id != other.id)
-			return false;
 		if (rowNumber != other.rowNumber)
 			return false;
 		if (seatNumber != other.seatNumber)

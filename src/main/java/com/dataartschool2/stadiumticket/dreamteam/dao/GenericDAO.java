@@ -5,7 +5,7 @@ import java.util.List;
 public abstract interface GenericDAO<EntityClass>{
 	//entityClass
 	public EntityClass updateEntity(EntityClass entity);  
-	
+
 	public void deleteEntity(EntityClass entity);  
     
     public  List<EntityClass> findAll();  
@@ -13,6 +13,8 @@ public abstract interface GenericDAO<EntityClass>{
     public EntityClass findById(Integer integer); 
     
     public int countAll();
+    
+
  
 }
  

@@ -42,11 +42,11 @@ public abstract class GenericDAOImpl <EntityClass> implements GenericDAO<EntityC
 		this.session = session;
 	}
 	//CRUD
+	@Override
 	public EntityClass updateEntity(EntityClass entity) {
 		getSession().saveOrUpdate(entity);
 		return entity;
 	}  
-	//
 
 	public void deleteEntity(EntityClass entity) { 
 		 try {

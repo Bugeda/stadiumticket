@@ -42,7 +42,7 @@ public class TicketServiceTest {
     @Test
     public void findAllTicket(){
     	  List<Ticket> tickets = ticketService.getAllTickets();
-    	  assertEquals(tickets.size(),44);
+    	  assertEquals(tickets.size(),50);
     }
     
     private SeatsForm createSeatsForm(String customerName, Integer eventId){
@@ -75,7 +75,8 @@ public class TicketServiceTest {
     @Test
     public void getSoldTicketsBySector(){
     	SeatsForm seatsForm = createSeatsForm("not used", 2); 
-    	ticketService.sellTickets(2, seatsForm);
+    	Boolean[] result=ticketService.sellTickets(2, seatsForm);
+
     	List<Ticket> soldTicket=new ArrayList<Ticket>();
     	for (int sec=1;sec<=27;sec++){
     		soldTicket.addAll(ticketService.getSoldTicketsBySector(2, sec));
@@ -84,15 +85,24 @@ public class TicketServiceTest {
     	      	assertEquals(sd.getSeatStatus(),SeatStatus.occupied);
     		}
     	}
-    	assertEquals(soldTicket.size(), 270);	
+    	Integer sum = 0;
+    	for (Boolean r:result){
+    		if (!r) sum++; 
+    	}
+     	assertEquals(soldTicket.size(), 270-sum);	
     }
     
     @Test
     public void getAllTicketsByEventFromSell(){
     	SeatsForm seatsForm = createSeatsForm("not used", 2);
-    	ticketService.sellTickets(2, seatsForm);
+    	Boolean[] result=ticketService.sellTickets(2, seatsForm);
+    	int sum = 0;
+    	for (Boolean r:result){
+    		if (!r) sum++; 
+    	}
     	List<Ticket> allTickets = ticketService.getAllTicketsByEvent(2); 
-    	assertEquals(allTickets.size(), 270);
+  
+     	assertEquals(allTickets.size(), 270-sum);	
     	for (int i=0;i<allTickets.size();i++){
     		assertTrue(seatsForm.getChosenSeats().contains(allTickets.get(i).getSeat()));
          	assertEquals(allTickets.get(i).getSeatStatus(),SeatStatus.occupied);
@@ -108,12 +118,17 @@ public class TicketServiceTest {
     	sc.add(seatsForm.getChosenSectorsNums().get(5));
        	st.add(seatsForm.getChosenSeats().get(10));
     	sc.add(seatsForm.getChosenSectorsNums().get(10));
+     	final int COUNT_IDENTICAL = 2;
     	seatsForm.setChosenSeats(st);
     	seatsForm.setChosenSectorsNums(sc);
     	
-    	ticketService.sellTickets(2, seatsForm);
+    	Boolean[] result=ticketService.sellTickets(2, seatsForm);
        	List<Ticket> allTickets = ticketService.getAllTicketsByEvent(2); 
-       	assertEquals(allTickets.size(), 270);
+    	Integer sum = 0;
+    	for (Boolean r:result){
+    		if (!r) sum++; 
+    	}
+     	assertEquals(allTickets.size(), 272-sum);	
         for (int i=0;i<allTickets.size();i++){
         	assertTrue(seatsForm.getChosenSeats().contains(allTickets.get(i).getSeat()));
         	assertEquals(allTickets.get(i).getSeatStatus(),SeatStatus.occupied);
@@ -134,7 +149,7 @@ public class TicketServiceTest {
     @Test
     public void getBookedTicketsBySector(){
     	SeatsForm seatsForm = createSeatsForm("new customer", 2); 
-    	ticketService.bookTickets(2, seatsForm);
+    	Boolean[] result=ticketService.bookTickets(2, seatsForm);
     	List<Ticket> bookedTicket=new ArrayList<Ticket>();
     	for (int sec=1;sec<=27;sec++){
     		bookedTicket.addAll(ticketService.getBookedTicketsBySector(2, sec));
@@ -143,15 +158,23 @@ public class TicketServiceTest {
     	      	assertEquals(sd.getSeatStatus(),SeatStatus.booked);
     		}
     	}
-    	assertEquals(bookedTicket.size(), 270);	
+    	Integer sum = 0;
+    	for (Boolean r:result){
+    		if (!r) sum++; 
+    	}
+     	assertEquals(bookedTicket.size(), 270-sum);		
     }
     
     @Test
     public void getAllTicketsByEventFromBooking(){
     	SeatsForm seatsForm = createSeatsForm("new customer", 2);
-    	ticketService.bookTickets(2, seatsForm);
+    	Boolean[] result=ticketService.bookTickets(2, seatsForm);
     	List<Ticket> allTickets = ticketService.getAllTicketsByEvent(2); 
-    	assertEquals(allTickets.size(), 270);
+    	Integer sum = 0;
+    	for (Boolean r:result){
+    		if (!r) sum++; 
+    	}
+     	assertEquals(allTickets.size(), 270-sum);	
         for (int i=0;i<allTickets.size();i++){
         	assertTrue(seatsForm.getChosenSeats().contains(allTickets.get(i).getSeat()));
          	assertEquals(allTickets.get(i).getSeatStatus(),SeatStatus.booked);
@@ -167,12 +190,17 @@ public class TicketServiceTest {
     	sc.add(seatsForm.getChosenSectorsNums().get(5));
        	st.add(seatsForm.getChosenSeats().get(10));
     	sc.add(seatsForm.getChosenSectorsNums().get(10));
+    	//final int COUNT_IDENTICAL = 2;
     	seatsForm.setChosenSeats(st);
     	seatsForm.setChosenSectorsNums(sc);
     	
-    	ticketService.bookTickets(2, seatsForm);
+    	Boolean[] result=ticketService.bookTickets(2, seatsForm);
        	List<Ticket> allTickets = ticketService.getAllTicketsByEvent(2); 
-       	assertEquals(allTickets.size(), 270);
+    	Integer sum = 0;
+    	for (Boolean r:result){
+    		if (!r) sum++; 
+    	}
+     	assertEquals(allTickets.size(), 272-sum);	
         for (int i=0;i<allTickets.size();i++){
         	assertTrue(seatsForm.getChosenSeats().contains(allTickets.get(i).getSeat()));
         	assertEquals(allTickets.get(i).getSeatStatus(),SeatStatus.booked);
