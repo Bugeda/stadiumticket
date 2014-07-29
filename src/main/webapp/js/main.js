@@ -9,8 +9,8 @@ $(document).ready(function () {
 	timepicker:true,
 	step:15,
 	format:'d-m-Y H:i',
-	minDate:'-1970/01/02',
-	//minDate : '-1969/12/31',
+	minDate : '-1969/12/31',
+	startDate : '-1969/12/31',
 	dayOfWeekStart: 1
     });
 
@@ -63,7 +63,9 @@ $(document).ready(function () {
             return z;
 	}
     } );
+    // date sorting plug-in
 
+    // load russian translation depending on browser language
     if (navigator.language == 'ru-RU' ) {
 	var lang = {
 	    "search": "Фильтровать список:",
@@ -106,7 +108,6 @@ $(document).ready(function () {
 	var title = ($(this).val());
 	$('#event_name').html(title);
     });
-
     // fill sector prices from hiddens if form validation didn't pass
     $('.hidden_sector_price').each( function () {
 	var sector_number = $(this).attr('id').split('s')[1];
@@ -155,14 +156,12 @@ $(document).ready(function () {
     // and set numbers for all of them
     function recalculate_price_and_index() {
 	var total_price = 0;
-	var ticket_index = 1;
+	var ticket_index = 0;
 	$('.ticket').each( function () {
-	    $(this).children('.ticket_number').html(ticket_index+'.');
+	    $(this).children('.ticket_number').html(parseInt(ticket_index + 1)+'.');
 	    $(this).find('input').each( function () {
-		$(this).attr('name', $(this).attr('name').replace('[i]', '['+ticket_index+']') );
+		$(this).attr('name', $(this).attr('name').replace( /\[.*?\]/g, '['+ticket_index+']') );
 	    });
-	    // attr = attr.replace('[i]', '['+ticket_index+']');
-	    // $(this).find('input').attr('name', attr);
 	    total_price += parseFloat($(this).children('.ticket_price').html());
 	    ticket_index += 1;
 	});
@@ -277,13 +276,8 @@ $(document).ready(function () {
 		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').remove();
 		}
 		else {
-		    //leave ticket if we get false, fire up error message
-		    $('.alert').append('Detected problem with booking id(s):<br> ');
-		    $('.alert').append('<b>',ticket_ids[index], response[index],'</b><br>'); // output response to block
-		    $('.modal').modal(); // show block with response
-		    setTimeout(function(){
-			$('.modal').modal('hide')
-		    }, 2000);
+		   
+	 	  $('.booking_id:contains('+ id_to_remove +')').closest('tr .ticket').addClass('alert-warning');
 		}
 	    }
 	});
