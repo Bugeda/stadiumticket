@@ -36,69 +36,43 @@
     </style>
   </head>
   <body>
-  <script type="text/javascript">
-
-    var errorsHere = false;
-    <c:if test="${not empty requestScope['org.springframework.validation.BindingResult.editEvent'].allErrors}">
-        errorsHere = true;
-    </c:if>
-    $(document).ready(function() {
-        console.log('here');
-        if(errorsHere){
-            $('#editEventError').modal('show');
-            console.log('errors');
-        }        	
-    });
-  </script>
   
-   <div id="editEventError" class="modal fade">
-    <div class="modal-dialog">    
-        <div class="alert alert-danger" role="alert">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
-          <p><spring:message code="error.changesAreNotApplied" /></p>
-        </div>
-      </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
     
     <div class="container">
        <div class="row">
-	<div class="col-xs-1 col-md-1"><a href="<c:url value="index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
+	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
 	<div class="col-xs-6 col-md-9">
 	   <h3>
-		<a id="arrow_back" href="index"><img src="<%= request.getContextPath() %>/images/arrow_back.png" title="<spring:message code="index.pageTitle" />"></a>&nbsp;
+		<a id="arrow_back" href="../index"><img src="<%= request.getContextPath() %>/images/arrow_back.png" title="<spring:message code="index.pageTitle" />"></a>&nbsp;
 		<spring:message code="editevent.pageTitle" />
-	   </h3>
-	   <h2 id="event_name"><c:out value="${editEvent.eventName}"></c:out></h2>
+	   </h3>	
 	 </div>   
 	 </div>
     
     <div class="row">
 	<div class="col-md-5">
-	 	<form:form class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/edit_event?id=${editEvent.id}" modelAttribute="editEvent">
+	 	<form:form class="form-horizontal"  method="post" action="" modelAttribute="editEvent">
 	    <div class="form-group">
 	      <label for="title"><spring:message code="event.hName" />:</label>
 	      <spring:message code="event.hName.hint" var="msg"/>
-	      <form:input class="form-control"  path="eventName" id="title" title="${msg}" placeholder="${msg}" maxlength="50" disabled/>
-	      <form:errors path="eventName" cssClass="alert-danger" />
+	      <c:out value="${editEvent.eventName}"></c:out>
 	    </div>
 	    <div class="form-group">
             <fmt:formatDate value="${editEvent.eventDate}" pattern="dd-MM-yyyy HH:mm" var="formattedDate"/>
 	      <label for="eventDate"><spring:message code="event.hDatetime" />:</label>
 	      <spring:message code="event.hDatetime.hint" var="msg"/>
-	      <input class="form-control"  name="eventDate"  id="start" type="text" value="${formattedDate}" title="${msg}" placeholder="${msg}"  maxlength="0" disabled/>
-	      <form:errors path="eventDate" cssClass="alert-danger" />
+	      <c:out value="${formattedDate}"></c:out>	      
 	    </div>
 	    <div class="form-group">
 	      <label for="booking_time" id="label_booking"><spring:message code="event.hBooking" />:</label>
 	      <spring:message code="event.hBooking.hint" var="msg"/>
-	      <form:input class="form-control" type="text" path="bookingCancelTime" id="booking_time" title="${msg}" placeholder="${msg}" maxlength="3" disabled//>
-	      <form:errors path="bookingCancelTime" cssClass="alert-danger" />
+	      <c:out value="${editEvent.bookingCancelTime}"></c:out>	  
+	      
 	    </div>
 	   <div class="form-group">
 	      <label for="booking_time" id="label_duration"><spring:message code="event.hDuration" />:</label>
 	      <spring:message code="event.hDuration.hint" var="msg"/>
-	      <form:input class="form-control" type="text" path="durationTime" id="duration_time" title="${msg}" placeholder="${msg}" maxlength="3" disabled/>
-	      <form:errors path="durationTime" cssClass="alert-danger" />
+	      <c:out value="${editEvent.durationTime}"></c:out>	
 	    </div>
 	    <div class="form-group">
 	      <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />
@@ -106,35 +80,8 @@
 	        <form:hidden  id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
 	      </c:forEach>
 	 	<form:hidden id="id" path="id"/>
-	    </div>
-	    <div class="form-group">
-	      <spring:message code="event.submit" var="msg"/>
-	      <input class="btn btn-primary" type="submit" name="submit" value="${msg}" id="event_save" disabled="disabled"/>
-	 	  <spring:message code="event.cancel" var="msg"/>
-	 	  <input class="btn btn-warning" type="submit" name="submit" value="${msg}" id="event_cancel" disabled="disabled"/>
-	 	  <spring:message code="event.delete" var="msg"/>
-   	      <input class="btn btn-danger" type="button" value="${msg}" id="event_delete" disabled="disabled"/>
-	    </div>
-      </form:form>
-
-	  <form:form id="confirm_deletion_form"  method="post" action="${pageContext.request.contextPath}/delete_event" modelAttribute="editEvent">
-	    <div class="form-group">
-	      <div class="alert-warning" role="alert">
-			<spring:message code="event.deleteEventMsg.ask"/><br>
-			<spring:message code="event.deleteEventMsg.directive"/><br>
-	 		<form:hidden id="id" path="id"/>
-			<spring:message code="event.deleteEventMsg.confirm" var="msg"/>
-			<input class="form-control" type="text" name="confirm_delete" id="confirm_deletion_text" maxlength="10" size="15" placeholder="${msg}"><br>
-			<spring:message code="event.confirmDelete" var="msg"/>
-			<input class="btn btn-danger"  type="submit" value="${msg}" id="confirm_deletion">
-			<spring:message code="event.cancelDelete" var="msg"/>
-			<input class="btn btn-warning" type="button" value="${msg}" id="cancel_deletion">
-	      </div>
-	      <div class="alert-error alert-dismissable" id="wrong_confirmation" role="alert">
-		  <spring:message code="event.deleteEventMsg.alarm"/>
-	      </div>
-	    </div>
-	  </form:form>
+	    </div>	    
+      </form:form>	 
 
 	</div>
 	<spring:message code="event.sectorPrice.hint" var="msg"/>

@@ -71,8 +71,6 @@
         </div>
       </div><!-- /.modal-content -->
   </div><!-- /.modal --> 
-  <c:out value="${message}"></c:out>
-<c:out value="${message}"></c:out>
 <div class="container">
 <div class="row">
 	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
@@ -115,7 +113,7 @@
   			<c:forEach items="${bookingSet}" var="booking">
   			   <tr class="ticket">
                 <td class="booking_id"><c:out value="${booking.id}"></c:out></td>
-                <td><c:out value="${booking.ticket.seat.sector.id}"></c:out></td>
+                <td><c:out value="${booking.ticket.seat.sector.name}"></c:out></td>
                 <td><c:out value="${booking.ticket.seat.rowNumber}"></c:out></td>
                 <td><c:out value="${booking.ticket.seat.seatNumber}"></c:out></td>
                 <td class="ticket_price"><c:out value="${event.sectorPriceSet[booking.ticket.seat.sector.id].price}"></c:out></td>

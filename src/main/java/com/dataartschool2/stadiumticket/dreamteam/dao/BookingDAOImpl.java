@@ -43,8 +43,8 @@ public class BookingDAOImpl extends GenericDAOImpl<Booking> implements BookingDA
 	}
 
 	private Boolean changeBookingState(Booking booking, BookingStatus bookingStatus,SeatStatus seatStatus){
-		BookingStatus backBookingStatus = booking.getBookingStatus();
-		SeatStatus backSeatStatus = booking.getTicket().getSeatStatus();
+		//BookingStatus backBookingStatus = booking.getBookingStatus();
+		//SeatStatus backSeatStatus = booking.getTicket().getSeatStatus();
 		booking.setBookingStatus(bookingStatus);
 		booking.getTicket().setSeatStatus(seatStatus);
 		updateEntity(booking);
