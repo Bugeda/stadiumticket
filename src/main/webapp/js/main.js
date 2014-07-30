@@ -9,12 +9,62 @@ $(document).ready(function () {
 	timepicker:true,
 	step:15,
 	format:'d-m-Y H:i',
-	minDate:'-1970/01/02',
-	//minDate : '-1969/12/31',
+	minDate : '-1969/12/31',	
 	dayOfWeekStart: 1
     });
 
     // 3. dataTables
+    // date sorting plug-in
+    jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+	"ru_datetime-asc": function ( a, b ) {
+            var x, y;
+            if ($.trim(a) !== '') {
+		var deDatea = $.trim(a).split(' ');
+		var deTimea = deDatea[1].split(':');
+		var deDatea2 = deDatea[0].split('-');
+		x = (deDatea2[2] + deDatea2[1] + deDatea2[0] + deTimea[0] + deTimea[1]) * 1;
+            } else {
+		x = Infinity; // = l'an 1000 ...
+            }
+
+	    if ($.trim(b) !== '') {
+		var deDateb = $.trim(b).split(' ');
+		var deTimeb = deDateb[1].split(':');
+		deDateb = deDateb[0].split('-');
+		y = (deDateb[2] + deDateb[1] + deDateb[0] + deTimeb[0] + deTimeb[1]) * 1;
+            } else {
+		y = Infinity;
+            }
+            var z = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            return z;
+	},
+
+	"ru_datetime-desc": function ( a, b ) {
+            var x, y;
+            if ($.trim(a) !== '') {
+		var deDatea = $.trim(a).split(' ');
+		var deTimea = deDatea[1].split(':');
+		var deDatea2 = deDatea[0].split('-');
+		x = (deDatea2[2] + deDatea2[1] + deDatea2[0] + deTimea[0] + deTimea[1]) * 1;
+            } else {
+		x = Infinity;
+            }
+
+            if ($.trim(b) !== '') {
+		var deDateb = $.trim(b).split(' ');
+		var deTimeb = deDateb[1].split(':');
+		deDateb = deDateb[0].split('-');
+		y = (deDateb[2] + deDateb[1] + deDateb[0] + deTimeb[0] + deTimeb[1]) * 1;
+            } else {
+		y = Infinity;
+            }
+            var z = ((x < y) ? 1 : ((x > y) ? -1 : 0));
+            return z;
+	}
+    } );
+    // date sorting plug-in
+
+    // load russian translation depending on browser language
     if (navigator.language == 'ru-RU' ) {
 	var lang = {
 	    "search": "Фильтровать список:",
@@ -37,7 +87,10 @@ $(document).ready(function () {
 	"paging": true,
 	"stateSave": true,
 	"autoWidth": true,
-	"columnDefs": [ { "orderable": false, "targets": 2 } ]
+	"columnDefs": [
+	    { "orderable": false, "targets": 2 },
+	    { "type": 'ru_datetime', "targets": 1 }
+	]
     });
 
     $('#booking_search_results').dataTable({
@@ -54,7 +107,6 @@ $(document).ready(function () {
 	var title = ($(this).val());
 	$('#event_name').html(title);
     });
-
     // fill sector prices from hiddens if form validation didn't pass
     $('.hidden_sector_price').each( function () {
 	var sector_number = $(this).attr('id').split('s')[1];
@@ -74,10 +126,10 @@ $(document).ready(function () {
     });
 
     // display action buttons for event in list
-    $('.event').mouseover( function() {
+    $('#event_list').on('mouseover', '.event' ,function() {
 	$(this).children('.action_list').show();
     });
-    $('.event').mouseout( function() {
+    $('#event_list').on('mouseout', '.event', function() {
 	$(this).children('.action_list').hide();
     });
     $('#event_list_filter input').addClass('form-control');
@@ -103,14 +155,12 @@ $(document).ready(function () {
     // and set numbers for all of them
     function recalculate_price_and_index() {
 	var total_price = 0;
-	var ticket_index = 1;
+	var ticket_index = 0;
 	$('.ticket').each( function () {
-	    $(this).children('.ticket_number').html(ticket_index+'.');
+	    $(this).children('.ticket_number').html(parseInt(ticket_index + 1)+'.');
 	    $(this).find('input').each( function () {
-		$(this).attr('name', $(this).attr('name').replace('[i]', '['+ticket_index+']') );
+		$(this).attr('name', $(this).attr('name').replace( /\[.*?\]/g, '['+ticket_index+']') );
 	    });
-	    // attr = attr.replace('[i]', '['+ticket_index+']');
-	    // $(this).find('input').attr('name', attr);
 	    total_price += parseFloat($(this).children('.ticket_price').html());
 	    ticket_index += 1;
 	});
@@ -225,13 +275,8 @@ $(document).ready(function () {
 		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').remove();
 		}
 		else {
-		    //leave ticket if we get false, fire up error message
-		    $('.alert').append('Detected problem with booking id(s):<br> ');
-		    $('.alert').append('<b>',ticket_ids[index], response[index],'</b><br>'); // output response to block
-		    $('.modal').modal(); // show block with response
-		    setTimeout(function(){
-			$('.modal').modal('hide')
-		    }, 2000);
+		   
+	 	  $('.booking_id:contains('+ id_to_remove +')').closest('tr .ticket').addClass('alert-warning');
 		}
 	    }
 	});

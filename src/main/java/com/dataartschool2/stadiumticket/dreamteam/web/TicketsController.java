@@ -102,8 +102,8 @@ public class TicketsController {
             modelMap.put("results", seatsBindingResult);
             return "/tickets/sell_tickets";
         }else{
-          	seatsForm.getChosenSeats().remove(0);
-        	seatsForm.getChosenSectorsNums().remove(0);
+         // 	seatsForm.getChosenSeats().remove(0);
+       // 	seatsForm.getChosenSectorsNums().remove(0);
             Boolean[] result=ticketService.sellTickets(eventId, seatsForm);
             attr.addFlashAttribute("message", appContext.getMessage("message.ticketsAreSold", new Object[]{}, null));
             return "redirect:/";
@@ -142,8 +142,8 @@ public class TicketsController {
             modelMap.put("results", seatsBindingResult);
             return "/tickets/book_tickets";
         }else{
-          	seatsForm.getChosenSeats().remove(0);
-        	seatsForm.getChosenSectorsNums().remove(0);              	
+        //  	seatsForm.getChosenSeats().remove(0);
+       // 	seatsForm.getChosenSectorsNums().remove(0);              	
         	Boolean[] result=ticketService.bookTickets(eventId, seatsForm);
             attr.addFlashAttribute("message", appContext.getMessage("message.ticketsAreBooked", new Object[]{}, null));
             return "redirect:/index";

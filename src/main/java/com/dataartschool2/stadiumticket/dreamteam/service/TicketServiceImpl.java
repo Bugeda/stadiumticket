@@ -130,8 +130,6 @@ public class TicketServiceImpl implements TicketService {
     
     public boolean checkExistsTickets(SeatsForm seatsForm){
     	boolean result=true;
-      	seatsForm.getChosenSeats().remove(0);
-    	seatsForm.getChosenSectorsNums().remove(0);
     	
     	Integer eId = seatsForm.getEventId();
 
