@@ -15,8 +15,59 @@ $(document).ready(function () {
     });
 
     // 3. dataTables
-    $('#event_list').dataTable({
-	language: {
+    // date sorting plug-in
+    jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+	"ru_datetime-asc": function ( a, b ) {
+            var x, y;
+            if ($.trim(a) !== '') {
+		var deDatea = $.trim(a).split(' ');
+		var deTimea = deDatea[1].split(':');
+		var deDatea2 = deDatea[0].split('.');
+		x = (deDatea2[2] + deDatea2[1] + deDatea2[0] + deTimea[0] + deTimea[1]) * 1;
+            } else {
+		x = Infinity; // = l'an 1000 ...
+            }
+
+	    if ($.trim(b) !== '') {
+		var deDateb = $.trim(b).split(' ');
+		var deTimeb = deDateb[1].split(':');
+		deDateb = deDateb[0].split('.');
+		y = (deDateb[2] + deDateb[1] + deDateb[0] + deTimeb[0] + deTimeb[1]) * 1;
+            } else {
+		y = Infinity;
+            }
+            var z = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            return z;
+	},
+
+	"ru_datetime-desc": function ( a, b ) {
+            var x, y;
+            if ($.trim(a) !== '') {
+		var deDatea = $.trim(a).split(' ');
+		var deTimea = deDatea[1].split(':');
+		var deDatea2 = deDatea[0].split('.');
+		x = (deDatea2[2] + deDatea2[1] + deDatea2[0] + deTimea[0] + deTimea[1]) * 1;
+            } else {
+		x = Infinity;
+            }
+
+            if ($.trim(b) !== '') {
+		var deDateb = $.trim(b).split(' ');
+		var deTimeb = deDateb[1].split(':');
+		deDateb = deDateb[0].split('.');
+		y = (deDateb[2] + deDateb[1] + deDateb[0] + deTimeb[0] + deTimeb[1]) * 1;
+            } else {
+		y = Infinity;
+            }
+            var z = ((x < y) ? 1 : ((x > y) ? -1 : 0));
+            return z;
+	}
+    } );
+    // date sorting plug-in
+
+    // load russian translation depending on browser language
+    if (navigator.language == 'ru-RU' ) {
+	var lang = {
 	    "search": "Фильтровать список:",
 	    "paginate": {
 		"first":      "Первая",
@@ -27,29 +78,24 @@ $(document).ready(function () {
 	    "info": "Страница _PAGE_ из _PAGES_",
 	    "lengthMenu": "Показать _MENU_ строк",
 	    "zeroRecords":    "Ничего не найдено",
-	    "infoFiltered":   "(отсеяно из _MAX_ событий)"
-	},
+	    "infoFiltered":   "(отсеяно из _MAX_ строк)"
+	};
+    }
+    else lang = {};
+
+    $('#event_list').dataTable({
+	"language": lang,
 	"paging": true,
 	"stateSave": true,
 	"autoWidth": true,
-	"columnDefs": [ { "orderable": false, "targets": 2 } ]
+	"columnDefs": [
+	    { "orderable": false, "targets": 2 },
+	    { "type": 'ru_datetime', "targets": 1 }
+	]
     });
 
     $('#booking_search_results').dataTable({
-	language: {
-	    "search": "Фильтровать список:",
-	    "paginate": {
-		"first":      "Первая",
-		"previous":   "Предыдущая",
-		"next":       "Следующая",
-		"last":       "Последняя"
-            },
-	    "info": "Страница _PAGE_ из _PAGES_",
-	    "zeroRecords":    "Ничего не найдено",
-	    "lengthMenu": "Показать _MENU_ строк",
-	    "info":           "Показано _TOTAL_шт.  ",
-	    "infoFiltered":   "(из _MAX_ билетов)"
-	},
+	"language": lang,
 	"paging": false,
 	"stateSave": true,
 	"autoWidth": true,
@@ -62,6 +108,14 @@ $(document).ready(function () {
 	var title = ($(this).val());
 	$('#event_name').html(title);
     });
+    // fill sector prices from hiddens if form validation didn't pass
+    $('.hidden_sector_price').each( function () {
+	var sector_number = $(this).attr('id').split('s')[1];
+	var hidden_price = $(this).val()
+	if ( hidden_price ) {
+	    $('#price_'+sector_number).val(hidden_price);
+	}
+    });
 
     $('map > input').change( function () {
 	var source_id = $(this).attr('id');
@@ -73,10 +127,10 @@ $(document).ready(function () {
     });
 
     // display action buttons for event in list
-    $('.event').mouseover( function() {
+    $('#event_list').on('mouseover', '.event' ,function() {
 	$(this).children('.action_list').show();
     });
-    $('.event').mouseout( function() {
+    $('#event_list').on('mouseout', '.event', function() {
 	$(this).children('.action_list').hide();
     });
     $('#event_list_filter input').addClass('form-control');
@@ -102,31 +156,31 @@ $(document).ready(function () {
     // and set numbers for all of them
     function recalculate_price_and_index() {
 	var total_price = 0;
-	var ticket_index = 1;
+	var ticket_index = 0;
 	$('.ticket').each( function () {
-	    $(this).children('.ticket_number').html(ticket_index+'.');
+	    $(this).children('.ticket_number').html(parseInt(ticket_index + 1)+'.');
 	    $(this).find('input').each( function () {
-		$(this).attr('name', $(this).attr('name').replace('[i]', '['+ticket_index+']') );
+		$(this).attr('name', $(this).attr('name').replace( /\[.*?\]/g, '['+ticket_index+']') );
 	    });
-	    total_price += parseInt($(this).children('.ticket_price').html());
-	    ticket_index += 1;
+	    total_price += parseFloat($(this).children('.ticket_price').html());
+
 	});
 	$('#total_price').html(total_price);
     };
 
     //add ticket to list
-    function add_ticket(sector, row, seat,price) {
+    function add_ticket(sector, sector_number, row, seat,price){
 	$('#ticket_list').append("<tr class=\"ticket\"><td class=\"ticket_number\"></td>"+"<td>"
 				 + sector +"</td>"
 				 + "<td>"+ row + "</td>"
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ price + "</td>"
 				 + "<td><img class=\"delete_ticket\" src=\"\/stadiumticket\/images\/delete.png\"></td>"
-				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector+">"
+				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector_number+">"
 				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
  				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+seat+"></td></tr>" );
 	recalculate_price_and_index();
-    	};
+    };
     //add ticket by clicking seat on sector plan
     $('.sell_tickets_table td').click(function() {
 	if ($(this).is('[class]')
@@ -145,7 +199,7 @@ $(document).ready(function () {
 	    var price = $("#price_" + sector_number).val();
 	    var row = id[0];
 	    var seat = parseInt(id[1]);
-	    add_ticket(sector,row,seat,price);
+	    add_ticket(sector,sector_number,row,seat,price);
 	};
     });
 
@@ -168,7 +222,7 @@ $(document).ready(function () {
     $('.ticket input').click( function() {
 	var total_price = 0;
 	$('input[type=checkbox]:checked').each(function (){
-	    total_price += parseInt($(this).parents().siblings('.ticket_price').html() );
+	    total_price += parseFloat($(this).parents().siblings('.ticket_price').html() );
 	});
 	$('#total_price').html(total_price);
     });
@@ -179,7 +233,7 @@ $(document).ready(function () {
 	var state = $(this)[0].checked;
 	$('.ticket input').each(function (){
 	    $(this)[0].checked = state;
-	    if (state) {   total_price += parseInt($(this).parents().siblings('.ticket_price').html() ); }
+	    if (state) {   total_price += parseFloat($(this).parents().siblings('.ticket_price').html() ); }
 	    else { total_price = 0; }
 	});
 	$('#total_price').html(total_price);
@@ -211,20 +265,15 @@ $(document).ready(function () {
 		base_url = base_url + 'id=' + ticket_ids[id]+ '&';
 	    };
 	};
-	
-	function compareReversed(a, b) {
-	  return b - a;
-	}
-
 	// fetch for data to server
 	$.get( base_url, function(response) {
 	    $('.alert').html('');
 	    console.log(response); 
-	    response.sort(compareReversed);
-	    for (index in  response) {
+	    for (index in response) {
 		if (response[index]) {
 		    //remove ticket from list if we get true
-		    $('.ticket')[index].remove();
+		    var id_to_remove =  ticket_ids[index];
+		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').remove();
 		}
 		else {
 		    //leave ticket if we get false, fire up error message
@@ -287,13 +336,13 @@ $(document).ready(function () {
 	    for (var seat_index = 0; seat_index < sector_obj.rows[0].length; seat_index++) {
 		$('.'+ parseInt(row_index+1) +'_'+parseInt(seat_index+1) ).attr('class',parseInt(row_index+1) +'_'+parseInt(seat_index+1)+" "+ sector_obj.rows[row_index][seat_index]);
 		switch (sector_obj.rows[row_index][seat_index]) {
-		    case 'vacant':
+		case 'vacant':
 		    total_free += 1;
 		    break;
-		    case 'booked':
+		case 'booked':
 		    total_booked += 1;
 		    break;
-		    case 'occupied':
+		case 'occupied':
 		    total_occupied += 1;
 		    break;
 		}
