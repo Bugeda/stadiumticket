@@ -32,45 +32,26 @@
     <![endif]-->
  </head>
 <body>
-
-<c:if test="${!empty message}">
-       	<script type="text/javascript">
-     	 $(document).ready(function() {
-                 $('#success').modal('show');
-                 setTimeout(function(){
-                	 $('#success').modal('hide')
-                	    }, 2000);
-     	 })
-     	</script>
-    </c:if>
-    <c:if test="${!empty warning}">
-       	<script type="text/javascript">
-     	 $(document).ready(function() {
-                 $('#warning').modal('show');
-                 setTimeout(function(){
-                	 $('#warning').modal('hide')
-                	    }, 2000);
-     	 })
-     	</script>
-    </c:if>
+  <c:out value="${message}"></c:out>
+   <div id="danger" class="modal fade">
+    <div class="modal-dialog">    
+        <div class="alert alert-danger" role="alert">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
+               <spring:message code="error.bookingSearchNotChange" />
+        </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal -->   
 
   <div id="success" class="modal fade">
     <div class="modal-dialog">    
         <div class="alert alert-success" role="alert">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
-               <c:out value="${message}"></c:out>
+                <spring:message code="message.operationSuccess" />
         </div>
       </div><!-- /.modal-content -->
   </div><!-- /.modal --> 
+
   
-  <div id="warning" class="modal fade">
-    <div class="modal-dialog">    
-        <div class="alert alert-warning" role="alert">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
-               <c:out value="${warning}"></c:out>
-        </div>
-      </div><!-- /.modal-content -->
-  </div><!-- /.modal --> 
 <div class="container">
 <div class="row">
 	<div class="col-xs-1 col-md-1"><a href="<c:url value="../index"/>"><img class="img-responsive" src="<%= request.getContextPath() %>/images/logo.png"></a></div>
@@ -116,7 +97,7 @@
                 <td><c:out value="${booking.ticket.seat.sector.name}"></c:out></td>
                 <td><c:out value="${booking.ticket.seat.rowNumber}"></c:out></td>
                 <td><c:out value="${booking.ticket.seat.seatNumber}"></c:out></td>
-                <td class="ticket_price"><c:out value="${event.sectorPriceSet[booking.ticket.seat.sector.id].price}"></c:out></td>
+                <td class="ticket_price"><c:out value="${event.sectorPriceSet[booking.ticket.seat.sector.id-1].price}"></c:out></td>
                 <td><c:out value="${booking.customer.customerName}"></c:out></td>
                 <td><input type="checkbox"></td>
               </tr>  			

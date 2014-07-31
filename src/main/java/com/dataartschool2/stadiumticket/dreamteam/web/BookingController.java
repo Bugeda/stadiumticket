@@ -6,12 +6,15 @@ import java.util.Date;
 
 
 
+
+
 import javax.swing.JOptionPane;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +54,7 @@ public class BookingController{
     }
     
 	@RequestMapping(value = "/booking/search", method = RequestMethod.GET)
-	public String getBookedTickets(@RequestParam("id") Integer eventId, ModelMap modelMap){
+	public String getBookedTickets(@RequestParam("id") Integer eventId, ModelMap modelMap,  Model model){
 		modelMap.put("event", eventService.findById(eventId));
 	   	return "/booking/search";
 	}	
@@ -59,7 +62,7 @@ public class BookingController{
 	@RequestMapping(value="/booking/search", method = RequestMethod.POST)
     public String getBookedTicketsForCustomer(@RequestParam("id") Integer eventId,
     										  @RequestParam("customerName") String customerName,
-       										  ModelMap modelMap) throws ParseException {
+    										  ModelMap modelMap,  Model model) throws ParseException {
 		modelMap.put("customerName", customerName);
 		modelMap.put("event", eventService.findById(eventId));
 		modelMap.put("bookingSet", bookingService.findLikeCustomerNameInEvent(eventId, customerName));

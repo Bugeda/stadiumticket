@@ -60,7 +60,7 @@
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
           <p><spring:message code="error.eventIsNotAdded" /></p>
         </div>
-      </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
   
   
