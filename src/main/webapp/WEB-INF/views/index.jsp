@@ -53,7 +53,7 @@
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
                <c:out value="${message}"></c:out>
         </div>
-      </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
   </div><!-- /.modal --> 
 
      <div class="container">

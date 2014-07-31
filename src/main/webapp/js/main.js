@@ -264,21 +264,37 @@ $(document).ready(function () {
 		base_url = base_url + 'id=' + ticket_ids[id]+ '&';
 	    };
 	};
+    $('.ticket').each(function (){
+   	 $('.ticket').removeClass('alert-danger'); 
+	});
 	// fetch for data to server
 	$.get( base_url, function(response) {
-	    $('.alert').html('');
+	    
 	    console.log(response); 
+	    var res=false;
 	    for (index in response) {
-		if (response[index]) {
-		    //remove ticket from list if we get true
-		    var id_to_remove =  ticket_ids[index];
+		var id_to_remove =  ticket_ids[index];
+
+		if (response[index]) {		
+		    //remove ticket from list if we get true	
+			res=true;
 		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').remove();
-		}
-		else {
-		   
-	 	  $('.booking_id:contains('+ id_to_remove +')').closest('tr .ticket').addClass('alert-warning');
+		}else {
+			//$('.alert').html('');			
+		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').addClass('alert-danger');  		
+			//$('.alert').append('<b>',ticket_ids[index], response[index],'</b><br>'); 
+	
 		}
 	    }
+	    if (res){
+		    $('#success').modal('show');
+	        setTimeout(function(){
+	       	 $('#success').modal('hide')
+	       	    }, 2000);
+	    } else {
+			$('#danger').modal(); 
+	    }
+
 	});
     };
 
