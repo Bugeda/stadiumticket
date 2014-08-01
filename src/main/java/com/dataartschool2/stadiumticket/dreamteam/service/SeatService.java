@@ -10,8 +10,6 @@ public interface SeatService {
 	
 	public void updateSeat(Seat seat);
 
-	public List<Seat> findBySeat(Integer rowNumber, Integer seatNumber, Sector sector);
-
 	public List<Seat> findByAll();
 
 }
