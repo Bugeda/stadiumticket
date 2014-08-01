@@ -28,11 +28,6 @@ public class SeatServiceImpl implements SeatService {
 
 	@Override
 	@Transactional
-	public List<Seat> findBySeat(Integer rowNumber, Integer seatNumber, Sector sector) {
-		return seatDAO.findBySeat(rowNumber, seatNumber, sector);
-	}
-
-	@Override
 	public List<Seat> findByAll() {
 		return seatDAO.findAll();
 	}

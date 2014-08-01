@@ -110,6 +110,24 @@ public class TicketServiceImpl implements TicketService {
     
     @Override
     @Transactional
+    public List<Ticket> getAllTicketsBySector(Integer eventId, Integer sectorId) {
+        List<Ticket> tickets = ticketDAO.findByEvent(eventService.findById(eventId));
+        List<Ticket> result = new ArrayList<Ticket>();
+
+        for(Ticket ticket : tickets){
+            Event event = ticket.getEvent();
+            Seat seat = ticket.getSeat();
+            Sector sector = seat.getSector();
+            if(event.getId().equals(eventId) && sector.getId().equals(sectorId)){
+                result.add(ticket);
+            }
+        }
+
+        return result;
+    }
+    
+    @Override
+    @Transactional
     public List<Ticket> getAllTicketsByEvent(Integer eventId) {
         List<Ticket> tickets = new ArrayList<Ticket>();
         tickets = getAllTickets();
@@ -139,20 +157,13 @@ public class TicketServiceImpl implements TicketService {
     	for(Seat seat : chosenSeats){         		
             Integer sectorNo = chosenSectors.get(i);
             ++i; 
-            Sector sector = sectorService.findById(sectorNo);
-            seat.setSector(sector);
-            
-            List<Seat> st=seatService.findBySeat(seat.getRowNumber(),seat.getSeatNumber(),seat.getSector());  
-            if (!st.isEmpty()) 
-            	seat = st.get(0);
-            List<Ticket> allTickets = getAllTicketsByEvent(eId);
-        	
-        	for (Ticket tk:allTickets)       	
-        		if (tk.getSeat().equals(seat)){
-        			if (!tk.getSeatStatus().equals(SeatStatus.vacant)){    				
-    					return false;
-        			}
-        		}
+                       
+            List<Ticket> allTickets = getAllTicketsBySector(eId, sectorNo);            
+            for (Ticket tk:allTickets) {                 	
+            		if ((tk.getSeat().getRowNumber()==seat.getRowNumber())&&(tk.getSeat().getSeatNumber()==seat.getSeatNumber())){            		            			    				
+        					return tk.getSeatStatus().equals(SeatStatus.vacant);            			
+            		}    
+        	}
         	result=true;
     	}
     	return result;
@@ -217,35 +228,23 @@ public class TicketServiceImpl implements TicketService {
         return Integer.toString(Objects.hash(event, seat));
     }
     
-    private Ticket getTicket(Event event, Seat seat){
-    	//ticket is not exist
-        List<Seat> st=seatService.findBySeat(seat.getRowNumber(),seat.getSeatNumber(),seat.getSector());       
-        if (st.isEmpty()) {
-        	Ticket tk=new Ticket();
-        	String ticketNumber = generateTicketNumber(event, seat);
-            updateTicket(tk);
-            tk.setEvent(event);
-            tk.setSeat(seat);
-            tk.setTicketNumber(ticketNumber); 
-           	return tk;           	
-        }
-        else seat = st.get(0);
-
-        List<Ticket> allTickets = getAllTicketsByEvent(event.getId());
-    	
-    	for (Ticket tk:allTickets){
-    	
-    		if (tk.getSeat().equals(seat)){
-    			if (tk.getSeatStatus().equals(SeatStatus.vacant)){    				
-					return tk;
-    			}else {   
-					//System.out.println(appContext.getMessage("error.ticketExist", new Object[]{}, null));      	
-					//throw new RuntimeException(appContext.getMessage("error.ticketExist", new Object[]{}, null));
-					//return null;
-				}   
-    		}
-    	}    	
-    	return null;
+    private Ticket getTicket(Event event, Seat seat){        
+        List<Ticket> allTickets = getAllTicketsBySector(event.getId(), seat.getSector().getId());
+        
+        for (Ticket atk:allTickets) {  
+        		if ((atk.getSeat().getRowNumber()==seat.getRowNumber())&&(atk.getSeat().getSeatNumber()==seat.getSeatNumber())){        		
+        			if (atk.getSeatStatus().equals(SeatStatus.vacant)){    				
+        	        	return atk;
+        			} else return null;
+        		}                
+    	}    	    	
+      	Ticket tk=new Ticket();
+      	String ticketNumber = generateTicketNumber(event, seat);    
+        tk.setEvent(event);
+        tk.setSeat(seat);
+        tk.setTicketNumber(ticketNumber);
+    	updateTicket(tk);
+    	return tk;
     }
 }
 
