@@ -51,7 +51,7 @@ public class EventServiceImpl implements EventService{
     	newEventEnd = new Date(newEvent.getEventDate().getTime()+duration*ONE_MINUTE_IN_MILLIS);
     	Date exEventStart = null;
     	Date exEventEnd = null;      	
-   	List<Event> existsEvent = eventDAO.findAll();
+    	List<Event> existsEvent = eventDAO.findAll();
     	for (Event ex:existsEvent){        	
     		if ((ex.isDelete())||(ex.equals(newEvent)))
     			continue;
@@ -113,6 +113,23 @@ public class EventServiceImpl implements EventService{
         }
         return event;
     }
+
+	@Override
+	public Boolean[] getSectorPricesErrors(Event event) {		
+	    List<SectorPrice> prices = event.getSectorPriceSet();
+	    Boolean[] results = new Boolean[prices.size()];
+	    Double price = 0.0;
+	    int i=0;
+        for(SectorPrice sectorPrice : prices){
+        	price = sectorPrice.getPrice();
+        	results[i]=true;
+        	if ((price == null)||(Double.compare(price, 0) <= 0)) {
+        		  results[i]=false;
+        	}
+        	i++;
+        }
+		return results;
+	}
 
 }
 

@@ -274,12 +274,17 @@ $(document).ready(function () {
 	    var res=true;
 	    for (index in response) {
 		var id_to_remove =  ticket_ids[index];
+
 		if (response[index]) {		
 		    //remove ticket from list if we get true	
+			
 		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').remove();
 		}else {
-		    res=false;
-		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').addClass('alert-danger');  			
+			res=false;
+			//$('.alert').html('');			
+		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').addClass('alert-danger');  		
+			//$('.alert').append('<b>',ticket_ids[index], response[index],'</b><br>'); 
+	
 		}
 	    }
 	    if (res){
