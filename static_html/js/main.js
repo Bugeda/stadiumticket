@@ -215,6 +215,47 @@ $(document).ready(function () {
 	recalculate_price_and_index();
     });
 
+    //send tickets to sell
+    $('#sell_tickets').click(function (e) {
+	e.preventDefault();
+	if (navigator.language == 'ru-RU' ) {
+	    var response_codes = ['выполнено', 'уже забронирован', 'уже продан', 'непредвиденная ошибка'];
+	}
+	else {
+	    var response_codes = ['done', 'already booked', 'already sold', 'unexpected error'];
+	}
+	// prepare url
+	var len = $('.ticket').length;
+	var url_base = '/tickets/setsell?id='+ $('input[name="id"]').val() + '&';
+	$('.ticket').each( function (index, element) {
+	    var children = $(this).children('td');
+	    var sector_row_seat = children[1].innerHTML + '_' + children[2].innerHTML + '_'+ children[3].innerHTML;
+	    if (index == len - 1) {
+		var ticket_string = 'tk['+ index + ']='+ sector_row_seat;
+	    }
+	    else {
+		var ticket_string = 'tk['+ index + ']='+ sector_row_seat + '&';
+	    }
+	    url_base = url_base + ticket_string;
+	});
+
+	// actual fetch for data
+	$.get( url_base, function(response) {
+	    console.log('ticket sell response',response);
+	    for (index in response) {
+		if (response[index] != 0) {
+		    var status = 'danger';
+		}
+		else {
+		    var status = "success";
+		}
+		// append alert block, hide it and slooowly show :)
+		// remove hide().show('slow') form the end, for just append block
+		$('.ticket').eq(index).append('<div class="alert alert-'+status+'" role="alert">' + response_codes[index] + '</div>').hide().show('slow');
+	    }
+	});
+    });
+
     // enable form-control class for booking search results table
     $('#booking_search_results_filter input').addClass('form-control');
 
