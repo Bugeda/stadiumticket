@@ -236,7 +236,12 @@ $(document).ready(function () {
 	    else {
 		var ticket_string = 'tk['+ index + ']='+ sector_row_seat + '&';
 	    }
-	    url_base = url_base + ticket_string;
+	    if ((url_base + ticket_string).length >= 2000) {
+		console.log('url too long');
+	    }
+	    else {
+		url_base = url_base + ticket_string;
+	    }
 	});
 	// actual fetch for data
 	$.get( url_base, function(response) {
@@ -282,7 +287,12 @@ $(document).ready(function () {
 	    else {
 		var ticket_string = 'tk['+ index + ']='+ sector_row_seat + '&';
 	    }
-	    url_base = url_base + ticket_string;
+	    if ((url_base + ticket_string).length >= 2000) {
+		console.log('url too long');
+	    }
+	    else {
+		url_base = url_base + ticket_string;
+	    }
 	});
 
 	// actual fetch for data
