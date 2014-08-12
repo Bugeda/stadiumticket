@@ -61,21 +61,15 @@ public class TicketsRestController {
     								@RequestParam("customerName") String customer) {
     	int[] result = new int[seatsString.length];
     	
-    	boolean isTicketCorrect = true;
-    	boolean isCustomerExist = true;
     	List<Seat> seatsList= new ArrayList<Seat>();
     	seatsList.addAll(parseSeats(seatsString));
     	int sumres = 0;
     	
-    	if ((!customer.isEmpty())&&(!customer.equals(null))){
-    		isCustomerExist=false;  	
-    	}
-    	int i=0;
+        	int i=0;
     	for (Seat st:seatsList){    		
     		if (st.equals(null)){
     			//error of parse ticket
     			result[i]=4;
-    			isTicketCorrect=false;
     		} else {    	    			
     			   result[i]=ticketService.checkExistTicket(eventId, st);
     		}
@@ -84,7 +78,7 @@ public class TicketsRestController {
     	}
     	
     	
-    	if ((sumres==0))
+    	if ((sumres==0)&&(!customer.isEmpty())&&(!customer.equals(null)))
     		result=ticketService.bookTickets(eventId, seatsList, customer);
 
     	return result;
@@ -95,14 +89,12 @@ public class TicketsRestController {
     								@RequestParam("tk") String[] seatsString) {
     	int[] result = new int[seatsString.length];
     	int i=0;
-    	boolean isTicketCorrect = true;
     	List<Seat> seatsList=parseSeats(seatsString);
     	int sumres = 0;
     	for (Seat st:seatsList){    		
     		if (st.equals(null)){
     			//error of parse ticket
     			result[i]=4;    			
-    			isTicketCorrect=false;
     		} else {    			
     			result[i]=ticketService.checkExistTicket(eventId, st);
     		}
@@ -111,7 +103,7 @@ public class TicketsRestController {
     	
     	}
     	
-    	if ((sumres==0)&&(isTicketCorrect))
+    	if (sumres==0)
     		result=ticketService.sellTickets(eventId, seatsList);
     
     	
