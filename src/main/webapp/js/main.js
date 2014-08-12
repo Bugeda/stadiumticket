@@ -21,7 +21,7 @@ $(document).ready(function () {
             if ($.trim(a) !== '') {
 		var deDatea = $.trim(a).split(' ');
 		var deTimea = deDatea[1].split(':');
-		var deDatea2 = deDatea[0].split('-.');
+		var deDatea2 = deDatea[0].split('-');
 		x = (deDatea2[2] + deDatea2[1] + deDatea2[0] + deTimea[0] + deTimea[1]) * 1;
             } else {
 		x = Infinity; // = l'an 1000 ...
