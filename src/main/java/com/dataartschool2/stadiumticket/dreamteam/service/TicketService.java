@@ -30,13 +30,15 @@ public interface TicketService {
     
 	public List<Ticket> getAllTicketsBySector(Integer eventId, Integer sectorId);
     
-    public boolean checkExistsTickets(SeatsForm seatsForm);
+    public int checkExistTicket(Integer eventId, Seat seat);
     
-    public Boolean[] sellTickets(Integer eventId, SeatsForm seatsForm);
+    public int[] sellTickets(Integer eventId, List<Seat> seatsList);   
+    
+    public int[] bookTickets(Integer eventId, List<Seat> seatsList, String customerName);
+    
+	public List<Ticket> getAllTicketsByEvent(Integer eventId);
 
-    public Boolean[] bookTickets(Integer eventId, SeatsForm seatsForm);
 
-    public List<Ticket> getAllTicketsByEvent(Integer eventId);
 
 
 

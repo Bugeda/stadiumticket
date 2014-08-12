@@ -38,7 +38,6 @@
   </head>
   <body>
   <script type="text/javascript">
-
     var errorsHere = false;
     <c:if test="${not empty requestScope['org.springframework.validation.BindingResult.newEvent'].allErrors}">
         errorsHere = true;
@@ -49,9 +48,7 @@
             $('#newEventError').modal('show');
             console.log('errors');
         }        	
-    });
-    
-    
+    });        
   </script>
 
   <div id="newEventError" class="modal fade">
@@ -123,7 +120,7 @@
 	<img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
 	  <map name="stadium">	
 	   <% for (int i=1;i<28;i++) {%>	   	  
-	      <input type="text" id="price_<%=i %>" size="7" maxlength="7" placeholder="${msg}">
+	      <input type="text" id="price_<%=i %>" size="7" maxlength="7" placeholder="${msg}" >
 	   <%} %>
 		<area id="1" alt="1" title="1" href="" shape="poly" coords="320,92,363,93,363,54,356,54,356,33,437,33,437,48,423,48,423,120,384,120,384,111,320,111" />
 		<area id="2" alt="2" title="2" href="" shape="poly" coords="484,107,468,108,467,118,431,118,431,54,446,54,446,19,454,19,463,19,472,19,480,19,489,21,498,22,508,25,519,29"/>

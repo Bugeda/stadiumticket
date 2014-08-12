@@ -27,6 +27,8 @@ public interface EventService {
 
 	public Event createEmptyEvent();
 
+	public Boolean[] getSectorPricesErrors(Event event);
+
 
 
 //	public void editEvent(NewEventForm editEventForm) throws ParseException;

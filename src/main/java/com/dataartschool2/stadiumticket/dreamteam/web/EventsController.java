@@ -148,6 +148,7 @@ public class EventsController{
             }else {
                 if(bindingResult.hasErrors()){        
                 	modelMap.put("results", bindingResult);
+                	modelMap.put("sectorPriceSetError", eventService.getSectorPricesErrors(event));
                 	return "edit_event";
                 }else{
                 eventService.updateEvent(event);

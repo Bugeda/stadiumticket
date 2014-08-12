@@ -103,7 +103,7 @@
 	    <div class="form-group">
 	      <form:errors path="sectorPriceSet" cssClass="sectorPrice-danger alert-danger" />
 	      <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice" varStatus="priceStatus">
-	        <form:hidden  id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
+	        <form:hidden id="s${sectorPrice.sector.id}" path="sectorPriceSet[${priceStatus.index}].price"/>
 	      </c:forEach>
 	 	<form:hidden id="id" path="id"/>
 	    </div>
@@ -141,9 +141,9 @@
 	<div class="col-md-7">	    
 	<img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">
 	  <map name="stadium">
-	   <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice">	  	 
-	      <input id="price_${sectorPrice.sector.id}" size="7" maxlength="7" value="${sectorPrice.price}" placeholder="${msg}"/>
-	   </c:forEach>
+	   <c:forEach items="${editEvent.sectorPriceSet}" var="sectorPrice">	
+      		<input id="price_${sectorPrice.sector.id}" size="7" maxlength="7" value="${sectorPrice.price}" placeholder="${msg}" />	      
+	   </c:forEach>	
 		<area id="1" alt="1" title="1" href="" shape="poly" coords="320,92,363,93,363,54,356,54,356,33,437,33,437,48,423,48,423,120,384,120,384,111,320,111" />
 		<area id="2" alt="2" title="2" href="" shape="poly" coords="484,107,468,108,467,118,431,118,431,54,446,54,446,19,454,19,463,19,472,19,480,19,489,21,498,22,508,25,519,29"/>
 		<area id="3" alt="3" title="3" href="" shape="poly" coords="579,105,576,99,497,136,494,132,492,127,489,125,485,122,524,31,532,35,540,39,548,43,557,50,566,59,574,69,580,80,585,90,590,101"/>

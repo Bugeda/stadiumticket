@@ -19,17 +19,14 @@ public class BookingRestController {
     private BookingService bookingService;
     
     @RequestMapping(value = "/booking/cancel", method = RequestMethod.GET)
-    public  Boolean[] cancelBooking(@RequestParam("id") Integer[] ids, ModelMap modelMap){
+    public  Boolean[] cancelBooking(@RequestParam("id") Integer[] ids){
      	Boolean[] results=bookingService.cancelBookingSet(ids);
         return results;
     }
 
     @RequestMapping(value = "/booking/sell", method = RequestMethod.GET)
-    public  Boolean[] sellBooking(@RequestParam("id") Integer[] ids, ModelMap modelMap){
-     	Boolean[] results=bookingService.sellBookingSet(ids);
-
-        	modelMap.put("message",  appContext.getMessage("message.bookingSearchSold", new Object[]{}, null));       	
-       
+    public  Boolean[] sellBooking(@RequestParam("id") Integer[] ids){
+     	Boolean[] results=bookingService.sellBookingSet(ids);      
         return results;
     }
 }

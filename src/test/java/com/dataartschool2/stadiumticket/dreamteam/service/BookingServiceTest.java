@@ -40,45 +40,40 @@ public class BookingServiceTest {
     @Autowired
     private SeatService seatService;
     
-    private SeatsForm createSeatsForm(String customerName, Integer eventId){
+    private List<Seat> createSeats(Integer eventId){
     	Event event = eventService.findById(eventId);      	
 		assertNotNull(event);
-       	SeatsForm seatsForm = new SeatsForm();
-		seatsForm.setCustomerName(customerName);
+		List<Seat> seatsList = new ArrayList<Seat>();
 		Integer[] usedRow= new Integer[10];
        	Integer[] usedSeat= new Integer[10];
-    	List<Integer> usedSectors= new ArrayList<Integer>();
-    	List<Seat> chosenSeats = new ArrayList<Seat>();
     	
     	for (int sec=0;sec<27;sec++){
     		Integer sectorId= (int)(Math.random()*26+1);
     	
     		for (int i=0;i<10;i++){
-    			usedSectors.add(sectorId);
     			usedRow[i] = (int)(Math.random()*19+1);
     			usedSeat[i] = (int)(Math.random()*49+1);
     			Seat seat=new Seat(0, usedSeat[i], usedRow[i], sectorService.findById(sectorId));
-    			chosenSeats.add(seat);
+    			seatsList.add(seat);
     			assertNotNull(seat);   			
     		}
     	}
-    	seatsForm.setChosenSectorsNums(usedSectors);
-        seatsForm.setChosenSeats(chosenSeats);  
-        return seatsForm;
+  
+        return 	seatsList;
     }
     
     @Test
     public void getBookingsForEvent(){
-    	SeatsForm seatsForm = createSeatsForm("new customer", 2);    	
-    	ticketService.bookTickets(2, seatsForm);
+    	List<Seat> seatsList = createSeats(2);    	
+    	ticketService.bookTickets(2, seatsList, "new customer");
     	List<Booking> bookingSet=bookingService.getBookingsForEvent(2);    	
     	assertEquals(bookingSet.size(),270);
     }
     
     @Test
     public void cancelBookingSet(){
-    	SeatsForm seatsForm = createSeatsForm("new customer", 2);    	
-    	ticketService.bookTickets(2, seatsForm);
+       	List<Seat> seatsList = createSeats(2);  	
+    	ticketService.bookTickets(2, seatsList, "new customer");
     	List<Booking> bookingSet=bookingService.getBookingsForEvent(2);  
     	assertEquals(bookingSet.size(),270);
     	Integer[] idBooking = new Integer[50];
@@ -107,8 +102,9 @@ public class BookingServiceTest {
     
     @Test
     public void sellBookingSet(){
-    	SeatsForm seatsForm = createSeatsForm("new customer", 2);    	
-    	ticketService.bookTickets(2, seatsForm);
+    	
+       	List<Seat> seatsList = createSeats(2);  	
+    	ticketService.bookTickets(2, seatsList, "new customer");	     	
     	List<Booking> bookingSet=bookingService.getBookingsForEvent(2);  
     	assertEquals(bookingSet.size(),270);
     	Integer[] idBooking = new Integer[50];
