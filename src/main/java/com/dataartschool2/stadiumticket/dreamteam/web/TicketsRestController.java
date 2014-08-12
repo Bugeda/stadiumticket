@@ -34,66 +34,87 @@ public class TicketsRestController {
     private List<Seat> parseSeats(String[] seats){
     	List<Seat> result=new ArrayList<Seat>();
     	
-    	Seat seat=new Seat();
-    	Sector sector=new Sector();
+
     	for (String s:seats){
     		String[] seatString = s.split("[_]");
     		try{
-    			seat.setSeatNumber(Integer.parseInt(seatString[0]));
+    	    	Seat seat=new Seat();
+    	    	Sector sector=new Sector();
+    			seat.setSeatNumber(Integer.parseInt(seatString[2]));
     			seat.setRowNumber(Integer.parseInt(seatString[1]));
-    			sector = sectorService.findById((Integer.parseInt(seatString[2])));
+    			sector = sectorService.findById((Integer.parseInt(seatString[0])));
     			seat.setSector(sector);
     			result.add(seat);
+    		
     		}
     		catch(Exception e){
     			result.add(null);
     		}		
-    	}      	       
+    	}      	  
+    	
     	return result;
     }
     
     @RequestMapping(value = "/tickets/setbook", method = RequestMethod.GET)
     public int[] submit_bookTickets(@RequestParam("id") Integer eventId, 
-    								@RequestParam("seat") String[] seats,
-    								@RequestParam("customer") String customer) {
-    	int[] result = new int[seats.length];
+    								@RequestParam("tk") String[] seatsString,
+    								@RequestParam("customerName") String customer) {
+    	int[] result = new int[seatsString.length];
+    	
+    	boolean isTicketCorrect = true;
+    	boolean isCustomerExist = true;
+    	List<Seat> seatsList= new ArrayList<Seat>();
+    	seatsList.addAll(parseSeats(seatsString));
+    	int sumres = 0;
+    	
+    	if ((!customer.isEmpty())&&(!customer.equals(null))){
+    		isCustomerExist=false;  	
+    	}
     	int i=0;
-    	boolean isTicketkCorrect = true;
-    	List<Seat> seatsList=parseSeats(seats);
     	for (Seat st:seatsList){    		
     		if (st.equals(null)){
     			//error of parse ticket
-    			result[i]=5;
-    			isTicketkCorrect=false;
-    		} else {
-    			result[i]=ticketService.checkExistTicket(eventId, st);
+    			result[i]=4;
+    			isTicketCorrect=false;
+    		} else {    	    			
+    			   result[i]=ticketService.checkExistTicket(eventId, st);
     		}
+    		sumres +=result[i]; 
     		i++;
     	}
-    	if ((isTicketkCorrect)&&(!customer.isEmpty())&&(!customer.equals(null)))
+    	
+    	
+    	if ((sumres==0))
     		result=ticketService.bookTickets(eventId, seatsList, customer);
+
     	return result;
     }
     
     @RequestMapping(value = "/tickets/setsell", method = RequestMethod.GET)
     public int[] submit_sellTickets(@RequestParam("id") Integer eventId, 
-    								@RequestParam("seat") String[] seats) {
-    	int[] result = new int[seats.length];
+    								@RequestParam("tk") String[] seatsString) {
+    	int[] result = new int[seatsString.length];
     	int i=0;
-    	boolean isTicketkCorrect = true;
-    	List<Seat> seatsList=parseSeats(seats);
+    	boolean isTicketCorrect = true;
+    	List<Seat> seatsList=parseSeats(seatsString);
+    	int sumres = 0;
     	for (Seat st:seatsList){    		
     		if (st.equals(null)){
     			//error of parse ticket
-    			result[i]=5;
-    			isTicketkCorrect=false;
-    		} else {
+    			result[i]=4;    			
+    			isTicketCorrect=false;
+    		} else {    			
     			result[i]=ticketService.checkExistTicket(eventId, st);
     		}
+    		sumres +=result[i];
     		i++;
+    	
     	}
-    	if (isTicketkCorrect)
+    	
+    	if ((sumres==0)&&(isTicketCorrect))
     		result=ticketService.sellTickets(eventId, seatsList);
+    
+    	
     	return result;
     }
 }

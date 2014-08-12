@@ -147,10 +147,9 @@ public class TicketServiceImpl implements TicketService {
     
     public int checkExistTicket(Integer eventId, Seat seat){      	   
         Integer sectorNo = seat.getSector().getId();
-                       
-        List<Ticket> allTickets = getAllTicketsBySector(eventId, sectorNo);            
-        for (Ticket tk:allTickets) {                 	
-        	if ((tk.getSeat().getRowNumber()==seat.getRowNumber())&&(tk.getSeat().getSeatNumber()==seat.getSeatNumber())){            		            			    				
+        List<Ticket> allTickets = getAllTicketsBySector(eventId, sectorNo);       
+        for (Ticket tk:allTickets) {
+        	if ((tk.getSeat().getRowNumber()==seat.getRowNumber())&&(tk.getSeat().getSeatNumber()==seat.getSeatNumber())){ 
         		return tk.getSeatStatus().ordinal();            			
             	}    
         }
@@ -169,8 +168,7 @@ public class TicketServiceImpl implements TicketService {
         		results[i]=checkExistTicket(eventId, seat);        	
         		if (results[i]==0){
         			Ticket ticket = getTicket(event, seat);
-        			ticket.setSeatStatus(SeatStatus.occupied);
-        			results[i]=0;         
+        			ticket.setSeatStatus(SeatStatus.occupied);        			      
         		} 
         	 }catch(Exception e){
              	results[i]=4; 
@@ -185,23 +183,26 @@ public class TicketServiceImpl implements TicketService {
     public int[] bookTickets(Integer eventId, List<Seat> seatsList, String customerName){
     	int[] results = new int[seatsList.size()];  
 		Event event  = eventService.findById(eventId);
-           
+        
 		Customer customer = new Customer();
+		
 		customer.setCustomerName(customerName);
         int i = 0;
         for(Seat seat : seatsList){        
             try{              	           	
+            	if (customerName.trim().isEmpty()||(customerName.equals(null)))
+            		throw new Exception();
             	results[i]=checkExistTicket(eventId, seat);
             	if (results[i]==0){     
             		Ticket ticket = getTicket(event, seat);
             		ticket.setSeatStatus(SeatStatus.booked);                           
             		Booking booking = new  Booking(0, customer, ticket, BookingStatus.Booked);  
             		bookingService.updateBooking(booking);           
-            		results[i]=0;           
+            		           
             	}   
             }catch(Exception e){
-            	results[i]=4;
-            }
+            	results[i]=3;
+            }            
           	++i;
         } 
         return results;

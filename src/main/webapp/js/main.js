@@ -9,7 +9,7 @@ $(document).ready(function () {
 	timepicker:true,
 	step:15,
 	format:'d-m-Y H:i',
-	minDate : '-1969/12/31',	
+	minDate : '-1969/12/31',
 	dayOfWeekStart: 1
     });
 
@@ -21,7 +21,7 @@ $(document).ready(function () {
             if ($.trim(a) !== '') {
 		var deDatea = $.trim(a).split(' ');
 		var deTimea = deDatea[1].split(':');
-		var deDatea2 = deDatea[0].split('-');
+		var deDatea2 = deDatea[0].split('.');
 		x = (deDatea2[2] + deDatea2[1] + deDatea2[0] + deTimea[0] + deTimea[1]) * 1;
             } else {
 		x = Infinity; // = l'an 1000 ...
@@ -30,7 +30,7 @@ $(document).ready(function () {
 	    if ($.trim(b) !== '') {
 		var deDateb = $.trim(b).split(' ');
 		var deTimeb = deDateb[1].split(':');
-		deDateb = deDateb[0].split('-');
+		deDateb = deDateb[0].split('.');
 		y = (deDateb[2] + deDateb[1] + deDateb[0] + deTimeb[0] + deTimeb[1]) * 1;
             } else {
 		y = Infinity;
@@ -44,7 +44,7 @@ $(document).ready(function () {
             if ($.trim(a) !== '') {
 		var deDatea = $.trim(a).split(' ');
 		var deTimea = deDatea[1].split(':');
-		var deDatea2 = deDatea[0].split('-');
+		var deDatea2 = deDatea[0].split('.');
 		x = (deDatea2[2] + deDatea2[1] + deDatea2[0] + deTimea[0] + deTimea[1]) * 1;
             } else {
 		x = Infinity;
@@ -53,7 +53,7 @@ $(document).ready(function () {
             if ($.trim(b) !== '') {
 		var deDateb = $.trim(b).split(' ');
 		var deTimeb = deDateb[1].split(':');
-		deDateb = deDateb[0].split('-');
+		deDateb = deDateb[0].split('.');
 		y = (deDateb[2] + deDateb[1] + deDateb[0] + deTimeb[0] + deTimeb[1]) * 1;
             } else {
 		y = Infinity;
@@ -164,7 +164,7 @@ $(document).ready(function () {
 	    total_price += parseFloat($(this).children('.ticket_price').html());
 	    ticket_index += 1;
 	});
-	$('#total_price').html(total_price);
+	$('#total_price').html(total_price.toFixed(2));
     };
 
     //add ticket to list
@@ -175,9 +175,8 @@ $(document).ready(function () {
 				 + "<td>" + seat + "</td>"
 				 + "<td class=\"ticket_price\">"+ price + "</td>"
 				 + "<td><img class=\"delete_ticket\" src=\"\/stadiumticket\/images\/delete.png\"></td>"
-				 + "<td><input name=\"chosenSectorsNums[i]\" type=\"hidden\" value="+sector_number+">"
-				 + "<input name=\"chosenSeats[i].rowNumber\" type=\"hidden\" value="+row+">"
- 				 + "<input name=\"chosenSeats[i].seatNumber\" type=\"hidden\" value="+seat+"></td></tr>" );
+				 + "<td><input name=\"seat\" type=\"hidden\" value="+sector_number+"_"+row+"_"+seat+"></td></tr>" );
+	
 	recalculate_price_and_index();
     };
     //add ticket by clicking seat on sector plan
@@ -201,19 +200,192 @@ $(document).ready(function () {
 	    add_ticket(sector,sector_number,row,seat,price);
 	};
     });
-
+   
     // delete ticket by clicking '-' button
     $('#ticket_list').on('click', '.delete_ticket', function () {
-        var ticket = $(this).closest('td').siblings().map(function () { return $(this).text()});
-	var seat = (ticket[2]+'_'+ticket[3]);
-	// remove selection from seats plan if it is currently displayed
-	if ( ticket[1] == $('.sector_name').html() ) {
-	    $('.'+seat).toggleClass('selected');
-	    $(this).closest('.ticket').remove();
-	}
-	recalculate_price_and_index();
+  	  	var ticket = $(this).closest('td').siblings().map(function () { return $(this).text()});
+  	  	var seat = (ticket[2]+'_'+ticket[3]);
+    	// remove selection from seats plan if it is currently displayed
+    	if ( ticket[1] == $('.sector_name').html() ) {
+    	    $('.'+seat).toggleClass('selected');
+    	    $(this).closest('.ticket').remove();
+    	}    	
+    	recalculate_price_and_index();        
     });
 
+
+    
+    //send tickets to sell
+    $('#sell_tickets').click(function (e) {
+	e.preventDefault();
+	if (navigator.language == 'ru-RU' ) {
+	    var response_codes = ['ok', 'уже забронирован', 'уже продан', 'непредвиденная ошибка продажи','ошибочный билет'];
+	}
+	else {
+	    var response_codes = ['ok', 'already booked', 'already sold', 'unexpected sell error', 'error ticket'];
+	}
+	// prepare url
+	var len = $('.ticket').length;
+	var url_base = '/stadiumticket/tickets/setsell?id='+ $('input[name="id"]').val() + '&';
+	$('input[name="seat"]').each( function (index, element) {
+	    var sector_row_seat =$(this).val();	 
+	    if (index == len - 1) {
+		var ticket_string = 'tk='+ sector_row_seat;
+	    }
+	    else {
+		var ticket_string = 'tk='+ sector_row_seat + '&';
+	    }
+	    if ((url_base + ticket_string).length >= 2000) {
+		console.log('url too long');
+	    }
+	    else {
+		url_base = url_base + ticket_string;
+	    }
+	});
+	// actual fetch for data
+	$.get( url_base, function(response) {
+	    console.log('sell response',response);
+	    $('div#ticket_status').remove();
+	    var res=true;
+        for (index in response) {        
+	    	if (response[index] != 0) {
+	    		res=false;	    	
+	    		var status = 'danger';
+	    	}
+	    	else{
+	    		 var status = "success";
+	    	}
+	    	// append alert block, hide it and slooowly show :)
+			// remove hide().show('slow') form the end, for just append block  
+			$('.ticket').eq(index).append('<div id="ticket_status" class="alert-'+status+'" role="alert">&nbsp;' + response_codes[response[index]] + '</div>').hide().show('slow');
+	    }
+    	//find sector and reload seats plan
+    	var sector =  $('.sector_name').html();	      	   
+    	var sector_number = 0;
+	    if ((sector != 'VIP A') && (sector != 'VIP D')){
+		sector_number = parseInt(sector);
+	    };
+	    if (sector == 'VIP A') {sector_number= 26;}
+	    if (sector == 'VIP D') {sector_number= 27;}
+        $('area[id="'+sector_number+'"]').click();
+	    if (res){
+	    	// remove booked tickets from list in 2s	
+	    	setTimeout(function(){	        	   
+  		    	// remove booked tickets from list in 2s	
+  	    	    $('.alert-success').each(function (){
+  	   	    	 	$('.alert-success').parent('.ticket').remove();  
+	  	   	 	});
+  	   	    	 recalculate_price_and_index();
+  	    	}, 2000);
+	        $('#success').modal('show');
+	        setTimeout(function(){
+	        	$('#success').modal('hide')
+	       	    	}, 2000);		    		
+	    } else {
+			$('#danger').modal(); 
+		}	
+	});
+    });
+
+    
+    
+    //send tickets to book
+    $('#book_tickets').click(function (e) {
+	e.preventDefault();
+	if (navigator.language == 'ru-RU' ) {
+	    var response_codes = ['ok', 'уже забронирован', 'уже продан', 'непредвиденная ошибка бронирования','ошибочный билет'];
+	    var customerIsMissing = 'Клиент не указан';
+	}
+	else {
+	    var response_codes = ['ok', 'already booked', 'already sold', 'unexpected booking error', 'error ticket'];
+	    var customerIsMissing = 'Customer field is empty';
+	}
+	// prepare url
+	var len = $('.ticket').length;
+	// we need to encode booking person's name using encodeURIComponent
+		
+	var url_base = '';
+	if ($('#customerName').val().trim()==""){
+		url_base='';
+		$('#customerError').html(customerIsMissing);
+		//$('#customerError').after('<div id="customer_status" &nbsp;' + customerIsMissing + '</div>').hide().show('slow');
+	}
+	   
+	else	{
+		$('#customerError').html('');
+		url_base = '/stadiumticket/tickets/setbook?id='+ $('input[name="id"]').val() + '&customerName=' + encodeURIComponent($('#customerName').val() )+'&';
+	}
+	 console.log(url_base);
+	$('input[name="seat"]').each( function (index, element) {
+	    var sector_row_seat =$(this).val();	 
+	    if (index == len - 1) {
+		var ticket_string = 'tk='+ sector_row_seat;
+	    }
+	    else {
+		var ticket_string = 'tk='+ sector_row_seat + '&';
+	    }
+	    if ((url_base + ticket_string).length >= 2000) {
+		console.log('url too long');
+	    }
+	    else {
+		url_base = url_base + ticket_string;
+	    }
+	});
+
+	// actual fetch for data
+	$.get( url_base, function(response) {
+	    console.log('book response',response);
+	
+	    $('div#ticket_status').remove();
+	    var res=false;
+	    if (url_base!=''){
+	    	res=true;	   	    
+	    	for (index in response) {     	
+	    		if (response[index] != 0) {
+	    			res=false;	    	
+	    			var status = 'danger';
+	    		}
+	    		else{
+	    			var status = "success";
+	    		}	 
+	    		// append alert block, hide it and slooowly show :)
+	    		// remove hide().show('slow') form the end, for just append block
+	    		$('.ticket').eq(index).append('<div id="ticket_status" class="alert-'+status+'" role="alert">&nbsp;' + response_codes[response[index]] + '</div>').hide().show('slow');
+	    	}
+	    }
+	    //find sector and reload seats plan
+    	var sector = $('.sector_name').html();	      	   
+    	var sector_number = 0;
+	    if ((sector != 'VIP A') && (sector != 'VIP D')){
+		sector_number = parseInt(sector);
+	    };
+	    if (sector == 'VIP A') {sector_number= 26;}
+	    if (sector == 'VIP D') {sector_number= 27;}
+        $('area[id="'+sector_number+'"]').click();
+	    if (res){
+	  	    	// remove booked tickets from list in 2s
+	  	    	setTimeout(function(){	        	   
+	  		    	// remove booked tickets from list in 2s	
+	  	    	    $('.alert-success').each(function (){
+	  	   	    	 	$('.alert-success').parent('.ticket').remove();  
+		  	   	 	});
+	  	   	    	 recalculate_price_and_index();
+	  	    	}, 2000);
+		        $('#success').modal('show');
+		        setTimeout(function(){
+		        	$('#success').modal('hide')
+		       	    	}, 2000);		    		
+		} else {
+ 			$('#danger').modal(); 
+ 		}	
+	});
+    });
+  
+    
+    
+    $('.ticket').each(function (){
+    	 $('.ticket').removeClass('alert-danger');     	 
+ 	}); 
     // enable form-control class for booking search results table
     $('#booking_search_results_filter input').addClass('form-control');
 
@@ -223,7 +395,7 @@ $(document).ready(function () {
 	$('input[type=checkbox]:checked').each(function (){
 	    total_price += parseFloat($(this).parents().siblings('.ticket_price').html() );
 	});
-	$('#total_price').html(total_price);
+	$('#total_price').html(total_price.toFixed(2));
     });
 
     // select all checkbox handling
@@ -235,7 +407,7 @@ $(document).ready(function () {
 	    if (state) {   total_price += parseFloat($(this).parents().siblings('.ticket_price').html() ); }
 	    else { total_price = 0; }
 	});
-	$('#total_price').html(total_price);
+	$('#total_price').html(total_price.toFixed(2));
     });
 
     //get list of currently selected tickets
@@ -250,10 +422,10 @@ $(document).ready(function () {
     // send requests for cancel or sell tickets by booking id
     function manipulate_with_booked_tickets (action) {
 	if (action == 'sell') {
-	    var base_url = '/stadiumticket/booking/sell?'; //paste here the correct one
+	    var base_url = '/stadiumticket/booking/sell?';
 	}
 	if (action == 'cancel_booking'){
-	    var base_url = '/stadiumticket/booking/cancel?'; //paste here the correct one
+	    var base_url = '/stadiumticket/booking/cancel?'; 
 	};
 	var ticket_ids = get_selected_ids();
 	for (id in ticket_ids) {
@@ -264,9 +436,9 @@ $(document).ready(function () {
 		base_url = base_url + 'id=' + ticket_ids[id]+ '&';
 	    };
 	};
-    $('.ticket').each(function (){
-   	 $('.ticket').removeClass('alert-danger'); 
-	});
+
+
+
 	// fetch for data to server
 	$.get( base_url, function(response) {
 	    
@@ -274,17 +446,12 @@ $(document).ready(function () {
 	    var res=true;
 	    for (index in response) {
 		var id_to_remove =  ticket_ids[index];
-
 		if (response[index]) {		
-		    //remove ticket from list if we get true	
-			
+		    //remove ticket from list if we get true				
 		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').remove();
 		}else {
 			res=false;
-			//$('.alert').html('');			
 		    $('.booking_id:contains('+ id_to_remove +')').closest('.ticket').addClass('alert-danger');  		
-			//$('.alert').append('<b>',ticket_ids[index], response[index],'</b><br>'); 
-	
 		}
 	    }
 	    if (res){

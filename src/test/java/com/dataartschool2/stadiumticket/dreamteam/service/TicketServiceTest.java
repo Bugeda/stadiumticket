@@ -224,14 +224,15 @@ public class TicketServiceTest {
     private List<Seat> parseSeats(String[] seats){
     	List<Seat> result=new ArrayList<Seat>();
     	
-    	Seat seat=new Seat();
-    	Sector sector=new Sector();
+
     	for (String s:seats){
     		String[] seatString = s.split("[_]");
     		try{
-    			seat.setSeatNumber(Integer.parseInt(seatString[0]));
+    	    	Seat seat=new Seat();
+    	    	Sector sector=new Sector();
+    			seat.setSeatNumber(Integer.parseInt(seatString[2]));
     			seat.setRowNumber(Integer.parseInt(seatString[1]));
-    			sector = sectorService.findById((Integer.parseInt(seatString[2])));
+    			sector = sectorService.findById((Integer.parseInt(seatString[0])));
     			seat.setSector(sector);
     			result.add(seat);
     		}
@@ -250,7 +251,7 @@ public class TicketServiceTest {
     	String[] seats = new String[seatsList.size()];
     	int i=0;
 	    for (Seat seat:seatsList){
-	    	seats[i]=seat.getSeatNumber()+"_"+seat.getRowNumber()+"_"+seat.getSector().getId();
+	    	seats[i]=seat.getSector().getId()+"_"+seat.getRowNumber()+"_"+seat.getSeatNumber();
 	       	i++;
 	    }
 	 	

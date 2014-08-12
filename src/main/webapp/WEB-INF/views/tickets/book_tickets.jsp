@@ -32,28 +32,23 @@
     <![endif]-->
  </head>
 <body>
-<script type="text/javascript">
-    var errorsHere = false;
-    <c:if test="${not empty requestScope['org.springframework.validation.BindingResult.newCustomer'].allErrors}">
-        errorsHere = true;
-    </c:if>
-    $(document).ready(function() {
-        console.log('here');
-        if(errorsHere){
-            $('#newCustomer').modal('show');
-            console.log('errors');
-        }        	
-    });
-  </script>
-  
-   <div id="newCustomer" class="modal fade">
+<div id="danger" class="modal fade">
     <div class="modal-dialog">    
         <div class="alert alert-danger" role="alert">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
-          <p><spring:message code="error.ticketsAreNotBooked" /></p>
+               <spring:message code="error.ticketsAreNotBooked" />
         </div>
       </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
+  </div><!-- /.modal -->   
+
+  <div id="success" class="modal fade">
+    <div class="modal-dialog">   
+        <div class="alert alert-success" role="alert">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><spring:message code="modal.close" /></span></button>
+                <spring:message code="message.ticketsAreBooked" />
+        </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal --> 
 
 <div class="container">
 <div class="row">
@@ -69,16 +64,16 @@
 </div>
 <div class="row">
   <div class="col-md-5">
-   	<form:form method="post" action="${pageContext.request.contextPath}/tickets/book?id=${event.id}" modelAttribute="newCustomer">
-       <input type="hidden" name="id" value="${event.id}">
-		<form:hidden id="id" path="eventId"/>
-  	    <label for="booking_name"><spring:message code="booking.customerName" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
+ 
+        <input type="hidden" name="id" value="${event.id}">
+	    <label for="booking_name"><spring:message code="booking.customerName" /><img src="<%= request.getContextPath() %>/images/arrow_down.png"></label>
   	    <spring:message code="booking.customerName.hint" var="msg"/>
-        <form:input class="form-control" type="text" path="customerName" id="title" title="${msg}" placeholder="${msg}" maxlength="50"/>
-	    <form:errors path="customerName" cssClass="alert-danger" /></br>
+        <input class="form-control" type="text" name="customerName" id="customerName" title="${msg}" placeholder="${msg}" maxlength="50" required="required"/>
+	    <div id="customerError" class="alert-danger"></div>
+	    
 
         <b><spring:message code="ticketlist.tickets" />:</b> 
-        </br><form:errors path="chosenSeats" cssClass="alert-danger" />             
+                   
         <table class="table" id="ticket_list">
             <thead>
             <tr>
@@ -103,7 +98,7 @@
         <br>
         <spring:message code="book.submit" var="msg"/>
         <input class="btn" type="submit" name="submit" value="${msg}" id="book_tickets">
-    </form:form>
+
   </div>
   <div class="col-md-7">
     <img id="new_event_img" class="map" usemap="#stadium" src="<%= request.getContextPath() %>/images/stadium_plan.png">

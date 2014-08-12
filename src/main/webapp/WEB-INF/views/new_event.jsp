@@ -38,7 +38,6 @@
   </head>
   <body>
   <script type="text/javascript">
-
     var errorsHere = false;
     <c:if test="${not empty requestScope['org.springframework.validation.BindingResult.newEvent'].allErrors}">
         errorsHere = true;
@@ -49,9 +48,7 @@
             $('#newEventError').modal('show');
             console.log('errors');
         }        	
-    });
-    
-    
+    });        
   </script>
 
   <div id="newEventError" class="modal fade">
